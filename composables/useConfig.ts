@@ -1,5 +1,7 @@
 export const useConfig = async () => {
-    let host = useRequestHeader("X-Forwarded-Host") ?? useRuntimeConfig().public.apiHost;
+    let host =
+        useRequestHeader("X-Forwarded-Host") ??
+        useRuntimeConfig().public.apiHost;
 
     if (!host?.includes("http")) {
         // On server, this will be some kind of localhost
@@ -13,7 +15,12 @@ export const useConfig = async () => {
         });
     }
 
-    return await fetch(new URL("/api/_fe/config", host)).then((res) =>
+    return {
+        http: {
+            url: host,
+            base_url: host,
+        },
+    }; /* await fetch(new URL("/api/_fe/config", host)).then((res) =>
         res.json(),
-    );
+    ); */
 };
