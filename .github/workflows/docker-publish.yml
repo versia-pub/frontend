@@ -32,6 +32,8 @@ jobs:
             platform: linux/amd64
     permissions:
       contents: read
+      packages: write
+      id-token: write
 
     steps:
       - name: Prepare
@@ -100,7 +102,7 @@ jobs:
       contents: read
       packages: write
       id-token: write
-      
+
     steps:
       - name: Prepare
         run: |
