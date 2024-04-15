@@ -102,7 +102,6 @@
 </template>
 
 <script setup lang="ts">
-import type { APIInstance } from "../../../../types/entities/instance";
 import LoginInput from "../../components/LoginInput.vue";
 
 const config = await useConfig();
@@ -111,13 +110,9 @@ if (!config) {
     throw new Error("Config not found");
 }
 
-const url = process.client ? config.http.base_url : config.http.url;
-
-const instanceInfo = (await fetch(new URL("/api/v1/instance", url)).then(
+const instanceInfo = (await fetch(new URL("/api/v1/instance", config.http.base_url)).then(
     (data) => data.json(),
-)) as APIInstance & {
-    tos_url: string;
-};
+));
 
 const errors = ref<{
     [key: string]: {

@@ -23,10 +23,8 @@ if (!config) {
 
 const route = useRoute();
 
-const url = process.client ? config.http.base_url : config.http.url;
-
 const data = await fetch(
-    new URL(`/api/v1/statuses/${route.params.uuid}`, url),
+    new URL(`/api/v1/statuses/${route.params.uuid}`, config.http.base_url),
     {
         headers: {
             Accept: "application/json",

@@ -23,11 +23,9 @@ if (!config) {
 
 const route = useRoute();
 
-const url = process.client ? config.http.base_url : config.http.url;
-
 const username = (route.params.username as string).replace("@", "");
 
-const id = await fetch(new URL(`/api/v1/accounts/search?q=${username}`, url), {
+const id = await fetch(new URL(`/api/v1/accounts/search?q=${username}`, config.http.base_url), {
     headers: {
         Accept: "application/json",
     },
@@ -38,7 +36,7 @@ const id = await fetch(new URL(`/api/v1/accounts/search?q=${username}`, url), {
 let data = null;
 
 if (id && id.length > 0) {
-    data = await fetch(new URL(`/api/v1/accounts/${id[0].id}`, url), {
+    data = await fetch(new URL(`/api/v1/accounts/${id[0].id}`, config.http.base_url), {
         headers: {
             Accept: "application/json",
         },
