@@ -25,9 +25,6 @@ export default defineNuxtConfig({
             failOnError: true,
         },
     },
-    devServer: {
-        port: 5173,
-    },
     schemaOrg: {
         enabled: false,
     },
@@ -37,11 +34,6 @@ export default defineNuxtConfig({
     vite: {
         define: {
             __VERSION__: JSON.stringify("0.4"),
-        },
-        server: {
-            hmr: {
-                clientPort: 5173,
-            },
         },
     },
     runtimeConfig: {
