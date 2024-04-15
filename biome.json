@@ -1,0 +1,20 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+    "organizeImports": {
+        "enabled": true,
+        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true
+        },
+        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+    }
+}
