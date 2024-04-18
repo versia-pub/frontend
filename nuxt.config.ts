@@ -42,7 +42,7 @@ export default defineNuxtConfig({
             titleSeparator: "·",
             siteName: "Lysand",
             trailingSlash: true,
-            apiHost: "localhost:8080",
+            apiHost: "https://lysand.localhost",
         },
     },
     site: {

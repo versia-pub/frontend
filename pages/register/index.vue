@@ -112,7 +112,9 @@ if (!config) {
 
 const instanceInfo = (await fetch(new URL("/api/v1/instance", config.http.base_url)).then(
     (data) => data.json(),
-));
+)).catch((e: Error) => {
+    console.error(e);
+});
 
 const errors = ref<{
     [key: string]: {
