@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         },
     },
     nitro: {
-        preset: "static",
+        preset: "bun",
         minify: true,
         prerender: {
             failOnError: true,

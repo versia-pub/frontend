@@ -17,8 +17,6 @@ FROM base as final
 
 COPY --from=builder /app/.output/ /app
 
-RUN bun add --global serve
-
 LABEL org.opencontainers.image.authors "Gaspard Wierzbinski (https://cpluspatch.com)"
 LABEL org.opencontainers.image.source "https://github.com/lysand-org/lysand-fe"
 LABEL org.opencontainers.image.vendor "Lysand Org"
@@ -27,4 +25,4 @@ LABEL org.opencontainers.image.title "Lysand-FE"
 LABEL org.opencontainers.image.description "Frontend for the Lysand Project"
 
 WORKDIR /app
-CMD ["bunx", "serve", "public", "--no-compression"]
+CMD ["bun", "run", "server/index.mjs"]
