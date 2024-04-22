@@ -26,5 +26,5 @@ LABEL org.opencontainers.image.licenses "AGPL-3.0"
 LABEL org.opencontainers.image.title "Lysand-FE"
 LABEL org.opencontainers.image.description "Frontend for the Lysand Project"
 
-WORKDIR /app/server
-CMD ["bunx", "serve", "public"]
+WORKDIR /app
+CMD ["bunx", "serve", "public", "--no-compression"]
