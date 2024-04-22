@@ -36,11 +36,11 @@
             </Skeleton>
             <div v-else-if="content" class="prose prose-invert prose-a:no-underline" v-html="content">
             </div>
-            <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
-                <SocialElementsNotesAttachment v-for="attachment of attachments" :key="attachment.id"
-                    :attachment="attachment" />
-            </div>
         </NuxtLink>
+        <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
+            <SocialElementsNotesAttachment v-for="attachment of attachments" :key="attachment.id"
+                :attachment="attachment" />
+        </div>
         <Skeleton class="!h-10 w-full mt-6" :enabled="true" v-if="isLoading"></Skeleton>
         <div v-else
             class="mt-6 flex flex-row items-stretch justify-between text-sm h-10 hover:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
