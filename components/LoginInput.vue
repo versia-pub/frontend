@@ -1,30 +1,20 @@
 <template>
     <div class="flex items-center justify-between">
-        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ label }}</label>
+        <label for="password" class="block text-sm font-medium leading-6 text-gray-50">{{ label }}</label>
     </div>
     <div class="mt-2">
-        <input v-bind="$attrs" @input="checkValid" :class="['block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
-            (isInvalid || error) && 'invalid:!ring-red-600 invalid:ring-2']">
-        <span v-if="isInvalid || error" class="mt-1 text-xs text-red-600">{{ error ? error : `${label} is invalid` }}</span>
+        <input v-bind="$attrs" :class="['block disabled:opacity-70 disabled:hover:cursor-wait w-full bg-dark-500 rounded-md border-0 py-1.5 text-gray-50 shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6',
+            isInvalid && '!ring-red-600 ring-2']">
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import type { InputHTMLAttributes } from 'vue';
 
-const props = defineProps<{
+interface Props extends /* @vue-ignore */ InputHTMLAttributes {
+    isInvalid?: boolean;
     label: string;
-    error?: string;
-}>();
+}
 
-const isInvalid = ref(false);
-
-const checkValid = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    if (target.checkValidity()) {
-        isInvalid.value = false;
-    } else {
-        isInvalid.value = true;
-    }
-};
+defineProps<Props>();
 </script>

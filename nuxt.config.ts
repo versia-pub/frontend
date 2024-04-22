@@ -4,7 +4,10 @@ export default defineNuxtConfig({
         "@nuxtjs/seo",
         "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
-        "@vue-email/nuxt",
+        "nuxt-headlessui",
+        "@nuxt/fonts",
+        "nuxt-icon",
+        "@vee-validate/nuxt",
     ],
     app: {
         head: {
@@ -19,7 +22,7 @@ export default defineNuxtConfig({
         },
     },
     nitro: {
-        preset: "bun",
+        preset: "static",
         minify: true,
         prerender: {
             failOnError: true,
@@ -35,6 +38,22 @@ export default defineNuxtConfig({
         define: {
             __VERSION__: JSON.stringify("0.4"),
         },
+        server: {
+            hmr: {
+                clientPort: 3000,
+                host: "localhost",
+                protocol: "ws",
+            },
+        },
+    },
+    veeValidate: {
+        autoImports: true,
+        componentNames: {
+            Form: "VeeForm",
+            Field: "VeeField",
+            FieldArray: "VeeFieldArray",
+            ErrorMessage: "VeeErrorMessage",
+        },
     },
     runtimeConfig: {
         public: {
@@ -42,7 +61,7 @@ export default defineNuxtConfig({
             titleSeparator: "·",
             siteName: "Lysand",
             trailingSlash: true,
-            apiHost: "https://lysand.localhost",
+            apiHost: "https://social.lysand.org",
         },
     },
     site: {

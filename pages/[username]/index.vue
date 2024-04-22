@@ -1,81 +1,66 @@
 <template>
-    <div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 relative">
-        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-            aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
-        </div>
-        <div id="code" v-html="code">
+    <div class="flex min-h-screen flex-col justify-center py-12 lg:px-8 relative">
+        <div v-if="account" class="mx-auto max-w-lg w-full rounded ring-1 ring-white/10 pb-10">
+            <div class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700">
+                <img v-if="account.header" :src="account.header" class="object-cover w-full h-full" />
+            </div>
+
+            <div class="flex items-start justify-between px-4 py-3">
+                <img class="-mt-[4.5rem] h-32 w-32 cursor-pointer rounded ring-white/10 ring-1 bg-dark-700"
+                    :src="account.avatar" />
+                <ButtonsSecondary>Edit Profile</ButtonsSecondary>
+            </div>
+
+            <div class="mt-2 px-4">
+                <h2
+                    class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
+                    {{ account.display_name }}
+                    <Icon v-if="account.locked" name="tabler:lock" class="w-5 h-5 mb-0.5 text-gray-400 cursor-pointer"
+                        title="This account manually approves its followers" />
+                </h2>
+                <span class="text-gray-400">@{{ account.acct }}</span>
+            </div>
+
+            <div class="mt-4 px-4">
+                <div class="prose prose-invert" v-html="account.note"></div>
+            </div>
+
+            <div class="mt-3 flex items-center space-x-4 px-4">
+                <div class="flex items-center space-x-1">
+                    <Icon name="tabler:calendar" class="w-5 h-5 text-gray-400" />
+                    <span class="text-gray-400">Created {{ formattedJoin }}</span>
+                </div>
+                <div v-if="account.bot" class="flex items-center space-x-1">
+                    <Icon name="tabler:robot" class="w-5 h-5 text-gray-400" />
+                    <span class="text-gray-400">Bot</span>
+                </div>
+            </div>
+
+            <div class="mt-3 flex items-center space-x-4 px-4">
+                <div class="cursor-pointer hover:underline space-x-1">
+                    <span class="font-bold text-gray-200">{{ account.following_count }}</span>
+                    <span class="text-gray-400">Following</span>
+                </div>
+                <div class="cursor-pointer hover:underline space-x-1">
+                    <span class="font-bold text-gray-200">{{ account.followers_count }}</span>
+                    <span class="text-gray-400">Followers</span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { getHighlighterCore } from "shiki/core";
-import getWasm from "shiki/wasm";
 import { useRoute } from "vue-router";
 
-const config = await useConfig();
-
-if (!config) {
-    throw new Error("Config not found");
-}
-
 const route = useRoute();
-
+const client = await useMegalodon();
 const username = (route.params.username as string).replace("@", "");
+const id = await useAccountSearch(client, username);
 
-const id = await fetch(new URL(`/api/v1/accounts/search?q=${username}`, config.http.base_url), {
-    headers: {
-        Accept: "application/json",
-    },
-})
-    .then((res) => res.json())
-    .catch(() => null);
-
-let data = null;
-
-if (id && id.length > 0) {
-    data = await fetch(new URL(`/api/v1/accounts/${id[0].id}`, config.http.base_url), {
-        headers: {
-            Accept: "application/json",
-        },
-    })
-        .then((res) => res.json())
-        .catch(() => ({
-            error: "Failed to fetch user (it probably doesn't exist)",
-        }));
-}
-
-const highlighter = await getHighlighterCore({
-    themes: [import("shiki/themes/rose-pine.mjs")],
-    langs: [import("shiki/langs/json.mjs")],
-    loadWasm: getWasm,
-});
-
-const code = highlighter.codeToHtml(JSON.stringify(data, null, 4), {
-    lang: "json",
-    theme: "rose-pine",
-});
+const account = id ? await useAccount(client, id[0].id) : null;
+const formattedJoin = Intl.DateTimeFormat("en-US", {
+    month: "long",
+    year: "numeric",
+}).format(new Date(account?.created_at ?? 0));
 </script>
-
-<style lang="postcss">
-pre:has(code) {
-    word-wrap: normal;
-    background: transparent;
-    -webkit-hyphens: none;
-    hyphens: none;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-    white-space: pre;
-    word-break: normal;
-    word-spacing: normal;
-    overflow-x: auto;
-    @apply ring-1 ring-white/10 mt-4 bg-white/5 px-4 py-3 rounded;
-}
-
-pre code {
-    @apply block p-0;
-}
-</style>

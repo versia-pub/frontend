@@ -1,5 +1,4 @@
-FROM oven/bun:1.1.3 AS base
-# Temporarily switch back to the non-alpine version of Bun because of Bun's issues with musl
+FROM oven/bun:1.1.4-alpine AS base
 
 # Install dependencies into temp directory
 # This will cache them and speed up future builds
@@ -18,6 +17,8 @@ FROM base as final
 
 COPY --from=builder /app/.output/ /app
 
+RUN bun add --global serve
+
 LABEL org.opencontainers.image.authors "Gaspard Wierzbinski (https://cpluspatch.com)"
 LABEL org.opencontainers.image.source "https://github.com/lysand-org/lysand-fe"
 LABEL org.opencontainers.image.vendor "Lysand Org"
@@ -26,4 +27,4 @@ LABEL org.opencontainers.image.title "Lysand-FE"
 LABEL org.opencontainers.image.description "Frontend for the Lysand Project"
 
 WORKDIR /app/server
-CMD ["bun", "index.mjs"]
+CMD ["bunx", "serve", "public"]
