@@ -27,6 +27,9 @@ export default defineNuxtConfig({
         prerender: {
             failOnError: true,
         },
+        compressPublicAssets: {
+            brotli: false,
+        },
     },
     schemaOrg: {
         enabled: false,
