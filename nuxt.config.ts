@@ -29,6 +29,7 @@ export default defineNuxtConfig({
         },
         compressPublicAssets: {
             brotli: false,
+            gzip: false,
         },
     },
     schemaOrg: {
