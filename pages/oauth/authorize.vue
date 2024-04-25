@@ -80,15 +80,17 @@
 </template>
 
 <script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/zod";
 import { useRoute } from "vue-router";
+import { z } from "zod";
 import LoginInput from "../../components/LoginInput.vue";
-import { toTypedSchema } from '@vee-validate/zod';
-import { z } from 'zod';
 
-const schema = toTypedSchema(z.object({
-    email: z.string().email(),
-    password: z.string().min(3),
-}));
+const schema = toTypedSchema(
+    z.object({
+        email: z.string().email(),
+        password: z.string().min(3),
+    }),
+);
 
 const query = useRoute().query;
 
@@ -101,5 +103,5 @@ const error_description = decodeURIComponent(query.error_description as string);
 
 const validUrlParameters = redirect_uri && response_type && client_id && scope;
 
-const oauthProviders = await useOAuthProviders()
+const oauthProviders = await useOAuthProviders();
 </script>

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { InputHTMLAttributes } from 'vue';
+import type { InputHTMLAttributes } from "vue";
 
 interface Props extends /* @vue-ignore */ InputHTMLAttributes {
     isInvalid?: boolean;

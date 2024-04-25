@@ -11,7 +11,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const client = await useMegalodon();
-const uuid = (route.params.uuid as string);
+const uuid = route.params.uuid as string;
 
 const note = await useNote(client, uuid);
 </script>

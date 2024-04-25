@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-const baseUrl = useBaseUrl()
+const baseUrl = useBaseUrl();
 
 useServerSeoMeta({
     title: "Welcome to Lysand!",

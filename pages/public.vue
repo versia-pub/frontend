@@ -21,17 +21,24 @@ const isLoading = ref(true);
 
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
-const { timeline, loadNext, loadPrev } = usePublicTimeline(client, timelineParameters);
+const { timeline, loadNext, loadPrev } = usePublicTimeline(
+    client,
+    timelineParameters,
+);
 const skeleton = ref<HTMLSpanElement | null>(null);
 
 onMounted(() => {
     useIntersectionObserver(skeleton, async (entries) => {
-        if (entries[0].isIntersecting && !hasReachedEnd.value && !isLoading.value) {
+        if (
+            entries[0].isIntersecting &&
+            !hasReachedEnd.value &&
+            !isLoading.value
+        ) {
             isLoading.value = true;
             await loadNext();
         }
     });
-})
+});
 
 watch(timeline, (newTimeline, oldTimeline) => {
     isLoading.value = false;

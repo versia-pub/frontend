@@ -34,7 +34,7 @@
             <Skeleton :enabled="true" v-if="isLoading" :min-width="50" :max-width="100" width-unit="%" shape="rect"
                 type="content">
             </Skeleton>
-            <div v-else-if="content" class="prose prose-invert prose-a:no-underline" v-html="content">
+            <div v-else-if="content" class="prose prose-invert prose-a:no-underline content" v-html="content">
             </div>
         </NuxtLink>
         <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
@@ -43,7 +43,7 @@
         </div>
         <Skeleton class="!h-10 w-full mt-6" :enabled="true" v-if="isLoading"></Skeleton>
         <div v-else
-            class="mt-6 flex flex-row items-stretch justify-between text-sm h-10 hover:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
+            class="mt-6 flex flex-row items-stretch relative justify-between text-sm h-10 hover:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
             <button>
                 <Icon name="tabler:arrow-back-up" class="h-5 w-5 text-gray-200" aria-hidden="true" />
                 <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.replies_count) }}</span>
@@ -60,9 +60,28 @@
                 <Icon name="tabler:quote" class="h-5 w-5 text-gray-200" aria-hidden="true" />
                 <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
             </button>
-            <button>
-                <Icon name="tabler:dots" class="h-5 w-5 text-gray-200" aria-hidden="true" />
-            </button>
+            <DropdownsAdaptiveDropdown>
+                <template #button>
+                    <HeadlessMenuButton>
+                        <Icon name="tabler:dots" class="h-5 w-5 text-gray-200" aria-hidden="true" />
+                    </HeadlessMenuButton>
+                </template>
+
+                <template #items>
+                    <HeadlessMenuItem>
+                        <ButtonsDropdownElement @click="copy(JSON.stringify(note, null, 4))" icon="tabler:code"
+                            class="w-full">
+                            Copy API
+                            Response
+                        </ButtonsDropdownElement>
+                    </HeadlessMenuItem>
+                    <HeadlessMenuItem>
+                        <ButtonsDropdownElement @click="note && copy(note.uri)" icon="tabler:code" class="w-full">
+                            Copy Link
+                        </ButtonsDropdownElement>
+                    </HeadlessMenuItem>
+                </template>
+            </DropdownsAdaptiveDropdown>
         </div>
     </div>
 </template>
@@ -79,15 +98,53 @@ const props = defineProps<{
 const isLoading = props.skeleton;
 const timeAgo = useTimeAgo(props.note?.created_at ?? 0);
 
+const { copy } = useClipboard();
 const client = await useMegalodon();
 const mentions = await useResolveMentions(props.note?.mentions ?? [], client);
-const content = props.note ? await useParsedContent(props.note.content, props.note.emojis, mentions.value) : "";
-const numberFormat = (number = 0) => new Intl.NumberFormat(undefined, {
-    notation: "compact",
-    compactDisplay: "short",
-    maximumFractionDigits: 1,
-}).format(number);
+const content = props.note
+    ? await useParsedContent(
+        props.note.content,
+        props.note.emojis,
+        mentions.value,
+    )
+    : "";
+const numberFormat = (number = 0) =>
+    new Intl.NumberFormat(undefined, {
+        notation: "compact",
+        compactDisplay: "short",
+        maximumFractionDigits: 1,
+    }).format(number);
 const attachments = props.note?.media_attachments ?? [];
 const noteUrl = props.note && `/@${props.note.account.acct}/${props.note.id}`;
 const accountUrl = props.note && `/@${props.note.account.acct}`;
 </script>
+
+<style>
+.content pre:has(code) {
+    word-wrap: normal;
+    background: transparent;
+    background-color: #ffffff0d;
+    border-radius: .25rem;
+    -webkit-hyphens: none;
+    hyphens: none;
+    margin-top: 1rem;
+    overflow-x: auto;
+    padding: .75rem 1rem;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    white-space: pre;
+    word-break: normal;
+    word-spacing: normal;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: hsla(0, 0%, 100%, .1)
+}
+
+.content pre code {
+    display: block;
+    padding: 0
+}
+</style>

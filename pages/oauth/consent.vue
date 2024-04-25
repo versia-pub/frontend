@@ -97,7 +97,9 @@ const url = useRequestURL();
 const query = useRoute().query;
 
 const application = "Soapbox"; //query.application;
-const website = query.website ? decodeURIComponent(query.website as string) : null;
+const website = query.website
+    ? decodeURIComponent(query.website as string)
+    : null;
 const redirect_uri = query.redirect_uri as string;
 const client_id = query.client_id;
 const scope = query.scope ? decodeURIComponent(query.scope as string) : "";

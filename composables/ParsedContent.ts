@@ -1,7 +1,7 @@
+import { renderToString } from "vue/server-renderer";
 import type { Account } from "~/types/mastodon/account";
 import type { Emoji } from "~/types/mastodon/emoji";
 import MentionComponent from "../components/social-elements/notes/mention.vue";
-import { renderToString } from "vue/server-renderer";
 
 /**
  * Takes in an HTML string, parses emojis and returns a reactive object with the parsed content.
@@ -54,6 +54,25 @@ export const useParsedContent = async (
         };
 
         link.outerHTML = await renderToString(renderedMention);
+    }
+
+    // Highlight code blocks
+    const codeBlocks = contentHtml.querySelectorAll("pre code");
+    for (const codeBlock of codeBlocks) {
+        const code = codeBlock.textContent;
+        if (!code) {
+            continue;
+        }
+        const newCode = (await getShikiHighlighter()).highlight(code, {
+            lang: codeBlock.getAttribute("class")?.replace("language-", ""),
+        });
+
+        // Replace parent pre tag with highlighted code
+        const parent = codeBlock.parentElement;
+        if (!parent) {
+            continue;
+        }
+        parent.outerHTML = newCode;
     }
     return ref(contentHtml.innerHTML);
 };

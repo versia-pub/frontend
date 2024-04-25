@@ -84,28 +84,35 @@
 </template>
 
 <script setup lang="ts">
-import LoginInput from "../../components/LoginInput.vue";
-import { toTypedSchema } from '@vee-validate/zod';
+import { toTypedSchema } from "@vee-validate/zod";
 import type { AxiosError } from "axios";
-import { z } from 'zod';
+import { z } from "zod";
+import LoginInput from "../../components/LoginInput.vue";
 
-const schema = toTypedSchema(z.object({
-    email: z.string().email(),
-    password: z.string().min(3),
-    password2: z.string().min(3),
-    username: z.string().min(3).regex(/^[a-z0-9_]+$/),
-    reason: z.string().optional(),
-    tos: z.string(),
-}).superRefine((data, ctx) => {
-    if (data.password !== data.password2) {
-        ctx.addIssue({
-            path: [...ctx.path, 'password2'],
-            code: "custom",
-            message: 'Passwords do not match',
-        });
-    }
-    return {};
-}));
+const schema = toTypedSchema(
+    z
+        .object({
+            email: z.string().email(),
+            password: z.string().min(3),
+            password2: z.string().min(3),
+            username: z
+                .string()
+                .min(3)
+                .regex(/^[a-z0-9_]+$/),
+            reason: z.string().optional(),
+            tos: z.string(),
+        })
+        .superRefine((data, ctx) => {
+            if (data.password !== data.password2) {
+                ctx.addIssue({
+                    path: [...ctx.path, "password2"],
+                    code: "custom",
+                    message: "Passwords do not match",
+                });
+            }
+            return {};
+        }),
+);
 
 const client = await useMegalodon();
 const instance = await useInstance(client);
@@ -126,7 +133,15 @@ const register = (result: {
     reason: string;
 }) => {
     isLoading.value = true;
-    client.registerAccount(result.username, result.email, result.password, true, "en", result.reason || "Empty reason")
+    client
+        .registerAccount(
+            result.username,
+            result.email,
+            result.password,
+            true,
+            "en",
+            result.reason || "Empty reason",
+        )
         .then(async (res) => {
             navigateTo("/register/success");
         })
@@ -135,8 +150,9 @@ const register = (result: {
             // @ts-ignore
             errors.value = error.response?.data || {};
             console.error(err);
-        }).finally(() => {
+        })
+        .finally(() => {
             isLoading.value = false;
         });
-}
+};
 </script>

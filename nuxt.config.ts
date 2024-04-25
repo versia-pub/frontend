@@ -8,6 +8,7 @@ export default defineNuxtConfig({
         "@nuxt/fonts",
         "nuxt-icon",
         "@vee-validate/nuxt",
+        "nuxt-shiki",
     ],
     app: {
         head: {
@@ -20,6 +21,24 @@ export default defineNuxtConfig({
             ],
             htmlAttrs: { lang: "en-us" },
         },
+    },
+    shiki: {
+        defaultTheme: "rose-pine",
+        bundledLangs: [
+            "javascript",
+            "typescript",
+            "html",
+            "css",
+            "json",
+            "python",
+            "toml",
+            "rust",
+            "sql",
+            "scss",
+            "bash",
+            "shell",
+            "yaml",
+        ],
     },
     nitro: {
         preset: "bun",

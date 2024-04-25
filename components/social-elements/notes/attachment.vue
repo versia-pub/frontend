@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment } from '~/types/mastodon/attachment';
+import type { Attachment } from "~/types/mastodon/attachment";
 
 const lightbox = ref(false);
 
