@@ -54,6 +54,8 @@
         "@fortawesome/fontawesome-common-types",
         "@fortawesome/free-regular-svg-icons",
         "@fortawesome/free-solid-svg-icons",
-        "json-editor-vue"
+        "esbuild",
+        "json-editor-vue",
+        "vue-demi"
     ]
 }

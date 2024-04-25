@@ -1,7 +1,9 @@
 <template>
-    <div class="relative isolate px-6 pt-14 lg:px-8">
+    <div class="relative min-h-dvh flex flex-row justify-center lg:justify-between">
+        <div class="max-w-md w-full hidden lg:block">
 
-        <div class="mx-auto max-w-md py-32 sm:py-48 lg:py-56">
+        </div>
+        <div class="flex flex-col justify-center max-w-lg w-full py-32 sm:py-48 px-6 lg:px-8">
             <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div
                     class="relative rounded px-3 py-1 text-sm leading-6 text-gray-300 ring-1 ring-white/10 hover:ring-white/20">
@@ -52,11 +54,51 @@
                 </p>
             </div>
         </div>
+        <aside
+            class="max-w-md max-h-dvh overflow-y-scroll w-full bg-dark-700 ring-1 ring-white/10 hidden lg:flex p-10 flex-col gap-4">
+            <div
+                class="aspect-video shrink-0 w-full rounded ring-white/5 bg-dark-900 shadow overflow-hidden ring-1 hover:ring-2 duration-100">
+                <img class="object-cover w-full h-full duration-150 hover:scale-[102%] ease-in-out"
+                    v-if="instance?.banner" :src="instance.banner" />
+            </div>
+
+            <div class="prose prose-invert prose-sm">
+                <h2 class="text-center mb-10">{{ instance?.title }}</h2>
+                <div v-html="description?.content"></div>
+            </div>
+
+            <div v-if="contact" class="flex flex-col gap-2 mt-auto">
+                <h2 class="text-gray-200 font-semibold uppercase text-xs">Administrator</h2>
+                <div class="flex flex-row">
+                    <NuxtLink :href="''">
+                        <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="contact.avatar" alt="" />
+                    </NuxtLink>
+                    <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
+                        <div class="flex flex-row items-center justify-between w-full">
+                            <NuxtLink :href="''" class="font-semibold text-gray-200 line-clamp-1 break-all">
+                                {{
+                        contact.display_name }}
+                            </NuxtLink>
+                        </div>
+                        <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
+                            @{{
+                        contact.acct
+                            }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
 </template>
 
 <script setup lang="ts">
 const baseUrl = useBaseUrl();
+const client = await useMegalodon();
+// TODO: Add banner to the instance
+const instance = await useInstance(client);
+const description = await useExtendedDescription(client);
+const contact = instance?.contact_account;
 
 useServerSeoMeta({
     title: "Welcome to Lysand!",

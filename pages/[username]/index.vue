@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex mx-auto max-w-7xl min-h-screen flex-col gap-x-6 md:flex-row justify-center items-start md:py-12 lg:px-8 relative">
+        class="flex mx-auto md:pl-20 max-w-7xl min-h-screen flex-col gap-x-6 md:flex-row justify-center items-start md:py-12 lg:pr-8 relative">
         <div v-if="account" class="w-full rounded ring-1 md:max-w-lg ring-white/10 pb-10">
             <div class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700">
                 <img v-if="account.header" :src="account.header" class="object-cover w-full h-full" />

@@ -1,6 +1,6 @@
 <template>
     <button v-bind="$props" type="button"
-        class="rounded-md duration-200 hover:shadow disabled:opacity-70 disabled:cursor-wait px-3 py-2 text-sm font-semibold text-white shadow-sm">
+        class="rounded-md duration-200 hover:shadow disabled:opacity-70 disabled:cursor-not-allowed px-3 py-2 text-sm font-semibold text-white shadow-sm">
         <slot />
     </button>
 </template>
