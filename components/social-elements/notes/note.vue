@@ -103,10 +103,10 @@ const client = await useMegalodon();
 const mentions = await useResolveMentions(props.note?.mentions ?? [], client);
 const content = props.note
     ? await useParsedContent(
-        props.note.content,
-        props.note.emojis,
-        mentions.value,
-    )
+          props.note.content,
+          props.note.emojis,
+          mentions.value,
+      )
     : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {

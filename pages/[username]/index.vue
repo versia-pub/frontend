@@ -102,11 +102,15 @@ const { timeline, loadNext, loadPrev } = useAccountTimeline(
 );
 const skeleton = ref<HTMLSpanElement | null>(null);
 
-const parsedNote = account ? await useParsedContent(account?.note, account?.emojis, []) : ref("");
-const parsedFields = await Promise.all(account?.fields.map(async (field) => ({
-    name: await useParsedContent(field.name, account.emojis, []),
-    value: await useParsedContent(field.value, account.emojis, []),
-})) ?? []);
+const parsedNote = account
+    ? await useParsedContent(account?.note, account?.emojis, [])
+    : ref("");
+const parsedFields = await Promise.all(
+    account?.fields.map(async (field) => ({
+        name: await useParsedContent(field.name, account.emojis, []),
+        value: await useParsedContent(field.value, account.emojis, []),
+    })) ?? [],
+);
 
 onMounted(() => {
     useIntersectionObserver(skeleton, async (entries) => {

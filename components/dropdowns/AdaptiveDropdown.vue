@@ -24,6 +24,6 @@
 </template>
 
 <script setup lang="ts">
-const { width } = useWindowSize()
-const isSmallScreen = computed(() => width.value < 640)
+const { width } = useWindowSize();
+const isSmallScreen = computed(() => width.value < 640);
 </script>
