@@ -32,6 +32,7 @@
         "@vee-validate/nuxt": "^4.12.6",
         "@vee-validate/zod": "^4.12.6",
         "c12": "^1.10.0",
+        "html-to-text": "^9.0.5",
         "megalodon": "^10.0.0",
         "nuxt": "^3.11.2",
         "nuxt-headlessui": "^1.2.0",
@@ -47,6 +48,7 @@
         "@nuxtjs/seo": "^2.0.0-rc.10",
         "@nuxtjs/tailwindcss": "^6.11.4",
         "@tailwindcss/forms": "^0.5.7",
+        "@types/html-to-text": "^9.0.4",
         "@vue-email/nuxt": "^0.8.19"
     },
     "trustedDependencies": [

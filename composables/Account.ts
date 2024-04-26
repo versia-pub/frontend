@@ -4,7 +4,7 @@ export const useAccount = async (
     client: Mastodon | null,
     accountId: string,
 ) => {
-    if (process.server || !client) {
+    if (!client) {
         return null;
     }
 

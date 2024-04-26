@@ -1,5 +1,6 @@
 <template>
     <ClientOnly>
+
         <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
         <span ref="skeleton"></span>
         <SocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
@@ -13,16 +14,13 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-    layout: "app",
-});
 const client = await useMegalodon();
 
 const isLoading = ref(true);
 
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
-const { timeline, loadNext, loadPrev } = useLocalTimeline(
+const { timeline, loadNext, loadPrev } = usePublicTimeline(
     client,
     timelineParameters,
 );

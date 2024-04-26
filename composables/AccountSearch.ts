@@ -1,7 +1,7 @@
 import type { Mastodon } from "megalodon";
 
 export const useAccountSearch = async (client: Mastodon | null, q: string) => {
-    if (process.server || !client) {
+    if (!client) {
         return null;
     }
 

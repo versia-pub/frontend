@@ -21,6 +21,7 @@ const props = withDefaults(
         maxWidth?: number;
         widthUnit?: "px" | "%";
         class?: string;
+        lines?: number;
     }>(),
     {
         shape: "rect",
@@ -49,5 +50,5 @@ const getWidth = (index: number, lines: number) => {
     return undefined;
 };
 
-const lines = isContent.value ? Math.ceil(Math.random() * 5) : 1;
+const lines = isContent.value ? props.lines ?? Math.ceil(Math.random() * 5) : 1;
 </script>

@@ -3,7 +3,7 @@ import type { Status } from "~/types/mastodon/status";
 
 export const useAccountTimeline = (
     client: Mastodon | null,
-    id: string | null,
+    id: MaybeRef<string | null>,
     options: MaybeRef<
         Partial<{
             limit?: number | undefined;
@@ -21,7 +21,7 @@ export const useAccountTimeline = (
     loadNext: () => Promise<void>;
     loadPrev: () => Promise<void>;
 } => {
-    if (!client || !id) {
+    if (!client) {
         return {
             timeline: ref([]),
             loadNext: async () => {},
@@ -35,7 +35,7 @@ export const useAccountTimeline = (
     let prevMinId: string | undefined = undefined;
 
     const loadNext = async () => {
-        const response = await client.getAccountStatuses(id, {
+        const response = await client.getAccountStatuses(ref(id).value ?? "", {
             only_media: false,
             ...ref(options).value,
             max_id: nextMaxId,
@@ -57,7 +57,7 @@ export const useAccountTimeline = (
     };
 
     const loadPrev = async () => {
-        const response = await client.getAccountStatuses(id, {
+        const response = await client.getAccountStatuses(ref(id).value ?? "", {
             only_media: false,
             ...ref(options).value,
             min_id: prevMinId,
@@ -79,11 +79,11 @@ export const useAccountTimeline = (
     };
 
     watch(
-        () => ref(options).value,
-        async ({ max_id, min_id }) => {
+        [() => ref(id).value, () => ref(options).value],
+        async ([id, { max_id, min_id }]) => {
             nextMaxId = max_id;
             prevMinId = min_id;
-            await loadNext();
+            id && (await loadNext());
         },
         { immediate: true },
     );

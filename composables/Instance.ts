@@ -8,5 +8,6 @@ export const useInstance = async (client: Mastodon | null) => {
 
     return (await client.getInstance()).data as Instance & {
         banner?: string;
+        lysand_version?: string;
     };
 };

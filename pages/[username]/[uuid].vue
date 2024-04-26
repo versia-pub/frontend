@@ -14,4 +14,10 @@ const client = await useMegalodon();
 const uuid = route.params.uuid as string;
 
 const note = await useNote(client, uuid);
+
+useServerSeoMeta({
+    title: note?.account.display_name,
+    description: note?.content,
+    ogImage: note?.media_attachments[0]?.preview_url,
+});
 </script>

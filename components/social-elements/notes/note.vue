@@ -101,13 +101,14 @@ const timeAgo = useTimeAgo(props.note?.created_at ?? 0);
 const { copy } = useClipboard();
 const client = await useMegalodon();
 const mentions = await useResolveMentions(props.note?.mentions ?? [], client);
-const content = props.note
-    ? await useParsedContent(
-          props.note.content,
-          props.note.emojis,
-          mentions.value,
-      )
-    : "";
+const content =
+    props.note && process.client
+        ? await useParsedContent(
+              props.note.content,
+              props.note.emojis,
+              mentions.value,
+          )
+        : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {
         notation: "compact",
