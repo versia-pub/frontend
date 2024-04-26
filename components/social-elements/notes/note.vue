@@ -4,7 +4,8 @@
         <div class="flex flex-row">
             <Skeleton :enabled="isLoading" shape="rect" class="!h-12 w-12">
                 <NuxtLink :href="accountUrl">
-                    <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar" alt="" />
+                    <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar"
+                        :alt="`${note?.account.acct}'s avatar`" />
                 </NuxtLink>
             </Skeleton>
             <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
@@ -64,6 +65,7 @@
                 <template #button>
                     <HeadlessMenuButton>
                         <Icon name="tabler:dots" class="h-5 w-5 text-gray-200" aria-hidden="true" />
+                        <span class="sr-only">Open menu</span>
                     </HeadlessMenuButton>
                 </template>
 
@@ -104,10 +106,10 @@ const mentions = await useResolveMentions(props.note?.mentions ?? [], client);
 const content =
     props.note && process.client
         ? await useParsedContent(
-              props.note.content,
-              props.note.emojis,
-              mentions.value,
-          )
+            props.note.content,
+            props.note.emojis,
+            mentions.value,
+        )
         : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {

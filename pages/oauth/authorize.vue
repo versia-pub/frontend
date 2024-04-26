@@ -32,7 +32,7 @@
                             <a v-for="provider of oauthProviders" :key="provider.id"
                                 :href="`/oauth/authorize-external?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&clientId=${client_id}&scope=${scope}`">
                                 <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
-                                    <img :src="provider.icon" :alt="provider.name" class="w-6 h-6" />
+                                    <img :src="provider.icon" :alt="`${provider.name}'s logo'`" class="w-6 h-6" />
                                     <div class="flex flex-col gap-0 justify-center">
                                         <h3 class="font-bold">{{ provider.name }}</h3>
                                     </div>
@@ -57,7 +57,7 @@
                     <li v-for="client of useConfig().RECOMMENDED_CLIENTS" :key="client.name" class="w-full">
                         <a :href="client.link" target="_blank"
                             class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full flex flex-row gap-3 items-center">
-                            <img :src="client.icon" :alt="client.name" class="h-10 w-10" />
+                            <img :src="client.icon" :alt="`${client.name}'s logo'`" class="h-10 w-10" />
                             <div class="flex flex-col justify-between items-start">
                                 <h2 class="font-bold text-gray-100">{{ client.name }}</h2>
                                 <span class="underline text-pink-700">{{ client.link }}</span>

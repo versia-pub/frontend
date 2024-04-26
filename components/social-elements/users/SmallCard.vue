@@ -2,7 +2,8 @@
     <NuxtLink :href="accountUrl" class="flex flex-row">
         <Skeleton :enabled="skeleton" shape="rect" class="!h-12 w-12">
             <div>
-                <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="account?.avatar" alt="" />
+                <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="account?.avatar"
+                    :alt="`${account?.acct}'s avatar'`" />
             </div>
         </Skeleton>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">

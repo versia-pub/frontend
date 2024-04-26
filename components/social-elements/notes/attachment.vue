@@ -1,7 +1,7 @@
 <template>
-    <div @click="lightbox = true"
+    <div @click="lightbox = true" tabindex="0" aria-label="Open attachment in lightbox" @keydown="lightbox = true"
         class="aspect-video w-full rounded ring-white/5 shadow overflow-hidden ring-1 hover:ring-2 duration-100">
-        <img v-if="attachment.type === 'image'"
+        <img v-if="attachment.type === 'image'" tabindex="-1"
             class="object-cover w-full h-full rounded duration-150 hover:scale-[102%] ease-in-out" :src="attachment.url"
             :alt="attachment.description ?? ''" :title="attachment.description ?? ''" />
         <video v-else-if="attachment.type === 'video'" class="object-cover w-full h-full rounded" controls
