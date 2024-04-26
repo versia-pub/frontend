@@ -30,9 +30,9 @@
                         </ButtonsSecondary>
                     </NuxtLink>
 
-                    <NuxtLink href="/about/apps" target="_blank">
+                    <NuxtLink href="/about/apps">
                         <ButtonsSecondary class="w-full">
-                            Mobile apps
+                            Mobile Apps
                         </ButtonsSecondary>
                     </NuxtLink>
                 </div>

@@ -94,39 +94,53 @@ const props = defineProps<{
 
 const skeleton = computed(() => !props.account);
 
-const formattedJoin = computed(() => Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-}).format(new Date(props.account?.created_at ?? 0)));
+const formattedJoin = computed(() =>
+    Intl.DateTimeFormat("en-US", {
+        month: "long",
+        year: "numeric",
+    }).format(new Date(props.account?.created_at ?? 0)),
+);
 
 const parsedNote = ref("");
-const parsedFields: Ref<{
-    name: string;
-    value: string;
-}[]> = ref([]);
+const parsedFields: Ref<
+    {
+        name: string;
+        value: string;
+    }[]
+> = ref([]);
 
-watch(skeleton, async () => {
-    if (skeleton.value) return;
-    parsedNote.value = (await useParsedContent(
-        props.account?.note ?? "",
-        props.account?.emojis ?? [],
-        [],
-    )).value;
-    parsedFields.value = await Promise.all(
-        props.account?.fields.map(async (field) => ({
-            name: await (await useParsedContent(
-                field.name,
+watch(
+    skeleton,
+    async () => {
+        if (skeleton.value) return;
+        parsedNote.value = (
+            await useParsedContent(
+                props.account?.note ?? "",
                 props.account?.emojis ?? [],
-                []
-            )).value,
-            value: await (await useParsedContent(
-                field.value,
-                props.account?.emojis ?? [],
-                []
-            )).value,
-        })) ?? [],
-    );
-}, {
-    immediate: true,
-});
+                [],
+            )
+        ).value;
+        parsedFields.value = await Promise.all(
+            props.account?.fields.map(async (field) => ({
+                name: await (
+                    await useParsedContent(
+                        field.name,
+                        props.account?.emojis ?? [],
+                        [],
+                    )
+                ).value,
+                value: await (
+                    await useParsedContent(
+                        field.value,
+                        props.account?.emojis ?? [],
+                        [],
+                    )
+                ).value,
+            })) ?? [],
+        );
+    },
+    {
+        immediate: true,
+    },
+);
 </script>

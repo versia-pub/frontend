@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from '~/types/mastodon/account';
+import type { Account } from "~/types/mastodon/account";
 
 definePageMeta({
     layout: false,
@@ -56,7 +56,7 @@ onMounted(async () => {
             await loadNext();
         }
     });
-})
+});
 
 useServerSeoMeta({
     title: account.value?.display_name,
