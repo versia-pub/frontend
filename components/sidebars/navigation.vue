@@ -92,7 +92,13 @@ const signIn = async () => {
         return;
     }
 
-    window.location.href = url;
+    // Check if URL is on the same origin
+    if (new URL(url).hostname === useRequestURL().hostname) {
+        await navigateTo(new URL(url).pathname);
+    } else {
+        window.location.href = url;
+    }
+
 };
 
 const signOut = async () => {
@@ -110,7 +116,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     tokenData.value = null;
 };
