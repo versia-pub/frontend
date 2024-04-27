@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from '~/types/mastodon/status';
+import type { Status } from "~/types/mastodon/status";
 
 const props = defineProps<{
     timeline: Status[];
@@ -52,13 +52,19 @@ useIntervalFn(() => {
     props.loadPrev();
 }, 5000);
 
-watch(() => props.timeline, (newTimeline, oldTimeline) => {
-    // If posts are deleted, don't start loading more posts
-    if (newTimeline.length === oldTimeline.length - 1) return;
-    isLoading.value = false;
-    // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
-    if (newTimeline.length - oldTimeline.length < useConfig().NOTES_PER_PAGE) {
-        hasReachedEnd.value = true;
-    }
-});
+watch(
+    () => props.timeline,
+    (newTimeline, oldTimeline) => {
+        // If posts are deleted, don't start loading more posts
+        if (newTimeline.length === oldTimeline.length - 1) return;
+        isLoading.value = false;
+        // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
+        if (
+            newTimeline.length - oldTimeline.length <
+            useConfig().NOTES_PER_PAGE
+        ) {
+            hasReachedEnd.value = true;
+        }
+    },
+);
 </script>

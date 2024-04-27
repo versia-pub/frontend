@@ -114,18 +114,18 @@ const mentions = await useResolveMentions(
 );
 const eventualReblogAccountName = props.note?.reblog
     ? useParsedContent(
-        props.note?.account.display_name,
-        props.note?.account.emojis,
-        mentions.value,
-    ).value
+          props.note?.account.display_name,
+          props.note?.account.emojis,
+          mentions.value,
+      ).value
     : null;
 const content =
     note.value && process.client
         ? useParsedContent(
-            note.value.content,
-            note.value.emojis,
-            mentions.value,
-        )
+              note.value.content,
+              note.value.emojis,
+              mentions.value,
+          )
         : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {
@@ -141,7 +141,7 @@ const deleteNote = async () => {
 
     if (result?.data) {
         console.log("Status deleted", result.data);
-        emits('delete')
+        emits("delete");
     }
 };
 </script>
