@@ -3,18 +3,24 @@
         <SidebarsNavigation />
         <div class="relative md:pl-20 min-h-dvh flex flex-row justify-center lg:justify-between">
             <aside
-                class="max-w-md max-h-dvh overflow-y-auto w-full bg-dark-900 ring-1 ring-white/10 hidden lg:flex p-10 flex-col gap-10">
-                <div class="grow">
-                    <button type="button"
-                        class="relative block w-full h-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
-                        <Icon name="tabler:notification" class="mx-auto h-12 w-12 text-gray-400" />
-                        <span class="mt-3 block text-sm font-semibold text-gray-200 max-w-56 mx-auto">Notifications will
-                            appear here
-                            when you
-                            sign in</span>
-                    </button>
-                </div>
-                <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4">
+                class="max-w-md max-h-dvh overflow-y-auto w-full bg-dark-900 ring-1 ring-white/10 hidden lg:flex flex-col gap-10">
+                <ClientOnly>
+                    <div class="grow p-10" v-if="!accessToken">
+                        <button type="button"
+                            class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
+                            <Icon name="tabler:notification" class="mx-auto h-12 w-12 text-gray-400" />
+                            <span class="mt-3 block text-sm font-semibold text-gray-200 max-w-56 mx-auto">Notifications
+                                will
+                                appear here
+                                when you
+                                sign in</span>
+                        </button>
+                    </div>
+                    <div class="grow" v-else>
+                        <TimelinesNotifications />
+                    </div>
+                </ClientOnly>
+                <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10">
                     <div class="text-center">
                         <strong
                             class="bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">Lysand
@@ -52,14 +58,15 @@
 <script setup lang="ts">
 import { convert } from "html-to-text";
 
-const client = await useMegalodon();
-const instance = await useInstance(client);
-const description = await useExtendedDescription(client);
+const accessToken = useLocalStorage("lysand:access_token", "");
+const client = useMegalodon(accessToken);
+const instance = useInstance(client);
+const description = useExtendedDescription(client);
 
 useServerSeoMeta({
-    title: instance?.title,
-    ogImage: instance?.banner,
-    description: convert(description?.content ?? ""),
+    title: instance.value?.title,
+    ogImage: instance.value?.banner,
+    description: convert(description.value?.content ?? ""),
     ogSiteName: "Lysand",
     colorScheme: "dark",
     referrer: "no-referrer",

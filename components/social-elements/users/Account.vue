@@ -116,30 +116,28 @@ watch(
     async () => {
         if (skeleton.value) return;
         parsedNote.value = (
-            await useParsedContent(
+            useParsedContent(
                 props.account?.note ?? "",
                 props.account?.emojis ?? [],
                 [],
             )
-        ).value;
-        parsedFields.value = await Promise.all(
-            props.account?.fields.map(async (field) => ({
-                name: await (
-                    await useParsedContent(
-                        field.name,
-                        props.account?.emojis ?? [],
-                        [],
-                    )
-                ).value,
-                value: await (
-                    await useParsedContent(
-                        field.value,
-                        props.account?.emojis ?? [],
-                        [],
-                    )
-                ).value,
-            })) ?? [],
-        );
+        ).value ?? "";
+        parsedFields.value = props.account?.fields.map((field) => ({
+            name: (
+                useParsedContent(
+                    field.name,
+                    props.account?.emojis ?? [],
+                    [],
+                )
+            ).value ?? "",
+            value: (
+                useParsedContent(
+                    field.value,
+                    props.account?.emojis ?? [],
+                    [],
+                )
+            ).value ?? "",
+        })) ?? [];
     },
     {
         immediate: true,

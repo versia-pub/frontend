@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-const client = await useMegalodon();
-const instance = await useInstance(client);
-const description = await useExtendedDescription(client);
+const client = useMegalodon();
+const instance = useInstance(client);
+const description = useExtendedDescription(client);
 </script>

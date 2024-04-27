@@ -10,14 +10,14 @@
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const client = await useMegalodon();
+const client = useMegalodon();
 const uuid = route.params.uuid as string;
 
-const note = await useNote(client, uuid);
+const note = useNote(client, uuid);
 
 useServerSeoMeta({
-    title: note?.account.display_name,
-    description: note?.content,
-    ogImage: note?.media_attachments[0]?.preview_url,
+    title: note.value?.account.display_name,
+    description: note.value?.content,
+    ogImage: note.value?.media_attachments[0]?.preview_url,
 });
 </script>

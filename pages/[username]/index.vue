@@ -35,7 +35,7 @@ const { width } = useWindowSize();
 const isMobile = computed(() => width.value < 1024);
 
 const route = useRoute();
-const client = await useMegalodon(true);
+const client = useMegalodon(undefined, true);
 const username = (route.params.username as string).replace("@", "");
 
 const account: Ref<Account | null> = ref(null);

@@ -1,49 +1,41 @@
 <template>
     <div
         class="first:rounded-t last:rounded-b ring-1 ring-white/5 p-6 flex flex-col bg-dark-800 hover:bg-dark-700 duration-200">
-        <div class="flex flex-row">
-            <Skeleton :enabled="isLoading" shape="rect" class="!h-12 w-12">
-                <NuxtLink :href="accountUrl">
-                    <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar"
-                        :alt="`${note?.account.acct}'s avatar`" />
-                </NuxtLink>
+        <div v-if="props.note?.reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-500">
+            <Skeleton :enabled="!props.note" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
+                <Icon name="tabler:repeat" class="h-6 w-6" aria-hidden="true" />
+                <img v-if="props.note?.account.avatar" :src="props.note?.account.avatar"
+                    :alt="`${props.note?.account.acct}'s avatar'`" class="h-6 w-6 rounded ring-1 ring-white/10" />
+                <span><strong v-html="eventualReblogAccountName"></strong> reblogged</span>
             </Skeleton>
-            <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
-                <div class="flex flex-row items-center justify-between w-full">
-                    <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
-                        <Skeleton :enabled="isLoading" :min-width="90" :max-width="170" shape="rect">
-                            {{
-                note?.account.display_name }}
-                        </Skeleton>
-                    </NuxtLink>
-                    <NuxtLink :href="noteUrl" class="text-gray-400 text-sm ml-2 line-clamp-1 break-all shrink-0">
-                        <Skeleton :enabled="isLoading" :min-width="50" :max-width="100" shape="rect">
-                            {{ timeAgo }}
-                        </Skeleton>
-                    </NuxtLink>
+        </div>
+        <SocialElementsNotesHeader :note="note" :small="small" />
+        <div v-if="!noteClosed">
+            <NuxtLink :href="noteUrl" class="mt-6 block relative">
+                <Skeleton :enabled="true" v-if="!note" :min-width="50" :max-width="100" width-unit="%" shape="rect"
+                    type="content">
+                </Skeleton>
+                <div v-else-if="content"
+                    :class="['prose prose-invert duration-200 !max-w-full break-words prose-a:no-underline content']"
+                    v-html="content">
                 </div>
-                <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
-                    <Skeleton :enabled="isLoading" :min-width="130" :max-width="250" shape="rect">
-                        @{{
-                note?.account.acct
-            }}
-                    </Skeleton>
-                </span>
+            </NuxtLink>
+            <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
+                <SocialElementsNotesAttachment v-for="attachment of attachments" :key="attachment.id"
+                    :attachment="attachment" />
             </div>
         </div>
-        <NuxtLink :href="noteUrl" class="mt-6">
-            <Skeleton :enabled="true" v-if="isLoading" :min-width="50" :max-width="100" width-unit="%" shape="rect"
-                type="content">
-            </Skeleton>
-            <div v-else-if="content" class="prose prose-invert prose-a:no-underline content" v-html="content">
-            </div>
-        </NuxtLink>
-        <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
-            <SocialElementsNotesAttachment v-for="attachment of attachments" :key="attachment.id"
-                :attachment="attachment" />
-        </div>
-        <Skeleton class="!h-10 w-full mt-6" :enabled="true" v-if="isLoading"></Skeleton>
         <div v-else
+            class="rounded text-center ring-1 !max-w-full ring-white/10 h-52 mt-6 prose prose-invert p-4 flex flex-col justify-center items-center">
+            <strong v-if="note?.sensitive" class="max-w-64">This note was tagged as containing sensitive
+                content</strong>
+            <!-- Spoiler text is it's specified -->
+            <span v-if="note?.spoiler_text" class="mt-2 break-all">{{ note.spoiler_text
+                }}</span>
+            <ButtonsSecondary @click="noteClosed = false" class="mt-4">Show content</ButtonsSecondary>
+        </div>
+        <Skeleton class="!h-10 w-full mt-6" :enabled="true" v-if="!note && !small"></Skeleton>
+        <div v-else-if="!small"
             class="mt-6 flex flex-row items-stretch relative justify-between text-sm h-10 hover:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
             <button>
                 <Icon name="tabler:arrow-back-up" class="h-5 w-5 text-gray-200" aria-hidden="true" />
@@ -94,20 +86,22 @@ import type { Status } from "~/types/mastodon/status";
 
 const props = defineProps<{
     note?: Status;
-    skeleton?: boolean;
+    small?: boolean;
 }>();
 
-const isLoading = props.skeleton;
-const timeAgo = useTimeAgo(props.note?.created_at ?? 0);
+// Handle reblogs
+const note = computed(() => props.note?.reblog ?? props.note);
+const noteClosed = ref(note.value?.sensitive || !!note.value?.spoiler_text || false);
 
 const { copy } = useClipboard();
-const client = await useMegalodon();
-const mentions = await useResolveMentions(props.note?.mentions ?? [], client);
+const client = useMegalodon();
+const mentions = await useResolveMentions(note.value?.mentions ?? [], client);
+const eventualReblogAccountName = props.note?.reblog ? (useParsedContent(props.note?.account.display_name, props.note?.account.emojis, mentions.value)).value : null;
 const content =
-    props.note && process.client
-        ? await useParsedContent(
-            props.note.content,
-            props.note.emojis,
+    note.value && process.client
+        ? useParsedContent(
+            note.value.content,
+            note.value.emojis,
             mentions.value,
         )
         : "";
@@ -117,9 +111,8 @@ const numberFormat = (number = 0) =>
         compactDisplay: "short",
         maximumFractionDigits: 1,
     }).format(number);
-const attachments = props.note?.media_attachments ?? [];
-const noteUrl = props.note && `/@${props.note.account.acct}/${props.note.id}`;
-const accountUrl = props.note && `/@${props.note.account.acct}`;
+const attachments = note.value?.media_attachments ?? [];
+const noteUrl = note.value && `/@${note.value.account.acct}/${note.value.id}`;
 </script>
 
 <style>

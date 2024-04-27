@@ -1,13 +1,20 @@
 import type { Mastodon } from "megalodon";
 
-export const useExtendedDescription = async (client: Mastodon | null) => {
+type ExtendedDescription = {
+    updated_at: string;
+    content: string;
+};
+
+export const useExtendedDescription = (client: Mastodon | null) => {
     if (!client) {
-        return null;
+        return ref(null as ExtendedDescription | null);
     }
 
-    return (await client.client.get("/api/v1/instance/extended_description"))
-        .data as {
-        updated_at: string;
-        content: string;
-    };
+    const output = ref(null as ExtendedDescription | null);
+
+    client.client.get("/api/v1/instance/extended_description").then((res) => {
+        output.value = res.data;
+    });
+
+    return output;
 };

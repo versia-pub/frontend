@@ -1,13 +1,21 @@
 import type { Mastodon } from "megalodon";
 import type { Instance } from "~/types/mastodon/instance";
 
-export const useInstance = async (client: Mastodon | null) => {
+type InstanceWithExtra = Instance & {
+    banner?: string;
+    lysand_version?: string;
+};
+
+export const useInstance = (client: Mastodon | null) => {
     if (!client) {
-        return null;
+        return ref(null as InstanceWithExtra | null);
     }
 
-    return (await client.getInstance()).data as Instance & {
-        banner?: string;
-        lysand_version?: string;
-    };
+    const output = ref(null as InstanceWithExtra | null);
+
+    client.getInstance().then((res) => {
+        output.value = res.data;
+    });
+
+    return output;
 };

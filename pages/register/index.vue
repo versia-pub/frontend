@@ -1,8 +1,8 @@
 <template>
-    <div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 relative">
+    <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
         <img src="https://camo.githubusercontent.com/353460d1fdb1667ec993159270dcece12c491fb38165460215a519ab93f4e554/68747470733a2f2f63646e2d7765622e63706c757370617463682e636f6d2f6c7973616e642e77656270"
             alt="Lysand logo" class="mx-auto h-24 hidden md:block" />
-        <div v-if="instance && instance.registrations" class="mt-10 mx-auto w-full max-w-md">
+        <div v-if="instance && instance.registrations" class="mx-auto w-full max-w-md">
             <div v-if="Object.keys(errors).length > 0"
                 class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
                 <h2 class="font-bold text-lg">Error</h2>
@@ -69,7 +69,7 @@
                 </VeeField>
 
                 <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonsPrimary>
+            "Register" }}</ButtonsPrimary>
             </VeeForm>
         </div>
         <div v-else>
@@ -114,8 +114,8 @@ const schema = toTypedSchema(
         }),
 );
 
-const client = await useMegalodon();
-const instance = await useInstance(client);
+const client = useMegalodon();
+const instance = useInstance(client);
 
 const errors = ref<{
     [key: string]: {

@@ -1,28 +1,27 @@
 <template>
     <ClientOnly>
-        <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
+
+        <SocialElementsNotificationsNotif v-for="notif of timeline" :key="notif.id" :notification="notif" />
         <span ref="skeleton"></span>
-        <SocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+        <SocialElementsNotificationsNotif v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
         <div v-if="hasReachedEnd"
             class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
             <Icon name="tabler:message-off" class="h-6 w-6" />
-            <span>No more posts, you've seen them all</span>
+            <span>No more notifications, you've seen them all</span>
         </div>
     </ClientOnly>
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-    layout: "app",
-});
-const client = useMegalodon();
+const access_token = useLocalStorage("lysand:access_token", null);
+const client = useMegalodon(access_token);
 
 const isLoading = ref(true);
 
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
-const { timeline, loadNext, loadPrev } = useLocalTimeline(
+const { timeline, loadNext, loadPrev } = useNotificationTimeline(
     client,
     timelineParameters,
 );

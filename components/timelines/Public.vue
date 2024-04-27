@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const client = await useMegalodon();
+const client = useMegalodon();
 
 const isLoading = ref(true);
 

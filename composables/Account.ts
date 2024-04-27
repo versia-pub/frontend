@@ -1,12 +1,16 @@
 import type { Mastodon } from "megalodon";
+import type { Account } from "~/types/mastodon/account";
 
-export const useAccount = async (
-    client: Mastodon | null,
-    accountId: string,
-) => {
+export const useAccount = (client: Mastodon | null, accountId: string) => {
     if (!client) {
-        return null;
+        return ref(null as Account | null);
     }
 
-    return (await client.getAccount(accountId)).data;
+    const output = ref(null as Account | null);
+
+    client.getAccount(accountId).then((res) => {
+        output.value = res.data;
+    });
+
+    return output;
 };
