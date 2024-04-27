@@ -1,0 +1,62 @@
+<template>
+    <ClientOnly>
+
+        <SocialElementsNotesNote @delete="emits('delete', note.id)" v-for="note of timeline" :key="note.id"
+            :note="note" />
+        <span ref="skeleton"></span>
+        <SocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+
+        <div v-if="hasReachedEnd"
+            class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
+            <Icon name="tabler:message-off" class="h-6 w-6" />
+            <span>No more posts, you've seen them all</span>
+        </div>
+    </ClientOnly>
+</template>
+
+<script lang="ts" setup>
+import type { Status } from '~/types/mastodon/status';
+
+const props = defineProps<{
+    timeline: Status[];
+    loadNext: () => Promise<void>;
+    loadPrev: () => Promise<void>;
+}>();
+
+const emits = defineEmits<{
+    delete: [id: string];
+}>();
+
+const isLoading = ref(true);
+
+const hasReachedEnd = ref(false);
+const skeleton = ref<HTMLSpanElement | null>(null);
+
+onMounted(() => {
+    useIntersectionObserver(skeleton, async (entries) => {
+        if (
+            entries[0].isIntersecting &&
+            !hasReachedEnd.value &&
+            !isLoading.value
+        ) {
+            isLoading.value = true;
+            await props.loadNext();
+        }
+    });
+});
+
+// Every 5 seconds, load newer posts (prev)
+useIntervalFn(() => {
+    props.loadPrev();
+}, 5000);
+
+watch(() => props.timeline, (newTimeline, oldTimeline) => {
+    // If posts are deleted, don't start loading more posts
+    if (newTimeline.length === oldTimeline.length - 1) return;
+    isLoading.value = false;
+    // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
+    if (newTimeline.length - oldTimeline.length < useConfig().NOTES_PER_PAGE) {
+        hasReachedEnd.value = true;
+    }
+});
+</script>

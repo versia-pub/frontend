@@ -3,10 +3,15 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps<{
+    id?: string;
+}>();
+
 const client = useMegalodon();
 const timelineParameters = ref({});
-const { timeline, loadNext, loadPrev } = usePublicTimeline(
+const { timeline, loadNext, loadPrev } = useAccountTimeline(
     client.value,
+    props.id ?? null,
     timelineParameters,
 );
 

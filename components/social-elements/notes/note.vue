@@ -70,8 +70,14 @@
                         </ButtonsDropdownElement>
                     </HeadlessMenuItem>
                     <HeadlessMenuItem>
-                        <ButtonsDropdownElement @click="note && copy(note.uri)" icon="tabler:code" class="w-full">
+                        <ButtonsDropdownElement @click="note && copy(note.uri)" icon="tabler:link" class="w-full">
                             Copy Link
+                        </ButtonsDropdownElement>
+                    </HeadlessMenuItem>
+                    <HeadlessMenuItem>
+                        <ButtonsDropdownElement @click="note && deleteNote()" icon="tabler:backspace"
+                            class="w-full border-r-2 border-red-500">
+                            Delete
                         </ButtonsDropdownElement>
                     </HeadlessMenuItem>
                 </template>
@@ -89,6 +95,10 @@ const props = defineProps<{
     small?: boolean;
 }>();
 
+const emits = defineEmits<{
+    delete: [];
+}>();
+
 // Handle reblogs
 const note = computed(() => props.note?.reblog ?? props.note);
 const noteClosed = ref(
@@ -96,25 +106,26 @@ const noteClosed = ref(
 );
 
 const { copy } = useClipboard();
-const client = useMegalodon();
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
 const mentions = await useResolveMentions(
     note.value?.mentions ?? [],
     client.value,
 );
 const eventualReblogAccountName = props.note?.reblog
     ? useParsedContent(
-          props.note?.account.display_name,
-          props.note?.account.emojis,
-          mentions.value,
-      ).value
+        props.note?.account.display_name,
+        props.note?.account.emojis,
+        mentions.value,
+    ).value
     : null;
 const content =
     note.value && process.client
         ? useParsedContent(
-              note.value.content,
-              note.value.emojis,
-              mentions.value,
-          )
+            note.value.content,
+            note.value.emojis,
+            mentions.value,
+        )
         : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {
@@ -124,6 +135,15 @@ const numberFormat = (number = 0) =>
     }).format(number);
 const attachments = note.value?.media_attachments ?? [];
 const noteUrl = note.value && `/@${note.value.account.acct}/${note.value.id}`;
+
+const deleteNote = async () => {
+    const result = await client.value?.deleteStatus(note.value?.id ?? "");
+
+    if (result?.data) {
+        console.log("Status deleted", result.data);
+        emits('delete')
+    }
+};
 </script>
 
 <style>

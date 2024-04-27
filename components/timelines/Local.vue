@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 const client = useMegalodon();
 const timelineParameters = ref({});
-const { timeline, loadNext, loadPrev } = usePublicTimeline(
+const { timeline, loadNext, loadPrev } = useLocalTimeline(
     client.value,
     timelineParameters,
 );
