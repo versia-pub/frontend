@@ -98,7 +98,6 @@ const signIn = async () => {
     } else {
         window.location.href = url;
     }
-
 };
 
 const signOut = async () => {
@@ -116,7 +115,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => { });
+        .catch(() => {});
 
     tokenData.value = null;
 };

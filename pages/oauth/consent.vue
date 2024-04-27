@@ -96,7 +96,7 @@ import { useRoute } from "vue-router";
 const url = useRequestURL();
 const query = useRoute().query;
 
-const application = "Soapbox"; //query.application;
+const application = query.application;
 const website = query.website
     ? decodeURIComponent(query.website as string)
     : null;
