@@ -38,6 +38,14 @@
                     <span class="pr-28 line-clamp-1">Register</span>
                 </ButtonsBase>
             </NuxtLink>
+            <h3 v-if="tokenData"
+                class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+                Posts</h3>
+            <ButtonsBase v-if="tokenData" @click="compose" disabled
+                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
+                <Icon name="tabler:writing" class="shrink-0 text-2xl" />
+                <span class="pr-28 line-clamp-1">Compose</span>
+            </ButtonsBase>
         </div>
     </aside>
 </template>
@@ -61,6 +69,10 @@ const loadingAuth = ref(false);
 const appData = useAppData();
 const tokenData = useTokenData();
 const client = useMegalodon();
+
+const compose = () => {
+    alert("Not implemented yet");
+};
 
 const signIn = async () => {
     loadingAuth.value = true;
@@ -92,12 +104,7 @@ const signIn = async () => {
         return;
     }
 
-    // Check if URL is on the same origin
-    if (new URL(url).hostname === useRequestURL().hostname) {
-        await navigateTo(new URL(url).pathname);
-    } else {
-        window.location.href = url;
-    }
+    window.location.href = url;
 };
 
 const signOut = async () => {
@@ -115,7 +122,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     tokenData.value = null;
 };
