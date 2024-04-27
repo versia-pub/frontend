@@ -1,8 +1,10 @@
 <template>
     <ClientOnly>
-
-        <SocialElementsNotesNote @delete="emits('delete', note.id)" v-for="note of timeline" :key="note.id"
-            :note="note" />
+        <TransitionGroup leave-active-class="ease-in duration-200" leave-from-class="scale-100 opacity-100"
+            leave-to-class="opacity-0 scale-90">
+            <SocialElementsNotesNote @delete="emits('delete', note.id)" v-for="note of timeline" :key="note.id"
+                :note="note" />
+        </TransitionGroup>
         <span ref="skeleton"></span>
         <SocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
