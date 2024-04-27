@@ -115,29 +115,27 @@ watch(
     skeleton,
     async () => {
         if (skeleton.value) return;
-        parsedNote.value = (
+        parsedNote.value =
             useParsedContent(
                 props.account?.note ?? "",
                 props.account?.emojis ?? [],
                 [],
-            )
-        ).value ?? "";
-        parsedFields.value = props.account?.fields.map((field) => ({
-            name: (
-                useParsedContent(
-                    field.name,
-                    props.account?.emojis ?? [],
-                    [],
-                )
-            ).value ?? "",
-            value: (
-                useParsedContent(
-                    field.value,
-                    props.account?.emojis ?? [],
-                    [],
-                )
-            ).value ?? "",
-        })) ?? [];
+            ).value ?? "";
+        parsedFields.value =
+            props.account?.fields.map((field) => ({
+                name:
+                    useParsedContent(
+                        field.name,
+                        props.account?.emojis ?? [],
+                        [],
+                    ).value ?? "",
+                value:
+                    useParsedContent(
+                        field.value,
+                        props.account?.emojis ?? [],
+                        [],
+                    ).value ?? "",
+            })) ?? [];
     },
     {
         immediate: true,

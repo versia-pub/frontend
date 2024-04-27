@@ -69,7 +69,7 @@
                 </VeeField>
 
                 <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-            "Register" }}</ButtonsPrimary>
+                    "Register" }}</ButtonsPrimary>
             </VeeForm>
         </div>
         <div v-else>
@@ -133,14 +133,15 @@ const register = (result: {
     reason: string;
 }) => {
     isLoading.value = true;
-    client?.registerAccount(
-        result.username,
-        result.email,
-        result.password,
-        true,
-        "en",
-        result.reason || "Empty reason",
-    )
+    ref(client)
+        .value?.registerAccount(
+            result.username,
+            result.email,
+            result.password,
+            true,
+            "en",
+            result.reason || "Empty reason",
+        )
         .then(async (res) => {
             navigateTo("/register/success");
         })

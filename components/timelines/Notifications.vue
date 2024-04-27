@@ -14,15 +14,15 @@
 </template>
 
 <script lang="ts" setup>
-const access_token = useLocalStorage("lysand:access_token", null);
-const client = useMegalodon(access_token);
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
 
 const isLoading = ref(true);
 
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
 const { timeline, loadNext, loadPrev } = useNotificationTimeline(
-    client,
+    client.value,
     timelineParameters,
 );
 const skeleton = ref<HTMLSpanElement | null>(null);

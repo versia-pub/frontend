@@ -38,14 +38,13 @@ const route = useRoute();
 const client = useMegalodon(undefined, true);
 const username = (route.params.username as string).replace("@", "");
 
-const account: Ref<Account | null> = ref(null);
+const accounts = useAccountSearch(client, username);
+const account = computed<Account | null>(
+    () => accounts.value?.find((account) => account.acct === username) ?? null,
+);
 const accountId = computed(() => account.value?.id ?? null);
 
 onMounted(async () => {
-    const accounts = await useAccountSearch(client, username);
-    account.value =
-        (await accounts?.find((account) => account.acct === username)) ?? null;
-
     useIntersectionObserver(skeleton, async (entries) => {
         if (
             entries[0].isIntersecting &&
@@ -70,7 +69,7 @@ const isLoadingTimeline = ref(true);
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
 const { timeline, loadNext, loadPrev } = useAccountTimeline(
-    client,
+    client.value,
     accountId,
     timelineParameters,
 );

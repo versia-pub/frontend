@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from '~/types/mastodon/status';
+import type { Status } from "~/types/mastodon/status";
 
 const props = defineProps<{
     note?: Status;

@@ -20,48 +20,52 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from '~/types/mastodon/notification';
+import type { Notification } from "~/types/mastodon/notification";
 
 const props = defineProps<{
     notification?: Notification;
 }>();
 
-const accountName = useParsedContent(props.notification?.account?.display_name ?? '', props.notification?.account?.emojis ?? [], []);
+const accountName = useParsedContent(
+    props.notification?.account?.display_name ?? "",
+    props.notification?.account?.emojis ?? [],
+    [],
+);
 const text = computed(() => {
-    if (!props.notification) return '';
+    if (!props.notification) return "";
 
     switch (props.notification.type) {
-        case 'mention':
-            return 'mentioned you';
-        case 'reblog':
-            return 'reblogged your note';
-        case 'favourite':
-            return 'liked your note';
-        case 'follow':
-            return 'followed you';
-        case 'follow_request':
-            return 'requested to follow you';
+        case "mention":
+            return "mentioned you";
+        case "reblog":
+            return "reblogged your note";
+        case "favourite":
+            return "liked your note";
+        case "follow":
+            return "followed you";
+        case "follow_request":
+            return "requested to follow you";
         default:
-            console.error('Unknown notification type', props.notification.type)
-            return '';
+            console.error("Unknown notification type", props.notification.type);
+            return "";
     }
 });
 const icon = computed(() => {
-    if (!props.notification) return '';
+    if (!props.notification) return "";
 
     switch (props.notification.type) {
-        case 'mention':
-            return 'tabler:at';
-        case 'reblog':
-            return 'tabler:repeat';
-        case 'favourite':
-            return 'tabler:heart';
-        case 'follow':
-            return 'tabler:plus';
-        case 'follow_request':
-            return 'tabler:plus';
+        case "mention":
+            return "tabler:at";
+        case "reblog":
+            return "tabler:repeat";
+        case "favourite":
+            return "tabler:heart";
+        case "follow":
+            return "tabler:plus";
+        case "follow_request":
+            return "tabler:plus";
         default:
-            return '';
+            return "";
     }
 });
 </script>

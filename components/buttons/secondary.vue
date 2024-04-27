@@ -1,5 +1,5 @@
 <template>
-    <ButtonsBase class="bg-white/10 hover:bg-white/20">
+    <ButtonsBase class="bg-white/10 hover:bg-white/20" :loading="loading">
         <slot />
     </ButtonsBase>
 </template>
@@ -9,7 +9,11 @@ import type { ButtonHTMLAttributes } from "vue";
 
 interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {}
 
-defineProps<Props>();
+defineProps<
+    Props & {
+        loading?: boolean;
+    }
+>();
 </script>
 
 <style></style>

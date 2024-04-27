@@ -23,7 +23,7 @@ const isLoading = ref(true);
 const timelineParameters = ref({});
 const hasReachedEnd = ref(false);
 const { timeline, loadNext, loadPrev } = useLocalTimeline(
-    client,
+    client.value,
     timelineParameters,
 );
 const skeleton = ref<HTMLSpanElement | null>(null);

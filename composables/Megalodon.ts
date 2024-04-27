@@ -1,16 +1,18 @@
-import { Mastodon } from "megalodon";
+import { Mastodon, type OAuth } from "megalodon";
 
 export const useMegalodon = (
-    accessToken?: MaybeRef<string | null | undefined>,
+    tokenData?: MaybeRef<OAuth.TokenData | null>,
     disableOnServer = false,
-) => {
+): Ref<Mastodon | null> => {
     if (disableOnServer && process.server) {
-        return null;
+        return ref(null);
     }
 
-    const baseUrl = useBaseUrl().value;
-
-    const client = new Mastodon(baseUrl, ref(accessToken).value);
-
-    return client;
+    return computed(
+        () =>
+            new Mastodon(
+                useBaseUrl().value,
+                ref(tokenData).value?.access_token,
+            ),
+    );
 };

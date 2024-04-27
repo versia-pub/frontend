@@ -91,19 +91,30 @@ const props = defineProps<{
 
 // Handle reblogs
 const note = computed(() => props.note?.reblog ?? props.note);
-const noteClosed = ref(note.value?.sensitive || !!note.value?.spoiler_text || false);
+const noteClosed = ref(
+    note.value?.sensitive || !!note.value?.spoiler_text || false,
+);
 
 const { copy } = useClipboard();
 const client = useMegalodon();
-const mentions = await useResolveMentions(note.value?.mentions ?? [], client);
-const eventualReblogAccountName = props.note?.reblog ? (useParsedContent(props.note?.account.display_name, props.note?.account.emojis, mentions.value)).value : null;
+const mentions = await useResolveMentions(
+    note.value?.mentions ?? [],
+    client.value,
+);
+const eventualReblogAccountName = props.note?.reblog
+    ? useParsedContent(
+          props.note?.account.display_name,
+          props.note?.account.emojis,
+          mentions.value,
+      ).value
+    : null;
 const content =
     note.value && process.client
         ? useParsedContent(
-            note.value.content,
-            note.value.emojis,
-            mentions.value,
-        )
+              note.value.content,
+              note.value.emojis,
+              mentions.value,
+          )
         : "";
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {

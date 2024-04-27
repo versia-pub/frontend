@@ -5,7 +5,7 @@
             <aside
                 class="max-w-md max-h-dvh overflow-y-auto w-full bg-dark-900 ring-1 ring-white/10 hidden lg:flex flex-col gap-10">
                 <ClientOnly>
-                    <div class="grow p-10" v-if="!accessToken">
+                    <div class="grow p-10" v-if="!tokenData">
                         <button type="button"
                             class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
                             <Icon name="tabler:notification" class="mx-auto h-12 w-12 text-gray-400" />
@@ -58,8 +58,8 @@
 <script setup lang="ts">
 import { convert } from "html-to-text";
 
-const accessToken = useLocalStorage("lysand:access_token", "");
-const client = useMegalodon(accessToken);
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
 const instance = useInstance(client);
 const description = useExtendedDescription(client);
 

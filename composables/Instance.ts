@@ -6,16 +6,18 @@ type InstanceWithExtra = Instance & {
     lysand_version?: string;
 };
 
-export const useInstance = (client: Mastodon | null) => {
-    if (!client) {
+export const useInstance = (client: MaybeRef<Mastodon | null>) => {
+    if (!ref(client).value) {
         return ref(null as InstanceWithExtra | null);
     }
 
     const output = ref(null as InstanceWithExtra | null);
 
-    client.getInstance().then((res) => {
-        output.value = res.data;
-    });
+    ref(client)
+        .value?.getInstance()
+        .then((res) => {
+            output.value = res.data;
+        });
 
     return output;
 };

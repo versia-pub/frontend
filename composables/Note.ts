@@ -1,16 +1,18 @@
 import type { Mastodon } from "megalodon";
 import type { Status } from "~/types/mastodon/status";
 
-export const useNote = (client: Mastodon | null, noteId: string) => {
-    if (!client) {
+export const useNote = (client: MaybeRef<Mastodon | null>, noteId: string) => {
+    if (!ref(client).value) {
         return ref(null as Status | null);
     }
 
     const output = ref(null as Status | null);
 
-    client.getStatus(noteId).then((res) => {
-        output.value = res.data;
-    });
+    ref(client)
+        .value?.getStatus(noteId)
+        .then((res) => {
+            output.value = res.data;
+        });
 
     return output;
 };

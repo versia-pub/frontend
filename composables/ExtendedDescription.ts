@@ -5,16 +5,18 @@ type ExtendedDescription = {
     content: string;
 };
 
-export const useExtendedDescription = (client: Mastodon | null) => {
-    if (!client) {
+export const useExtendedDescription = (client: MaybeRef<Mastodon | null>) => {
+    if (!ref(client).value) {
         return ref(null as ExtendedDescription | null);
     }
 
     const output = ref(null as ExtendedDescription | null);
 
-    client.client.get("/api/v1/instance/extended_description").then((res) => {
-        output.value = res.data;
-    });
+    ref(client)
+        .value?.client.get("/api/v1/instance/extended_description")
+        .then((res) => {
+            output.value = res.data;
+        });
 
     return output;
 };

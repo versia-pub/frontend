@@ -1,13 +1,19 @@
 import type { Mastodon } from "megalodon";
+import type { Account } from "~/types/mastodon/account";
 
-export const useAccountSearch = async (client: Mastodon | null, q: string) => {
-    if (!client) {
-        return null;
-    }
+export const useAccountSearch = (
+    client: MaybeRef<Mastodon | null>,
+    q: string,
+): Ref<Account[] | null> => {
+    const output = ref(null as Account[] | null);
 
-    return (
-        await client.searchAccount(q, {
+    ref(client)
+        .value?.searchAccount(q, {
             resolve: true,
         })
-    ).data;
+        .then((res) => {
+            output.value = res.data;
+        });
+
+    return output;
 };
