@@ -47,7 +47,6 @@
             </ButtonsBase>
         </div>
     </aside>
-    <ComposerModal :open="composerOpen" @close="composerOpen = false" />
 </template>
 
 <script lang="ts" setup>
@@ -64,7 +63,6 @@ const timelines = ref([
     },
 ]);
 
-const composerOpen = ref(false);
 const loadingAuth = ref(false);
 
 const appData = useAppData();
@@ -72,7 +70,7 @@ const tokenData = useTokenData();
 const client = useMegalodon();
 
 const compose = () => {
-    composerOpen.value = true;
+    useEvent("composer:open");
 };
 
 const signIn = async () => {

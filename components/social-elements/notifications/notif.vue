@@ -6,7 +6,8 @@
                 <Icon :name="icon" class="h-6 w-6 text-gray-200" aria-hidden="true" />
                 <img v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`" class="h-6 w-6 rounded ring-1 ring-white/10" />
-                <span class="text-gray-200"><strong v-html="accountName"></strong> {{ text }}</span>
+                <span class="text-gray-200"><strong v-html="accountName"></strong> {{ text
+                    }}</span>
             </Skeleton>
         </div>
         <div>
@@ -29,7 +30,6 @@ const props = defineProps<{
 const accountName = useParsedContent(
     props.notification?.account?.display_name ?? "",
     props.notification?.account?.emojis ?? [],
-    [],
 );
 const text = computed(() => {
     if (!props.notification) return "";

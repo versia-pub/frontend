@@ -1,27 +1,27 @@
 <template>
     <div
         class="first:rounded-t last:rounded-b ring-1 ring-white/5 p-6 flex flex-col bg-dark-800 hover:bg-dark-700 duration-200">
-        <div v-if="props.note?.reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-500">
-            <Skeleton :enabled="!props.note" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
+        <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-500">
+            <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
                 <Icon name="tabler:repeat" class="h-6 w-6" aria-hidden="true" />
-                <img v-if="props.note?.account.avatar" :src="props.note?.account.avatar"
-                    :alt="`${props.note?.account.acct}'s avatar'`" class="h-6 w-6 rounded ring-1 ring-white/10" />
-                <span><strong v-html="eventualReblogAccountName"></strong> reblogged</span>
+                <img v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
+                    class="h-6 w-6 rounded ring-1 ring-white/10" />
+                <span><strong v-html="reblogDisplayName"></strong> reblogged</span>
             </Skeleton>
         </div>
         <SocialElementsNotesHeader :note="note" :small="small" />
-        <div v-if="!noteClosed">
-            <NuxtLink :href="noteUrl" class="mt-6 block relative">
-                <Skeleton :enabled="true" v-if="!note" :min-width="50" :max-width="100" width-unit="%" shape="rect"
+        <div v-if="!collapsed">
+            <NuxtLink :href="url" class="mt-6 block relative">
+                <Skeleton :enabled="!loaded" :min-width="50" :max-width="100" width-unit="%" shape="rect"
                     type="content">
+                    <div v-if="content"
+                        :class="['prose prose-invert duration-200 !max-w-full break-words prose-a:no-underline content']"
+                        v-html="content">
+                    </div>
                 </Skeleton>
-                <div v-else-if="content"
-                    :class="['prose prose-invert duration-200 !max-w-full break-words prose-a:no-underline content']"
-                    v-html="content">
-                </div>
             </NuxtLink>
-            <div v-if="attachments.length > 0" class="[&:not(:first-child)]:mt-6">
-                <SocialElementsNotesAttachment v-for="attachment of attachments" :key="attachment.id"
+            <div v-if="note && note.media_attachments.length > 0" class="[&:not(:first-child)]:mt-6">
+                <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
                     :attachment="attachment" />
             </div>
         </div>
@@ -32,7 +32,7 @@
             <!-- Spoiler text is it's specified -->
             <span v-if="note?.spoiler_text" class="mt-2 break-all">{{ note.spoiler_text
                 }}</span>
-            <ButtonsSecondary @click="noteClosed = false" class="mt-4">Show content</ButtonsSecondary>
+            <ButtonsSecondary @click="collapsed = false" class="mt-4">Show content</ButtonsSecondary>
         </div>
         <Skeleton class="!h-10 w-full mt-6" :enabled="true" v-if="!note && !small"></Skeleton>
         <div v-else-if="!small"
@@ -70,12 +70,12 @@
                         </ButtonsDropdownElement>
                     </HeadlessMenuItem>
                     <HeadlessMenuItem>
-                        <ButtonsDropdownElement @click="note && copy(note.uri)" icon="tabler:link" class="w-full">
+                        <ButtonsDropdownElement @click="copy(url)" icon="tabler:link" class="w-full">
                             Copy Link
                         </ButtonsDropdownElement>
                     </HeadlessMenuItem>
                     <HeadlessMenuItem>
-                        <ButtonsDropdownElement @click="note && deleteNote()" icon="tabler:backspace"
+                        <ButtonsDropdownElement @click="remove" icon="tabler:backspace"
                             class="w-full border-r-2 border-red-500">
                             Delete
                         </ButtonsDropdownElement>
@@ -95,55 +95,30 @@ const props = defineProps<{
     small?: boolean;
 }>();
 
-const emits = defineEmits<{
-    delete: [];
-}>();
-
-// Handle reblogs
-const note = computed(() => props.note?.reblog ?? props.note);
-const noteClosed = ref(
-    note.value?.sensitive || !!note.value?.spoiler_text || false,
-);
-
-const { copy } = useClipboard();
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
-const mentions = await useResolveMentions(
-    note.value?.mentions ?? [],
-    client.value,
-);
-const eventualReblogAccountName = props.note?.reblog
-    ? useParsedContent(
-          props.note?.account.display_name,
-          props.note?.account.emojis,
-          mentions.value,
-      ).value
-    : null;
-const content =
-    note.value && process.client
-        ? useParsedContent(
-              note.value.content,
-              note.value.emojis,
-              mentions.value,
-          )
-        : "";
+const {
+    loaded,
+    note,
+    remove,
+    content,
+    shouldHide,
+    url,
+    reblog,
+    reblogDisplayName,
+} = useNoteData(ref(props.note), client);
+
+console.log(props.note?.account.display_name ?? "");
+
+const collapsed = ref(shouldHide.value);
+
+const { copy } = useClipboard();
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {
         notation: "compact",
         compactDisplay: "short",
         maximumFractionDigits: 1,
     }).format(number);
-const attachments = note.value?.media_attachments ?? [];
-const noteUrl = note.value && `/@${note.value.account.acct}/${note.value.id}`;
-
-const deleteNote = async () => {
-    const result = await client.value?.deleteStatus(note.value?.id ?? "");
-
-    if (result?.data) {
-        console.log("Status deleted", result.data);
-        emits("delete");
-    }
-};
 </script>
 
 <style>

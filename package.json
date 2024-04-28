@@ -34,6 +34,7 @@
         "c12": "^1.10.0",
         "html-to-text": "^9.0.5",
         "megalodon": "^10.0.0",
+        "mitt": "^3.0.1",
         "nuxt": "^3.11.2",
         "nuxt-headlessui": "^1.2.0",
         "nuxt-icon": "^0.6.10",

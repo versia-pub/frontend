@@ -53,6 +53,7 @@
             </aside>
         </div>
     </div>
+    <ComposerModal />
 </template>
 
 <script setup lang="ts">
@@ -70,5 +71,13 @@ useServerSeoMeta({
     ogSiteName: "Lysand",
     colorScheme: "dark",
     referrer: "no-referrer",
+});
+
+const { n } = useMagicKeys();
+
+watchEffect(() => {
+    if (n.value) {
+        useEvent("composer:open");
+    }
 });
 </script>

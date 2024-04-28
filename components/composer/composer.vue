@@ -32,10 +32,6 @@ const props = defineProps<{
     instance: Instance;
 }>();
 
-const emits = defineEmits<{
-    send: [];
-}>();
-
 const submitting = ref(false);
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
@@ -43,29 +39,29 @@ const client = useMegalodon(tokenData);
 const send = async () => {
     submitting.value = true;
 
-    await fetch(
-        new URL("/api/v1/statuses", client.value?.baseUrl ?? "").toString(),
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenData.value?.access_token}`,
-            },
-            body: JSON.stringify({
-                status: content.value,
-                content_type: "text/markdown",
-            }),
+    fetch(new URL("/api/v1/statuses", client.value?.baseUrl ?? "").toString(), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenData.value?.access_token}`,
         },
-    ).then((res) => {
-        if (!res.ok) {
-            throw new Error("Failed to send status");
-        }
+        body: JSON.stringify({
+            status: content.value,
+            content_type: "text/markdown",
+        }),
+    })
+        .then(async (res) => {
+            if (!res.ok) {
+                throw new Error("Failed to send status");
+            }
 
-        content.value = "";
-        submitting.value = false;
-    });
-
-    emits("send");
+            content.value = "";
+            submitting.value = false;
+            useEvent("composer:send", await res.json());
+        })
+        .finally(() => {
+            useEvent("composer:close");
+        });
 };
 
 const characterLimit = computed(

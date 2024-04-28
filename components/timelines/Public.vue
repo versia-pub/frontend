@@ -1,5 +1,5 @@
 <template>
-    <TimelinesTimeline :timeline="timeline" :load-next="loadNext" :load-prev="loadPrev" @delete="noteDelete" />
+    <TimelinesTimeline :timeline="timeline" :load-next="loadNext" :load-prev="loadPrev" />
 </template>
 
 <script lang="ts" setup>
@@ -10,7 +10,7 @@ const { timeline, loadNext, loadPrev } = usePublicTimeline(
     timelineParameters,
 );
 
-const noteDelete = async (id: string) => {
+useListen("note:delete", ({ id }) => {
     timeline.value = timeline.value.filter((note) => note.id !== id);
-};
+});
 </script>
