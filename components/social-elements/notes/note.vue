@@ -42,28 +42,28 @@
         </div>
         <Skeleton class="!h-10 w-full mt-6" :enabled="!props.note || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
-                class="mt-6 flex flex-row items-stretch relative justify-between text-sm h-10 hover:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
-                <button class="group" @click="note && useEvent('note:reply', note)">
-                    <Icon name="tabler:arrow-back-up" class="h-5 w-5 text-gray-200 group-hover:text-blue-600"
-                        aria-hidden="true" />
+                class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 disabled:*:cursor-not-allowed relative justify-between text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
+                <button class="group" @click="note && useEvent('note:reply', note)" :disabled="!isSignedIn">
+                    <Icon name="tabler:arrow-back-up"
+                        class="h-5 w-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.replies_count) }}</span>
                 </button>
-                <button class="group">
+                <button class="group" :disabled="!isSignedIn">
                     <Icon name="tabler:heart" v-if="!note?.favourited"
-                        class="h-5 w-5 text-gray-200 group-hover:text-pink-600" aria-hidden="true" />
-                    <Icon name="tabler:heart-filled" v-else class="h-5 w-5 text-pink-600 group-hover:text-gray-200"
-                        aria-hidden="true" />
+                        class="h-5 w-5 text-gray-200 group-hover:group-enabled:text-pink-600" aria-hidden="true" />
+                    <Icon name="tabler:heart-filled" v-else
+                        class="h-5 w-5 text-pink-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.favourites_count) }}</span>
                 </button>
-                <button class="group">
+                <button class="group" :disabled="!isSignedIn">
                     <Icon name="tabler:repeat" v-if="!note?.reblogged"
-                        class="h-5 w-5 text-gray-200 group-hover:text-green-600" aria-hidden="true" />
-                    <Icon name="tabler:repeat-off" v-else class="h-5 w-5 text-green-600 group-hover:text-gray-200"
-                        aria-hidden="true" />
+                        class="h-5 w-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
+                    <Icon name="tabler:repeat-off" v-else
+                        class="h-5 w-5 text-green-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.reblogs_count) }}</span>
                 </button>
-                <button class="group" @click="note && useEvent('note:quote', note)">
-                    <Icon name="tabler:quote" class="h-5 w-5 text-gray-200 group-hover:text-blue-600"
+                <button class="group" @click="note && useEvent('note:quote', note)" :disabled="!isSignedIn">
+                    <Icon name="tabler:quote" class="h-5 w-5 text-gray-200 group-hover:group-enabled:text-blue-600"
                         aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
                 </button>
@@ -89,7 +89,7 @@
                             </ButtonsDropdownElement>
                         </HeadlessMenuItem>
                         <HeadlessMenuItem>
-                            <ButtonsDropdownElement @click="remove" icon="tabler:backspace"
+                            <ButtonsDropdownElement @click="remove" icon="tabler:backspace" :disabled="!isSignedIn"
                                 class="w-full border-r-2 border-red-500">
                                 Delete
                             </ButtonsDropdownElement>
@@ -118,6 +118,7 @@ const props = withDefaults(
 );
 
 const tokenData = useTokenData();
+const isSignedIn = useSignedIn();
 const client = useMegalodon(tokenData);
 const {
     loaded,
