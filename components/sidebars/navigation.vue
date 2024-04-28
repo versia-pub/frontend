@@ -20,31 +20,34 @@
         <div class="flex flex-col gap-3 mt-auto">
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
-            <ButtonsBase v-if="tokenData" @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth"
-                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                <Icon name="tabler:logout" class="shrink-0 text-2xl" />
-                <span class="pr-28 line-clamp-1">Sign Out</span>
-            </ButtonsBase>
-            <ButtonsBase v-else @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth"
-                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                <Icon name="tabler:login" class="shrink-0 text-2xl" />
-                <span class="pr-28 line-clamp-1">Sign In</span>
-            </ButtonsBase>
-            <NuxtLink href="/register" v-if="!tokenData">
-                <ButtonsBase
+            <ClientOnly>
+                <ButtonsBase v-if="tokenData" @click="signOut().finally(() => loadingAuth = false)"
+                    :loading="loadingAuth"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <Icon name="tabler:certificate" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Register</span>
+                    <Icon name="tabler:logout" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">Sign Out</span>
                 </ButtonsBase>
-            </NuxtLink>
-            <h3 v-if="tokenData"
-                class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
-                Posts</h3>
-            <ButtonsBase v-if="tokenData" @click="compose"
-                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
-                <Icon name="tabler:writing" class="shrink-0 text-2xl" />
-                <span class="pr-28 line-clamp-1">Compose</span>
-            </ButtonsBase>
+                <ButtonsBase v-else @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth"
+                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
+                    <Icon name="tabler:login" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">Sign In</span>
+                </ButtonsBase>
+                <NuxtLink href="/register" v-if="!tokenData">
+                    <ButtonsBase
+                        class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
+                        <Icon name="tabler:certificate" class="shrink-0 text-2xl" />
+                        <span class="pr-28 line-clamp-1">Register</span>
+                    </ButtonsBase>
+                </NuxtLink>
+                <h3 v-if="tokenData"
+                    class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+                    Posts</h3>
+                <ButtonsBase v-if="tokenData" @click="compose"
+                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
+                    <Icon name="tabler:writing" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">Compose</span>
+                </ButtonsBase>
+            </ClientOnly>
         </div>
     </aside>
 </template>
