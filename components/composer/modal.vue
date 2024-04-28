@@ -26,6 +26,16 @@
 
 <script lang="ts" setup>
 const open = ref(false);
+useListen("note:reply", async (note) => {
+    open.value = true;
+    await nextTick();
+    useEvent("composer:reply", note);
+});
+useListen("note:quote", async (note) => {
+    open.value = true;
+    await nextTick();
+    useEvent("composer:quote", note);
+});
 useListen("composer:open", () => {
     open.value = true;
 });

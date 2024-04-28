@@ -21,6 +21,22 @@ export default (<Partial<Config>>{
                     950: "#080808",
                 },
             },
+            animation: {
+                like: "like 1s ease-in-out",
+            },
+            keyframes: {
+                like: {
+                    "0%": {
+                        transform: "scale(1)",
+                    },
+                    "50%": {
+                        transform: "scale(1.3) rotate(45deg)",
+                    },
+                    "100%": {
+                        transform: "scale(1) rotate(360deg)",
+                    },
+                },
+            },
         },
     },
     plugins: [forms, typography],

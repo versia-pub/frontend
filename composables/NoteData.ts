@@ -5,10 +5,15 @@ export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
     client: Ref<Mastodon | null>,
 ) => {
-    const renderedNote = computed(
-        () => toValue(noteProp)?.reblog ?? toValue(noteProp),
+    const isQuote = computed(() => !!toValue(noteProp)?.quote);
+    const isReblog = computed(
+        () => !isQuote.value && !!toValue(noteProp)?.reblog,
     );
-    const isReblog = computed(() => !!toValue(noteProp)?.reblog);
+    const renderedNote = computed(() =>
+        isReblog.value
+            ? toValue(noteProp)?.reblog ?? toValue(noteProp)
+            : toValue(noteProp),
+    );
     const shouldHide = computed(
         () =>
             renderedNote.value?.sensitive ||
@@ -31,7 +36,7 @@ export const useNoteData = (
         renderedNote.value?.account.emojis ?? [],
     );
     const reblog = computed(() =>
-        isReblog.value && renderedNote.value
+        isReblog.value && renderedNote.value && !isQuote.value
             ? {
                   avatar: renderedNote.value.account.avatar,
                   acct: renderedNote.value.account.acct,
@@ -57,6 +62,7 @@ export const useNoteData = (
         loaded,
         note: renderedNote,
         content,
+        isQuote,
         reblog,
         reblogDisplayName,
         shouldHide,
