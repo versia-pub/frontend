@@ -125,7 +125,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => { });
+        .catch(() => {});
 
     tokenData.value = null;
     me.value = null;

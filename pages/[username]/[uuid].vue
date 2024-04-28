@@ -7,7 +7,7 @@
 <script setup lang="ts">
 definePageMeta({
     layout: "app",
-})
+});
 
 const route = useRoute();
 const client = useMegalodon();

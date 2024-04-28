@@ -42,15 +42,19 @@ if (code) {
     }
 }
 
-watch(tokenData, async () => {
-    if (tokenData.value && !me.value) {
-        const response = await client.value?.verifyAccountCredentials()
+watch(
+    tokenData,
+    async () => {
+        if (tokenData.value && !me.value) {
+            const response = await client.value?.verifyAccountCredentials();
 
-        if (response?.data) {
-            me.value = response.data;
+            if (response?.data) {
+                me.value = response.data;
+            }
         }
-    }
-}, { immediate: true })
+    },
+    { immediate: true },
+);
 </script>
 
 <style>
