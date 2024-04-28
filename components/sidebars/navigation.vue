@@ -71,6 +71,7 @@ const loadingAuth = ref(false);
 const appData = useAppData();
 const tokenData = useTokenData();
 const client = useMegalodon();
+const me = useMe();
 
 const compose = () => {
     useEvent("composer:open");
@@ -124,8 +125,9 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     tokenData.value = null;
+    me.value = null;
 };
 </script>

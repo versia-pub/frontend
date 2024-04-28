@@ -15,11 +15,12 @@ useServerSeoMeta({
 provideHeadlessUseId(() => useId());
 
 const code = useRequestURL().searchParams.get("code");
+const appData = useAppData();
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
+const me = useMe();
 
 if (code) {
-    const client = useMegalodon();
-    const appData = useAppData();
-    const tokenData = useTokenData();
     if (appData.value) {
         client.value
             ?.fetchAccessToken(
@@ -40,6 +41,16 @@ if (code) {
             });
     }
 }
+
+watch(tokenData, async () => {
+    if (tokenData.value && !me.value) {
+        const response = await client.value?.verifyAccountCredentials()
+
+        if (response?.data) {
+            me.value = response.data;
+        }
+    }
+}, { immediate: true })
 </script>
 
 <style>

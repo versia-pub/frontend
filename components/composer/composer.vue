@@ -40,19 +40,22 @@ const { input: content } = useTextareaAutosize({
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | null>(null);
+const me = useMe();
 
 onMounted(() => {
     useListen("composer:reply", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "reply";
-        content.value = `@${note.account.acct} `;
+        if (note.account.id !== me.value?.id)
+            content.value = `@${note.account.acct} `;
         textarea.value?.focus();
     });
 
     useListen("composer:quote", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "quote";
-        content.value = `@${note.account.acct} `;
+        if (note.account.id !== me.value?.id)
+            content.value = `@${note.account.acct} `;
         textarea.value?.focus();
     });
 });

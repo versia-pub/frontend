@@ -10,9 +10,6 @@ export const useMegalodon = (
 
     return computed(
         () =>
-            new Mastodon(
-                useBaseUrl().value,
-                ref(tokenData).value?.access_token,
-            ),
+            new Mastodon(useBaseUrl().value, toValue(tokenData)?.access_token),
     );
 };
