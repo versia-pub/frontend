@@ -9,7 +9,7 @@
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Timelines</h3>
             <NuxtLink v-for="timeline in timelines" :key="timeline.href" :to="timeline.href">
-                <ButtonsBase
+                <ButtonsBase v-if="!timeline.requiresAuth || (timeline.requiresAuth && tokenData)"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
                     <Icon :name="timeline.icon" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
@@ -54,6 +54,12 @@
 
 <script lang="ts" setup>
 const timelines = ref([
+    {
+        href: "/home",
+        name: "Home",
+        icon: "tabler:home",
+        requiresAuth: true,
+    },
     {
         href: "/public",
         name: "Public",
