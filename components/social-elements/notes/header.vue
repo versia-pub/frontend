@@ -2,7 +2,7 @@
     <div v-if="small" class="flex flex-row">
         <Skeleton :enabled="!note" shape="rect" class="!h-6 w-6">
             <NuxtLink :href="accountUrl">
-                <img class="h-6 w-6 rounded ring-1 ring-white/5" :src="note?.account.avatar"
+                <img class="h-6 w-6 rounded ring-1 ring-white/5 shrink-0" :src="note?.account.avatar"
                     :alt="`${note?.account.acct}'s avatar`" />
             </NuxtLink>
         </Skeleton>
@@ -46,7 +46,7 @@
             <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
                     @{{
-        note?.account.acct
+                    note?.account.acct
                     }}
                 </Skeleton>
             </span>

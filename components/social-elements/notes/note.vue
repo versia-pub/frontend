@@ -14,7 +14,7 @@
         </div>
         <SocialElementsNotesHeader :note="note" :small="small" />
         <div v-if="!collapsed">
-            <NuxtLink :href="url" class="mt-6 block relative">
+            <NuxtLink :href="url" class="mt-6 block relative" aria-label="Link to note">
                 <Skeleton :enabled="!props.note || !loaded" :min-width="50" :max-width="100" width-unit="%" shape="rect"
                     type="content">
                     <div v-if="content"
