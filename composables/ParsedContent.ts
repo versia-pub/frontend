@@ -66,17 +66,16 @@ export const useParsedContent = (
             }
 
             // Highlight code blocks
-            const codeBlocks = contentHtml.querySelectorAll("pre code");
+            /* const codeBlocks = contentHtml.querySelectorAll("pre code");
             for (const codeBlock of codeBlocks) {
                 const code = codeBlock.textContent;
                 if (!code) {
                     continue;
                 }
-                const newCode = (await getShikiHighlighter()).highlight(code, {
-                    lang: codeBlock
-                        .getAttribute("class")
-                        ?.replace("language-", ""),
-                });
+
+                const highligher = await getShikiHighlighter();
+
+                const newCode = highligher.highlight(code, {});
 
                 // Replace parent pre tag with highlighted code
                 const parent = codeBlock.parentElement;
@@ -84,7 +83,7 @@ export const useParsedContent = (
                     continue;
                 }
                 parent.outerHTML = newCode;
-            }
+            }*/
 
             result.value = contentHtml.innerHTML;
         },
