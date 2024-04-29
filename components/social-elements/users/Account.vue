@@ -15,7 +15,23 @@
                             :alt="`${account?.acct}'s avatar'`" />
                     </Skeleton>
                 </div>
-                <ButtonsSecondary v-if="account">Edit Profile</ButtonsSecondary>
+
+                <ClientOnly>
+                    <ButtonsSecondary v-if="account && account?.id === me?.id">Edit Profile
+                    </ButtonsSecondary>
+                    <ButtonsSecondary :loading="isLoading" @click="follow()"
+                        v-if="account && account?.id !== me?.id && relationship && !relationship.following && !relationship.requested">
+                        <span>Follow</span>
+                    </ButtonsSecondary>
+                    <ButtonsSecondary :loading="isLoading" @click="unfollow()"
+                        v-if="account && account?.id !== me?.id && relationship && relationship.following">
+                        <span>Unfollow</span>
+                    </ButtonsSecondary>
+                    <ButtonsSecondary :loading="isLoading" :disabled="true"
+                        v-if="account && account?.id !== me?.id && relationship && !relationship.following && relationship.requested">
+                        <span>Requested</span>
+                    </ButtonsSecondary>
+                </ClientOnly>
             </div>
 
             <div class="mt-2 px-4">
@@ -95,6 +111,27 @@ const props = defineProps<{
 }>();
 
 const skeleton = computed(() => !props.account);
+const tokenData = useTokenData();
+const me = useMe();
+const client = useMegalodon(tokenData);
+const accountId = computed(() => props.account?.id ?? null);
+const { relationship, isLoading } = useRelationship(client, accountId);
+
+const follow = () => {
+    if (!tokenData || !props.account || !relationship.value) return;
+    relationship.value = {
+        ...relationship.value,
+        following: true,
+    };
+};
+
+const unfollow = () => {
+    if (!tokenData || !props.account || !relationship.value) return;
+    relationship.value = {
+        ...relationship.value,
+        following: false,
+    };
+};
 
 const formattedJoin = computed(() =>
     Intl.DateTimeFormat("en-US", {

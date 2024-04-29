@@ -135,5 +135,6 @@ const signOut = async () => {
 
     tokenData.value = null;
     me.value = null;
+    await navigateTo("/");
 };
 </script>
