@@ -2,7 +2,7 @@
     <aside
         class="fixed h-dvh z-20 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group">
         <NuxtLink class="rounded w-11 h-11 ring-1 ring-white/10 hover:scale-105 duration-200" href="/">
-            <img src="https://lysand.org/logo.png" alt="Lysand logo" />
+            <img src="https://cdn.lysand.org/logo.svg" alt="Lysand logo" />
         </NuxtLink>
 
         <div class="flex flex-col gap-3">
