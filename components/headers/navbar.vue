@@ -14,8 +14,7 @@
         <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
                 <NuxtLink href="/" class="-m-1.5 p-1.5">
-                    <span class="sr-only">Lysand</span>
-                    <img class="h-8 w-auto" src="https://cdn.lysand.org/logo.svg" alt="" />
+                    <img class="h-8 w-auto" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo" />
                 </NuxtLink>
             </div>
             <div class="flex lg:hidden">
@@ -40,8 +39,7 @@
                 class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-50/10">
                 <div class="flex items-center justify-between">
                     <NuxtLink href="/" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Lysand</span>
-                        <img class="h-8 w-auto" src="https://cdn.lysand.org/logo.svg" alt="" />
+                        <img class="h-8 w-auto" src="https://cdn.lysand.org/logo.webp" alt="Lysand Logo" />
                     </NuxtLink>
                     <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-200" @click="mobileMenuOpen = false">
                         <span class="sr-only">Close menu</span>
