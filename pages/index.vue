@@ -1,5 +1,9 @@
 <template>
-    <TimelinesPublic />
+    <div class="max-h-dvh overflow-y-scroll">
+        <TimelinesTimelineScroller>
+            <TimelinesPublic />
+        </TimelinesTimelineScroller>
+    </div>
 </template>
 
 <script setup lang="ts">

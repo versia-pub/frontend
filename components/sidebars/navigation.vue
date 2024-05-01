@@ -8,13 +8,15 @@
         <div class="flex flex-col gap-3">
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Timelines</h3>
-            <NuxtLink v-for="timeline in timelines" :key="timeline.href" :to="timeline.href">
-                <ButtonsBase v-if="!timeline.requiresAuth || (timeline.requiresAuth && tokenData)"
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <Icon :name="timeline.icon" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
-                </ButtonsBase>
-            </NuxtLink>
+            <ClientOnly>
+                <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
+                    <ButtonsBase
+                        class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
+                        <Icon :name="timeline.icon" class="shrink-0 text-2xl" />
+                        <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
+                    </ButtonsBase>
+                </NuxtLink>
+            </ClientOnly>
         </div>
 
         <div class="flex flex-col gap-3 mt-auto">
@@ -50,6 +52,67 @@
             </ClientOnly>
         </div>
     </aside>
+    <!-- Mobile bottom navbar -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 z-20 md:hidden flex justify-around p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
+        <DropdownsAdaptiveDropdown>
+            <template #button>
+                <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                    <Icon name="tabler:home" class="text-2xl" />
+                    <span class="text-xs">Timelines</span>
+                </HeadlessMenuButton>
+            </template>
+
+            <template #items>
+                <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href" :href="timeline.href">
+                    <NuxtLink>
+                        <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                            {{ timeline.name }}
+                        </ButtonsDropdownElement>
+                    </NuxtLink>
+                </HeadlessMenuItem>
+            </template>
+        </DropdownsAdaptiveDropdown>
+        <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
+            <Icon name="tabler:bell" class="text-2xl" />
+            <span class="text-xs">Notifications</span>
+        </NuxtLink>
+        <DropdownsAdaptiveDropdown>
+            <template #button>
+                <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                    <Icon name="tabler:user" class="text-2xl" />
+                    <span class="text-xs">Account</span>
+                </HeadlessMenuButton>
+            </template>
+
+            <template #items>
+                <HeadlessMenuItem v-if="tokenData">
+                    <ButtonsDropdownElement icon="tabler:logout" class="w-full"
+                        @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                        Sign Out
+                    </ButtonsDropdownElement>
+                </HeadlessMenuItem>
+                <HeadlessMenuItem v-if="!tokenData">
+                    <ButtonsDropdownElement icon="tabler:login" class="w-full"
+                        @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                        Sign In
+                    </ButtonsDropdownElement>
+                </HeadlessMenuItem>
+                <HeadlessMenuItem v-if="!tokenData">
+                    <NuxtLink href="/register">
+                        <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
+                            Register
+                        </ButtonsDropdownElement>
+                    </NuxtLink>
+                </HeadlessMenuItem>
+            </template>
+        </DropdownsAdaptiveDropdown>
+        <button @click="compose" v-if="tokenData"
+            class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
+            <Icon name="tabler:writing" class="text-2xl" />
+            <span class="text-xs">Compose</span>
+        </button>
+    </nav>
 </template>
 
 <script lang="ts" setup>
@@ -71,6 +134,12 @@ const timelines = ref([
         icon: "tabler:home",
     },
 ]);
+
+const visibleTimelines = computed(() =>
+    timelines.value.filter(
+        (timeline) => !timeline.requiresAuth || tokenData.value,
+    ),
+);
 
 const loadingAuth = ref(false);
 
@@ -131,7 +200,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => { });
+        .catch(() => {});
 
     tokenData.value = null;
     me.value = null;

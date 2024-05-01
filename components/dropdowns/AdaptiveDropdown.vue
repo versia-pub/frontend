@@ -1,5 +1,5 @@
 <template>
-    <HeadlessMenu v-slot="{ close }">
+    <HeadlessMenu v-slot="{ close }" v-bind="$props">
         <slot name="button"></slot>
 
         <HeadlessMenuItems @click="close" class="fixed z-20 inset-0 z-5 bg-black/50">
@@ -25,5 +25,5 @@
 
 <script setup lang="ts">
 const { width } = useWindowSize();
-const isSmallScreen = computed(() => width.value < 640);
+const isSmallScreen = computed(() => width.value < 768);
 </script>

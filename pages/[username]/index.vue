@@ -1,8 +1,11 @@
 <template>
     <NuxtLayout name="app">
-        <SocialElementsUsersAccount v-if="isMobile" :account="account ?? undefined" />
-        <TimelinesAccount :id="accountId ?? undefined" :key="accountId ?? undefined" />
+        <div class="max-h-dvh overflow-y-scroll">
 
+            <TimelinesTimelineScroller>
+                <TimelinesAccount :id="accountId ?? undefined" :key="accountId ?? undefined" />
+            </TimelinesTimelineScroller>
+        </div>
         <template #right>
             <SocialElementsUsersAccount v-if="!isMobile" :account="account ?? undefined" />
             <div v-else>
@@ -17,6 +20,7 @@ import type { Account } from "~/types/mastodon/account";
 
 definePageMeta({
     layout: false,
+    keepalive: true,
 });
 
 const { width } = useWindowSize();
@@ -32,7 +36,7 @@ const account = computed<Account | null>(
 );
 const accountId = computed(() => account.value?.id ?? null);
 
-useServerSeoMeta({
+useSeoMeta({
     title: account.value?.display_name,
     description: account.value?.note,
     ogImage: account.value?.avatar,

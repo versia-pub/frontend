@@ -22,8 +22,8 @@ export default defineNuxtConfig({
             ],
             htmlAttrs: { lang: "en-us" },
         },
+        keepalive: true,
     },
-
     /*     shiki: {
         defaultTheme: "rose-pine",
         bundledLangs: [
@@ -42,7 +42,6 @@ export default defineNuxtConfig({
             "yaml",
         ],
     }, */
-
     nitro: {
         preset: "bun",
         minify: true,
@@ -54,28 +53,12 @@ export default defineNuxtConfig({
             gzip: false,
         },
     },
-
     schemaOrg: {
         enabled: false,
     },
-
     ogImage: {
         enabled: false,
     },
-
-    vite: {
-        define: {
-            __VERSION__: JSON.stringify("0.4"),
-        },
-        server: {
-            hmr: {
-                clientPort: 3000,
-                host: "localhost",
-                protocol: "ws",
-            },
-        },
-    },
-
     veeValidate: {
         autoImports: true,
         componentNames: {
@@ -85,7 +68,6 @@ export default defineNuxtConfig({
             ErrorMessage: "VeeErrorMessage",
         },
     },
-
     runtimeConfig: {
         public: {
             language: "en-US",
@@ -95,11 +77,9 @@ export default defineNuxtConfig({
             apiHost: "https://social.lysand.org",
         },
     },
-
     site: {
         url: "https://social.lysand.org",
     },
-
     devtools: {
         enabled: true,
     },
