@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="app">
         <div class="max-h-dvh overflow-y-scroll">
-
+            <SocialElementsUsersAccount v-if="isMobile" :account="account ?? undefined" />
             <TimelinesTimelineScroller>
                 <TimelinesAccount :id="accountId ?? undefined" :key="accountId ?? undefined" />
             </TimelinesTimelineScroller>
@@ -20,7 +20,6 @@ import type { Account } from "~/types/mastodon/account";
 
 definePageMeta({
     layout: false,
-    keepalive: true,
 });
 
 const { width } = useWindowSize();
