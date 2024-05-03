@@ -8,7 +8,7 @@
             <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
                 <Icon name="tabler:repeat" class="h-6 w-6" aria-hidden="true" />
                 <img v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
-                    class="h-6 w-6 rounded ring-1 ring-white/10" />
+                    class="h-6 w-6 rounded shrink-0 ring-1 ring-white/10" />
                 <span><strong v-html="reblogDisplayName"></strong> reblogged</span>
             </Skeleton>
         </div>

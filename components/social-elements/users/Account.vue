@@ -9,7 +9,7 @@
             </Skeleton>
 
             <div class="flex items-start justify-between px-4 py-3">
-                <div class="h-32 w-32 -mt-[4.5rem] z-10 bg-dark-700 rounded overflow-hidden">
+                <div class="h-32 w-32 -mt-[4.5rem] z-10 bg-dark-700 rounded shrink-0 overflow-hidden">
                     <Skeleton :enabled="skeleton" class="!h-full !w-full">
                         <img class="cursor-pointer bg-dark-700 ring-1 ring-white/10" :src="account?.avatar"
                             :alt="`${account?.acct}'s avatar'`" />
