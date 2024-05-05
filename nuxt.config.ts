@@ -7,10 +7,29 @@ export default defineNuxtConfig({
         "nuxt-headlessui",
         "@nuxt/fonts",
         "nuxt-icon",
-        "@vee-validate/nuxt",
         //"nuxt-shiki",
+        "@vee-validate/nuxt",
+        "nuxt-security",
     ],
-
+    security: {
+        headers: {
+            // Nuxt DevTools
+            crossOriginEmbedderPolicy:
+                process.env.NODE_ENV === "development"
+                    ? "unsafe-none"
+                    : "require-corp",
+            contentSecurityPolicy: {
+                "img-src": ["'self'", "data:", "https:"],
+                "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
+            },
+            xFrameOptions: "DENY",
+        },
+        rateLimiter: {
+            headers: true,
+            tokensPerInterval: 300,
+            interval: 300000,
+        },
+    },
     app: {
         head: {
             link: [
