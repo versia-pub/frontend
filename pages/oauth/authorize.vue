@@ -1,6 +1,6 @@
 <template>
     <div class="flex min-h-screen relative flex-col justify-center py-12 lg:px-8">
-        <img crossorigin="anonymous" src="https://camo.githubusercontent.com/353460d1fdb1667ec993159270dcece12c491fb38165460215a519ab93f4e554/68747470733a2f2f63646e2d7765622e63706c757370617463682e636f6d2f6c7973616e642e77656270"
+        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp"
             alt="Lysand logo" class="mx-auto h-24 hidden md:block" />
         <div v-if="validUrlParameters"
             class="mt-10 sm:mx-auto w-full sm:max-w-md md:bg-dark-900 px-10 py-10 rounded md:ring-1 md:ring-white/10">
