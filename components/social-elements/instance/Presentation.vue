@@ -2,7 +2,7 @@
     <div class="flex flex-col p-10 gap-4 h-full">
         <div
             class="aspect-video shrink-0 w-full rounded ring-white/5 bg-dark-800 shadow overflow-hidden ring-1 hover:ring-2 duration-100">
-            <img crossorigin="anonymous" class="object-cover w-full h-full duration-150 hover:scale-[102%] ease-in-out"
+            <img class="object-cover w-full h-full duration-150 hover:scale-[102%] ease-in-out"
                 v-if="instance?.banner" alt="Instance banner" :src="instance.banner" />
         </div>
 

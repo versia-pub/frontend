@@ -1,7 +1,7 @@
 <template>
     <div @click="lightbox = true" tabindex="0" aria-label="Open attachment in lightbox" @keydown="lightbox = true"
         class="aspect-video w-full rounded ring-white/5 shadow overflow-hidden ring-1 hover:ring-2 duration-100">
-        <img crossorigin="anonymous" v-if="attachment.type === 'image'" tabindex="-1"
+        <img v-if="attachment.type === 'image'" tabindex="-1"
             class="object-cover w-full h-full rounded duration-150 hover:scale-[102%] ease-in-out" :src="attachment.url"
             :alt="attachment.description ?? ''" :title="attachment.description ?? ''" />
         <video v-else-if="attachment.type === 'video'" class="object-cover w-full h-full rounded" controls
@@ -29,7 +29,7 @@
                                     <span class="sr-only">Close</span>
                                 </button>
                             </div>
-                            <img crossorigin="anonymous" @click.stop v-if="attachment.type === 'image'"
+                            <img @click.stop v-if="attachment.type === 'image'"
                                 class="rounded max-w-full min-w-[30%] max-h-[70%]" :src="attachment.url"
                                 :alt="attachment.description ?? ''" :title="attachment.description ?? ''" />
                             <span @click.stop v-if="attachment.description"

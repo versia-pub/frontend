@@ -22,7 +22,7 @@ export default defineNuxtConfig({
                 "img-src": ["'self'", "data:", "https:"],
                 "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
             },
-            crossOriginResourcePolicy: "cross-origin",
+            crossOriginResourcePolicy: "same-origin",
             xFrameOptions: "DENY",
         },
         rateLimiter: {

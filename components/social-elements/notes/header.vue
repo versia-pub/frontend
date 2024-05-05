@@ -2,8 +2,8 @@
     <div v-if="small" class="flex flex-row">
         <Skeleton :enabled="!note" shape="rect" class="!h-6 w-6">
             <NuxtLink :href="accountUrl" class="shrink-0">
-                <img crossorigin="anonymous" class="h-6 w-6 rounded ring-1 ring-white/5 shrink-0"
-                    :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`" />
+                <img class="h-6 w-6 rounded ring-1 ring-white/5 shrink-0" :src="note?.account.avatar"
+                    :alt="`${note?.account.acct}'s avatar`" />
             </NuxtLink>
         </Skeleton>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
@@ -25,7 +25,7 @@
     <div v-else class="flex flex-row">
         <Skeleton :enabled="!note" shape="rect" class="!h-12 w-12">
             <NuxtLink :href="accountUrl" class="shrink-0">
-                <img crossorigin="anonymous" class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar"
+                <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar"
                     :alt="`${note?.account.acct}'s avatar`" />
             </NuxtLink>
         </Skeleton>
@@ -46,7 +46,7 @@
             <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
                     @{{
-        note?.account.acct
+                    note?.account.acct
                     }}
                 </Skeleton>
             </span>
