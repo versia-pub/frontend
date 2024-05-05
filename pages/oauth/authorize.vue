@@ -1,6 +1,6 @@
 <template>
     <div class="flex min-h-screen relative flex-col justify-center py-12 lg:px-8">
-        <img src="https://camo.githubusercontent.com/353460d1fdb1667ec993159270dcece12c491fb38165460215a519ab93f4e554/68747470733a2f2f63646e2d7765622e63706c757370617463682e636f6d2f6c7973616e642e77656270"
+        <img crossorigin="anonymous" src="https://camo.githubusercontent.com/353460d1fdb1667ec993159270dcece12c491fb38165460215a519ab93f4e554/68747470733a2f2f63646e2d7765622e63706c757370617463682e636f6d2f6c7973616e642e77656270"
             alt="Lysand logo" class="mx-auto h-24 hidden md:block" />
         <div v-if="validUrlParameters"
             class="mt-10 sm:mx-auto w-full sm:max-w-md md:bg-dark-900 px-10 py-10 rounded md:ring-1 md:ring-white/10">
@@ -35,7 +35,7 @@
                         <a v-for="provider of oauthProviders" :key="provider.id"
                             :href="`/oauth/authorize-external?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&clientId=${client_id}&scope=${scope}`">
                             <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
-                                <img :src="provider.icon" :alt="`${provider.name}'s logo'`" class="w-6 h-6" />
+                                <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`" class="w-6 h-6" />
                                 <div class="flex flex-col gap-0 justify-center">
                                     <h3 class="font-bold">{{ provider.name }}</h3>
                                 </div>
@@ -60,7 +60,7 @@
                 <li v-for="client of useConfig().RECOMMENDED_CLIENTS" :key="client.name" class="w-full">
                     <a :href="client.link" target="_blank"
                         class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full flex flex-row gap-3 items-center">
-                        <img :src="client.icon" :alt="`${client.name}'s logo'`" class="h-10 w-10" />
+                        <img crossorigin="anonymous" :src="client.icon" :alt="`${client.name}'s logo'`" class="h-10 w-10" />
                         <div class="flex flex-col justify-between items-start">
                             <h2 class="font-bold text-gray-100">{{ client.name }}</h2>
                             <span class="underline text-pink-700">{{ client.link }}</span>

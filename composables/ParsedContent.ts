@@ -36,6 +36,7 @@ export const useParsedContent = (
                             return match;
                         }
                         const image = document.createElement("img");
+                        image.crossOrigin = "anonymous";
                         image.src = emojiData.url;
                         image.alt = `:${emoji}:`;
                         image.title = emojiData.shortcode;

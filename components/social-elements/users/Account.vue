@@ -3,16 +3,16 @@
         <div class="w-full rounded ring-1 ring-white/10 pb-10">
             <Skeleton :enabled="skeleton" class="!w-full !h-full !aspect-[8/3]">
                 <div class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700">
-                    <img v-if="account?.header" :src="account.header" class="object-cover w-full h-full"
-                        :alt="`${account.acct}'s header image'`" />
+                    <img crossorigin="anonymous" v-if="account?.header" :src="account.header"
+                        class="object-cover w-full h-full" :alt="`${account.acct}'s header image'`" />
                 </div>
             </Skeleton>
 
             <div class="flex items-start justify-between px-4 py-3">
                 <div class="h-32 w-32 -mt-[4.5rem] z-10 bg-dark-700 rounded shrink-0 overflow-hidden">
                     <Skeleton :enabled="skeleton" class="!h-full !w-full">
-                        <img class="cursor-pointer bg-dark-700 ring-1 ring-white/10" :src="account?.avatar"
-                            :alt="`${account?.acct}'s avatar'`" />
+                        <img crossorigin="anonymous" class="cursor-pointer bg-dark-700 ring-1 ring-white/10"
+                            :src="account?.avatar" :alt="`${account?.acct}'s avatar'`" />
                     </Skeleton>
                 </div>
 

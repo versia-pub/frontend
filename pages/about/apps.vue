@@ -8,7 +8,7 @@
             <li v-for="client of useConfig().RECOMMENDED_CLIENTS" :key="client.name" class="w-full">
                 <a :href="client.link" target="_blank"
                     class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full flex flex-row gap-3 items-center">
-                    <img :src="client.icon" class="h-10 w-10" :alt="`${client.name}'s logo'`" />
+                    <img crossorigin="anonymous" :src="client.icon" class="h-10 w-10" :alt="`${client.name}'s logo'`" />
                     <div class="flex flex-col justify-between items-start">
                         <h2 class="text-gray-100 font-semibold">{{ client.name }}</h2>
                         <span class="underline text-pink-700">{{ client.link }}</span>
