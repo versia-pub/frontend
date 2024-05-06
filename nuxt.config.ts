@@ -21,6 +21,8 @@ export default defineNuxtConfig({
             contentSecurityPolicy: {
                 "img-src": ["'self'", "data:", "https:"],
                 "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
+                // Add https because of some browsers blocking form-action to 'self' if the page is from a redirect
+                "form-action": ["'self'", "https:"],
             },
             crossOriginResourcePolicy: "same-origin",
             xFrameOptions: "DENY",
