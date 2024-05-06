@@ -27,7 +27,7 @@
         "postinstall": "nuxt prepare"
     },
     "dependencies": {
-        "@nuxt/fonts": "^0.6.1",
+        "@nuxt/fonts": "^0.7.0",
         "@tailwindcss/typography": "^0.5.12",
         "@vee-validate/nuxt": "^4.12.6",
         "@vee-validate/zod": "^4.12.6",
