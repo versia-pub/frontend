@@ -1,11 +1,9 @@
 <template>
     <div v-if="small" class="flex flex-row">
-        <Skeleton :enabled="!note" shape="rect" class="!h-6 w-6">
-            <NuxtLink :href="accountUrl" class="shrink-0">
-                <img class="h-6 w-6 rounded ring-1 ring-white/5 shrink-0" :src="note?.account.avatar"
-                    :alt="`${note?.account.acct}'s avatar`" />
-            </NuxtLink>
-        </Skeleton>
+        <NuxtLink :href="accountUrl" class="shrink-0">
+            <AvatarsCentered :url="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+                class="h-6 w-6 rounded ring-1 ring-white/5" />
+        </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row text-sm items-center justify-between w-full">
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
@@ -23,12 +21,10 @@
         </div>
     </div>
     <div v-else class="flex flex-row">
-        <Skeleton :enabled="!note" shape="rect" class="!h-12 w-12">
-            <NuxtLink :href="accountUrl" class="shrink-0">
-                <img class="h-12 w-12 rounded ring-1 ring-white/5" :src="note?.account.avatar"
-                    :alt="`${note?.account.acct}'s avatar`" />
-            </NuxtLink>
-        </Skeleton>
+        <NuxtLink :href="accountUrl" class="shrink-0">
+            <AvatarsCentered :url="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+                class="h-12 w-12 rounded ring-1 ring-white/5" />
+        </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">

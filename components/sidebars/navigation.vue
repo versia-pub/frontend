@@ -64,13 +64,15 @@
             </template>
 
             <template #items>
-                <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href" :href="timeline.href">
-                    <NuxtLink>
-                        <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
-                            {{ timeline.name }}
-                        </ButtonsDropdownElement>
-                    </NuxtLink>
-                </HeadlessMenuItem>
+                <ClientOnly>
+                    <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href" :href="timeline.href">
+                        <NuxtLink>
+                            <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                                {{ timeline.name }}
+                            </ButtonsDropdownElement>
+                        </NuxtLink>
+                    </HeadlessMenuItem>
+                </ClientOnly>
             </template>
         </DropdownsAdaptiveDropdown>
         <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
@@ -86,25 +88,27 @@
             </template>
 
             <template #items>
-                <HeadlessMenuItem v-if="tokenData">
-                    <ButtonsDropdownElement icon="tabler:logout" class="w-full"
-                        @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                        Sign Out
-                    </ButtonsDropdownElement>
-                </HeadlessMenuItem>
-                <HeadlessMenuItem v-if="!tokenData">
-                    <ButtonsDropdownElement icon="tabler:login" class="w-full"
-                        @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                        Sign In
-                    </ButtonsDropdownElement>
-                </HeadlessMenuItem>
-                <HeadlessMenuItem v-if="!tokenData">
-                    <NuxtLink href="/register">
-                        <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
-                            Register
+                <ClientOnly>
+                    <HeadlessMenuItem v-if="tokenData">
+                        <ButtonsDropdownElement icon="tabler:logout" class="w-full"
+                            @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                            Sign Out
                         </ButtonsDropdownElement>
-                    </NuxtLink>
-                </HeadlessMenuItem>
+                    </HeadlessMenuItem>
+                    <HeadlessMenuItem v-if="!tokenData">
+                        <ButtonsDropdownElement icon="tabler:login" class="w-full"
+                            @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                            Sign In
+                        </ButtonsDropdownElement>
+                    </HeadlessMenuItem>
+                    <HeadlessMenuItem v-if="!tokenData">
+                        <NuxtLink href="/register">
+                            <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
+                                Register
+                            </ButtonsDropdownElement>
+                        </NuxtLink>
+                    </HeadlessMenuItem>
+                </ClientOnly>
             </template>
         </DropdownsAdaptiveDropdown>
         <button @click="compose" v-if="tokenData"
@@ -132,6 +136,12 @@ const timelines = ref([
         href: "/local",
         name: "Local",
         icon: "tabler:home",
+    },
+    {
+        href: "/notifications",
+        name: "Notifications",
+        icon: "tabler:bell",
+        requiresAuth: true,
     },
 ]);
 

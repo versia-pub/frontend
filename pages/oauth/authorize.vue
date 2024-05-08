@@ -1,9 +1,9 @@
 <template>
-    <div class="flex min-h-screen relative flex-col justify-center py-12 lg:px-8">
+    <div class="flex min-h-screen relative flex-col justify-center py-12 px-8">
         <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
             class="mx-auto h-24 hidden md:block" />
         <div v-if="validUrlParameters"
-            class="mt-10 sm:mx-auto w-full sm:max-w-md px-10 py-10 rounded md:ring-1 md:ring-white/10">
+            class="sm:mx-auto w-full sm:max-w-md px-10 py-10 rounded md:ring-1 md:ring-white/10">
             <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
                 <h2 class="font-bold text-lg">An error occured</h2>
                 <span class="text-sm">{{ error_description }}</span>
@@ -48,7 +48,7 @@
                 <ButtonsPrimary type="submit" class="w-full">Sign in</ButtonsPrimary>
             </VeeForm>
         </div>
-        <div v-else class="mx-auto max-w-md mt-10">
+        <div v-else class="mx-auto max-w-md">
             <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
                 parameters
             </h1>

@@ -42,7 +42,7 @@
         </div>
         <Skeleton class="!h-10 w-full mt-6" :enabled="!props.note || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
-                class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 disabled:*:cursor-not-allowed relative justify-between text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
+                class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 *:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
                 <button class="group" @click="note && useEvent('note:reply', note)" :disabled="!isSignedIn">
                     <Icon name="tabler:arrow-back-up"
                         class="h-5 w-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />

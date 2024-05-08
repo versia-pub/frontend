@@ -1,25 +1,22 @@
 <template>
     <div class="from-dark-600 to-dark-900 bg-gradient-to-tl min-h-dvh">
         <SidebarsNavigation />
-        <div class="relative md:pl-20 min-h-dvh flex flex-row justify-center lg:justify-between">
-            <aside v-if="width > 1024"
-                class="max-w-md max-h-dvh overflow-y-auto w-full bg-dark-900 ring-1 ring-white/10 hidden lg:flex flex-col">
-                <ClientOnly>
-                    <div class="grow p-10 mb-10" v-if="!tokenData">
-                        <button type="button"
-                            class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
-                            <Icon name="tabler:notification" class="mx-auto h-12 w-12 text-gray-400" />
-                            <span class="mt-3 block text-sm font-semibold text-gray-200 max-w-56 mx-auto">Notifications
-                                will
-                                appear here
-                                when you
-                                sign in</span>
-                        </button>
-                    </div>
-                    <TimelinesTimelineScroller v-else>
+        <div class="relative md:pl-20 min-h-dvh flex flex-row justify-center xl:justify-between">
+            <ClientOnly>
+                <CollapsibleAside v-if="width > 1280" class="max-w-md max-h-dvh overflow-y-auto w-full xl:flex hidden">
+                    <SocialElementsInstancePresentation />
+                </CollapsibleAside>
+            </ClientOnly>
+            <div class="w-full max-h-dvh max-w-2xl">
+                <slot />
+            </div>
+            <ClientOnly>
+                <CollapsibleAside v-if="width > 1280 && tokenData" direction="right"
+                    class="max-w-md max-h-dvh overflow-y-auto w-full hidden xl:flex">
+                    <TimelinesTimelineScroller>
                         <TimelinesNotifications />
                     </TimelinesTimelineScroller>
-                    <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
+                    <!-- <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
                         <div class="text-center">
                             <strong
                                 class="bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">Lysand
@@ -40,18 +37,12 @@
                                 Mobile Apps
                             </ButtonsSecondary>
                         </NuxtLink>
-                    </div>
-                </ClientOnly>
-            </aside>
-            <div class="w-full max-h-dvh">
-                <slot />
-            </div>
-            <aside v-if="width > 1024"
-                class="max-w-md max-h-dvh overflow-y-auto w-full bg-dark-900 ring-1 ring-white/10 lg:block hidden">
-                <slot name="right">
-                    <SocialElementsInstancePresentation />
-                </slot>
-            </aside>
+                    </div> -->
+                </CollapsibleAside>
+                <div v-else-if="width > 1280" class="max-w-md w-full max-h-dvh hidden xl:flex">
+                    <!-- Padding only container -->
+                </div>
+            </ClientOnly>
         </div>
     </div>
     <ComposerModal />
@@ -59,6 +50,7 @@
 
 <script setup lang="ts">
 import { convert } from "html-to-text";
+import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
 
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
@@ -72,7 +64,6 @@ useServerSeoMeta({
     description: convert(description.value?.content ?? ""),
     ogSiteName: "Lysand",
     colorScheme: "dark",
-    referrer: "no-referrer",
 });
 
 const { n } = useMagicKeys();

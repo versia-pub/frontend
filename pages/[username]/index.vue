@@ -1,29 +1,18 @@
 <template>
-    <NuxtLayout name="app">
-        <div class="max-h-dvh overflow-y-scroll">
-            <SocialElementsUsersAccount v-if="isMobile" :account="account ?? undefined" />
-            <TimelinesTimelineScroller>
-                <TimelinesAccount :id="accountId ?? undefined" :key="accountId ?? undefined" />
-            </TimelinesTimelineScroller>
-        </div>
-        <template #right>
-            <SocialElementsUsersAccount v-if="!isMobile" :account="account ?? undefined" />
-            <div v-else>
-
-            </div>
-        </template>
-    </NuxtLayout>
+    <div class="max-h-dvh overflow-y-scroll w-full">
+        <SocialElementsUsersAccount :account="account ?? undefined" />
+        <TimelinesTimelineScroller>
+            <TimelinesAccount :id="accountId" :key="accountId" />
+        </TimelinesTimelineScroller>
+    </div>
 </template>
 
 <script setup lang="ts">
 import type { Account } from "~/types/mastodon/account";
 
 definePageMeta({
-    layout: false,
+    layout: "app",
 });
-
-const { width } = useWindowSize();
-const isMobile = computed(() => width.value < 1024);
 
 const route = useRoute();
 const client = useMegalodon(undefined, true);
@@ -33,12 +22,22 @@ const accounts = useAccountSearch(client, username);
 const account = computed<Account | null>(
     () => accounts.value?.find((account) => account.acct === username) ?? null,
 );
-const accountId = computed(() => account.value?.id ?? null);
+const accountId = computed(() => account.value?.id ?? undefined);
 
-useSeoMeta({
-    title: account.value?.display_name,
-    description: account.value?.note,
-    ogImage: account.value?.avatar,
-    profileUsername: account.value?.acct,
+useServerSeoMeta({
+    title: computed(() =>
+        account.value ? account.value.display_name : "Loading",
+    ),
+    ogTitle: computed(() =>
+        account.value ? account.value.display_name : "Loading",
+    ),
+    ogImage: computed(() => (account.value ? account.value.avatar : undefined)),
+    ogType: "profile",
+    ogDescription: computed(() =>
+        account.value ? account.value.note : undefined,
+    ),
+    description: computed(() =>
+        account.value ? account.value.note : undefined,
+    ),
 });
 </script>
