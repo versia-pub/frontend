@@ -1,7 +1,7 @@
 <template>
     <div class="flex min-h-screen relative flex-col justify-center py-12 px-8">
         <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
-            class="mx-auto h-24 hidden md:block" />
+            class="mx-auto h-24 hidden md:block mb-10" />
         <div v-if="validUrlParameters"
             class="sm:mx-auto w-full sm:max-w-md px-10 py-10 rounded md:ring-1 md:ring-white/10">
             <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">

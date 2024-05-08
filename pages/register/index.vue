@@ -1,7 +1,7 @@
 <template>
     <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp"
-            alt="Lysand logo" class="mx-auto h-24 hidden md:block" />
+        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
+            class="mx-auto h-24 hidden md:block" />
         <div v-if="instance && instance.registrations" class="mx-auto w-full max-w-md">
             <div v-if="Object.keys(errors).length > 0"
                 class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
@@ -69,7 +69,7 @@
                 </VeeField>
 
                 <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonsPrimary>
+            "Register" }}</ButtonsPrimary>
             </VeeForm>
         </div>
         <div v-else>
