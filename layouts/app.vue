@@ -34,9 +34,6 @@
                         </NuxtLink>
                     </div> -->
                 </CollapsibleAside>
-                <div v-else-if="width > 1280" class="max-w-md w-full max-h-dvh hidden xl:flex">
-                    <!-- Padding only container -->
-                </div>
             </ClientOnly>
         </div>
     </div>
