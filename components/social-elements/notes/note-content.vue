@@ -1,6 +1,6 @@
 <template>
     <div v-if="!collapsed">
-        <NuxtLink :href="url" class="mt-6 block relative" aria-label="Link to note">
+        <div class="mt-6 block relative">
             <Skeleton :enabled="!props.note || !loaded" :min-width="50" :max-width="100" width-unit="%" shape="rect"
                 type="content">
                 <div v-if="content"
@@ -8,7 +8,7 @@
                     v-html="content">
                 </div>
             </Skeleton>
-        </NuxtLink>
+        </div>
         <div v-if="note && note.media_attachments.length > 0" class="[&:not(:first-child)]:mt-6">
             <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
                 :attachment="attachment" />

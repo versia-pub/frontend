@@ -33,17 +33,28 @@
         note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
-                <NuxtLink :href="noteUrl" class="text-gray-400 text-sm ml-2 line-clamp-1 break-all shrink-0">
+                <NuxtLink :href="noteUrl" class="text-gray-400 text-sm ml-2 line-clamp-1 break-all shrink-0"
+                    :alt="fullTime" :title="fullTime">
                     <Skeleton :enabled="!note" :min-width="50" :max-width="100" shape="rect">
                         {{ timeAgo }}
                     </Skeleton>
                 </NuxtLink>
             </div>
-            <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
+            <span class="text-gray-400 text-sm line-clamp-1 break-all w-full group">
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
-                    @{{
-                    note?.account.acct
-                    }}
+                    <span class="group-hover:hidden">
+                        @{{
+        note?.account.acct
+                        }}</span>
+                    <span @click="copyAccount" v-if="!hasCopied"
+                        class="hidden select-none group-hover:flex cursor-pointer items-center gap-x-1">
+                        <Icon name="tabler:clipboard" class="h-4 w-4 text-gray-200" aria-hidden="true" />
+                        Click to copy
+                    </span>
+                    <span v-else class="hidden group-hover:flex select-none items-center gap-x-1">
+                        <Icon name="tabler:check" class="h-4 w-4 text-green-500" aria-hidden="true" />
+                        Copied!
+                    </span>
                 </Skeleton>
             </span>
         </div>
@@ -61,4 +72,20 @@ const props = defineProps<{
 const noteUrl = props.note && `/@${props.note.account.acct}/${props.note.id}`;
 const accountUrl = props.note && `/@${props.note.account.acct}`;
 const timeAgo = useTimeAgo(props.note?.created_at ?? 0);
+const fullTime = Intl.DateTimeFormat("default", {
+    dateStyle: "medium",
+    timeStyle: "short",
+}).format(new Date(props.note?.created_at ?? 0));
+const hasCopied = ref(false);
+
+const { copy } = useClipboard();
+const copyAccount = () => {
+    if (props.note) {
+        copy(`@${props.note.account.acct}`);
+        hasCopied.value = true;
+        setTimeout(() => {
+            hasCopied.value = false;
+        }, 2000);
+    }
+};
 </script>
