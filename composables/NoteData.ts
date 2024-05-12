@@ -5,6 +5,7 @@ export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
     client: Ref<Mastodon | null>,
 ) => {
+    const isReply = computed(() => !!toValue(noteProp)?.in_reply_to_id);
     const isQuote = computed(() => !!toValue(noteProp)?.quote);
     const isReblog = computed(
         () => !isQuote.value && !!toValue(noteProp)?.reblog,
@@ -54,7 +55,7 @@ export const useNoteData = (
         );
 
         if (result?.data) {
-            useEvent("note:delete", result.data);
+            useEvent("note:delete", result.data as Status);
         }
     };
 
@@ -66,6 +67,7 @@ export const useNoteData = (
         reblog,
         reblogDisplayName,
         shouldHide,
+        isReply,
         url,
         remove,
     };

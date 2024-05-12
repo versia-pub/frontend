@@ -37,8 +37,7 @@ useListen("note:quote", async (note) => {
     useEvent("composer:quote", note);
 });
 useListen("composer:open", () => {
-    if (tokenData.value)
-        open.value = true;
+    if (tokenData.value) open.value = true;
 });
 useListen("composer:close", () => {
     open.value = false;

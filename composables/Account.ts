@@ -3,7 +3,7 @@ import type { Account } from "~/types/mastodon/account";
 
 export const useAccount = (
     client: MaybeRef<Mastodon | null>,
-    accountId: string,
+    accountId: MaybeRef<string | null>,
 ) => {
     if (!client) {
         return ref(null as Account | null);
@@ -11,11 +11,14 @@ export const useAccount = (
 
     const output = ref(null as Account | null);
 
-    ref(client)
-        .value?.getAccount(accountId)
-        .then((res) => {
-            output.value = res.data;
-        });
+    watchEffect(() => {
+        if (toValue(accountId))
+            ref(client)
+                .value?.getAccount(toValue(accountId) ?? "")
+                .then((res) => {
+                    output.value = res.data;
+                });
+    });
 
     return output;
 };

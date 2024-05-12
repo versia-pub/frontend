@@ -12,6 +12,7 @@
                 <span><strong v-html="reblogDisplayName"></strong> reblogged</span>
             </Skeleton>
         </div>
+        <SocialElementsNotesReplyHeader v-if="isReply" :account_id="note?.in_reply_to_account_id ?? null" />
         <SocialElementsNotesHeader :note="note" :small="small" />
         <SocialElementsNotesNoteContent :note="note" :loaded="loaded" :url="url" :content="content" :is-quote="isQuote"
             :should-hide="shouldHide" />
@@ -104,6 +105,7 @@ const {
     url,
     isQuote,
     reblog,
+    isReply,
     reblogDisplayName,
 } = useNoteData(ref(props.note), client);
 
