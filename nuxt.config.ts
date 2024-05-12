@@ -6,12 +6,16 @@ export default defineNuxtConfig({
         "@vueuse/nuxt",
         "nuxt-headlessui",
         "@nuxt/fonts",
-        "nuxt-icon",
         //"nuxt-shiki",
         "@vee-validate/nuxt",
         "nuxt-security",
         "@vite-pwa/nuxt",
     ],
+    vue: {
+        compilerOptions: {
+            isCustomElement: (tag) => tag === "iconify-icon",
+        },
+    },
     pwa: {
         manifest: {
             name: "Lysand",

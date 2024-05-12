@@ -31,8 +31,8 @@
                     class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
                     <Skeleton :enabled="skeleton" :min-width="200" :max-width="350" class="h-6">
                         {{ account?.display_name }}
-                        <Icon v-if="account?.locked" name="tabler:lock"
-                            class="w-5 h-5 mb-0.5 text-gray-400 cursor-pointer"
+                        <iconify-icon v-if="account?.locked" icon="tabler:lock" width="1.25rem" height="1.25rem"
+                            class="text-gray-400 cursor-pointer align-text-top"
                             title="This account manually approves its followers" />
                     </Skeleton>
                 </h2>
@@ -51,12 +51,12 @@
             <div class="mt-3 flex items-center space-x-4 px-4">
                 <div class="flex items-center space-x-1">
                     <Skeleton :enabled="skeleton" :min-width="150" :max-width="150" shape="rect">
-                        <Icon name="tabler:calendar" class="w-5 h-5 text-gray-400" />
+                        <iconify-icon icon="tabler:calendar" width="1.25rem" height="1.25rem" class="text-gray-400" />
                         <span class="text-gray-400">Created {{ formattedJoin }}</span>
                     </Skeleton>
                 </div>
                 <div v-if="account?.bot" class="flex items-center space-x-1">
-                    <Icon name="tabler:robot" class="w-5 h-5 text-gray-400" />
+                    <iconify-icon icon="tabler:robot" width="1.25rem" height="1.25rem" class="text-gray-400" />
                     <span class="text-gray-400">Bot</span>
                 </div>
             </div>

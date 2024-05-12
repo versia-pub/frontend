@@ -1,21 +1,18 @@
 <template>
-    <div v-if="!collapsed">
-        <div class="mt-6 block relative">
-            <Skeleton :enabled="!props.note || !loaded" :min-width="50" :max-width="100" width-unit="%" shape="rect"
-                type="content">
-                <div v-if="content"
-                    :class="['prose prose-invert duration-200 !max-w-full break-words prose-a:no-underline', $style.content]"
-                    v-html="content">
-                </div>
-            </Skeleton>
-        </div>
+    <div v-if="!collapsed" class="mt-6">
+        <Skeleton :enabled="!props.note || !loaded" :min-width="50" :max-width="100" width-unit="%" shape="rect"
+            type="content">
+            <div v-if="content"
+                :class="['prose block relative prose-invert duration-200 !max-w-full break-words prose-a:no-underline', $style.content]"
+                v-html="content">
+            </div>
+        </Skeleton>
         <div v-if="note && note.media_attachments.length > 0" class="[&:not(:first-child)]:mt-6">
             <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
                 :attachment="attachment" />
         </div>
-        <div v-if="isQuote && note?.reblog" class="mt-4">
-            <LazySocialElementsNotesNote :note="note?.reblog" :small="true" />
-        </div>
+        <LazySocialElementsNotesNote v-if="isQuote && note?.reblog" :note="note?.reblog" :small="true"
+            class="mt-4 !rounded" />
     </div>
     <div v-else
         class="rounded text-center ring-1 !max-w-full ring-white/10 h-52 mt-6 prose prose-invert p-4 flex flex-col justify-center items-center">

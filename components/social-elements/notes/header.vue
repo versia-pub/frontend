@@ -48,11 +48,13 @@
                         }}</span>
                     <span @click="copyAccount" v-if="!hasCopied"
                         class="hidden select-none group-hover:flex cursor-pointer items-center gap-x-1">
-                        <Icon name="tabler:clipboard" class="h-4 w-4 text-gray-200" aria-hidden="true" />
+                        <iconify-icon icon="tabler:clipboard" height="1rem" width="1rem" class="text-gray-200"
+                            aria-hidden="true" />
                         Click to copy
                     </span>
                     <span v-else class="hidden group-hover:flex select-none items-center gap-x-1">
-                        <Icon name="tabler:check" class="h-4 w-4 text-green-500" aria-hidden="true" />
+                        <iconify-icon icon="tabler:check" height="1rem" width="1rem" class="text-green-500"
+                            aria-hidden="true" />
                         Copied!
                     </span>
                 </Skeleton>

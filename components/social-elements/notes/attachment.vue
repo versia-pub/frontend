@@ -21,11 +21,11 @@
                             @click="lightbox = false">
                             <div class="w-full absolute inset-x-0 top-0 p-10 shrink text-gray-400 flex flex-row gap-3">
                                 <a @click.stop :href="attachment.url" target="_blank" download class="ml-auto">
-                                    <Icon name="tabler:download" class="w-6 h-6" />
+                                    <iconify-icon icon="tabler:download" width="1.5rem" height="1.5rem" />
                                     <span class="sr-only">Close</span>
                                 </a>
-                                <button @click.stop="lightbox = false" class="">
-                                    <Icon name="tabler:x" class="w-6 h-6" />
+                                <button @click.stop="lightbox = false">
+                                    <iconify-icon icon="tabler:x" width="1.5rem" height="1.5rem" />
                                     <span class="sr-only">Close</span>
                                 </button>
                             </div>

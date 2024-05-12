@@ -3,7 +3,7 @@
         <div class="px-4 pt-2 pb-3 flex flex-row gap-2 items-center">
             <Skeleton :enabled="!notification" shape="rect" class="!h-6" :min-width="40" :max-width="100"
                 width-unit="%">
-                <Icon :name="icon" class="h-6 w-6 text-gray-200" aria-hidden="true" />
+                <iconify-icon :icon="icon" width="1.5rem" height="1.5rem" class="text-gray-200" aria-hidden="true" />
                 <AvatarsCentered v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`"
                     class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />

@@ -13,7 +13,7 @@
                 <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
                     <ButtonsBase
                         class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                        <Icon :name="timeline.icon" class="shrink-0 text-2xl" />
+                        <iconify-icon :icon="timeline.icon" class="shrink-0 text-2xl" />
                         <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
                     </ButtonsBase>
                 </NuxtLink>
@@ -27,18 +27,18 @@
                 <ButtonsBase v-if="tokenData" @click="signOut().finally(() => loadingAuth = false)"
                     :loading="loadingAuth"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <Icon name="tabler:logout" class="shrink-0 text-2xl" />
+                    <iconify-icon icon="tabler:logout" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Sign Out</span>
                 </ButtonsBase>
                 <ButtonsBase v-else @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <Icon name="tabler:login" class="shrink-0 text-2xl" />
+                    <iconify-icon icon="tabler:login" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Sign In</span>
                 </ButtonsBase>
                 <NuxtLink href="/register" v-if="!tokenData">
                     <ButtonsBase
                         class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                        <Icon name="tabler:certificate" class="shrink-0 text-2xl" />
+                        <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
                         <span class="pr-28 line-clamp-1">Register</span>
                     </ButtonsBase>
                 </NuxtLink>
@@ -47,16 +47,18 @@
                     Posts</h3>
                 <ButtonsBase v-if="tokenData" @click="compose" title="Open composer (shortcut: n)"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
-                    <Icon name="tabler:writing" class="shrink-0 text-2xl" />
+                    <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Compose</span>
                     <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row">
-                        <Icon name="tabler:keyboard" class="size-4 inline" aria-hidden="true" />
-                        <Icon name="tabler:letter-n-small" class="size-4 inline -mr-1" aria-hidden="true" />
+                        <iconify-icon icon="tabler:keyboard" height="1rem" width="1rem" class="inline"
+                            aria-hidden="true" />
+                        <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
+                            aria-hidden="true" />
                     </kbd>
                 </ButtonsBase>
                 <ButtonsBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-pink-600 overflow-hidden h-12 w-full duration-200">
-                    <Icon name="tabler:refresh" class="shrink-0 text-2xl" />
+                    <iconify-icon icon="tabler:refresh" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Update</span>
                 </ButtonsBase>
             </ClientOnly>
@@ -69,7 +71,7 @@
             <DropdownsAdaptiveDropdown>
                 <template #button>
                     <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
-                        <Icon name="tabler:home" class="text-2xl" />
+                        <iconify-icon icon="tabler:home" class="text-2xl" />
                         <span class="text-xs">Timelines</span>
                     </HeadlessMenuButton>
                 </template>
@@ -88,20 +90,20 @@
                 </template>
             </DropdownsAdaptiveDropdown>
             <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
-                <Icon name="tabler:bell" class="text-2xl" />
+                <iconify-icon icon="tabler:bell" class="text-2xl" />
                 <span class="text-xs">Notifications</span>
             </NuxtLink>
             <ClientOnly v-if="$pwa?.needRefresh">
                 <button class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
                     @click="$pwa?.updateServiceWorker(true)">
-                    <Icon name="tabler:refresh" class="text-2xl" />
+                    <iconify-icon icon="tabler:refresh" class="text-2xl" />
                     <span class="text-xs">Update</span>
                 </button>
             </ClientOnly>
             <DropdownsAdaptiveDropdown v-else>
                 <template #button>
                     <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
-                        <Icon name="tabler:user" class="text-2xl" />
+                        <iconify-icon icon="tabler:user" class="text-2xl" />
                         <span class="text-xs">Account</span>
                     </HeadlessMenuButton>
                 </template>
@@ -132,7 +134,7 @@
             </DropdownsAdaptiveDropdown>
             <button @click="compose" v-if="tokenData"
                 class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
-                <Icon name="tabler:writing" class="text-2xl" />
+                <iconify-icon icon="tabler:writing" class="text-2xl" />
                 <span class="text-xs">Compose</span>
             </button>
         </ClientOnly>

@@ -7,7 +7,7 @@
         </OverlayScrollbarsComponent>
         <button @click="open = !open"
             class="h-full bg-dark-700 hover:bg-dark-400 hover:cursor-pointer duration-200 py-4 px-0.5 flex items-center justify-center w-4 shrink-0">
-            <Icon name="tabler:chevron-right"
+            <iconify-icon icon="tabler:chevron-right"
                 :class="['text-gray-200 duration-200', direction === 'left' ? open ? 'rotate-180' : 'rotate-0' : open ? 'rotate-0' : 'rotate-180']"
                 aria-hidden="true" />
         </button>

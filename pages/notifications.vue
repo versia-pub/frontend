@@ -4,7 +4,7 @@
             <div class="shrink-0 p-10 h-dvh" v-if="!tokenData">
                 <button type="button"
                     class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
-                    <Icon name="tabler:notification" class="mx-auto h-12 w-12 text-gray-400" />
+                    <iconify-icon name="tabler:notification" width="3rem" height="3rem" class="mx-auto text-gray-400" />
                     <span class="mt-3 block text-sm font-semibold text-gray-200 max-w-56 mx-auto">Notifications
                         will
                         appear here

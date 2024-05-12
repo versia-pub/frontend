@@ -23,7 +23,7 @@
                     class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
                     @click="mobileMenuOpen = true">
                     <span class="sr-only">Open main menu</span>
-                    <Icon name="tabler:menu-2" class="h-6 w-6" aria-hidden="true" />
+                    <iconify-icon icon="tabler:menu-2" width="1.5rem" height="1.5rem" aria-hidden="true" />
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
@@ -45,7 +45,7 @@
                     </NuxtLink>
                     <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-200" @click="mobileMenuOpen = false">
                         <span class="sr-only">Close menu</span>
-                        <Icon name="tabler:x" class="h-6 w-6" aria-hidden="true" />
+                        <iconify-icon icon="tabler:x" width="1.5rem" height="1.5rem" aria-hidden="true" />
                     </button>
                 </div>
                 <div class="mt-6 flow-root">

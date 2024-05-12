@@ -9,7 +9,7 @@
 
         <div v-if="hasReachedEnd"
             class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
-            <Icon name="tabler:message-off" class="h-6 w-6" />
+            <iconify-icon icon="tabler:message-off" width="1.5rem" height="1.5rem" />
             <span>No more posts, you've seen them all</span>
         </div>
     </ClientOnly>

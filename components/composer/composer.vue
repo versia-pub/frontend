@@ -3,11 +3,13 @@
         <div class="py-2 relative">
             <div v-if="respondingTo" class="mb-4">
                 <span v-if="respondingType === 'reply'" class="text-gray-400 uppercase text-xs font-semibold">
-                    <Icon name="tabler:arrow-back-up" class="h-4 w-4 text-gray-400 mb-0.5" aria-hidden="true" />
+                    <iconify-icon width="1rem" height="1rem" icon="tabler:arrow-back-up" class="text-gray-400 mb-0.5"
+                        aria-hidden="true" />
                     Replying to
                 </span>
                 <span v-else-if="respondingType === 'quote'" class="text-gray-400 uppercase text-xs font-semibold">
-                    <Icon name="tabler:quote" class="h-4 w-4 text-gray-400" aria-hidden="true" />
+                    <iconify-icon width="1rem" height="1rem" icon="tabler:quote" class="text-gray-400"
+                        aria-hidden="true" />
                     Quoting
                 </span>
                 <OverlayScrollbarsComponent :defer="true" class="mt-2 max-h-72 overflow-y-auto">
@@ -28,22 +30,23 @@
         </div>
         <div class="flex flex-row gap-1 border-white/20">
             <ComposerButton title="Mention someone">
-                <Icon name="tabler:at" class="size-6" aria-hidden="true" />
+                <iconify-icon height="1.5rem" width="1.5rem" icon="tabler:at" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Toggle Markdown" @click="markdown = !markdown" :toggled="markdown">
-                <Icon :name="markdown ? 'tabler:markdown' : 'tabler:markdown-off'" class="size-6" aria-hidden="true" />
+                <iconify-icon width="1.25rem" height="1.25rem"
+                    :icon="markdown ? 'tabler:markdown' : 'tabler:markdown-off'" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Use a custom emoji">
-                <Icon name="tabler:mood-smile" class="size-6" aria-hidden="true" />
+                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:mood-smile" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Add media">
-                <Icon name="tabler:photo-up" class="size-6" aria-hidden="true" />
+                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:photo-up" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Add a file">
-                <Icon name="tabler:file-upload" class="size-6" aria-hidden="true" />
+                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:file-upload" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Add content warning" @click="cw = cw === null ? '' : null" :toggled="cw !== null">
-                <Icon name="tabler:rating-18-plus" class="size-6" aria-hidden="true" />
+                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
             </ComposerButton>
             <ButtonsPrimary :loading="submitting" @click="send" class="ml-auto rounded-full">
                 <span>Send!</span>
