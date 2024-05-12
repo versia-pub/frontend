@@ -37,11 +37,13 @@ useListen("note:quote", async (note) => {
     useEvent("composer:quote", note);
 });
 useListen("composer:open", () => {
-    open.value = true;
+    if (tokenData.value)
+        open.value = true;
 });
 useListen("composer:close", () => {
     open.value = false;
 });
 const client = useMegalodon();
+const tokenData = useTokenData();
 const instance = useInstance(client);
 </script>

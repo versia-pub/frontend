@@ -1,6 +1,8 @@
 <template>
     <ClientOnly>
-        <SocialElementsNotesNote v-if="note" :note="note" />
+        <div class="max-h-dvh min-h-dvh overflow-y-auto">
+            <SocialElementsNotesNote v-if="note" :note="note" />
+        </div>
     </ClientOnly>
 </template>
 

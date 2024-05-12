@@ -21,7 +21,7 @@
     },
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev",
+        "dev": "nuxt dev --https --https.cert config/lysand-fe.localhost.pem --https.key config/lysand-fe.localhost-key.pem --host lysand-fe.localhost",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare"
