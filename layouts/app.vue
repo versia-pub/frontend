@@ -68,8 +68,10 @@ useServerSeoMeta({
 
 const { n } = useMagicKeys();
 
-watchEffect(() => {
+watchEffect(async () => {
     if (n.value) {
+        // Wait 50ms
+        await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
     }
 });

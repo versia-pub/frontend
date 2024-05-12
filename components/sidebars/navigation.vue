@@ -44,10 +44,14 @@
                 <h3 v-if="tokenData"
                     class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                     Posts</h3>
-                <ButtonsBase v-if="tokenData" @click="compose"
+                <ButtonsBase v-if="tokenData" @click="compose" title="Open composer (shortcut: n)"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
                     <Icon name="tabler:writing" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Compose</span>
+                    <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row">
+                        <Icon name="tabler:keyboard" class="size-4 inline" aria-hidden="true" />
+                        <Icon name="tabler:letter-n-small" class="size-4 inline -mr-1" aria-hidden="true" />
+                    </kbd>
                 </ButtonsBase>
             </ClientOnly>
         </div>
@@ -210,7 +214,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     tokenData.value = null;
     me.value = null;
