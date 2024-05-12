@@ -11,7 +11,8 @@
 <script lang="ts" setup>
 const loading = ref(true);
 
-const estimatedProgress = (duration: number, elapsed: number) => (2 / Math.PI * 100) * Math.atan(elapsed / duration * 100 / 50);
+const estimatedProgress = (duration: number, elapsed: number) =>
+    (2 / Math.PI) * 100 * Math.atan(((elapsed / duration) * 100) / 50);
 
 const progress = ref(0);
 const timeAtStart = performance.now();

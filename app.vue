@@ -1,5 +1,8 @@
 <template>
     <NuxtPwaAssets />
+    <PwaTransparentImage image="/logo.webp" />
+    <PwaAppleImage image="/logo.webp" />
+    <PwaMaskableImage image="/logo.webp" />
     <Loading />
     <NuxtLayout>
         <NuxtPage />

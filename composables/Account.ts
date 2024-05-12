@@ -13,8 +13,8 @@ export const useAccount = (
 
     watchEffect(() => {
         if (toValue(accountId))
-            ref(client)
-                .value?.getAccount(toValue(accountId) ?? "")
+            toValue(client)
+                ?.getAccount(toValue(accountId) ?? "")
                 .then((res) => {
                     output.value = res.data;
                 });

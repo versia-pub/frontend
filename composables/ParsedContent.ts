@@ -65,26 +65,6 @@ export const useParsedContent = (
                 link.outerHTML = await renderToString(renderedMention);
             }
 
-            // Highlight code blocks
-            /* const codeBlocks = contentHtml.querySelectorAll("pre code");
-            for (const codeBlock of codeBlocks) {
-                const code = codeBlock.textContent;
-                if (!code) {
-                    continue;
-                }
-
-                const highligher = await getShikiHighlighter();
-
-                const newCode = highligher.highlight(code, {});
-
-                // Replace parent pre tag with highlighted code
-                const parent = codeBlock.parentElement;
-                if (!parent) {
-                    continue;
-                }
-                parent.outerHTML = newCode;
-            }*/
-
             result.value = contentHtml.innerHTML;
         },
         { immediate: true },

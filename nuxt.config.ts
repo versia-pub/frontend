@@ -6,7 +6,6 @@ export default defineNuxtConfig({
         "@vueuse/nuxt",
         "nuxt-headlessui",
         "@nuxt/fonts",
-        //"nuxt-shiki",
         "@vee-validate/nuxt",
         "nuxt-security",
         "@vite-pwa/nuxt",
@@ -67,24 +66,6 @@ export default defineNuxtConfig({
         },
         keepalive: true,
     },
-    /*     shiki: {
-        defaultTheme: "rose-pine",
-        bundledLangs: [
-            "javascript",
-            "typescript",
-            "html",
-            "css",
-            "json",
-            "python",
-            "toml",
-            "rust",
-            "sql",
-            "scss",
-            "bash",
-            "shell",
-            "yaml",
-        ],
-    }, */
     nitro: {
         preset: "bun",
         minify: true,

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import type { ButtonHTMLAttributes } from "vue";
 
-interface Props extends /* @vue-ignore */ ButtonHTMLAttributes { }
+interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {}
 
 defineProps<
     Props & {
