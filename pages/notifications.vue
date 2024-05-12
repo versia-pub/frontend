@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <OverlayScrollbarsComponent :defer="true" class="max-h-dvh overflow-y-auto">
+        <div class="mx-auto max-w-2xl w-full">
             <div class="shrink-0 p-10 h-dvh" v-if="!tokenData">
                 <button type="button"
                     class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
@@ -13,14 +13,16 @@
                 </button>
             </div>
             <TimelinesTimelineScroller v-else>
-                <TimelinesNotifications />
+                <HeadersGreeting />
+                <div class="rounded overflow-hidden ring-1 ring-white/10">
+                    <TimelinesNotifications />
+                </div>
             </TimelinesTimelineScroller>
-        </OverlayScrollbarsComponent>
+        </div>
     </ClientOnly>
 </template>
 
 <script lang="ts" setup>
-import { OverlayScrollbarsComponent } from "#imports";
 definePageMeta({
     layout: "app",
 });

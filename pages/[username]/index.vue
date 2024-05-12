@@ -1,15 +1,14 @@
 <template>
-    <OverlayScrollbarsComponent class="max-h-dvh overflow-y-auto w-full">
+    <div class="mx-auto max-w-2xl w-full">
         <TimelinesTimelineScroller>
             <SocialElementsUsersAccount :account="account ?? undefined" />
             <TimelinesAccount :id="accountId" :key="accountId" />
         </TimelinesTimelineScroller>
-    </OverlayScrollbarsComponent>
+    </div>
 </template>
 
 <script setup lang="ts">
 import type { Account } from "~/types/mastodon/account";
-import { OverlayScrollbarsComponent } from "#imports";
 
 definePageMeta({
     layout: "app",

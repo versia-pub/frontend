@@ -1,18 +1,13 @@
 <template>
     <div class="from-dark-600 to-dark-900 bg-gradient-to-tl min-h-dvh">
         <SidebarsNavigation />
-        <div class="relative md:pl-20 min-h-dvh flex flex-row justify-center xl:justify-between">
-            <ClientOnly>
-                <CollapsibleAside v-if="width > 1280" class="max-w-md max-h-dvh overflow-y-auto w-full xl:flex hidden">
-                    <SocialElementsInstancePresentation />
-                </CollapsibleAside>
-            </ClientOnly>
-            <div class="w-full max-h-dvh max-w-2xl">
+        <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
+            <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto">
                 <slot />
-            </div>
+            </OverlayScrollbarsComponent>
             <ClientOnly>
                 <CollapsibleAside v-if="width > 1280 && tokenData" direction="right"
-                    class="max-w-md max-h-dvh overflow-y-auto w-full hidden xl:flex">
+                    class="max-w-md max-h-dvh overflow-y-auto w-full hidden absolute inset-y-0 xl:flex">
                     <TimelinesTimelineScroller>
                         <TimelinesNotifications />
                     </TimelinesTimelineScroller>
@@ -51,6 +46,7 @@
 <script setup lang="ts">
 import { convert } from "html-to-text";
 import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
+import { OverlayScrollbarsComponent } from "#imports";
 
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
