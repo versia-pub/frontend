@@ -5,12 +5,7 @@
 </template>
 
 <script setup lang="ts">
-useServerSeoMeta({
-    titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} · Lysand` : "Lysand";
-    },
-});
-
+import { convert } from "html-to-text";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 
@@ -18,7 +13,32 @@ const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
+const instance = useInstance(client);
+const description = useExtendedDescription(client);
 const me = useMe();
+
+useSeoMeta({
+    titleTemplate: (titleChunk) => {
+        return titleChunk ? `${titleChunk} · Lysand` : "Lysand";
+    },
+    title: computed(() => instance.value?.title ?? ""),
+    ogImage: computed(() => instance.value?.banner),
+    twitterTitle: computed(() => instance.value?.title ?? ""),
+    twitterDescription: computed(() =>
+        convert(description.value?.content ?? ""),
+    ),
+    twitterImage: computed(() => instance.value?.banner),
+    description: computed(() => convert(description.value?.content ?? "")),
+    ogDescription: computed(() => convert(description.value?.content ?? "")),
+    ogSiteName: "Lysand",
+    colorScheme: "dark",
+});
+
+useHead({
+    htmlAttrs: {
+        lang: "en",
+    },
+});
 
 if (code) {
     if (appData.value) {

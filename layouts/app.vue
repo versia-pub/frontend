@@ -41,23 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { convert } from "html-to-text";
 import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
 import { OverlayScrollbarsComponent } from "#imports";
 
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
-const instance = useInstance(client);
-const description = useExtendedDescription(client);
 const { width } = useWindowSize();
-
-useServerSeoMeta({
-    title: instance.value?.title,
-    ogImage: instance.value?.banner,
-    description: convert(description.value?.content ?? ""),
-    ogSiteName: "Lysand",
-    colorScheme: "dark",
-});
 
 const { n } = useMagicKeys();
 
