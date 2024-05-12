@@ -14,7 +14,7 @@
                 :attachment="attachment" />
         </div>
         <div v-if="isQuote && note?.reblog" class="mt-4">
-            <SocialElementsNotesNote :note="note?.reblog" :small="true" />
+            <LazySocialElementsNotesNote :note="note?.reblog" :small="true" />
         </div>
     </div>
     <div v-else

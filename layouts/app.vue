@@ -1,16 +1,16 @@
 <template>
     <div class="from-dark-600 to-dark-900 bg-gradient-to-tl min-h-dvh">
-        <SidebarsNavigation />
+        <LazySidebarsNavigation />
         <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
             <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto">
                 <slot />
             </OverlayScrollbarsComponent>
             <ClientOnly>
-                <CollapsibleAside v-if="width > 1280 && tokenData" direction="right"
+                <LazySidebarsCollapsibleAside v-if="width > 1280 && tokenData" direction="right"
                     class="max-w-md max-h-dvh overflow-y-auto w-full hidden absolute inset-y-0 xl:flex">
-                    <TimelinesTimelineScroller>
-                        <TimelinesNotifications />
-                    </TimelinesTimelineScroller>
+                    <LazyTimelinesTimelineScroller>
+                        <LazyTimelinesLocal />
+                    </LazyTimelinesTimelineScroller>
                     <!-- <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
                         <div class="text-center">
                             <strong
@@ -33,17 +33,15 @@
                             </ButtonsSecondary>
                         </NuxtLink>
                     </div> -->
-                </CollapsibleAside>
+                </LazySidebarsCollapsibleAside>
             </ClientOnly>
         </div>
     </div>
-    <ComposerModal />
+    <LazyComposerModal />
 </template>
 
 <script setup lang="ts">
-import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
 import { OverlayScrollbarsComponent } from "#imports";
-
 const tokenData = useTokenData();
 const { width } = useWindowSize();
 

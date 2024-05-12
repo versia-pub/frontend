@@ -11,7 +11,7 @@
                     Quoting
                 </span>
                 <OverlayScrollbarsComponent :defer="true" class="mt-2 max-h-72 overflow-y-auto">
-                    <SocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true" />
+                    <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true" />
                 </OverlayScrollbarsComponent>
             </div>
             <textarea :disabled="submitting" ref="textarea" v-model="content" :placeholder="chosenSplash"

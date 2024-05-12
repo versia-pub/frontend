@@ -1,14 +1,14 @@
 <template>
     <ClientOnly>
         <div v-if="loaded" :defer="true" class="mx-auto max-w-2xl w-full pb-72">
-            <SocialElementsNotesNote v-for="note of context?.ancestors" :note="note" />
+            <LazySocialElementsNotesNote v-for="note of context?.ancestors" :note="note" />
             <div ref="element" class="first:rounded-t last:rounded-b overflow-hidden">
-                <SocialElementsNotesNote class="!rounded-none border-2 border-pink-500" v-if="note" :note="note" />
+                <LazySocialElementsNotesNote class="!rounded-none border-2 border-pink-500" v-if="note" :note="note" />
             </div>
-            <SocialElementsNotesNote v-for="note of context?.descendants" :note="note" />
+            <LazySocialElementsNotesNote v-for="note of context?.descendants" :note="note" />
         </div>
-        <div :defer="true" v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
-            <SocialElementsNotesNote v-for="_ of 5" :skeleton="true" />
+        <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
+            <LazySocialElementsNotesNote v-for="_ of 5" :skeleton="true" />
         </div>
     </ClientOnly>
 </template>

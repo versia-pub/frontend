@@ -1,9 +1,9 @@
 <template>
     <div class="mx-auto max-w-2xl w-full">
-        <TimelinesTimelineScroller>
-            <SocialElementsUsersAccount :account="account ?? undefined" />
-            <TimelinesAccount :id="accountId" :key="accountId" />
-        </TimelinesTimelineScroller>
+        <LazyTimelinesTimelineScroller>
+            <LazySocialElementsUsersAccount :account="account ?? undefined" />
+            <LazyTimelinesAccount :id="accountId" :key="accountId" />
+        </LazyTimelinesTimelineScroller>
     </div>
 </template>
 

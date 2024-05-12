@@ -10,7 +10,19 @@ export default defineNuxtConfig({
         //"nuxt-shiki",
         "@vee-validate/nuxt",
         "nuxt-security",
+        "@vite-pwa/nuxt",
     ],
+    pwa: {
+        manifest: {
+            name: "Lysand",
+            short_name: "Lysand",
+            description: "Frontend for the Lysand social network",
+            theme_color: "#f9a8d4",
+            display: "standalone",
+            lang: "en",
+            categories: ["social", "development"],
+        },
+    },
     security: {
         headers: {
             // Nuxt DevTools
@@ -38,6 +50,11 @@ export default defineNuxtConfig({
             link: [
                 {
                     rel: "icon",
+                    href: "/favicon.png",
+                    type: "image/png",
+                },
+                {
+                    rel: "apple-touch-icon",
                     href: "/favicon.png",
                     type: "image/png",
                 },

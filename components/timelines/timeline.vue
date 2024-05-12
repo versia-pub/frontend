@@ -5,7 +5,7 @@
             <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
         </TransitionGroup>
         <span ref="skeleton"></span>
-        <SocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+        <LazySocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
         <div v-if="hasReachedEnd"
             class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">

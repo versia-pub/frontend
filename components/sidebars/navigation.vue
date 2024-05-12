@@ -53,6 +53,11 @@
                         <Icon name="tabler:letter-n-small" class="size-4 inline -mr-1" aria-hidden="true" />
                     </kbd>
                 </ButtonsBase>
+                <ButtonsBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
+                    class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-pink-600 overflow-hidden h-12 w-full duration-200">
+                    <Icon name="tabler:refresh" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">Update</span>
+                </ButtonsBase>
             </ClientOnly>
         </div>
     </aside>
@@ -83,7 +88,14 @@
             <Icon name="tabler:bell" class="text-2xl" />
             <span class="text-xs">Notifications</span>
         </NuxtLink>
-        <DropdownsAdaptiveDropdown>
+        <ClientOnly v-if="$pwa?.needRefresh">
+            <button class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
+                @click="$pwa?.updateServiceWorker(true)">
+                <Icon name="tabler:refresh" class="text-2xl" />
+                <span class="text-xs">Update</span>
+            </button>
+        </ClientOnly>
+        <DropdownsAdaptiveDropdown v-else>
             <template #button>
                 <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
                     <Icon name="tabler:user" class="text-2xl" />
@@ -124,6 +136,7 @@
 </template>
 
 <script lang="ts" setup>
+const { $pwa } = useNuxtApp();
 const timelines = ref([
     {
         href: "/home",

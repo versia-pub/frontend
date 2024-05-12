@@ -12,7 +12,7 @@
             </Skeleton>
         </div>
         <div>
-            <SocialElementsNotesNote v-if="notification?.status || !notification" :note="notification?.status"
+            <LazySocialElementsNotesNote v-if="notification?.status || !notification" :note="notification?.status"
                 :small="true" />
             <div v-else-if="notification.account" class="p-6 ring-1 ring-white/5 bg-dark-800">
                 <SocialElementsUsersSmallCard :account="notification.account" />

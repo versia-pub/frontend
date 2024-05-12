@@ -1,9 +1,9 @@
 <template>
     <div class="mx-auto max-w-2xl w-full">
-        <TimelinesTimelineScroller>
-            <HeadersGreeting />
+        <LazyTimelinesTimelineScroller>
+            <LazyHeadersGreeting />
             <TimelinesPublic />
-        </TimelinesTimelineScroller>
+        </LazyTimelinesTimelineScroller>
     </div>
 </template>
 

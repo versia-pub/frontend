@@ -31,6 +31,7 @@
         "@tailwindcss/typography": "^0.5.12",
         "@vee-validate/nuxt": "^4.12.6",
         "@vee-validate/zod": "^4.12.6",
+        "@vite-pwa/nuxt": "^0.7.0",
         "c12": "^1.10.0",
         "html-to-text": "^9.0.5",
         "megalodon": "^10.0.0",

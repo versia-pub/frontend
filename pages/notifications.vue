@@ -12,12 +12,12 @@
                         sign in</span>
                 </button>
             </div>
-            <TimelinesTimelineScroller v-else>
-                <HeadersGreeting />
+            <LazyTimelinesTimelineScroller v-else>
+                <LazyHeadersGreeting />
                 <div class="rounded overflow-hidden ring-1 ring-white/10">
-                    <TimelinesNotifications />
+                    <LazyTimelinesNotifications />
                 </div>
-            </TimelinesTimelineScroller>
+            </LazyTimelinesTimelineScroller>
         </div>
     </ClientOnly>
 </template>

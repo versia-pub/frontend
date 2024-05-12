@@ -1,4 +1,5 @@
 <template>
+    <NuxtPwaAssets />
     <NuxtLayout>
         <NuxtPage />
     </NuxtLayout>
@@ -32,6 +33,7 @@ useSeoMeta({
     ogDescription: computed(() => convert(description.value?.content ?? "")),
     ogSiteName: "Lysand",
     colorScheme: "dark",
+    themeColor: "#f9a8d4",
 });
 
 useHead({
