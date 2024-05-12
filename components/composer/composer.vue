@@ -10,9 +10,9 @@
                     <Icon name="tabler:quote" class="h-4 w-4 text-gray-400" aria-hidden="true" />
                     Quoting
                 </span>
-                <div class="mt-2 max-h-72 overflow-y-auto">
+                <OverlayScrollbarsComponent :defer="true" class="mt-2 max-h-72 overflow-y-auto">
                     <SocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true" />
-                </div>
+                </OverlayScrollbarsComponent>
             </div>
             <textarea :disabled="submitting" ref="textarea" v-model="content" placeholder="You can use Markdown here!"
                 class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"></textarea>
@@ -32,6 +32,7 @@
 <script lang="ts" setup>
 import type { Instance } from "~/types/mastodon/instance";
 import type { Status } from "~/types/mastodon/status";
+import { OverlayScrollbarsComponent } from "#imports";
 
 const textarea = ref<HTMLTextAreaElement | undefined>(undefined);
 const { input: content } = useTextareaAutosize({

@@ -11,7 +11,7 @@ export const useNote = (client: MaybeRef<Mastodon | null>, noteId: string) => {
     ref(client)
         .value?.getStatus(noteId)
         .then((res) => {
-            output.value = res.data;
+            output.value = res.data as Status;
         });
 
     return output;

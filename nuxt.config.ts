@@ -99,6 +99,14 @@ export default defineNuxtConfig({
             apiHost: "https://social.lysand.org",
         },
     },
+    imports: {
+        presets: [
+            {
+                from: "overlayscrollbars-vue",
+                imports: ["OverlayScrollbarsComponent"],
+            },
+        ],
+    },
     site: {
         url: "https://social.lysand.org",
     },

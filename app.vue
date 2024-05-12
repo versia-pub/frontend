@@ -58,7 +58,13 @@ watch(
 </script>
 
 <style>
+@import url("overlayscrollbars/overlayscrollbars.css");
+
 body {
     font-family: Inter, sans-serif;
+}
+
+.os-scrollbar .os-scrollbar-handle {
+    background: #9999;
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
-    <div class="max-h-dvh overflow-y-auto">
+    <OverlayScrollbarsComponent :defer="true" class="max-h-dvh overflow-y-auto">
         <TimelinesTimelineScroller>
             <TimelinesLocal />
         </TimelinesTimelineScroller>
-    </div>
+    </OverlayScrollbarsComponent>
 </template>
 
 <script lang="ts" setup>
+import { OverlayScrollbarsComponent } from "#imports";
 definePageMeta({
     layout: "app",
 });

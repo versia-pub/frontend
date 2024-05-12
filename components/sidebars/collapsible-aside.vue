@@ -2,9 +2,10 @@
     <aside v-bind="$props" class="overflow-hidden">
         <div
             :class="['flex max-h-dvh overflow-hidden w-full duration-200', open ? enterClass : leaveClass, direction === 'left' ? 'flex-row' : 'flex-row-reverse']">
-            <div class="bg-dark-900 ring-1 ring-white/10 h-full overflow-y-auto w-full">
+            <OverlayScrollbarsComponent :defer="true"
+                class="bg-dark-900 ring-1 ring-white/10 h-full overflow-y-auto w-full">
                 <slot />
-            </div>
+            </OverlayScrollbarsComponent>
             <button @click="open = !open"
                 class="h-full bg-dark-700/50 hover:bg-dark-400/50 hover:cursor-pointer duration-200 py-4 px-0.5 flex items-center justify-center w-4 shrink-0">
                 <Icon name="tabler:chevron-right"
@@ -18,6 +19,7 @@
 <script lang="ts" setup>
 // slides in and out from the left or right
 import type { HTMLAttributes } from "vue";
+import { OverlayScrollbarsComponent } from "#imports";
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
     direction?: "left" | "right";

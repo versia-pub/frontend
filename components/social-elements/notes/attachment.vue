@@ -12,7 +12,7 @@
     </div>
     <HeadlessTransitionRoot appear :show="lightbox" as="template">
         <HeadlessDialog @close="lightbox = false">
-            <div class="fixed inset-0 overflow-y-auto bg-black/70">
+            <div class="fixed inset-0 overflow-y-auto z-50 bg-black/70">
                 <div class="flex min-h-full items-center justify-center text-center">
                     <HeadlessTransitionChild as="template" enter="duration-100 ease-out" enter-from="opacity-0 scale-95"
                         enter-to="opacity-100 scale-100">

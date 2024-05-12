@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <div class="max-h-dvh overflow-y-auto">
+        <OverlayScrollbarsComponent :defer="true" class="max-h-dvh overflow-y-auto">
             <div class="shrink-0 p-10 h-dvh" v-if="!tokenData">
                 <button type="button"
                     class="relative block h-full w-full rounded-lg border-2 border-dashed border-dark-300 p-12 text-center">
@@ -15,11 +15,12 @@
             <TimelinesTimelineScroller v-else>
                 <TimelinesNotifications />
             </TimelinesTimelineScroller>
-        </div>
+        </OverlayScrollbarsComponent>
     </ClientOnly>
 </template>
 
 <script lang="ts" setup>
+import { OverlayScrollbarsComponent } from "#imports";
 definePageMeta({
     layout: "app",
 });

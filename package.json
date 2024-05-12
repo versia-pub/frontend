@@ -40,6 +40,8 @@
         "nuxt-icon": "^0.6.10",
         "nuxt-security": "^2.0.0-beta.0",
         "nuxt-shiki": "^0.3.0",
+        "overlayscrollbars": "^2.8.0",
+        "overlayscrollbars-vue": "^0.5.9",
         "shiki": "^1.3.0",
         "vue": "^3.4.21",
         "vue-router": "^4.3.0",
