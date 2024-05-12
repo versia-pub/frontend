@@ -4,7 +4,7 @@
             <Skeleton :enabled="!notification" shape="rect" class="!h-6" :min-width="40" :max-width="100"
                 width-unit="%">
                 <Icon :name="icon" class="h-6 w-6 text-gray-200" aria-hidden="true" />
-                <img v-if="notification?.account?.avatar" :src="notification?.account.avatar"
+                <AvatarsCentered v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`"
                     class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />
                 <span class="text-gray-200"><strong v-html="accountName"></strong> {{ text

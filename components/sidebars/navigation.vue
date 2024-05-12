@@ -1,8 +1,9 @@
 <template>
     <aside
         class="fixed h-dvh z-20 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group">
-        <NuxtLink class="rounded w-11 h-11 ring-1 ring-white/10 hover:scale-105 duration-200" href="/">
-            <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo" />
+        <NuxtLink href="/">
+            <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
+                src="https://cdn.lysand.org/logo.webp" alt="Lysand logo" />
         </NuxtLink>
 
         <div class="flex flex-col gap-3">
@@ -64,74 +65,77 @@
     <!-- Mobile bottom navbar -->
     <nav
         class="fixed bottom-0 left-0 right-0 z-20 md:hidden flex justify-around p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
-        <DropdownsAdaptiveDropdown>
-            <template #button>
-                <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
-                    <Icon name="tabler:home" class="text-2xl" />
-                    <span class="text-xs">Timelines</span>
-                </HeadlessMenuButton>
-            </template>
+        <ClientOnly>
+            <DropdownsAdaptiveDropdown>
+                <template #button>
+                    <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                        <Icon name="tabler:home" class="text-2xl" />
+                        <span class="text-xs">Timelines</span>
+                    </HeadlessMenuButton>
+                </template>
 
-            <template #items>
-                <ClientOnly>
-                    <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href" :href="timeline.href">
-                        <NuxtLink>
-                            <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
-                                {{ timeline.name }}
+                <template #items>
+                    <ClientOnly>
+                        <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href"
+                            :href="timeline.href">
+                            <NuxtLink>
+                                <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                                    {{ timeline.name }}
+                                </ButtonsDropdownElement>
+                            </NuxtLink>
+                        </HeadlessMenuItem>
+                    </ClientOnly>
+                </template>
+            </DropdownsAdaptiveDropdown>
+            <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
+                <Icon name="tabler:bell" class="text-2xl" />
+                <span class="text-xs">Notifications</span>
+            </NuxtLink>
+            <ClientOnly v-if="$pwa?.needRefresh">
+                <button class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
+                    @click="$pwa?.updateServiceWorker(true)">
+                    <Icon name="tabler:refresh" class="text-2xl" />
+                    <span class="text-xs">Update</span>
+                </button>
+            </ClientOnly>
+            <DropdownsAdaptiveDropdown v-else>
+                <template #button>
+                    <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                        <Icon name="tabler:user" class="text-2xl" />
+                        <span class="text-xs">Account</span>
+                    </HeadlessMenuButton>
+                </template>
+
+                <template #items>
+                    <ClientOnly>
+                        <HeadlessMenuItem v-if="tokenData">
+                            <ButtonsDropdownElement icon="tabler:logout" class="w-full"
+                                @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                                Sign Out
                             </ButtonsDropdownElement>
-                        </NuxtLink>
-                    </HeadlessMenuItem>
-                </ClientOnly>
-            </template>
-        </DropdownsAdaptiveDropdown>
-        <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
-            <Icon name="tabler:bell" class="text-2xl" />
-            <span class="text-xs">Notifications</span>
-        </NuxtLink>
-        <ClientOnly v-if="$pwa?.needRefresh">
-            <button class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
-                @click="$pwa?.updateServiceWorker(true)">
-                <Icon name="tabler:refresh" class="text-2xl" />
-                <span class="text-xs">Update</span>
+                        </HeadlessMenuItem>
+                        <HeadlessMenuItem v-if="!tokenData">
+                            <ButtonsDropdownElement icon="tabler:login" class="w-full"
+                                @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                                Sign In
+                            </ButtonsDropdownElement>
+                        </HeadlessMenuItem>
+                        <HeadlessMenuItem v-if="!tokenData">
+                            <NuxtLink href="/register">
+                                <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
+                                    Register
+                                </ButtonsDropdownElement>
+                            </NuxtLink>
+                        </HeadlessMenuItem>
+                    </ClientOnly>
+                </template>
+            </DropdownsAdaptiveDropdown>
+            <button @click="compose" v-if="tokenData"
+                class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
+                <Icon name="tabler:writing" class="text-2xl" />
+                <span class="text-xs">Compose</span>
             </button>
         </ClientOnly>
-        <DropdownsAdaptiveDropdown v-else>
-            <template #button>
-                <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
-                    <Icon name="tabler:user" class="text-2xl" />
-                    <span class="text-xs">Account</span>
-                </HeadlessMenuButton>
-            </template>
-
-            <template #items>
-                <ClientOnly>
-                    <HeadlessMenuItem v-if="tokenData">
-                        <ButtonsDropdownElement icon="tabler:logout" class="w-full"
-                            @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                            Sign Out
-                        </ButtonsDropdownElement>
-                    </HeadlessMenuItem>
-                    <HeadlessMenuItem v-if="!tokenData">
-                        <ButtonsDropdownElement icon="tabler:login" class="w-full"
-                            @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                            Sign In
-                        </ButtonsDropdownElement>
-                    </HeadlessMenuItem>
-                    <HeadlessMenuItem v-if="!tokenData">
-                        <NuxtLink href="/register">
-                            <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
-                                Register
-                            </ButtonsDropdownElement>
-                        </NuxtLink>
-                    </HeadlessMenuItem>
-                </ClientOnly>
-            </template>
-        </DropdownsAdaptiveDropdown>
-        <button @click="compose" v-if="tokenData"
-            class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
-            <Icon name="tabler:writing" class="text-2xl" />
-            <span class="text-xs">Compose</span>
-        </button>
     </nav>
 </template>
 
@@ -227,7 +231,7 @@ const signOut = async () => {
             tokenData.value.access_token,
             tokenData.value.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     tokenData.value = null;
     me.value = null;

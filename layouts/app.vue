@@ -9,7 +9,7 @@
                 <LazySidebarsCollapsibleAside v-if="width > 1280 && tokenData" direction="right"
                     class="max-w-md max-h-dvh overflow-y-auto w-full hidden absolute inset-y-0 xl:flex">
                     <LazyTimelinesTimelineScroller>
-                        <LazyTimelinesLocal />
+                        <LazyTimelinesNotifications />
                     </LazyTimelinesTimelineScroller>
                     <!-- <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
                         <div class="text-center">
