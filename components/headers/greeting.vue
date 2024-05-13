@@ -7,7 +7,7 @@
                         class="mx-auto shrink-0 size-20 rounded overflow-hidden ring-1 ring-white/10" />
                     <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                         <p class="text-sm font-medium text-gray-300">Welcome back,</p>
-                        <p class="text-xl font-bold text-gray-50 sm:text-2xl"
+                        <p class="text-xl font-bold text-gray-50 sm:text-2xl line-clamp-1"
                             v-html="useParsedContent(me.display_name, []).value"></p>
                         <p class="text-sm font-medium text-gray-500">@{{ me.acct }}</p>
                     </div>
