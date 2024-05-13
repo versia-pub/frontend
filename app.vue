@@ -22,6 +22,7 @@ const client = useMegalodon(tokenData);
 const instance = useInstance(client);
 const description = useExtendedDescription(client);
 const me = useMe();
+const customEmojis = useCustomEmojis(client);
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
@@ -82,6 +83,17 @@ watch(
     },
     { immediate: true },
 );
+
+// Refresh custom emojis and instance data and me on every reload
+if (tokenData.value) {
+    await client.value?.verifyAccountCredentials().then((res) => {
+        me.value = res.data;
+    });
+}
+
+client.value?.getInstanceCustomEmojis().then((res) => {
+    customEmojis.value = res.data;
+});
 </script>
 
 <style>

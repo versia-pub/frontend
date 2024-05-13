@@ -24,7 +24,7 @@
             </div>
         </div>
         <!-- Content warning textbox -->
-        <div v-if="cw !== null" class="mb-4">
+        <div v-if="cw" class="mb-4">
             <input type="text" v-model="cwContent" placeholder="Add a content warning"
                 class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
         </div>
@@ -45,7 +45,7 @@
             <ComposerButton title="Add a file">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:file-upload" aria-hidden="true" />
             </ComposerButton>
-            <ComposerButton title="Add content warning" @click="cw = cw === null ? '' : null" :toggled="cw !== null">
+            <ComposerButton title="Add content warning" @click="cw = !cw" :toggled="cw">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
             </ComposerButton>
             <ButtonsPrimary :loading="submitting" @click="send" class="ml-auto rounded-full">
@@ -68,7 +68,7 @@ const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
 const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | null>(null);
 const me = useMe();
-const cw = ref(null as string | null);
+const cw = ref(false);
 const cwContent = ref("");
 const markdown = ref(true);
 
@@ -130,8 +130,8 @@ const send = async () => {
                 respondingType.value === "quote"
                     ? respondingTo.value?.id
                     : null,
-            spoiler_text: cw ? cwContent.value.trim() : undefined,
-            sensitive: !!cw,
+            spoiler_text: cw.value ? cwContent.value.trim() : undefined,
+            sensitive: cw.value,
         }),
     })
         .then(async (res) => {

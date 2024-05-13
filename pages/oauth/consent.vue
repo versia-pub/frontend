@@ -100,8 +100,7 @@ const redirect_uri = query.redirect_uri as string;
 const client_id = query.client_id;
 const scope = query.scope ? decodeURIComponent(query.scope as string) : "";
 
-const validUrlParameters =
-    application && redirect_uri && client_id && scope;
+const validUrlParameters = application && redirect_uri && client_id && scope;
 
 const oauthScopeText: Record<string, string> = {
     "rw:accounts": "$VERB your account information",
