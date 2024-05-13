@@ -39,7 +39,7 @@ export default defineNuxtConfig({
                 // Add https because of some browsers blocking form-action to 'self' if the page is from a redirect
                 "form-action": ["'self'", "https:"],
             },
-            crossOriginResourcePolicy: "same-origin",
+            crossOriginResourcePolicy: "cross-origin",
             xFrameOptions: "DENY",
         },
         rateLimiter: {
