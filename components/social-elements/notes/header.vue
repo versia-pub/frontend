@@ -1,7 +1,7 @@
 <template>
     <div v-if="small" class="flex flex-row">
         <NuxtLink :href="accountUrl" class="shrink-0">
-            <AvatarsCentered :url="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+            <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="size-6 rounded ring-1 ring-white/5" />
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
@@ -22,7 +22,7 @@
     </div>
     <div v-else class="flex flex-row">
         <NuxtLink :href="accountUrl" class="shrink-0">
-            <AvatarsCentered :url="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+            <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="h-12 w-12 rounded ring-1 ring-white/5" />
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">

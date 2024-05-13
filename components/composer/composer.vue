@@ -25,7 +25,7 @@
         </div>
         <!-- Content warning textbox -->
         <div v-if="cw !== null" class="mb-4">
-            <input type="text" placeholder="Add a content warning"
+            <input type="text" v-model="cwContent" placeholder="Add a content warning"
                 class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
         </div>
         <div class="flex flex-row gap-1 border-white/20">
@@ -69,6 +69,7 @@ const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | null>(null);
 const me = useMe();
 const cw = ref(null as string | null);
+const cwContent = ref("");
 const markdown = ref(true);
 
 const splashes = useConfig().COMPOSER_SPLASHES;
@@ -129,6 +130,8 @@ const send = async () => {
                 respondingType.value === "quote"
                     ? respondingTo.value?.id
                     : null,
+            spoiler_text: cw ? cwContent.value.trim() : undefined,
+            sensitive: !!cw,
         }),
     })
         .then(async (res) => {

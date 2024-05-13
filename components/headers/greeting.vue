@@ -3,7 +3,7 @@
         <div v-if="me" class="bg-dark-800 p-6 my-5 rounded ring-1 ring-white/5">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div class="sm:flex sm:space-x-5">
-                    <AvatarsCentered :url="me.avatar"
+                    <AvatarsCentered :src="me.avatar"
                         class="mx-auto shrink-0 size-20 rounded overflow-hidden ring-1 ring-white/10" />
                     <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                         <p class="text-sm font-medium text-gray-300">Welcome back,</p>

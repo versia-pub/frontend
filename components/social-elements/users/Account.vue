@@ -1,11 +1,11 @@
 <template>
     <ClientOnly>
         <div class="w-full ring-1 ring-inset ring-white/5 pb-10">
-            <AvatarsCentered :url="account?.header" :alt="`${account?.acct}'s header image'`"
+            <AvatarsCentered :src="account?.header" :alt="`${account?.acct}'s header image'`"
                 class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700" />
 
             <div class="flex items-start justify-between px-4 py-3">
-                <AvatarsCentered :url="account?.avatar" :alt="`${account?.acct}'s avatar'`"
+                <AvatarsCentered :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
                     class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
 
                 <ClientOnly>
