@@ -42,16 +42,34 @@
 
 <script setup lang="ts">
 import { OverlayScrollbarsComponent } from "#imports";
-const tokenData = useTokenData();
 const { width } = useWindowSize();
 
-const { n } = useMagicKeys();
+const { n, o_i_d_c } = useMagicKeys();
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
+const providers = await useOAuthProviders();
 
 watchEffect(async () => {
     if (n.value) {
         // Wait 50ms
         await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
+    }
+    if (o_i_d_c.value) {
+        const response = await fetch(
+            new URL(
+                `/oauth/link?issuer=${providers.value[0].id}`,
+                client.value?.baseUrl,
+            ),
+            {
+                headers: {
+                    Authorization: `Bearer ${tokenData.value?.access_token}`,
+                },
+            },
+        );
+
+        const json = await response.json();
+        window.location.href = json.link;
     }
 });
 </script>
