@@ -3,7 +3,7 @@
         class="fixed h-dvh z-20 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
-                src="https://cdn.lysand.org/logo.webp" alt="Lysand logo" />
+                src="/logo.webp" alt="Lysand logo" />
         </NuxtLink>
 
         <div class="flex flex-col gap-3">

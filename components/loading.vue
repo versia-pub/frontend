@@ -3,7 +3,7 @@
         <!-- Progress bar stuck to top -->
         <div class="fixed top-0 left-0 right-0 h-1.5 bg-pink-500" :style="{ width: `${progress}%` }"></div>
         <div class="flex flex-col items-center justify-center gap-8">
-            <img src="https://cdn.lysand.org/logo.webp" class="size-20 animate-pulse" />
+            <img src="/logo.webp" class="size-20 animate-pulse" />
         </div>
     </div>
 </template>
