@@ -44,7 +44,7 @@
 import { OverlayScrollbarsComponent } from "#imports";
 const { width } = useWindowSize();
 
-const { n, o_i_d_c, t_e_s_t } = useMagicKeys();
+const { n, o_i_d_c } = useMagicKeys();
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
 const providers = useSSOConfig();
@@ -79,13 +79,6 @@ watchEffect(async () => {
 
         const json = await response.json();
         window.location.href = json.link;
-    }
-    if (t_e_s_t.value) {
-        useEvent("notification:new", {
-            type: "info",
-            title: "Test Notification",
-            message: "This is a test notification",
-        });
     }
 });
 </script>
