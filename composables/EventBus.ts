@@ -1,6 +1,14 @@
 import mitt from "mitt";
 import type { Status } from "~/types/mastodon/status";
 
+export type NotificationEvent = {
+    type: "error" | "info";
+    title: string;
+    message?: string;
+    persistent?: boolean;
+    onDismiss?: () => void;
+};
+
 type ApplicationEvents = {
     "note:reply": Status;
     "note:delete": Status;
@@ -15,6 +23,7 @@ type ApplicationEvents = {
     "composer:quote": Status;
     "composer:send": Status;
     "composer:close": undefined;
+    "notification:new": NotificationEvent;
 };
 
 const emitter = mitt<ApplicationEvents>();

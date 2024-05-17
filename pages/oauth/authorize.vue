@@ -11,7 +11,6 @@
                 </div>
                 <VeeForm class="space-y-6" method="POST" :validation-schema="schema"
                     :action="`/api/auth/login?redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
-
                     <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Login to your account</h1>
 
                     <VeeField name="identifier" as="div" v-slot="{ errors, field }" validate-on-change>
@@ -31,11 +30,11 @@
                         </VeeErrorMessage>
                     </VeeField>
 
-                    <div v-if="oauthProviders && oauthProviders.length > 0" class="w-full flex flex-col gap-3">
+                    <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="w-full flex flex-col gap-3">
                         <h2 class="text-sm text-gray-200">Or sign in with</h2>
                         <div class="grid grid-cols-1 gap-4 w-full">
-                            <a v-for="provider of oauthProviders" :key="provider.id"
-                                :href="`/oauth/authorize-external?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&clientId=${client_id}&scope=${scope}`">
+                            <a v-for="provider of ssoConfig.providers" :key="provider.id"
+                                :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
                                 <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
                                     <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`"
                                         class="w-6 h-6" />
@@ -110,5 +109,5 @@ const error_description = query.get("error_description");
 
 const validUrlParameters = redirect_uri && response_type && client_id && scope;
 
-const oauthProviders = await useOAuthProviders();
+const ssoConfig = useSSOConfig();
 </script>

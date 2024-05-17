@@ -1,23 +1,26 @@
+import { StorageSerializers } from "@vueuse/core";
 import type { Mastodon } from "megalodon";
 import type { Instance } from "~/types/mastodon/instance";
 
-type InstanceWithExtra = Instance & {
-    banner?: string;
-    lysand_version?: string;
+export type InstanceWithExtra = Instance & {
+    banner: string | null;
+    lysand_version: string;
+    sso: {
+        forced: boolean;
+        providers: {
+            id: string;
+            name: string;
+            icon?: string;
+        }[];
+    };
 };
 
-export const useInstance = (client: MaybeRef<Mastodon | null>) => {
-    if (!ref(client).value) {
-        return ref(null as InstanceWithExtra | null);
+export const useInstance = () => {
+    if (process.server) {
+        return ref(null);
     }
 
-    const output = ref(null as InstanceWithExtra | null);
-
-    ref(client)
-        .value?.getInstance()
-        .then((res) => {
-            output.value = res.data;
-        });
-
-    return output;
+    return useLocalStorage<InstanceWithExtra | null>("lysand:instance", null, {
+        serializer: StorageSerializers.object,
+    });
 };

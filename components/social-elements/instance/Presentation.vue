@@ -2,8 +2,8 @@
     <div class="flex flex-col p-10 gap-4 h-full">
         <div
             class="aspect-video shrink-0 w-full rounded ring-white/5 bg-dark-800 shadow overflow-hidden ring-1 hover:ring-2 duration-100">
-            <img class="object-cover w-full h-full duration-150 hover:scale-[102%] ease-in-out"
-                v-if="instance?.banner" alt="Instance banner" :src="instance.banner" />
+            <img class="object-cover w-full h-full duration-150 hover:scale-[102%] ease-in-out" v-if="instance?.banner"
+                alt="Instance banner" :src="instance.banner" />
         </div>
 
         <div class="prose prose-invert prose-sm">
@@ -20,6 +20,6 @@
 
 <script lang="ts" setup>
 const client = useMegalodon();
-const instance = useInstance(client);
+const instance = useInstance();
 const description = useExtendedDescription(client);
 </script>

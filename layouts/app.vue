@@ -44,10 +44,10 @@
 import { OverlayScrollbarsComponent } from "#imports";
 const { width } = useWindowSize();
 
-const { n, o_i_d_c } = useMagicKeys();
+const { n, o_i_d_c, t_e_s_t } = useMagicKeys();
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
-const providers = await useOAuthProviders();
+const providers = useSSOConfig();
 
 watchEffect(async () => {
     if (n.value) {
@@ -56,20 +56,36 @@ watchEffect(async () => {
         useEvent("composer:open");
     }
     if (o_i_d_c.value) {
+        const issuer = providers.value?.providers[0];
+
+        if (!issuer) {
+            console.error("No SSO provider found");
+            return;
+        }
+
         const response = await fetch(
-            new URL(
-                `/oauth/link?issuer=${providers.value[0].id}`,
-                client.value?.baseUrl,
-            ),
+            new URL("/api/v1/sso", client.value?.baseUrl),
             {
+                method: "POST",
                 headers: {
                     Authorization: `Bearer ${tokenData.value?.access_token}`,
+                    "Content-Type": "application/json",
                 },
+                body: JSON.stringify({
+                    issuer: issuer.id,
+                }),
             },
         );
 
         const json = await response.json();
         window.location.href = json.link;
+    }
+    if (t_e_s_t.value) {
+        useEvent("notification:new", {
+            type: "info",
+            title: "Test Notification",
+            message: "This is a test notification",
+        });
     }
 });
 </script>

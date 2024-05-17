@@ -22,6 +22,8 @@
                 :class="['absolute bottom-0 right-0 p-2 text-gray-400 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']">
                 {{ remainingCharacters }}
             </div>
+            <ComposerEmojiSuggestbox :currently-typing-emoji="currentlyBeingTypedEmoji"
+                @autocomplete="autocompleteEmoji" />
         </div>
         <!-- Content warning textbox -->
         <div v-if="cw" class="mb-4">
@@ -56,6 +58,7 @@
 </template>
 
 <script lang="ts" setup>
+import { char, createRegExp, exactly } from "magic-regexp";
 import type { Instance } from "~/types/mastodon/instance";
 import type { Status } from "~/types/mastodon/status";
 import { OverlayScrollbarsComponent } from "#imports";
@@ -74,10 +77,25 @@ const markdown = ref(true);
 
 const splashes = useConfig().COMPOSER_SPLASHES;
 const chosenSplash = ref(splashes[Math.floor(Math.random() * splashes.length)]);
+const currentlyBeingTypedEmoji = computed(() => {
+    const match = content.value?.match(partiallyTypedEmojiValidator);
+    return match ? match.at(-1)?.replace(":", "") ?? "" : null;
+});
+
+const autocompleteEmoji = (emoji: string) => {
+    // Replace the end of the string with the emoji
+    content.value = content.value?.replace(
+        createRegExp(
+            exactly(":"),
+            exactly(currentlyBeingTypedEmoji.value ?? "").notBefore(char),
+        ),
+        `:${emoji}:`,
+    );
+};
+
 watch(Control_Alt, () => {
     chosenSplash.value = splashes[Math.floor(Math.random() * splashes.length)];
 });
-
 onMounted(() => {
     useListen("composer:reply", (note: Status) => {
         respondingTo.value = note;

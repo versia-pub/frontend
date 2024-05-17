@@ -69,7 +69,7 @@
                 </VeeField>
 
                 <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-            "Register" }}</ButtonsPrimary>
+                    "Register" }}</ButtonsPrimary>
             </VeeForm>
         </div>
         <div v-else>
@@ -115,7 +115,7 @@ const schema = toTypedSchema(
 );
 
 const client = useMegalodon();
-const instance = useInstance(client);
+const instance = useInstance();
 
 const errors = ref<{
     [key: string]: {

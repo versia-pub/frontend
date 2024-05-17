@@ -1,7 +1,6 @@
-import type { Mastodon } from "megalodon";
 import type { Emoji } from "~/types/mastodon/emoji";
 
-export const useCustomEmojis = (client: MaybeRef<Mastodon | null>) => {
+export const useCustomEmojis = () => {
     // Cache in localStorage
     return useLocalStorage<Emoji[]>("lysand:custom_emojis", []);
 };

@@ -24,7 +24,8 @@
         "dev": "nuxt dev --https --https.cert config/lysand-fe.localhost.pem --https.key config/lysand-fe.localhost-key.pem --host lysand-fe.localhost",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "postinstall": "nuxt prepare",
+        "lint": "bunx @biomejs/biome check ."
     },
     "dependencies": {
         "@nuxt/fonts": "^0.7.0",
@@ -33,8 +34,10 @@
         "@vee-validate/zod": "^4.12.6",
         "@vite-pwa/nuxt": "^0.7.0",
         "c12": "^1.10.0",
+        "fastest-levenshtein": "^1.0.16",
         "html-to-text": "^9.0.5",
         "iconify-icon": "^2.1.0",
+        "magic-regexp": "^0.8.0",
         "megalodon": "^10.0.0",
         "mitt": "^3.0.1",
         "nuxt": "^3.11.2",

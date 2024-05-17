@@ -10,7 +10,7 @@ import type { Reaction } from "./reaction";
 export type Status = {
     id: string;
     uri: string;
-    url: string;
+    url?: string;
     account: Account;
     in_reply_to_id: string | null;
     in_reply_to_account_id: string | null;
