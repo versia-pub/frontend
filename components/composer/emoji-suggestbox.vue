@@ -2,8 +2,9 @@
     <ComposerSuggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
         <div v-for="(emoji, index) in topEmojis" :key="emoji.shortcode" @click="emit('autocomplete', emoji.shortcode)"
             :ref="el => { if (el) emojiRefs[index] = el as Element }" :title="emoji.shortcode"
-            :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'hover:bg-dark-900/70', { 'bg-pink-500': index === selectedEmojiIndex }]">
-            <img :src="emoji.url" class="w-8 h-8" :alt="`Emoji with shortcode ${emoji.shortcode}`" />
+            :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'size-12', 'hover:bg-dark-900/70', { 'bg-pink-500': index === selectedEmojiIndex }]">
+            <img :src="emoji.url" class="w-full h-full object-contain"
+                :alt="`Emoji with shortcode ${emoji.shortcode}`" />
         </div>
     </ComposerSuggestbox>
 </template>
