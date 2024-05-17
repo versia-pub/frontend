@@ -2,7 +2,7 @@ import mitt from "mitt";
 import type { Status } from "~/types/mastodon/status";
 
 export type NotificationEvent = {
-    type: "error" | "info";
+    type: "error" | "success" | "progress";
     title: string;
     message?: string;
     persistent?: boolean;

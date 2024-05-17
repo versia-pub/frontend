@@ -56,6 +56,12 @@ watchEffect(async () => {
         useEvent("composer:open");
     }
     if (o_i_d_c.value) {
+        useEvent("notification:new", {
+            type: "progress",
+            title: "Linking your account",
+            persistent: true,
+        });
+
         const issuer = providers.value?.providers[0];
 
         if (!issuer) {

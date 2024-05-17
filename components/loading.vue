@@ -60,7 +60,7 @@ app.hook("page:finish", async () => {
 
     if (oidcAccountLinked) {
         useEvent("notification:new", {
-            type: "info",
+            type: "success",
             title: "Account linked",
             message:
                 "Your account has been successfully linked to your OpenID Connect provider.",
