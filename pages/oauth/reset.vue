@@ -9,7 +9,7 @@
                     <h2 class="font-bold text-lg">An error occured</h2>
                     <span class="text-sm">{{ error_description }}</span>
                 </div>
-                <VeeForm class="space-y-6" method="POST" :validation-schema="schema" :action="`/api/auth/reset`">
+                <VeeForm class="space-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
                     <input type="hidden" name="token" :value="token" />
 
                     <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Reset your password</h1>
@@ -37,6 +37,14 @@
                     <ButtonsPrimary type="submit" class="w-full">Reset</ButtonsPrimary>
                 </VeeForm>
             </div>
+            <div v-else-if="success">
+                <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Password reset
+                    successful!
+                </h1>
+                <p class="mt-6 text-lg leading-8 text-gray-300 text-center">
+                    You can now login to your account with your new password.
+                </p>
+            </div>
             <div v-else class="mx-auto max-w-md">
                 <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
                     parameters
@@ -59,12 +67,15 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import LoginInput from "../../components/LoginInput.vue";
 
+const tokenData = useTokenData();
+tokenData.value = null;
+
 const schema = toTypedSchema(
-    z.object({
-        password: z.string().min(3),
-        password2: z.string().min(3),
-        token: z.string().min(1),
-    })
+    z
+        .object({
+            password: z.string().min(3).max(100),
+            password2: z.string().min(3).max(100),
+        })
         .superRefine((data, ctx) => {
             if (data.password !== data.password2) {
                 ctx.addIssue({
@@ -81,10 +92,16 @@ const query = new URLSearchParams(
     window?.location.search ?? useRequestURL().search,
 );
 const token = query.get("token");
-const error = query.get("error");
-const error_description = query.get("error_description");
+const login_reset = query.get("login_reset") === "true";
+const success = query.get("success") === "true";
+let error = query.get("error");
+let error_description = query.get("error_description");
+
+if (login_reset) {
+    error = "Login reset";
+    error_description =
+        "Your password has been reset by an administrator. Please change it here.";
+}
 
 const validUrlParameters = token;
-
-const ssoConfig = useSSOConfig();
 </script>
