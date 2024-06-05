@@ -46,7 +46,6 @@ useListen("composer:open", () => {
 useListen("composer:close", () => {
     open.value = false;
 });
-const log = console.log;
 const tokenData = useTokenData();
 const instance = useInstance();
 </script>

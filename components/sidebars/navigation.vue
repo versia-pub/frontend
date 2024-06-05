@@ -106,27 +106,25 @@
                 </template>
 
                 <template #items>
-                    <ClientOnly>
-                        <Menu.Item value="" v-if="tokenData">
-                            <ButtonsDropdownElement icon="tabler:logout" class="w-full"
-                                @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                                Sign Out
+                    <Menu.Item value="" v-if="tokenData">
+                        <ButtonsDropdownElement icon="tabler:logout" class="w-full"
+                            @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                            Sign Out
+                        </ButtonsDropdownElement>
+                    </Menu.Item>
+                    <Menu.Item value="" v-if="!tokenData">
+                        <ButtonsDropdownElement icon="tabler:login" class="w-full"
+                            @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
+                            Sign In
+                        </ButtonsDropdownElement>
+                    </Menu.Item>
+                    <Menu.Item value="" v-if="!tokenData">
+                        <NuxtLink href="/register">
+                            <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
+                                Register
                             </ButtonsDropdownElement>
-                        </Menu.Item>
-                        <Menu.Item value="" v-if="!tokenData">
-                            <ButtonsDropdownElement icon="tabler:login" class="w-full"
-                                @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                                Sign In
-                            </ButtonsDropdownElement>
-                        </Menu.Item>
-                        <Menu.Item value="" v-if="!tokenData">
-                            <NuxtLink href="/register">
-                                <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
-                                    Register
-                                </ButtonsDropdownElement>
-                            </NuxtLink>
-                        </Menu.Item>
-                    </ClientOnly>
+                        </NuxtLink>
+                    </Menu.Item>
                 </template>
             </DropdownsAdaptiveDropdown>
             <button @click="compose" v-if="tokenData"
@@ -165,7 +163,6 @@ const timelines = ref([
         requiresAuth: true,
     },
 ]);
-const log = console.log;
 
 const visibleTimelines = computed(() =>
     timelines.value.filter(
