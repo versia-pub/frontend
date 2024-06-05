@@ -1,21 +1,12 @@
 <template>
+    <div v-if="respondingTo" class="mb-4">
+        <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
+            <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true"
+                class="!rounded-none !bg-pink-500/10" />
+        </OverlayScrollbarsComponent>
+    </div>
     <div class="px-6 py-4">
-        <div class="py-2 relative">
-            <div v-if="respondingTo" class="mb-4">
-                <span v-if="respondingType === 'reply'" class="text-gray-400 uppercase text-xs font-semibold">
-                    <iconify-icon width="1rem" height="1rem" icon="tabler:arrow-back-up" class="text-gray-400 mb-0.5"
-                        aria-hidden="true" />
-                    Replying to
-                </span>
-                <span v-else-if="respondingType === 'quote'" class="text-gray-400 uppercase text-xs font-semibold">
-                    <iconify-icon width="1rem" height="1rem" icon="tabler:quote" class="text-gray-400"
-                        aria-hidden="true" />
-                    Quoting
-                </span>
-                <OverlayScrollbarsComponent :defer="true" class="mt-2 max-h-72 overflow-y-auto">
-                    <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true" />
-                </OverlayScrollbarsComponent>
-            </div>
+        <div class="pb-2 relative">
             <textarea :disabled="submitting" ref="textarea" v-model="content" :placeholder="chosenSplash"
                 class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"></textarea>
             <div

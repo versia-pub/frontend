@@ -45,8 +45,11 @@ export const useNoteData = (
             : null,
     );
 
-    const url = computed(
-        () => `/@${renderedNote.value?.account.acct}/${renderedNote.value?.id}`,
+    const url = computed(() =>
+        new URL(
+            `/@${renderedNote.value?.account.acct}/${renderedNote.value?.id}`,
+            window.location.origin,
+        ).toString(),
     );
 
     const remove = async () => {

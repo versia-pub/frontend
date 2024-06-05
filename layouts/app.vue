@@ -38,6 +38,7 @@
         </div>
     </div>
     <LazyComposerModal />
+    <LazySocialElementsNotesAttachmentDialog />
 </template>
 
 <script setup lang="ts">

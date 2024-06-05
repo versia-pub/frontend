@@ -24,17 +24,17 @@
                         class="text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.replies_count) }}</span>
                 </button>
-                <button class="group" :disabled="!isSignedIn">
+                <button class="group" @click="likeFn" :disabled="!isSignedIn">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!note?.favourited"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-pink-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
                         class="size-5 text-pink-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.favourites_count) }}</span>
                 </button>
-                <button class="group" :disabled="!isSignedIn">
+                <button class="group" @click="reblogFn" :disabled="!isSignedIn">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!note?.reblogged"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
-                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat-off" v-else
+                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-else
                         class="size-5 text-green-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.reblogs_count) }}</span>
                 </button>
@@ -45,32 +45,30 @@
                 </button>
                 <DropdownsAdaptiveDropdown>
                     <template #button>
-                        <HeadlessMenuButton>
-                            <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:dots"
-                                class="size-5 text-gray-200" aria-hidden="true" />
-                            <span class="sr-only">Open menu</span>
-                        </HeadlessMenuButton>
+                        <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:dots" class="size-5 text-gray-200"
+                            aria-hidden="true" />
+                        <span class="sr-only">Open menu</span>
                     </template>
 
                     <template #items>
-                        <HeadlessMenuItem>
+                        <Menu.Item value="">
                             <ButtonsDropdownElement @click="copy(JSON.stringify(note, null, 4))" icon="tabler:code"
                                 class="w-full">
                                 Copy API
                                 Response
                             </ButtonsDropdownElement>
-                        </HeadlessMenuItem>
-                        <HeadlessMenuItem>
+                        </Menu.Item>
+                        <Menu.Item value="">
                             <ButtonsDropdownElement @click="copy(url)" icon="tabler:link" class="w-full">
                                 Copy Link
                             </ButtonsDropdownElement>
-                        </HeadlessMenuItem>
-                        <HeadlessMenuItem>
+                        </Menu.Item>
+                        <Menu.Item value="">
                             <ButtonsDropdownElement @click="remove" icon="tabler:backspace" :disabled="!isSignedIn"
                                 class="w-full border-r-2 border-red-500">
                                 Delete
                             </ButtonsDropdownElement>
-                        </HeadlessMenuItem>
+                        </Menu.Item>
                     </template>
                 </DropdownsAdaptiveDropdown>
             </div>
@@ -79,6 +77,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Menu } from "@ark-ui/vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import type { Status } from "~/types/mastodon/status";
 
@@ -94,6 +93,8 @@ const props = withDefaults(
     },
 );
 
+const noteRef = ref(props.note);
+
 const tokenData = useTokenData();
 const isSignedIn = useSignedIn();
 const client = useMegalodon(tokenData);
@@ -108,7 +109,7 @@ const {
     reblog,
     isReply,
     reblogDisplayName,
-} = useNoteData(ref(props.note), client);
+} = useNoteData(noteRef, client);
 
 const { copy } = useClipboard();
 const numberFormat = (number = 0) =>
@@ -117,4 +118,38 @@ const numberFormat = (number = 0) =>
         compactDisplay: "short",
         maximumFractionDigits: 1,
     }).format(number);
+
+const likeFn = async () => {
+    if (!note.value) return;
+    if (note.value.favourited) {
+        const output = await client.value?.unfavouriteStatus(note.value.id);
+
+        if (output?.data) {
+            noteRef.value = output.data;
+        }
+    } else {
+        const output = await client.value?.favouriteStatus(note.value.id);
+
+        if (output?.data) {
+            noteRef.value = output.data;
+        }
+    }
+};
+
+const reblogFn = async () => {
+    if (!note.value) return;
+    if (note.value?.reblogged) {
+        const output = await client.value?.unreblogStatus(note.value.id);
+
+        if (output?.data) {
+            noteRef.value = output.data;
+        }
+    } else {
+        const output = await client.value?.reblogStatus(note.value.id);
+
+        if (output?.data.reblog) {
+            noteRef.value = output.data.reblog;
+        }
+    }
+};
 </script>

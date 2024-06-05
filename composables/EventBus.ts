@@ -1,4 +1,5 @@
 import mitt from "mitt";
+import type { Attachment } from "~/types/mastodon/attachment";
 import type { Status } from "~/types/mastodon/status";
 
 export type NotificationEvent = {
@@ -24,6 +25,7 @@ type ApplicationEvents = {
     "composer:send": Status;
     "composer:close": undefined;
     "notification:new": NotificationEvent;
+    "attachment:view": Attachment;
 };
 
 const emitter = mitt<ApplicationEvents>();

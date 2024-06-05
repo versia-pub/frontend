@@ -70,23 +70,20 @@
         <ClientOnly>
             <DropdownsAdaptiveDropdown>
                 <template #button>
-                    <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                    <button class="flex flex-col items-center justify-center p-2 rounded">
                         <iconify-icon icon="tabler:home" class="text-2xl" />
                         <span class="text-xs">Timelines</span>
-                    </HeadlessMenuButton>
+                    </button>
                 </template>
 
                 <template #items>
-                    <ClientOnly>
-                        <HeadlessMenuItem v-for="timeline in visibleTimelines" :key="timeline.href"
-                            :href="timeline.href">
-                            <NuxtLink>
-                                <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
-                                    {{ timeline.name }}
-                                </ButtonsDropdownElement>
-                            </NuxtLink>
-                        </HeadlessMenuItem>
-                    </ClientOnly>
+                    <Menu.Item value="" v-for="timeline in visibleTimelines" :key="timeline.href">
+                        <NuxtLink :href="timeline.href">
+                            <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                                {{ timeline.name }}
+                            </ButtonsDropdownElement>
+                        </NuxtLink>
+                    </Menu.Item>
                 </template>
             </DropdownsAdaptiveDropdown>
             <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
@@ -102,33 +99,33 @@
             </ClientOnly>
             <DropdownsAdaptiveDropdown v-else>
                 <template #button>
-                    <HeadlessMenuButton class="flex flex-col items-center justify-center p-2 rounded">
+                    <button class="flex flex-col items-center justify-center p-2 rounded">
                         <iconify-icon icon="tabler:user" class="text-2xl" />
                         <span class="text-xs">Account</span>
-                    </HeadlessMenuButton>
+                    </button>
                 </template>
 
                 <template #items>
                     <ClientOnly>
-                        <HeadlessMenuItem v-if="tokenData">
+                        <Menu.Item value="" v-if="tokenData">
                             <ButtonsDropdownElement icon="tabler:logout" class="w-full"
                                 @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
                                 Sign Out
                             </ButtonsDropdownElement>
-                        </HeadlessMenuItem>
-                        <HeadlessMenuItem v-if="!tokenData">
+                        </Menu.Item>
+                        <Menu.Item value="" v-if="!tokenData">
                             <ButtonsDropdownElement icon="tabler:login" class="w-full"
                                 @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
                                 Sign In
                             </ButtonsDropdownElement>
-                        </HeadlessMenuItem>
-                        <HeadlessMenuItem v-if="!tokenData">
+                        </Menu.Item>
+                        <Menu.Item value="" v-if="!tokenData">
                             <NuxtLink href="/register">
                                 <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
                                     Register
                                 </ButtonsDropdownElement>
                             </NuxtLink>
-                        </HeadlessMenuItem>
+                        </Menu.Item>
                     </ClientOnly>
                 </template>
             </DropdownsAdaptiveDropdown>
@@ -142,6 +139,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Menu } from "@ark-ui/vue";
 const { $pwa } = useNuxtApp();
 const timelines = ref([
     {
@@ -167,6 +165,7 @@ const timelines = ref([
         requiresAuth: true,
     },
 ]);
+const log = console.log;
 
 const visibleTimelines = computed(() =>
     timelines.value.filter(
