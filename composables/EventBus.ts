@@ -22,7 +22,9 @@ type ApplicationEvents = {
     "composer:open": undefined;
     "composer:reply": Status;
     "composer:quote": Status;
+    "composer:edit": Status;
     "composer:send": Status;
+    "composer:send-edit": Status;
     "composer:close": undefined;
     "notification:new": NotificationEvent;
     "attachment:view": Attachment;

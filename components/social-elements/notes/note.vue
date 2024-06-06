@@ -12,33 +12,35 @@
                 <span><strong v-html="reblogDisplayName"></strong> reblogged</span>
             </Skeleton>
         </div>
-        <SocialElementsNotesReplyHeader v-if="isReply" :account_id="note?.in_reply_to_account_id ?? null" />
-        <SocialElementsNotesHeader :note="note" :small="small" />
-        <LazySocialElementsNotesNoteContent :note="note" :loaded="loaded" :url="url" :content="content"
+        <SocialElementsNotesReplyHeader v-if="isReply" :account_id="outputtedNote?.in_reply_to_account_id ?? null" />
+        <SocialElementsNotesHeader :note="outputtedNote" :small="small" />
+        <LazySocialElementsNotesNoteContent :note="outputtedNote" :loaded="loaded" :url="url" :content="content"
             :is-quote="isQuote" :should-hide="shouldHide" />
         <Skeleton class="!h-10 w-full mt-6" :enabled="!props.note || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
                 class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
-                <button class="group" @click="note && useEvent('note:reply', note)" :disabled="!isSignedIn">
+                <button class="group" @click="outputtedNote && useEvent('note:reply', outputtedNote)"
+                    :disabled="!isSignedIn">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:arrow-back-up"
                         class="text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.replies_count) }}</span>
+                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.replies_count) }}</span>
                 </button>
                 <button class="group" @click="likeFn" :disabled="!isSignedIn">
-                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!note?.favourited"
+                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!outputtedNote?.favourited"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-pink-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
                         class="size-5 text-pink-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.favourites_count) }}</span>
+                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.favourites_count) }}</span>
                 </button>
                 <button class="group" @click="reblogFn" :disabled="!isSignedIn">
-                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!note?.reblogged"
+                    <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!outputtedNote?.reblogged"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-else
                         class="size-5 text-green-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note?.reblogs_count) }}</span>
+                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.reblogs_count) }}</span>
                 </button>
-                <button class="group" @click="note && useEvent('note:quote', note)" :disabled="!isSignedIn">
+                <button class="group" @click="outputtedNote && useEvent('note:quote', outputtedNote)"
+                    :disabled="!isSignedIn">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:quote"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
@@ -51,9 +53,15 @@
                     </template>
 
                     <template #items>
+                        <Menu.Item value="" v-if="isSignedIn && outputtedNote?.account.id === me?.id">
+                            <ButtonsDropdownElement @click="outputtedNote && useEvent('note:edit', outputtedNote)"
+                                icon="tabler:pencil" class="w-full">
+                                Edit
+                            </ButtonsDropdownElement>
+                        </Menu.Item>
                         <Menu.Item value="">
-                            <ButtonsDropdownElement @click="copy(JSON.stringify(note, null, 4))" icon="tabler:code"
-                                class="w-full">
+                            <ButtonsDropdownElement @click="copy(JSON.stringify(outputtedNote, null, 4))"
+                                icon="tabler:code" class="w-full">
                                 Copy API
                                 Response
                             </ButtonsDropdownElement>
@@ -95,12 +103,19 @@ const props = withDefaults(
 
 const noteRef = ref(props.note);
 
+useListen("composer:send-edit", (note) => {
+    if (note.id === noteRef.value?.id) {
+        noteRef.value = note;
+    }
+});
+
 const tokenData = useTokenData();
 const isSignedIn = useSignedIn();
+const me = useMe();
 const client = useMegalodon(tokenData);
 const {
     loaded,
-    note,
+    note: outputtedNote,
     remove,
     content,
     shouldHide,
@@ -120,15 +135,19 @@ const numberFormat = (number = 0) =>
     }).format(number);
 
 const likeFn = async () => {
-    if (!note.value) return;
-    if (note.value.favourited) {
-        const output = await client.value?.unfavouriteStatus(note.value.id);
+    if (!outputtedNote.value) return;
+    if (outputtedNote.value.favourited) {
+        const output = await client.value?.unfavouriteStatus(
+            outputtedNote.value.id,
+        );
 
         if (output?.data) {
             noteRef.value = output.data;
         }
     } else {
-        const output = await client.value?.favouriteStatus(note.value.id);
+        const output = await client.value?.favouriteStatus(
+            outputtedNote.value.id,
+        );
 
         if (output?.data) {
             noteRef.value = output.data;
@@ -137,15 +156,17 @@ const likeFn = async () => {
 };
 
 const reblogFn = async () => {
-    if (!note.value) return;
-    if (note.value?.reblogged) {
-        const output = await client.value?.unreblogStatus(note.value.id);
+    if (!outputtedNote.value) return;
+    if (outputtedNote.value?.reblogged) {
+        const output = await client.value?.unreblogStatus(
+            outputtedNote.value.id,
+        );
 
         if (output?.data) {
             noteRef.value = output.data;
         }
     } else {
-        const output = await client.value?.reblogStatus(note.value.id);
+        const output = await client.value?.reblogStatus(outputtedNote.value.id);
 
         if (output?.data.reblog) {
             noteRef.value = output.data.reblog;

@@ -22,12 +22,12 @@ export const useNoteData = (
             false,
     );
     const mentions = useResolveMentions(
-        renderedNote.value?.mentions ?? [],
+        computed(() => renderedNote.value?.mentions ?? []),
         client.value,
     );
     const content = useParsedContent(
-        renderedNote.value?.content ?? "",
-        renderedNote.value?.emojis ?? [],
+        computed(() => renderedNote.value?.content ?? ""),
+        computed(() => renderedNote.value?.emojis ?? []),
         mentions,
     );
     const loaded = computed(() => content.value !== null);

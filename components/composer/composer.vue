@@ -47,7 +47,9 @@
             </ComposerButton>
             <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
                 :disabled="!canSubmit || loading">
-                <span>Send!</span>
+                <span>{{
+        respondingType === "edit" ? "Edit!" : "Send!"
+                    }}</span>
             </ButtonsPrimary>
         </div>
     </div>
@@ -68,7 +70,7 @@ const { input: content } = useTextareaAutosize({
 });
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
 const respondingTo = ref<Status | null>(null);
-const respondingType = ref<"reply" | "quote" | null>(null);
+const respondingType = ref<"reply" | "quote" | "edit" | null>(null);
 const me = useMe();
 const cw = ref(false);
 const cwContent = ref("");
@@ -161,6 +163,30 @@ onMounted(() => {
             content.value = `@${note.account.acct} `;
         textarea.value?.focus();
     });
+
+    useListen("composer:edit", async (note: Status) => {
+        loading.value = true;
+        files.value = note.media_attachments.map((file) => ({
+            id: nanoid(),
+            file: new File([], file.url),
+            progress: 1,
+            api_id: file.id,
+            alt_text: file.description ?? undefined,
+        }));
+
+        // Fetch source
+        const source = await client.value?.getStatusSource(note.id);
+
+        if (source?.data) {
+            respondingTo.value = note;
+            respondingType.value = "edit";
+            content.value = source.data.text;
+            cwContent.value = source.data.spoiler_text;
+            textarea.value?.focus();
+        }
+
+        loading.value = false;
+    });
 });
 
 watchEffect(() => {
@@ -184,6 +210,46 @@ const client = useMegalodon(tokenData);
 
 const send = async () => {
     loading.value = true;
+
+    if (respondingType.value === "edit") {
+        fetch(
+            new URL(
+                `/api/v1/statuses/${respondingTo.value?.id}`,
+                client.value?.baseUrl ?? "",
+            ).toString(),
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${tokenData.value?.access_token}`,
+                },
+                body: JSON.stringify({
+                    status: content.value?.trim() ?? "",
+                    content_type: markdown.value
+                        ? "text/markdown"
+                        : "text/plain",
+                    spoiler_text: cw.value ? cwContent.value.trim() : undefined,
+                    sensitive: cw.value,
+                    media_ids: files.value
+                        .filter((file) => !!file.api_id)
+                        .map((file) => file.api_id),
+                }),
+            },
+        )
+            .then(async (res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to edit status");
+                }
+
+                content.value = "";
+                loading.value = false;
+                useEvent("composer:send-edit", await res.json());
+            })
+            .finally(() => {
+                useEvent("composer:close");
+            });
+        return;
+    }
 
     fetch(new URL("/api/v1/statuses", client.value?.baseUrl ?? "").toString(), {
         method: "POST",

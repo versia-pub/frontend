@@ -10,7 +10,7 @@
         </video>
         <a v-else class="bg-dark-800 w-full h-full rounded flex items-center justify-center" :href="attachment.url"
             target="_blank" download>
-            <div class="flex flex-col items-center gap-2 max-w-56 overflow-hidden text-ellipsis">
+            <div class="flex flex-col items-center gap-2 text-center max-w-56 overflow-hidden text-ellipsis">
                 <iconify-icon icon="tabler:file" width="none" class="size-10 text-gray-300" />
                 <p class="text-gray-300 text-sm font-mono">{{ getFilename(attachment.url) }}</p>
                 <p class="text-gray-300 text-xs" v-if="attachment.meta?.length">{{
@@ -60,7 +60,9 @@ const getFilename = (url: string) => {
     if (url.includes("/media/proxy")) {
         // Decode last part of URL as base64url, which is the real URL
         const realUrl = atob(url.split("/").pop() ?? "");
-        return realUrl.substring(realUrl.lastIndexOf("/") + 1);
+        return decodeURIComponent(
+            realUrl.substring(realUrl.lastIndexOf("/") + 1),
+        );
     }
     const path = new URL(url).pathname;
     return path.substring(path.lastIndexOf("/") + 1);

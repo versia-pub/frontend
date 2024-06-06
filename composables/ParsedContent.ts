@@ -10,17 +10,21 @@ import MentionComponent from "../components/social-elements/notes/mention.vue";
  * @returns Reactive object with the parsed content
  */
 export const useParsedContent = (
-    content: string,
-    emojis: Emoji[],
+    content: MaybeRef<string>,
+    emojis: MaybeRef<Emoji[]>,
     mentions: MaybeRef<Account[]> = ref([]),
 ): Ref<string | null> => {
     const result = ref(null as string | null);
 
     watch(
-        mentions,
+        isRef(content)
+            ? isRef(emojis)
+                ? [content, mentions, emojis]
+                : [content, mentions]
+            : mentions,
         async () => {
             const contentHtml = document.createElement("div");
-            contentHtml.innerHTML = content;
+            contentHtml.innerHTML = toValue(content);
 
             // Replace emoji shortcodes with images
             const paragraphs = contentHtml.querySelectorAll("p");
@@ -29,7 +33,7 @@ export const useParsedContent = (
                 paragraph.innerHTML = paragraph.innerHTML.replace(
                     /:([a-z0-9_-]+):/g,
                     (match, emoji) => {
-                        const emojiData = emojis.find(
+                        const emojiData = toValue(emojis).find(
                             (e) => e.shortcode === emoji,
                         );
                         if (!emojiData) {
