@@ -28,11 +28,11 @@
         "lint": "bunx @biomejs/biome check ."
     },
     "dependencies": {
-        "@ark-ui/vue": "^3.1.0",
+        "@ark-ui/vue": "^3.3.0",
         "@nuxt/fonts": "^0.7.0",
         "@tailwindcss/typography": "^0.5.13",
-        "@vee-validate/nuxt": "^4.13.0",
-        "@vee-validate/zod": "^4.13.0",
+        "@vee-validate/nuxt": "^4.13.1",
+        "@vee-validate/zod": "^4.13.1",
         "@vite-pwa/nuxt": "^0.8.0",
         "c12": "^1.10.0",
         "fastest-levenshtein": "^1.0.16",
@@ -54,7 +54,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.7.3",
+        "@biomejs/biome": "^1.8.0",
         "@nuxtjs/seo": "^2.0.0-rc.10",
         "@nuxtjs/tailwindcss": "^6.12.0",
         "@tailwindcss/forms": "^0.5.7",
