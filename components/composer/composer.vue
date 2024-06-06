@@ -45,7 +45,8 @@
             <ComposerButton title="Add content warning" @click="cw = !cw" :toggled="cw">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
             </ComposerButton>
-            <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full">
+            <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
+                :disabled="!canSubmit || loading">
                 <span>Send!</span>
             </ButtonsPrimary>
         </div>
@@ -173,6 +174,11 @@ const props = defineProps<{
 }>();
 
 const loading = ref(false);
+const canSubmit = computed(
+    () =>
+        (content.value?.trim().length > 0 || files.value.length > 0) &&
+        content.value?.trim().length <= characterLimit.value,
+);
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
 
