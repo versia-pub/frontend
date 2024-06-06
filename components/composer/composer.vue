@@ -107,13 +107,13 @@ const files = ref<
 
 const handlePaste = (event: ClipboardEvent) => {
     if (event.clipboardData) {
-        event.preventDefault();
         const items = Array.from(event.clipboardData.items);
         const newFiles = items
             .filter((item) => item.kind === "file")
             .map((item) => item.getAsFile())
             .filter((file): file is File => file !== null);
         if (newFiles.length > 0) {
+            event.preventDefault();
             files.value.push(
                 ...newFiles.map((file) => ({
                     id: nanoid(),
