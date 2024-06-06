@@ -1,5 +1,5 @@
 <template>
-    <aside v-bind="$props"
+    <aside v-bind="$props" role="complementary"
         :class="['flex max-h-dvh overflow-hidden duration-200', open ? enterClass : leaveClass, direction === 'left' ? 'flex-row' : 'flex-row-reverse']">
         <OverlayScrollbarsComponent :defer="true"
             class="bg-dark-900 ring-1 ring-white/10 h-full overflow-y-auto w-full">
