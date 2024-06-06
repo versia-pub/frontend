@@ -42,6 +42,9 @@ export default defineNuxtConfig({
             },
             crossOriginResourcePolicy: "cross-origin",
             xFrameOptions: "DENY",
+            permissionsPolicy: {
+                fullscreen: ["'self'", "blob:"],
+            },
         },
         rateLimiter: {
             headers: true,

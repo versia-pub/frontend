@@ -7,7 +7,8 @@
                 v-html="content">
             </div>
         </Skeleton>
-        <div v-if="note && note.media_attachments.length > 0" class="[&:not(:first-child)]:mt-6">
+        <div v-if="note && note.media_attachments.length > 0"
+            class="[&:not(:first-child)]:mt-6 grid grid-cols-2 gap-4 [&>*]:aspect-square [&:has(>:last-child:nth-child(1))>*]:aspect-video [&:has(>:last-child:nth-child(1))]:block">
             <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
                 :attachment="attachment" />
         </div>
