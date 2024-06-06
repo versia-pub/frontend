@@ -8,6 +8,15 @@
             controls :alt="attachment.description ?? undefined" :src="attachment.url">
             Your browser does not support the video tag.
         </video>
+        <a v-else class="bg-dark-800 w-full h-full rounded flex items-center justify-center" :href="attachment.url"
+            target="_blank" download>
+            <div class="flex flex-col items-center gap-2 max-w-56 overflow-hidden text-ellipsis">
+                <iconify-icon icon="tabler:file" width="none" class="size-10 text-gray-300" />
+                <p class="text-gray-300 text-sm font-mono">{{ getFilename(attachment.url) }}</p>
+                <p class="text-gray-300 text-xs" v-if="attachment.meta?.length">{{
+            formatBytes(Number(attachment.meta?.length)) }}</p>
+            </div>
+        </a>
         <!-- Alt text viewer -->
         <Popover.Root :positioning="{
             strategy: 'fixed',
@@ -35,5 +44,25 @@ const props = defineProps<{
 
 const openLightbox = () => {
     useEvent("attachment:view", props.attachment);
+};
+
+const formatBytes = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1000;
+    const dm = 2;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
+};
+
+const getFilename = (url: string) => {
+    // Handle proxy case
+    if (url.includes("/media/proxy")) {
+        // Decode last part of URL as base64url, which is the real URL
+        const realUrl = atob(url.split("/").pop() ?? "");
+        return realUrl.substring(realUrl.lastIndexOf("/") + 1);
+    }
+    const path = new URL(url).pathname;
+    return path.substring(path.lastIndexOf("/") + 1);
 };
 </script>
