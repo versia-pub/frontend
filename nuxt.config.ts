@@ -34,10 +34,11 @@ export default defineNuxtConfig({
                     ? "unsafe-none"
                     : "require-corp",
             contentSecurityPolicy: {
-                "img-src": ["'self'", "data:", "https:"],
+                "img-src": ["'self'", "data:", "https:", "blob:"],
                 "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
                 // Add https because of some browsers blocking form-action to 'self' if the page is from a redirect
                 "form-action": ["'self'", "https:"],
+                "media-src": ["'self'", "https:", "blob:"],
             },
             crossOriginResourcePolicy: "cross-origin",
             xFrameOptions: "DENY",

@@ -5,9 +5,10 @@
                 class="!rounded-none !bg-pink-500/10" />
         </OverlayScrollbarsComponent>
     </div>
-    <div class="px-6 py-4">
+    <div class="px-6 pb-4 pt-5">
         <div class="pb-2 relative">
             <textarea :disabled="submitting" ref="textarea" v-model="content" :placeholder="chosenSplash"
+                @paste="handlePaste"
                 class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"></textarea>
             <div
                 :class="['absolute bottom-0 right-0 p-2 text-gray-400 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']">
@@ -21,6 +22,7 @@
             <input type="text" v-model="cwContent" placeholder="Add a content warning"
                 class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
         </div>
+        <ComposerFileUploader v-model:files="files" ref="uploader" />
         <div class="flex flex-row gap-1 border-white/20">
             <ComposerButton title="Mention someone">
                 <iconify-icon height="1.5rem" width="1.5rem" icon="tabler:at" aria-hidden="true" />
@@ -32,10 +34,10 @@
             <ComposerButton title="Use a custom emoji">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:mood-smile" aria-hidden="true" />
             </ComposerButton>
-            <ComposerButton title="Add media">
+            <ComposerButton title="Add media" @click="openFilePicker">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:photo-up" aria-hidden="true" />
             </ComposerButton>
-            <ComposerButton title="Add a file">
+            <ComposerButton title="Add a file" @click="openFilePicker">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:file-upload" aria-hidden="true" />
             </ComposerButton>
             <ComposerButton title="Add content warning" @click="cw = !cw" :toggled="cw">
@@ -50,11 +52,14 @@
 
 <script lang="ts" setup>
 import { char, createRegExp, exactly } from "magic-regexp";
+import { nanoid } from "nanoid";
 import type { Instance } from "~/types/mastodon/instance";
 import type { Status } from "~/types/mastodon/status";
 import { OverlayScrollbarsComponent } from "#imports";
+import type FileUploader from "./file-uploader.vue";
 
 const textarea = ref<HTMLTextAreaElement | undefined>(undefined);
+const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
 const { input: content } = useTextareaAutosize({
     element: textarea,
 });
@@ -73,6 +78,10 @@ const currentlyBeingTypedEmoji = computed(() => {
     return match ? match.at(-1)?.replace(":", "") ?? "" : null;
 });
 
+const openFilePicker = () => {
+    uploader.value?.openFilePicker();
+};
+
 const autocompleteEmoji = (emoji: string) => {
     // Replace the end of the string with the emoji
     content.value = content.value?.replace(
@@ -84,9 +93,39 @@ const autocompleteEmoji = (emoji: string) => {
     );
 };
 
+const files = ref<
+    {
+        id: string;
+        file: File;
+        progress: number;
+        api_id?: string;
+    }[]
+>([]);
+
+const handlePaste = (event: ClipboardEvent) => {
+    if (event.clipboardData) {
+        event.preventDefault();
+        const items = Array.from(event.clipboardData.items);
+        const newFiles = items
+            .filter((item) => item.kind === "file")
+            .map((item) => item.getAsFile())
+            .filter((file): file is File => file !== null);
+        if (newFiles.length > 0) {
+            files.value.push(
+                ...newFiles.map((file) => ({
+                    id: nanoid(),
+                    file,
+                    progress: 0,
+                })),
+            );
+        }
+    }
+};
+
 watch(Control_Alt, () => {
     chosenSplash.value = splashes[Math.floor(Math.random() * splashes.length)];
 });
+
 onMounted(() => {
     useListen("composer:reply", (note: Status) => {
         respondingTo.value = note;
@@ -129,7 +168,7 @@ const send = async () => {
             Authorization: `Bearer ${tokenData.value?.access_token}`,
         },
         body: JSON.stringify({
-            status: content.value.trim(),
+            status: content.value?.trim() ?? "",
             content_type: markdown.value ? "text/markdown" : "text/plain",
             in_reply_to_id:
                 respondingType.value === "reply"
@@ -141,6 +180,9 @@ const send = async () => {
                     : null,
             spoiler_text: cw.value ? cwContent.value.trim() : undefined,
             sensitive: cw.value,
+            media_ids: files.value
+                .filter((file) => !!file.api_id)
+                .map((file) => file.api_id),
         }),
     })
         .then(async (res) => {

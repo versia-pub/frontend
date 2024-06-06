@@ -1,0 +1,130 @@
+<template>
+    <div>
+        <input type="file" ref="fileInput" @change="handleFileInput" style="display: none" multiple />
+        <div class="flex flex-row gap-2 overflow-x-auto *:shrink-0 p-1 mb-4" v-if="files.length > 0">
+            <div v-for="(data) in files.toReversed()" :key="data.id" role="button" tabindex="0"
+                :class="['size-28 bg-dark-800 rounded flex items-center relative justify-center ring-1 ring-white/20 overflow-hidden', data.progress !== 1.0 && 'animate-pulse']"
+                @keydown.enter="removeFile(data.id)">
+                <template v-if="data.file.type.startsWith('image/')">
+                    <img :src="createObjectURL(data.file)" class="w-full h-full object-cover cursor-default"
+                        alt="Preview of file" />
+                </template>
+                <template v-else-if="data.file.type.startsWith('video/')">
+                    <video :src="createObjectURL(data.file)" class="w-full h-full object-cover cursor-default"></video>
+                </template>
+                <template v-else>
+                    <iconify-icon :icon="getIcon(data.file.type)" width="none" class="size-6" />
+                </template>
+                <div class="absolute bottom-1 right-1 p-1 bg-dark-800/70 text-white text-xs rounded cursor-default flex flex-row items-center gap-x-1"
+                    aria-label="File size">
+                    {{ formatBytes(data.file.size) }}
+                    <!-- Loader spinner -->
+                    <iconify-icon v-if="data.progress < 1.0" icon="tabler:loader-2" width="none"
+                        class="size-4 animate-spin text-pink-500" />
+                </div>
+                <button class="absolute top-1 right-1 p-1 bg-dark-800/50 text-white text-xs rounded size-6"
+                    role="button" tabindex="0" @pointerup="removeFile(data.id)" @keydown.enter="removeFile(data.id)">
+                    <iconify-icon icon="tabler:x" width="none" class="size-4" />
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script lang="ts" setup>
+import { nanoid } from "nanoid";
+
+const files = defineModel<
+    {
+        id: string;
+        file: File;
+        // 0.0 -> Not uploading
+        // 0.5 -> Uploading
+        // 1.0 -> Uploaded
+        progress: number;
+        api_id?: string;
+    }[]
+>("files", {
+    required: true,
+});
+
+const tokenData = useTokenData();
+const client = useMegalodon(tokenData);
+const fileInput = ref<HTMLInputElement | null>(null);
+
+const openFilePicker = () => {
+    fileInput.value?.click();
+};
+
+defineExpose({
+    openFilePicker,
+});
+
+const createObjectURL = URL.createObjectURL;
+
+const handleFileInput = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files) {
+        files.value.push(
+            ...Array.from(target.files).map((file) => ({
+                id: nanoid(),
+                file,
+                progress: 0,
+            })),
+        );
+    }
+};
+
+// Upload new files (not existing, currently being uploaded files)
+watch(
+    files,
+    (newFiles) => {
+        for (const data of newFiles) {
+            if (data.progress === 0) uploadFile(data.file);
+        }
+    },
+    {
+        deep: true,
+    },
+);
+
+const getIcon = (mimeType: string) => {
+    if (mimeType.startsWith("image/")) return "tabler:photo";
+    if (mimeType.startsWith("video/")) return "tabler:video";
+    if (mimeType.startsWith("audio/")) return "tabler:music";
+    return "tabler:file";
+};
+
+const formatBytes = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1000;
+    const dm = 2;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
+};
+
+const removeFile = (id: string) => {
+    files.value = files.value.filter((data) => data.id !== id);
+};
+
+const uploadFile = async (file: File) => {
+    files.value = files.value.map((data) => {
+        if (data.file === file) {
+            return { ...data, progress: 0.5 };
+        }
+        return data;
+    });
+
+    client.value?.uploadMedia(file).then((response) => {
+        const attachment = response.data;
+
+        files.value = files.value.map((data) => {
+            if (data.file === file) {
+                return { ...data, api_id: attachment.id, progress: 1.0 };
+            }
+            return data;
+        });
+    });
+};
+</script>
