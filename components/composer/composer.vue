@@ -1,5 +1,5 @@
 <template>
-    <div v-if="respondingTo" class="mb-4">
+    <div v-if="respondingTo" class="mb-4" role="region" aria-label="Responding to">
         <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
             <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true"
                 class="!rounded-none !bg-pink-500/10" />
@@ -7,11 +7,12 @@
     </div>
     <div class="px-6 pb-4 pt-5">
         <div class="pb-2 relative">
-            <textarea :disabled="submitting" ref="textarea" v-model="content" :placeholder="chosenSplash"
+            <textarea :disabled="loading" ref="textarea" v-model="content" :placeholder="chosenSplash"
                 @paste="handlePaste"
-                class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"></textarea>
-            <div
-                :class="['absolute bottom-0 right-0 p-2 text-gray-400 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']">
+                class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"
+                aria-label="Compose your message"></textarea>
+            <div :class="['absolute bottom-0 right-0 p-2 text-gray-400 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']"
+                aria-live="polite">
                 {{ remainingCharacters }}
             </div>
             <ComposerEmojiSuggestbox :currently-typing-emoji="currentlyBeingTypedEmoji"
@@ -20,7 +21,8 @@
         <!-- Content warning textbox -->
         <div v-if="cw" class="mb-4">
             <input type="text" v-model="cwContent" placeholder="Add a content warning"
-                class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
+                class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none"
+                aria-label="Content warning" />
         </div>
         <ComposerFileUploader v-model:files="files" ref="uploader" />
         <div class="flex flex-row gap-1 border-white/20">
@@ -43,7 +45,7 @@
             <ComposerButton title="Add content warning" @click="cw = !cw" :toggled="cw">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
             </ComposerButton>
-            <ButtonsPrimary :loading="submitting" @click="send" class="ml-auto rounded-full">
+            <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full">
                 <span>Send!</span>
             </ButtonsPrimary>
         </div>
@@ -99,6 +101,7 @@ const files = ref<
         file: File;
         progress: number;
         api_id?: string;
+        alt_text?: string;
     }[]
 >([]);
 
@@ -125,6 +128,21 @@ const handlePaste = (event: ClipboardEvent) => {
 watch(Control_Alt, () => {
     chosenSplash.value = splashes[Math.floor(Math.random() * splashes.length)];
 });
+
+watch(
+    files,
+    (newFiles) => {
+        // If a file is uploading, set loading to true
+        if (newFiles.some((file) => file.progress < 1)) {
+            loading.value = true;
+        } else {
+            loading.value = false;
+        }
+    },
+    {
+        deep: true,
+    },
+);
 
 onMounted(() => {
     useListen("composer:reply", (note: Status) => {
@@ -154,12 +172,12 @@ const props = defineProps<{
     instance: Instance;
 }>();
 
-const submitting = ref(false);
+const loading = ref(false);
 const tokenData = useTokenData();
 const client = useMegalodon(tokenData);
 
 const send = async () => {
-    submitting.value = true;
+    loading.value = true;
 
     fetch(new URL("/api/v1/statuses", client.value?.baseUrl ?? "").toString(), {
         method: "POST",
@@ -191,7 +209,7 @@ const send = async () => {
             }
 
             content.value = "";
-            submitting.value = false;
+            loading.value = false;
             useEvent("composer:send", await res.json());
         })
         .finally(() => {
