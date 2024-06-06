@@ -42,7 +42,7 @@ const registerClickHandlers = () => {
     const targetElement = document.querySelector(`.${id}`);
     if (targetElement) {
         for (const el of targetElement.children) {
-            el.addEventListener("pointerdown", (e) => {
+            el.addEventListener("touchstart", (e) => {
                 e.stopPropagation();
                 e.preventDefault();
                 // Click all element children
