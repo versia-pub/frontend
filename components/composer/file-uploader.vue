@@ -74,7 +74,7 @@ const files = defineModel<
 });
 
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const openFilePicker = () => {

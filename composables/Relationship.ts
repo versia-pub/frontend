@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Relationship } from "~/types/mastodon/relationship";
 
 export const useRelationship = (
-    client: MaybeRef<Mastodon | null>,
+    client: MaybeRef<LysandClient | null>,
     accountId: MaybeRef<string | null>,
 ) => {
     const relationship = ref(null as Relationship | null);

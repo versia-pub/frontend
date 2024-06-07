@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-const client = useMegalodon();
+const client = useClient();
 const timelineParameters = ref({});
 const { timeline, loadNext, loadPrev } = useLocalTimeline(
     client.value,

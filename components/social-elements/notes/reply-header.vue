@@ -16,6 +16,6 @@ const props = defineProps<{
 }>();
 
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const account = useAccount(client, props.account_id);
 </script>

@@ -27,7 +27,6 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 
-const url = useRequestURL();
 const query = useRoute().query;
 
 const code = query.code;

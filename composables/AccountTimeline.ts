@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Status } from "~/types/mastodon/status";
 
 export const useAccountTimeline = (
-    client: Mastodon | null,
+    client: LysandClient | null,
     id: MaybeRef<string | null>,
     options: MaybeRef<{
         limit?: number | undefined;

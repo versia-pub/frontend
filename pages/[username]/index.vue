@@ -15,7 +15,7 @@ definePageMeta({
 });
 
 const route = useRoute();
-const client = useMegalodon(undefined, true);
+const client = useClient(undefined, true);
 const username = (route.params.username as string).replace("@", "");
 
 const accounts = useAccountSearch(client, username);

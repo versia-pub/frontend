@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Status } from "~/types/mastodon/status";
 
 export const usePublicTimeline = (
-    client: Mastodon | null,
+    client: LysandClient | null,
     options: MaybeRef<{
         only_media?: boolean;
         limit?: number;

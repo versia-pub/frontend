@@ -206,87 +206,64 @@ const canSubmit = computed(
         content.value?.trim().length <= characterLimit.value,
 );
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 
 const send = async () => {
     loading.value = true;
-
-    if (respondingType.value === "edit") {
-        fetch(
-            new URL(
-                `/api/v1/statuses/${respondingTo.value?.id}`,
-                client.value?.baseUrl ?? "",
-            ).toString(),
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${tokenData.value?.access_token}`,
-                },
-                body: JSON.stringify({
-                    status: content.value?.trim() ?? "",
-                    content_type: markdown.value
-                        ? "text/markdown"
-                        : "text/plain",
-                    spoiler_text: cw.value ? cwContent.value.trim() : undefined,
-                    sensitive: cw.value,
-                    media_ids: files.value
-                        .filter((file) => !!file.api_id)
-                        .map((file) => file.api_id),
-                }),
-            },
-        )
-            .then(async (res) => {
-                if (!res.ok) {
-                    throw new Error("Failed to edit status");
-                }
-
-                content.value = "";
-                loading.value = false;
-                useEvent("composer:send-edit", await res.json());
-            })
-            .finally(() => {
-                useEvent("composer:close");
-            });
-        return;
+    if (!tokenData.value || !client.value) {
+        throw new Error("Not authenticated");
     }
 
-    fetch(new URL("/api/v1/statuses", client.value?.baseUrl ?? "").toString(), {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenData.value?.access_token}`,
-        },
-        body: JSON.stringify({
+    if (respondingType.value === "edit" && respondingTo.value) {
+        const response = await client.value.editStatus(respondingTo.value.id, {
             status: content.value?.trim() ?? "",
             content_type: markdown.value ? "text/markdown" : "text/plain",
-            in_reply_to_id:
-                respondingType.value === "reply"
-                    ? respondingTo.value?.id
-                    : null,
-            quote_id:
-                respondingType.value === "quote"
-                    ? respondingTo.value?.id
-                    : null,
             spoiler_text: cw.value ? cwContent.value.trim() : undefined,
             sensitive: cw.value,
             media_ids: files.value
                 .filter((file) => !!file.api_id)
-                .map((file) => file.api_id),
-        }),
-    })
-        .then(async (res) => {
-            if (!res.ok) {
-                throw new Error("Failed to send status");
-            }
-
-            content.value = "";
-            loading.value = false;
-            useEvent("composer:send", await res.json());
-        })
-        .finally(() => {
-            useEvent("composer:close");
+                .map((file) => file.api_id) as string[],
         });
+
+        if (!response.data) {
+            throw new Error("Failed to edit status");
+        }
+
+        content.value = "";
+        loading.value = false;
+        useEvent("composer:send-edit", response.data);
+        useEvent("composer:close");
+        return;
+    }
+
+    const response = await client.value.postStatus(
+        content.value?.trim() ?? "",
+        {
+            content_type: markdown.value ? "text/markdown" : "text/plain",
+            in_reply_to_id:
+                respondingType.value === "reply"
+                    ? respondingTo.value?.id
+                    : undefined,
+            quote_id:
+                respondingType.value === "quote"
+                    ? respondingTo.value?.id
+                    : undefined,
+            spoiler_text: cw.value ? cwContent.value.trim() : undefined,
+            sensitive: cw.value,
+            media_ids: files.value
+                .filter((file) => !!file.api_id)
+                .map((file) => file.api_id) as string[],
+        },
+    );
+
+    if (!response.data) {
+        throw new Error("Failed to send status");
+    }
+
+    content.value = "";
+    loading.value = false;
+    useEvent("composer:send", response.data as Status);
+    useEvent("composer:close");
 };
 
 const characterLimit = computed(

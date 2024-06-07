@@ -1,7 +1,10 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Status } from "~/types/mastodon/status";
 
-export const useNote = (client: MaybeRef<Mastodon | null>, noteId: string) => {
+export const useNote = (
+    client: MaybeRef<LysandClient | null>,
+    noteId: string,
+) => {
     if (!ref(client).value) {
         return ref(null as Status | null);
     }

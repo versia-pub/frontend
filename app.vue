@@ -19,7 +19,7 @@ provideHeadlessUseId(() => useId());
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const instance = useInstance();
 const description = useExtendedDescription(client);
 
@@ -28,12 +28,12 @@ useSeoMeta({
         return titleChunk ? `${titleChunk} · Lysand` : "Lysand";
     },
     title: computed(() => instance.value?.title ?? ""),
-    ogImage: computed(() => instance.value?.banner),
+    ogImage: computed(() => instance.value?.banner.url),
     twitterTitle: computed(() => instance.value?.title ?? ""),
     twitterDescription: computed(() =>
         convert(description.value?.content ?? ""),
     ),
-    twitterImage: computed(() => instance.value?.banner),
+    twitterImage: computed(() => instance.value?.banner.url),
     description: computed(() => convert(description.value?.content ?? "")),
     ogDescription: computed(() => convert(description.value?.content ?? "")),
     ogSiteName: "Lysand",
@@ -57,7 +57,7 @@ if (code) {
                 new URL("/", useRequestURL().origin).toString(),
             )
             .then((res) => {
-                tokenData.value = res;
+                tokenData.value = res.data;
 
                 // Remove code from URL
                 window.history.replaceState(

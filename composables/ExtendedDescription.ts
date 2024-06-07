@@ -1,11 +1,13 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 
 type ExtendedDescription = {
     updated_at: string;
     content: string;
 };
 
-export const useExtendedDescription = (client: MaybeRef<Mastodon | null>) => {
+export const useExtendedDescription = (
+    client: MaybeRef<LysandClient | null>,
+) => {
     if (!ref(client).value) {
         return ref(null as ExtendedDescription | null);
     }
@@ -13,7 +15,7 @@ export const useExtendedDescription = (client: MaybeRef<Mastodon | null>) => {
     const output = ref(null as ExtendedDescription | null);
 
     ref(client)
-        .value?.client.get("/api/v1/instance/extended_description")
+        .value?.getInstanceExtendedDescription()
         .then((res) => {
             output.value = res.data;
         });

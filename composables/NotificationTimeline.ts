@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Notification } from "~/types/mastodon/notification";
 
 export const useNotificationTimeline = (
-    client: Mastodon | null,
+    client: LysandClient | null,
     options: MaybeRef<{
         limit?: number | undefined;
         max_id?: string | undefined;

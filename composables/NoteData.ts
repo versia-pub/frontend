@@ -1,9 +1,9 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Status } from "~/types/mastodon/status";
 
 export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
-    client: Ref<Mastodon | null>,
+    client: Ref<LysandClient | null>,
 ) => {
     const isReply = computed(() => !!toValue(noteProp)?.in_reply_to_id);
     const isQuote = computed(() => !!toValue(noteProp)?.quote);

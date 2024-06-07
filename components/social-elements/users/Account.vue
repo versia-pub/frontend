@@ -105,7 +105,7 @@ const props = defineProps<{
 const skeleton = computed(() => !props.account);
 const tokenData = useTokenData();
 const me = useMe();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const accountId = computed(() => props.account?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
 

@@ -1,15 +1,18 @@
-import { Mastodon, type OAuth } from "megalodon";
+import { LysandClient, type Token } from "@lysand-org/client";
 
-export const useMegalodon = (
-    tokenData?: MaybeRef<OAuth.TokenData | null>,
+export const useClient = (
+    tokenData?: MaybeRef<Token | null>,
     disableOnServer = false,
-): Ref<Mastodon | null> => {
+): Ref<LysandClient | null> => {
     if (disableOnServer && process.server) {
         return ref(null);
     }
 
     return computed(
         () =>
-            new Mastodon(useBaseUrl().value, toValue(tokenData)?.access_token),
+            new LysandClient(
+                new URL(useBaseUrl().value),
+                toValue(tokenData)?.access_token,
+            ),
     );
 };

@@ -11,6 +11,4 @@
 definePageMeta({
     layout: "app",
 });
-
-const me = useMe();
 </script>

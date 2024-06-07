@@ -1,10 +1,10 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Account } from "~/types/mastodon/account";
 import type { Mention } from "~/types/mastodon/mention";
 
 export const useResolveMentions = (
     mentions: Ref<Mention[]>,
-    client: Mastodon | null,
+    client: LysandClient | null,
 ): Ref<Account[]> => {
     if (!client) {
         return ref([]);

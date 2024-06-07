@@ -1,8 +1,8 @@
+import type { Token } from "@lysand-org/client";
 import { StorageSerializers } from "@vueuse/core";
-import type { OAuth } from "megalodon";
 
 export const useTokenData = () => {
-    return useLocalStorage<OAuth.TokenData | null>("lysand:token_data", null, {
+    return useLocalStorage<Token | null>("lysand:token_data", null, {
         serializer: StorageSerializers.object,
     });
 };

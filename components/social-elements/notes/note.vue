@@ -112,7 +112,7 @@ useListen("composer:send-edit", (note) => {
 const tokenData = useTokenData();
 const isSignedIn = useSignedIn();
 const me = useMe();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const {
     loaded,
     note: outputtedNote,

@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 
 const isLoading = ref(true);
 

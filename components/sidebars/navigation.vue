@@ -175,7 +175,7 @@ const loadingAuth = ref(false);
 
 const appData = useAppData();
 const tokenData = useTokenData();
-const client = useMegalodon();
+const client = useClient();
 const me = useMe();
 
 const compose = () => {
@@ -191,18 +191,18 @@ const signIn = async () => {
         website: useBaseUrl().value,
     });
 
-    if (!output) {
+    if (!output?.data) {
         alert("Failed to create app");
         return;
     }
 
-    appData.value = output;
+    appData.value = output.data;
 
     const url = await client.value?.generateAuthUrl(
-        output.client_id,
-        output.client_secret,
+        output.data.client_id,
+        output.data.client_secret,
         {
-            scope: ["read", "write", "follow", "push"],
+            scopes: ["read", "write", "follow", "push"],
             redirect_uri: new URL("/", useRequestURL().origin).toString(),
         },
     );

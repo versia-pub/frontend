@@ -44,7 +44,7 @@
                     </VeeErrorMessage>
                 </VeeField>
 
-                <VeeField name="reason" as="div" v-slot="{ errors, field }" validate-on-change>
+                <VeeField name="reason" as="div" v-slot="{ errors }" validate-on-change>
                     <label for="reason" class="block text-sm font-medium leading-6 text-gray-50">Why do you want to
                         join?</label>
                     <div class="mt-2">
@@ -62,7 +62,7 @@
                         class="rounded disabled:hover:cursor-wait mr-1 align-middle mb-0.5 text-pink-700 !ring-0 !outline-none"
                         required />
                     <span class="text-sm text-gray-100">I agree to the terms and conditions of this server <a
-                            class="underline font-bold" target="_blank" :href="instance.uri">available here</a></span>
+                            class="underline font-bold" target="_blank" :href="'#'">available here</a></span>
                     <VeeErrorMessage name="tos" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
                         {{ message }}
                     </VeeErrorMessage>
@@ -88,6 +88,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import type { AxiosError } from "axios";
 import { z } from "zod";
 import LoginInput from "../../components/LoginInput.vue";
+// TODO: Add instance TOS link
 
 const schema = toTypedSchema(
     z
@@ -114,7 +115,7 @@ const schema = toTypedSchema(
         }),
 );
 
-const client = useMegalodon();
+const client = useClient();
 const instance = useInstance();
 
 const errors = ref<{

@@ -1,7 +1,6 @@
-import type { Mastodon } from "megalodon";
-import type { InstanceWithExtra } from "./Instance";
+import type { LysandClient } from "@lysand-org/client";
 
-export const useCacheRefresh = (client: MaybeRef<Mastodon | null>) => {
+export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
     if (process.server) return;
 
     const tokenData = useTokenData();
@@ -43,7 +42,7 @@ export const useCacheRefresh = (client: MaybeRef<Mastodon | null>) => {
         toValue(client)
             ?.getInstance()
             .then((res) => {
-                instance.value = res.data as InstanceWithExtra;
+                instance.value = res.data;
             });
     });
 };

@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Account } from "~/types/mastodon/account";
 
 export const useAccount = (
-    client: MaybeRef<Mastodon | null>,
+    client: MaybeRef<LysandClient | null>,
     accountId: MaybeRef<string | null>,
 ) => {
     if (!client) {

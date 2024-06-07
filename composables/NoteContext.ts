@@ -1,8 +1,8 @@
-import type { Mastodon } from "megalodon";
+import type { LysandClient } from "@lysand-org/client";
 import type { Context } from "~/types/mastodon/context";
 
 export const useNoteContext = (
-    client: MaybeRef<Mastodon | null>,
+    client: MaybeRef<LysandClient | null>,
     noteId: MaybeRef<string | null>,
 ) => {
     if (!ref(client).value) {

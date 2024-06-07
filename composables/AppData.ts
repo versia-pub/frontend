@@ -1,8 +1,12 @@
+import type { LysandClient } from "@lysand-org/client";
 import { StorageSerializers } from "@vueuse/core";
-import type { OAuth } from "megalodon";
+
+export type ApplicationData = Awaited<
+    ReturnType<LysandClient["createApp"]>
+>["data"];
 
 export const useAppData = () => {
-    return useLocalStorage<OAuth.AppData | null>("lysand:app_data", null, {
+    return useLocalStorage<ApplicationData | null>("lysand:app_data", null, {
         serializer: StorageSerializers.object,
     });
 };

@@ -1,4 +1,4 @@
-import type { Mastodon, Response } from "megalodon";
+import type { LysandClient, Output } from "@lysand-org/client";
 
 interface BaseOptions {
     max_id?: string;
@@ -6,9 +6,9 @@ interface BaseOptions {
 }
 
 type FetchTimelineFunction<Element, Options> = (
-    client: Mastodon,
+    client: LysandClient,
     options: Options & BaseOptions,
-) => Promise<Response<Element[]>>;
+) => Promise<Output<Element[]>>;
 
 export const useTimeline = <
     Element extends {
@@ -16,7 +16,7 @@ export const useTimeline = <
     },
     Options,
 >(
-    client: Mastodon | null,
+    client: LysandClient | null,
     fetchTimeline: FetchTimelineFunction<Element, Options> | null | undefined,
     options: MaybeRef<Options & BaseOptions>,
 ): {
@@ -98,7 +98,7 @@ export const useIdTimeline = <
     },
     Options,
 >(
-    client: Mastodon | null,
+    client: LysandClient | null,
     id: MaybeRef<string | null>,
     fetchTimeline: FetchTimelineFunction<Element, Options> | null | undefined,
     options: MaybeRef<Options & BaseOptions>,

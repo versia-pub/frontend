@@ -1,26 +1,15 @@
+import type { LysandClient } from "@lysand-org/client";
 import { StorageSerializers } from "@vueuse/core";
-import type { Mastodon } from "megalodon";
-import type { Instance } from "~/types/mastodon/instance";
 
-export type InstanceWithExtra = Instance & {
-    banner: string | null;
-    lysand_version: string;
-    sso: {
-        forced: boolean;
-        providers: {
-            id: string;
-            name: string;
-            icon?: string;
-        }[];
-    };
-};
+// Return type of LysandClient.getInstance
+export type Instance = Awaited<ReturnType<LysandClient["getInstance"]>>["data"];
 
 export const useInstance = () => {
     if (process.server) {
         return ref(null);
     }
 
-    return useLocalStorage<InstanceWithExtra | null>("lysand:instance", null, {
+    return useLocalStorage<Instance | null>("lysand:instance", null, {
         serializer: StorageSerializers.object,
     });
 };

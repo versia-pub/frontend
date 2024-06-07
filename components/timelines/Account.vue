@@ -7,7 +7,7 @@ const props = defineProps<{
     id?: string;
 }>();
 
-const client = useMegalodon();
+const client = useClient();
 const timelineParameters = ref({});
 const { timeline, loadNext, loadPrev } = useAccountTimeline(
     client.value,

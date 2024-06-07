@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const timelineParameters = ref({});
 const { timeline, loadNext, loadPrev } = useHomeTimeline(
     client.value,

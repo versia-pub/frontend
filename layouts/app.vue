@@ -47,7 +47,7 @@ const { width } = useWindowSize();
 
 const { n, o_i_d_c } = useMagicKeys();
 const tokenData = useTokenData();
-const client = useMegalodon(tokenData);
+const client = useClient(tokenData);
 const providers = useSSOConfig();
 
 watchEffect(async () => {
@@ -71,7 +71,7 @@ watchEffect(async () => {
         }
 
         const response = await fetch(
-            new URL("/api/v1/sso", client.value?.baseUrl),
+            new URL("/api/v1/sso", client.value?.url),
             {
                 method: "POST",
                 headers: {

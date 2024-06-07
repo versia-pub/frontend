@@ -25,10 +25,12 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "lint": "bunx @biomejs/biome check ."
+        "lint": "bunx @biomejs/biome check .",
+        "check": "bunx tsc -p ."
     },
     "dependencies": {
-        "@ark-ui/vue": "^3.3.0",
+        "@ark-ui/vue": "^3.3.1",
+        "@lysand-org": "github:lysand-org/api#main",
         "@nuxt/fonts": "^0.7.0",
         "@tailwindcss/typography": "^0.5.13",
         "@vee-validate/nuxt": "^4.13.1",
@@ -39,7 +41,6 @@
         "html-to-text": "^9.0.5",
         "iconify-icon": "^2.1.0",
         "magic-regexp": "^0.8.0",
-        "megalodon": "^10.0.1",
         "mitt": "^3.0.1",
         "nanoid": "^5.0.7",
         "nuxt": "^3.11.2",
@@ -48,7 +49,7 @@
         "nuxt-shiki": "^0.3.0",
         "overlayscrollbars": "^2.8.3",
         "overlayscrollbars-vue": "^0.5.9",
-        "shiki": "^1.6.2",
+        "shiki": "^1.6.3",
         "vue": "^3.4.27",
         "vue-router": "^4.3.2",
         "zod": "^3.23.8"
@@ -59,7 +60,8 @@
         "@nuxtjs/tailwindcss": "^6.12.0",
         "@tailwindcss/forms": "^0.5.7",
         "@types/html-to-text": "^9.0.4",
-        "@vue-email/nuxt": "^0.8.19"
+        "@vue-email/nuxt": "^0.8.19",
+        "typescript": "^5.4.5"
     },
     "trustedDependencies": [
         "@biomejs/biome",
