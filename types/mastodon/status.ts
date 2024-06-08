@@ -38,7 +38,7 @@ export type Status = {
     language: string | null;
     pinned: boolean | null;
     emoji_reactions: Array<Reaction>;
-    quote: Status;
+    quote: Status | null;
     bookmarked: boolean;
 };
 
