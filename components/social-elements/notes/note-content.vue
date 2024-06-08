@@ -12,7 +12,7 @@
             <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
                 :attachment="attachment" />
         </div>
-        <LazySocialElementsNotesNote v-if="isQuote && note?.reblog" :note="note?.reblog" :small="true"
+        <LazySocialElementsNotesNote v-if="isQuote && note?.quote" :note="note?.quote" :small="true"
             class="mt-4 !rounded" />
     </div>
     <div v-else
