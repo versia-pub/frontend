@@ -20,19 +20,19 @@
             <div v-if="showInteractions"
                 class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
                 <button class="group" @click="outputtedNote && useEvent('note:reply', outputtedNote)"
-                    :disabled="!isSignedIn">
+                    :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:arrow-back-up"
                         class="text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.replies_count) }}</span>
                 </button>
-                <button class="group" @click="likeFn" :disabled="!isSignedIn">
+                <button class="group" @click="likeFn" :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!outputtedNote?.favourited"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-pink-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
                         class="size-5 text-pink-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.favourites_count) }}</span>
                 </button>
-                <button class="group" @click="reblogFn" :disabled="!isSignedIn">
+                <button class="group" @click="reblogFn" :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!outputtedNote?.reblogged"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-else
@@ -40,7 +40,7 @@
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.reblogs_count) }}</span>
                 </button>
                 <button class="group" @click="outputtedNote && useEvent('note:quote', outputtedNote)"
-                    :disabled="!isSignedIn">
+                    :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:quote"
                         class="size-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
@@ -53,30 +53,93 @@
                     </template>
 
                     <template #items>
-                        <Menu.Item value="" v-if="isSignedIn && outputtedNote?.account.id === me?.id">
-                            <ButtonsDropdownElement @click="outputtedNote && useEvent('note:edit', outputtedNote)"
-                                icon="tabler:pencil" class="w-full">
-                                Edit
-                            </ButtonsDropdownElement>
-                        </Menu.Item>
-                        <Menu.Item value="">
-                            <ButtonsDropdownElement @click="copy(JSON.stringify(outputtedNote, null, 4))"
-                                icon="tabler:code" class="w-full">
-                                Copy API
-                                Response
-                            </ButtonsDropdownElement>
-                        </Menu.Item>
-                        <Menu.Item value="">
-                            <ButtonsDropdownElement @click="copy(url)" icon="tabler:link" class="w-full">
-                                Copy Link
-                            </ButtonsDropdownElement>
-                        </Menu.Item>
-                        <Menu.Item value="">
-                            <ButtonsDropdownElement @click="remove" icon="tabler:backspace" :disabled="!isSignedIn"
-                                class="w-full border-r-2 border-red-500">
-                                Delete
-                            </ButtonsDropdownElement>
-                        </Menu.Item>
+                        <Menu.ItemGroup>
+                            <Menu.Item value="" v-if="isMyAccount">
+                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:edit', outputtedNote)"
+                                    icon="tabler:pencil" class="w-full">
+                                    Edit
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="copy(JSON.stringify(outputtedNote, null, 4))"
+                                    icon="tabler:code" class="w-full">
+                                    Copy API
+                                    Response
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="copy(url)" icon="tabler:link" class="w-full">
+                                    Copy Link
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
+                                <ButtonsDropdownElement @click="copy(outputtedNote.url)" icon="tabler:link"
+                                    class="w-full">
+                                    Copy Link (Origin)
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
+                                <ButtonsDropdownElement @click="openBlank(outputtedNote.url)"
+                                    icon="tabler:external-link" class="w-full">
+                                    View on Remote
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="" v-if="isMyAccount">
+                                <ButtonsDropdownElement @click="remove" icon="tabler:backspace" :disabled="!identity"
+                                    class="w-full border-r-2 border-red-500">
+                                    Delete
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                        </Menu.ItemGroup>
+                        <hr class="border-white/10 rounded" />
+                        <Menu.ItemGroup>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:reply', outputtedNote)"
+                                    icon="tabler:arrow-back-up" class="w-full">
+                                    Reply
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="likeFn" icon="tabler:heart" class="w-full"
+                                    v-if="!outputtedNote?.favourited">
+                                    Like
+                                </ButtonsDropdownElement>
+                                <ButtonsDropdownElement @click="likeFn" icon="tabler:heart-filled" class="w-full"
+                                    v-else>
+                                    Unlike
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="reblogFn" icon="tabler:repeat" class="w-full"
+                                    v-if="!outputtedNote?.reblogged">
+                                    Reblog
+                                </ButtonsDropdownElement>
+                                <ButtonsDropdownElement @click="reblogFn" icon="tabler:repeat" class="w-full" v-else>
+                                    Unreblog
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:quote', outputtedNote)"
+                                    icon="tabler:quote" class="w-full">
+                                    Quote
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                        </Menu.ItemGroup>
+                        <hr class="border-white/10 rounded" />
+                        <Menu.ItemGroup>
+                            <Menu.Item value="">
+                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:report', outputtedNote)"
+                                    icon="tabler:flag" class="w-full"
+                                    :disabled="!permissions.includes(RolePermissions.MANAGE_OWN_REPORTS)">
+                                    Report
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                            <Menu.Item value="" v-if="permissions.includes(RolePermissions.MANAGE_ACCOUNTS)">
+                                <ButtonsDropdownElement icon="tabler:shield-bolt" class="w-full">
+                                    Open Moderation Panel
+                                </ButtonsDropdownElement>
+                            </Menu.Item>
+                        </Menu.ItemGroup>
                     </template>
                 </DropdownsAdaptiveDropdown>
             </div>
@@ -109,10 +172,8 @@ useListen("composer:send-edit", (note) => {
     }
 });
 
-const tokenData = useTokenData();
-const isSignedIn = useSignedIn();
-const me = useMe();
-const client = useClient(tokenData);
+const client = useClient();
+const identity = useCurrentIdentity();
 const {
     loaded,
     note: outputtedNote,
@@ -126,7 +187,16 @@ const {
     reblogDisplayName,
 } = useNoteData(noteRef, client);
 
+const openBlank = (url: string) => window.open(url, "_blank");
+
 const { copy } = useClipboard();
+const isMyAccount = computed(
+    () => identity.value?.account.id === outputtedNote.value?.account.id,
+);
+const isRemote = computed(() =>
+    outputtedNote.value?.account.acct.includes("@"),
+);
+const permissions = usePermissions();
 const numberFormat = (number = 0) =>
     new Intl.NumberFormat(undefined, {
         notation: "compact",
@@ -137,7 +207,7 @@ const numberFormat = (number = 0) =>
 const likeFn = async () => {
     if (!outputtedNote.value) return;
     if (outputtedNote.value.favourited) {
-        const output = await client.value?.unfavouriteStatus(
+        const output = await client.value.unfavouriteStatus(
             outputtedNote.value.id,
         );
 
@@ -145,7 +215,7 @@ const likeFn = async () => {
             noteRef.value = output.data;
         }
     } else {
-        const output = await client.value?.favouriteStatus(
+        const output = await client.value.favouriteStatus(
             outputtedNote.value.id,
         );
 
@@ -158,7 +228,7 @@ const likeFn = async () => {
 const reblogFn = async () => {
     if (!outputtedNote.value) return;
     if (outputtedNote.value?.reblogged) {
-        const output = await client.value?.unreblogStatus(
+        const output = await client.value.unreblogStatus(
             outputtedNote.value.id,
         );
 
@@ -166,7 +236,7 @@ const reblogFn = async () => {
             noteRef.value = output.data;
         }
     } else {
-        const output = await client.value?.reblogStatus(outputtedNote.value.id);
+        const output = await client.value.reblogStatus(outputtedNote.value.id);
 
         if (output?.data.reblog) {
             noteRef.value = output.data.reblog;

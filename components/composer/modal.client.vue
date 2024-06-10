@@ -19,7 +19,7 @@
                         <Dialog.Content class="overflow-y-auto w-full max-h-full md:py-16">
                             <div
                                 class="relative overflow-hidden max-w-xl mx-auto rounded-lg bg-dark-700 ring-1 ring-dark-800 text-left shadow-xl transition-all w-full">
-                                <Composer v-if="instance" :instance="instance" />
+                                <Composer v-if="instance" :instance="instance as any" />
                             </div>
                         </Dialog.Content>
                     </HeadlessTransitionChild>
@@ -32,6 +32,8 @@
 <script lang="ts" setup>
 import { Dialog } from "@ark-ui/vue";
 const open = ref(false);
+
+const identity = useCurrentIdentity();
 useListen("note:reply", async (note) => {
     open.value = true;
     await nextTick();
@@ -48,11 +50,10 @@ useListen("note:edit", async (note) => {
     useEvent("composer:edit", note);
 });
 useListen("composer:open", () => {
-    if (tokenData.value) open.value = true;
+    if (identity.value) open.value = true;
 });
 useListen("composer:close", () => {
     open.value = false;
 });
-const tokenData = useTokenData();
 const instance = useInstance();
 </script>

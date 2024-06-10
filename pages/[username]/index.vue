@@ -15,7 +15,7 @@ definePageMeta({
 });
 
 const route = useRoute();
-const client = useClient(undefined, true);
+const client = useClient();
 const username = (route.params.username as string).replace("@", "");
 
 const accounts = useAccountSearch(client, username);

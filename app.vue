@@ -13,13 +13,15 @@
 <script setup lang="ts">
 import { convert } from "html-to-text";
 import "iconify-icon";
+import { nanoid } from "nanoid";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
-const tokenData = useTokenData();
-const client = useClient(tokenData);
+const identity = useCurrentIdentity();
+const identities = useIdentities();
+const client = useClient();
 const instance = useInstance();
 const description = useExtendedDescription(client);
 
@@ -56,8 +58,28 @@ if (code) {
                 code,
                 new URL("/", useRequestURL().origin).toString(),
             )
-            .then((res) => {
-                tokenData.value = res.data;
+            .then(async (res) => {
+                const tempClient = useClient(res.data).value;
+
+                const [accountOutput, instanceOutput] = await Promise.all([
+                    tempClient.verifyAccountCredentials(),
+                    tempClient.getInstance(),
+                ]);
+
+                // Get account data
+                if (
+                    !identities.value.find(
+                        (i) => i.account.id === accountOutput.data.id,
+                    )
+                )
+                    identity.value = {
+                        id: nanoid(),
+                        tokens: res.data,
+                        account: accountOutput.data,
+                        instance: instanceOutput.data,
+                        permissions: [],
+                        emojis: [],
+                    };
 
                 // Remove code from URL
                 window.history.replaceState(
@@ -65,9 +87,17 @@ if (code) {
                     document.title,
                     window.location.pathname,
                 );
+
+                // Redirect to home
+                window.location.pathname = "/";
             });
     }
 }
+
+useListen("identity:change", (newIdentity) => {
+    identity.value = newIdentity;
+    window.location.pathname = "/";
+});
 
 useCacheRefresh(client);
 </script>

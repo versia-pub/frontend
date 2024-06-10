@@ -9,18 +9,18 @@
                     class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
 
                 <ClientOnly>
-                    <ButtonsSecondary v-if="account && account?.id === me?.id">Edit Profile
+                    <ButtonsSecondary v-if="account && account?.id === identity?.account?.id">Edit Profile
                     </ButtonsSecondary>
                     <ButtonsSecondary :loading="isLoading" @click="follow()"
-                        v-if="account && account?.id !== me?.id && relationship && !relationship.following && !relationship.requested">
+                        v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && !relationship.requested">
                         <span>Follow</span>
                     </ButtonsSecondary>
                     <ButtonsSecondary :loading="isLoading" @click="unfollow()"
-                        v-if="account && account?.id !== me?.id && relationship && relationship.following">
+                        v-if="account && account?.id !== identity?.account?.id && relationship && relationship.following">
                         <span>Unfollow</span>
                     </ButtonsSecondary>
                     <ButtonsSecondary :loading="isLoading" :disabled="true"
-                        v-if="account && account?.id !== me?.id && relationship && !relationship.following && relationship.requested">
+                        v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && relationship.requested">
                         <span>Requested</span>
                     </ButtonsSecondary>
                 </ClientOnly>
@@ -103,14 +103,13 @@ const props = defineProps<{
 }>();
 
 const skeleton = computed(() => !props.account);
-const tokenData = useTokenData();
-const me = useMe();
-const client = useClient(tokenData);
+const identity = useCurrentIdentity();
+const client = useClient();
 const accountId = computed(() => props.account?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
 
 const follow = () => {
-    if (!tokenData || !props.account || !relationship.value) return;
+    if (!identity.value || !props.account || !relationship.value) return;
     relationship.value = {
         ...relationship.value,
         following: true,
@@ -118,7 +117,7 @@ const follow = () => {
 };
 
 const unfollow = () => {
-    if (!tokenData || !props.account || !relationship.value) return;
+    if (!identity.value || !props.account || !relationship.value) return;
     relationship.value = {
         ...relationship.value,
         following: false,

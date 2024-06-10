@@ -3,7 +3,7 @@ import type { Status } from "~/types/mastodon/status";
 
 export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
-    client: Ref<LysandClient | null>,
+    client: Ref<LysandClient>,
 ) => {
     const isReply = computed(() => !!toValue(noteProp)?.in_reply_to_id);
     const isQuote = computed(() => !!toValue(noteProp)?.quote);
@@ -53,7 +53,7 @@ export const useNoteData = (
     );
 
     const remove = async () => {
-        const result = await client.value?.deleteStatus(
+        const result = await client.value.deleteStatus(
             renderedNote.value?.id ?? "",
         );
 

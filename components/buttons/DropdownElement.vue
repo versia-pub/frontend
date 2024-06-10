@@ -1,5 +1,5 @@
 <template>
-    <ButtonsBase class="hover:bg-white/20 !rounded-sm !text-left flex flex-row gap-x-3 !ring-0 !p-4 sm:!p-2">
+    <ButtonsBase class="enabled:hover:bg-white/20 !rounded-sm !text-left flex flex-row gap-x-3 !ring-0 !p-4 sm:!p-2">
         <iconify-icon :icon="icon" width="none" class="text-gray-200 size-5" aria-hidden="true" />
         <slot />
     </ButtonsBase>

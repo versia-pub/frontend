@@ -71,7 +71,7 @@ const { input: content } = useTextareaAutosize({
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
 const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | "edit" | null>(null);
-const me = useMe();
+const identity = useCurrentIdentity();
 const cw = ref(false);
 const cwContent = ref("");
 const markdown = ref(true);
@@ -151,7 +151,7 @@ onMounted(() => {
     useListen("composer:reply", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "reply";
-        if (note.account.id !== me.value?.id)
+        if (note.account.id !== identity.value?.account.id)
             content.value = `@${note.account.acct} `;
         textarea.value?.focus();
     });
@@ -159,7 +159,7 @@ onMounted(() => {
     useListen("composer:quote", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "quote";
-        if (note.account.id !== me.value?.id)
+        if (note.account.id !== identity.value?.account.id)
             content.value = `@${note.account.acct} `;
         textarea.value?.focus();
     });
@@ -175,7 +175,7 @@ onMounted(() => {
         }));
 
         // Fetch source
-        const source = await client.value?.getStatusSource(note.id);
+        const source = await client.value.getStatusSource(note.id);
 
         if (source?.data) {
             respondingTo.value = note;
@@ -205,12 +205,11 @@ const canSubmit = computed(
         (content.value?.trim().length > 0 || files.value.length > 0) &&
         content.value?.trim().length <= characterLimit.value,
 );
-const tokenData = useTokenData();
-const client = useClient(tokenData);
+const client = useClient();
 
 const send = async () => {
     loading.value = true;
-    if (!tokenData.value || !client.value) {
+    if (!identity.value || !client.value) {
         throw new Error("Not authenticated");
     }
 

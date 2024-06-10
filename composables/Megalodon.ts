@@ -1,18 +1,18 @@
 import { LysandClient, type Token } from "@lysand-org/client";
+import { useCurrentIdentity } from "./Identities";
 
 export const useClient = (
-    tokenData?: MaybeRef<Token | null>,
-    disableOnServer = false,
-): Ref<LysandClient | null> => {
-    if (disableOnServer && process.server) {
-        return ref(null);
-    }
+    customToken: MaybeRef<Token | null> = null,
+): Ref<LysandClient> => {
+    const identity = useCurrentIdentity();
 
     return computed(
         () =>
             new LysandClient(
                 new URL(useBaseUrl().value),
-                toValue(tokenData)?.access_token,
+                toValue(customToken)?.access_token ??
+                    identity.value?.tokens.access_token ??
+                    undefined,
             ),
     );
 };

@@ -39,20 +39,18 @@ const id = useId();
 
 // HACK: Fix the menu children not reacting to touch events as click for some reason
 const registerClickHandlers = () => {
-    const targetElement = document.querySelector(`.${id}`);
-    if (targetElement) {
-        for (const el of targetElement.children) {
-            el.addEventListener("touchstart", (e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                // Click all element children
-                for (const elChild of Array.from(el.children)) {
-                    if (elChild instanceof HTMLElement) {
-                        elChild.click();
-                    }
+    const targetElements = document.querySelectorAll(`.${id} [data-part=item]`);
+    for (const el of targetElements) {
+        el.addEventListener("touchstart", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            // Click all element children
+            for (const elChild of Array.from(el.children)) {
+                if (elChild instanceof HTMLElement) {
+                    elChild.click();
                 }
-            });
-        }
+            }
+        });
     }
 };
 

@@ -25,7 +25,7 @@
                 class="absolute top-2 right-2 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-8">
                 <iconify-icon icon="tabler:alt" width="none" class="size-6" />
             </Popover.Trigger>
-            <Popover.Positioner>
+            <Popover.Positioner class="!z-10">
                 <Popover.Content class="p-4 bg-dark-400 rounded text-sm ring-1 ring-dark-100 shadow-lg text-gray-300">
                     <Popover.Description>{{ attachment.description }}</Popover.Description>
                 </Popover.Content>

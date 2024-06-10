@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink :href="accountUrl" class="flex flex-row">
+    <component :is="disableLink ? 'div' : NuxtLink" :href="accountUrl" class="flex flex-row">
         <Skeleton :enabled="!account" shape="rect" class="!h-12 w-12">
             <div class="shrink-0">
                 <AvatarsCentered class="h-12 w-12 rounded ring-1 ring-white/5" :src="account?.avatar"
@@ -23,14 +23,16 @@
                 </Skeleton>
             </span>
         </div>
-    </NuxtLink>
+    </component>
 </template>
 
 <script lang="ts" setup>
 import type { Account } from "~/types/mastodon/account";
+import { NuxtLink } from "#components";
 
 const props = defineProps<{
     account?: Account;
+    disableLink?: boolean;
 }>();
 
 const accountUrl = props.account && `/@${props.account.acct}`;

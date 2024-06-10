@@ -10,14 +10,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { LysandClient } from "@lysand-org/client";
 import { distance } from "fastest-levenshtein";
-import type { UnwrapRef } from "vue";
+import type { CustomEmoji } from "~/composables/Identities";
 const props = defineProps<{
     currentlyTypingEmoji: string | null;
 }>();
 
 const emojiRefs = ref<Element[]>([]);
-const customEmojis = useCustomEmojis();
 const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
     passive: false,
     onEventFired(e) {
@@ -28,12 +28,15 @@ const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
             e.preventDefault();
     },
 });
-const topEmojis = ref<UnwrapRef<typeof customEmojis> | null>(null);
+const identity = useCurrentIdentity();
+const topEmojis = ref<CustomEmoji[] | null>(null);
 const selectedEmojiIndex = ref<number | null>(null);
 
 watchEffect(() => {
+    if (!identity.value) return;
+
     if (props.currentlyTypingEmoji !== null)
-        topEmojis.value = customEmojis.value
+        topEmojis.value = identity.value.emojis
             .map((emoji) => ({
                 ...emoji,
                 distance: distance(

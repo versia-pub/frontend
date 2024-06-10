@@ -1,5 +1,6 @@
 import type { LysandClient } from "@lysand-org/client";
 import type { Relationship } from "~/types/mastodon/relationship";
+import { useCurrentIdentity } from "./Identities";
 
 export const useRelationship = (
     client: MaybeRef<LysandClient | null>,
@@ -8,7 +9,7 @@ export const useRelationship = (
     const relationship = ref(null as Relationship | null);
     const isLoading = ref(false);
 
-    if (!useSignedIn().value) {
+    if (!useCurrentIdentity().value) {
         return { relationship, isLoading };
     }
 

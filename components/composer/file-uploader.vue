@@ -2,7 +2,7 @@
     <div>
         <input type="file" ref="fileInput" @change="handleFileInput" style="display: none" multiple />
         <div class="flex flex-row gap-2 overflow-x-auto *:shrink-0 p-1 mb-4" v-if="files.length > 0">
-            <div v-for="(data) in files.toReversed()" :key="data.id" role="button" tabindex="0"
+            <div v-for="(data) in files" :key="data.id" role="button" tabindex="0"
                 :class="['size-28 bg-dark-800 rounded flex items-center relative justify-center ring-1 ring-white/20 overflow-hidden', data.progress !== 1.0 && 'animate-pulse']"
                 @keydown.enter="removeFile(data.id)">
                 <template v-if="data.file.type.startsWith('image/')">
@@ -73,8 +73,7 @@ const files = defineModel<
     required: true,
 });
 
-const tokenData = useTokenData();
-const client = useClient(tokenData);
+const client = useClient();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const openFilePicker = () => {
@@ -165,7 +164,7 @@ const uploadFile = async (file: File) => {
         return data;
     });
 
-    client.value?.uploadMedia(file).then((response) => {
+    client.value.uploadMedia(file).then((response) => {
         const attachment = response.data;
 
         files.value = files.value.map((data) => {

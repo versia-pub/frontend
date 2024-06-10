@@ -1,28 +1,27 @@
 import type { LysandClient } from "@lysand-org/client";
+import { type RolePermissions, useCurrentIdentity } from "./Identities";
 
 export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
     if (process.server) return;
 
-    const tokenData = useTokenData();
-    const me = useMe();
+    const identity = useCurrentIdentity();
     const instance = useInstance();
-    const customEmojis = useCustomEmojis();
 
     // Refresh custom emojis and instance data and me on every reload
     watchEffect(async () => {
-        console.log("Clearing cache");
-        if (tokenData.value) {
-            await toValue(client)
+        console.info("Refreshing emoji, instance and account cache");
+        if (identity.value) {
+            toValue(client)
                 ?.verifyAccountCredentials()
                 .then((res) => {
-                    me.value = res.data;
+                    if (identity.value) identity.value.account = res.data;
                 })
                 .catch((err) => {
                     const code = err.response.status;
 
                     if (code === 401) {
                         // Reset tokenData
-                        tokenData.value = null;
+                        identity.value = null;
                         useEvent("notification:new", {
                             type: "error",
                             title: "Your session has expired",
@@ -32,10 +31,25 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
                     }
                 });
 
-            await toValue(client)
+            toValue(client)
                 ?.getInstanceCustomEmojis()
                 .then((res) => {
-                    customEmojis.value = res.data;
+                    if (identity.value) identity.value.emojis = res.data;
+                });
+
+            toValue(client)
+                ?.getRoles()
+                .then((res) => {
+                    const roles = res.data;
+
+                    // Get all permissions and deduplicate
+                    const permissions = roles
+                        .flatMap((r) => r.permissions)
+                        .filter((p, i, arr) => arr.indexOf(p) === i);
+
+                    if (identity.value)
+                        identity.value.permissions =
+                            permissions as unknown as RolePermissions[];
                 });
         }
 

@@ -14,8 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const tokenData = useTokenData();
-const client = useClient(tokenData);
+const client = useClient();
 
 const isLoading = ref(true);
 

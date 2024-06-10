@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="fixed h-dvh z-20 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group ring-1 ring-dark-500"
+        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group ring-1 ring-dark-500"
         role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
@@ -25,28 +25,18 @@
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
             <ClientOnly>
-                <ButtonsBase v-if="tokenData" @click="signOut().finally(() => loadingAuth = false)"
-                    :loading="loadingAuth"
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon icon="tabler:logout" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Sign Out</span>
-                </ButtonsBase>
-                <ButtonsBase v-else @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth"
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon icon="tabler:login" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Sign In</span>
-                </ButtonsBase>
-                <NuxtLink href="/register" v-if="!tokenData">
+                <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)" />
+                <NuxtLink href="/register" v-if="!identity">
                     <ButtonsBase
                         class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
                         <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
                         <span class="pr-28 line-clamp-1">Register</span>
                     </ButtonsBase>
                 </NuxtLink>
-                <h3 v-if="tokenData"
+                <h3 v-if="identity"
                     class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                     Posts</h3>
-                <ButtonsBase v-if="tokenData" @click="compose" title="Open composer (shortcut: n)"
+                <ButtonsBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
                     <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Compose</span>
@@ -98,37 +88,14 @@
                     <span class="text-xs">Update</span>
                 </button>
             </ClientOnly>
-            <DropdownsAdaptiveDropdown v-else>
-                <template #button>
-                    <button class="flex flex-col items-center justify-center p-2 rounded">
-                        <iconify-icon icon="tabler:user" class="text-2xl" />
-                        <span class="text-xs">Account</span>
-                    </button>
-                </template>
-
-                <template #items>
-                    <Menu.Item value="" v-if="tokenData">
-                        <ButtonsDropdownElement icon="tabler:logout" class="w-full"
-                            @click="signOut().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                            Sign Out
-                        </ButtonsDropdownElement>
-                    </Menu.Item>
-                    <Menu.Item value="" v-if="!tokenData">
-                        <ButtonsDropdownElement icon="tabler:login" class="w-full"
-                            @click="signIn().finally(() => loadingAuth = false)" :loading="loadingAuth">
-                            Sign In
-                        </ButtonsDropdownElement>
-                    </Menu.Item>
-                    <Menu.Item value="" v-if="!tokenData">
-                        <NuxtLink href="/register">
-                            <ButtonsDropdownElement icon="tabler:certificate" class="w-full">
-                                Register
-                            </ButtonsDropdownElement>
-                        </NuxtLink>
-                    </Menu.Item>
-                </template>
-            </DropdownsAdaptiveDropdown>
-            <button @click="compose" v-if="tokenData"
+            <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
+                @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
+                <button class="flex flex-col items-center justify-center p-2 rounded">
+                    <iconify-icon icon="tabler:user" class="text-2xl" />
+                    <span class="text-xs">Account</span>
+                </button>
+            </SidebarsAccountPicker>
+            <button @click="compose" v-if="identity"
                 class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
                 <iconify-icon icon="tabler:writing" class="text-2xl" />
                 <span class="text-xs">Compose</span>
@@ -167,16 +134,16 @@ const timelines = ref([
 
 const visibleTimelines = computed(() =>
     timelines.value.filter(
-        (timeline) => !timeline.requiresAuth || tokenData.value,
+        (timeline) => !timeline.requiresAuth || identity.value,
     ),
 );
 
 const loadingAuth = ref(false);
 
 const appData = useAppData();
-const tokenData = useTokenData();
+const identity = useCurrentIdentity();
+const identities = useIdentities();
 const client = useClient();
-const me = useMe();
 
 const compose = () => {
     useEvent("composer:open");
@@ -185,7 +152,7 @@ const compose = () => {
 const signIn = async () => {
     loadingAuth.value = true;
 
-    const output = await client.value?.createApp("Lysand", {
+    const output = await client.value.createApp("Lysand", {
         scopes: ["read", "write", "follow", "push"],
         redirect_uris: new URL("/", useRequestURL().origin).toString(),
         website: useBaseUrl().value,
@@ -198,7 +165,7 @@ const signIn = async () => {
 
     appData.value = output.data;
 
-    const url = await client.value?.generateAuthUrl(
+    const url = await client.value.generateAuthUrl(
         output.data.client_id,
         output.data.client_secret,
         {
@@ -215,11 +182,20 @@ const signIn = async () => {
     window.location.href = url;
 };
 
-const signOut = async () => {
+const signOut = async (id?: string) => {
     loadingAuth.value = true;
 
-    if (!appData.value || !tokenData.value) {
-        console.error("No app or token data to sign out");
+    if (!appData.value || !identity.value) {
+        console.error("No app or identity data to sign out");
+        return;
+    }
+
+    const identityToRevoke = id
+        ? identities.value.find((i) => i.id === id)
+        : identity.value;
+
+    if (!identityToRevoke) {
+        console.error("No identity to revoke");
         return;
     }
 
@@ -227,13 +203,22 @@ const signOut = async () => {
     await client.value
         ?.revokeToken(
             appData.value.client_id,
-            tokenData.value.access_token,
-            tokenData.value.access_token,
+            identityToRevoke.tokens.access_token,
+            identityToRevoke.tokens.access_token,
         )
         .catch(() => {});
 
-    tokenData.value = null;
-    me.value = null;
-    await navigateTo("/");
+    if (id === identity.value.id) {
+        identity.value = null;
+        await navigateTo("/");
+        return;
+    }
+
+    identities.value = identities.value.filter((i) => i.id !== id);
+    await useEvent("notification:new", {
+        type: "success",
+        title: "Signed out",
+        message: "Account signed out successfully",
+    });
 };
 </script>

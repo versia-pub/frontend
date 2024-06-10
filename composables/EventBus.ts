@@ -1,6 +1,7 @@
 import mitt from "mitt";
 import type { Attachment } from "~/types/mastodon/attachment";
 import type { Status } from "~/types/mastodon/status";
+import type { Identity } from "./Identities";
 
 export type NotificationEvent = {
     type: "error" | "success" | "progress";
@@ -19,6 +20,7 @@ type ApplicationEvents = {
     "note:reblog": Status;
     "note:unreblog": Status;
     "note:quote": Status;
+    "note:report": Status;
     "composer:open": undefined;
     "composer:reply": Status;
     "composer:quote": Status;
@@ -28,6 +30,7 @@ type ApplicationEvents = {
     "composer:close": undefined;
     "notification:new": NotificationEvent;
     "attachment:view": Attachment;
+    "identity:change": Identity;
 };
 
 const emitter = mitt<ApplicationEvents>();

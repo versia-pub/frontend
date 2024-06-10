@@ -1,86 +1,89 @@
 <template>
-    <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
-            class="mx-auto h-24 hidden md:block" />
-        <div v-if="instance && instance.registrations" class="mx-auto w-full max-w-md">
-            <div v-if="Object.keys(errors).length > 0"
-                class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
-                <h2 class="font-bold text-lg">Error</h2>
-                <span class="text-sm">{{ errors.error }}</span>
+    <ClientOnly>
+        <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
+            <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
+                class="mx-auto h-24 hidden md:block" />
+            <div v-if="instance && instance.registrations" class="mx-auto w-full max-w-md">
+                <div v-if="Object.keys(errors).length > 0"
+                    class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
+                    <h2 class="font-bold text-lg">Error</h2>
+                    <span class="text-sm">{{ errors.error }}</span>
+                </div>
+                <VeeForm class="space-y-6" @submit="register as any" :validation-schema="schema">
+                    <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Register</h1>
+
+                    <VeeField name="email" as="div" v-slot="{ errors, field }" validate-on-change>
+                        <LoginInput label="Email" placeholder="contact@cpluspatch.com" type="email" autocomplete="email"
+                            required :is-invalid="errors.length > 0" v-bind="field" :disabled="isLoading" />
+                        <VeeErrorMessage name="email" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }}
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <VeeField name="username" as="div" v-slot="{ errors, field }" validate-on-change>
+                        <LoginInput label="Username" placeholder="thespeedy" type="text" autocomplete="username"
+                            required :is-invalid="errors.length > 0" v-bind="field" :disabled="isLoading" />
+                        <VeeErrorMessage name="username" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }} (must only contain lowercase letters, numbers and underscores)
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <VeeField name="password" as="div" v-slot="{ errors, field }" validate-on-change>
+                        <LoginInput label="Password" placeholder="hunter2" type="password"
+                            autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field"
+                            :disabled="isLoading" />
+                        <VeeErrorMessage name="password" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }}
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <VeeField name="password2" as="div" v-slot="{ errors, field }" validate-on-change>
+                        <LoginInput label="Confirm password" placeholder="hunter2" type="password"
+                            autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field"
+                            :disabled="isLoading" />
+                        <VeeErrorMessage name="password2" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }}
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <VeeField name="reason" as="div" v-slot="{ errors }" validate-on-change>
+                        <label for="reason" class="block text-sm font-medium leading-6 text-gray-50">Why do you want to
+                            join?</label>
+                        <div class="mt-2">
+                            <textarea rows="4" required :is-invalid="errors.length > 0" name="reason"
+                                :disabled="isLoading" placeholder="Brief text (optional)"
+                                class="block w-full disabled:opacity-70 disabled:hover:cursor-wait bg-dark-500 rounded-md border-0 py-1.5 text-gray-50 shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6" />
+                        </div>
+                        <VeeErrorMessage name="reason" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }}
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <VeeField name="tos" as="div" v-slot="{ errors, field }" validate-on-change>
+                        <input type="checkbox" :disabled="isLoading" name="tos"
+                            class="rounded disabled:hover:cursor-wait mr-1 align-middle mb-0.5 text-pink-700 !ring-0 !outline-none"
+                            required />
+                        <span class="text-sm text-gray-100">I agree to the terms and conditions of this server <a
+                                class="underline font-bold" target="_blank" :href="'#'">available here</a></span>
+                        <VeeErrorMessage name="tos" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
+                            {{ message }}
+                        </VeeErrorMessage>
+                    </VeeField>
+
+                    <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
+                "Register" }}</ButtonsPrimary>
+                </VeeForm>
             </div>
-            <VeeForm class="space-y-6" @submit="register as any" :validation-schema="schema">
-                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Register</h1>
-
-                <VeeField name="email" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Email" placeholder="contact@cpluspatch.com" type="email" autocomplete="email"
-                        required :is-invalid="errors.length > 0" v-bind="field" :disabled="isLoading" />
-                    <VeeErrorMessage name="email" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <VeeField name="username" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Username" placeholder="thespeedy" type="text" autocomplete="username" required
-                        :is-invalid="errors.length > 0" v-bind="field" :disabled="isLoading" />
-                    <VeeErrorMessage name="username" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }} (must only contain lowercase letters, numbers and underscores)
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <VeeField name="password" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Password" placeholder="hunter2" type="password" autocomplete="current-password"
-                        required :is-invalid="errors.length > 0" v-bind="field" :disabled="isLoading" />
-                    <VeeErrorMessage name="password" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <VeeField name="password2" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Confirm password" placeholder="hunter2" type="password"
-                        autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field"
-                        :disabled="isLoading" />
-                    <VeeErrorMessage name="password2" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <VeeField name="reason" as="div" v-slot="{ errors }" validate-on-change>
-                    <label for="reason" class="block text-sm font-medium leading-6 text-gray-50">Why do you want to
-                        join?</label>
-                    <div class="mt-2">
-                        <textarea rows="4" required :is-invalid="errors.length > 0" name="reason" :disabled="isLoading"
-                            placeholder="Brief text (optional)"
-                            class="block w-full disabled:opacity-70 disabled:hover:cursor-wait bg-dark-500 rounded-md border-0 py-1.5 text-gray-50 shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6" />
-                    </div>
-                    <VeeErrorMessage name="reason" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <VeeField name="tos" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <input type="checkbox" :disabled="isLoading" name="tos"
-                        class="rounded disabled:hover:cursor-wait mr-1 align-middle mb-0.5 text-pink-700 !ring-0 !outline-none"
-                        required />
-                    <span class="text-sm text-gray-100">I agree to the terms and conditions of this server <a
-                            class="underline font-bold" target="_blank" :href="'#'">available here</a></span>
-                    <VeeErrorMessage name="tos" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
-                </VeeField>
-
-                <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonsPrimary>
-            </VeeForm>
+            <div v-else>
+                <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Registrations are
+                    disabled
+                </h1>
+                <p class="mt-6 text-lg leading-8 text-gray-200 text-center">Ask this instance's admin to enable them in
+                    config!
+                </p>
+            </div>
         </div>
-        <div v-else>
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Registrations are
-                disabled
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-200 text-center">Ask this instance's admin to enable them in
-                config!
-            </p>
-        </div>
-    </div>
+    </ClientOnly>
 </template>
 
 <script setup lang="ts">

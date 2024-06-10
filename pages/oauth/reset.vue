@@ -67,8 +67,8 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import LoginInput from "../../components/LoginInput.vue";
 
-const tokenData = useTokenData();
-tokenData.value = null;
+const identity = useCurrentIdentity();
+identity.value = null;
 
 const schema = toTypedSchema(
     z

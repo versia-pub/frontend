@@ -15,7 +15,6 @@ const props = defineProps<{
     account_id: string | null;
 }>();
 
-const tokenData = useTokenData();
-const client = useClient(tokenData);
+const client = useClient();
 const account = useAccount(client, props.account_id);
 </script>
