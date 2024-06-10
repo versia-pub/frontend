@@ -1,5 +1,5 @@
 <template>
-    <ButtonsBase :loading="loading" class="bg-pink-500 hover:bg-pink-400">
+    <ButtonsBase :loading="loading" class="bg-pink-600 hover:bg-pink-500">
         <slot />
     </ButtonsBase>
 </template>

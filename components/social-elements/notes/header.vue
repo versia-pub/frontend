@@ -3,6 +3,7 @@
         <NuxtLink :href="accountUrl" class="shrink-0">
             <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="size-6 rounded ring-1 ring-white/5" />
+            <span class="sr-only">Account profile</span>
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row text-sm items-center justify-between w-full">
@@ -12,7 +13,7 @@
         note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
-                <NuxtLink :href="noteUrl" class="text-gray-400 ml-2 line-clamp-1 break-all shrink-0">
+                <NuxtLink :href="noteUrl" class="text-gray-300 ml-2 line-clamp-1 break-all shrink-0">
                     <Skeleton :enabled="!note" :min-width="50" :max-width="100" shape="rect">
                         {{ timeAgo }}
                     </Skeleton>
@@ -24,6 +25,7 @@
         <NuxtLink :href="accountUrl" class="shrink-0">
             <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="h-12 w-12 rounded ring-1 ring-white/5" />
+            <span class="sr-only">Account profile</span>
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
@@ -33,14 +35,14 @@
         note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
-                <NuxtLink :href="noteUrl" class="text-gray-400 text-sm ml-2 line-clamp-1 break-all shrink-0"
+                <NuxtLink :href="noteUrl" class="text-gray-300 text-sm ml-2 line-clamp-1 break-all shrink-0"
                     :alt="fullTime" :title="fullTime">
                     <Skeleton :enabled="!note" :min-width="50" :max-width="100" shape="rect">
                         {{ timeAgo }}
                     </Skeleton>
                 </NuxtLink>
             </div>
-            <span class="text-gray-400 text-sm line-clamp-1 break-all w-full group">
+            <span class="text-gray-300 text-sm line-clamp-1 break-all w-full group">
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
                     <span class="group-hover:hidden">
                         @{{

@@ -1,5 +1,5 @@
 <template>
-    <div
+    <article
         class="first:rounded-t last:rounded-b ring-1 relative ring-white/5 p-6 flex flex-col bg-dark-800 hover:bg-dark-700 duration-200">
         <!-- Overlay that blocks clicks for disabled notes -->
         <div v-if="disabled" class="absolute z-10 inset-0 hover:cursor-not-allowed">
@@ -144,7 +144,7 @@
                 </DropdownsAdaptiveDropdown>
             </div>
         </Skeleton>
-    </div>
+    </article>
 </template>
 
 <script lang="ts" setup>

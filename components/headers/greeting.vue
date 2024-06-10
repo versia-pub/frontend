@@ -4,7 +4,8 @@
             <div class="sm:flex sm:items-center sm:justify-between gap-3">
                 <div class="sm:flex sm:space-x-5 grow">
                     <AvatarsCentered :src="identity.account.avatar"
-                        class="mx-auto shrink-0 size-20 rounded overflow-hidden ring-1 ring-white/10" />
+                        class="mx-auto shrink-0 size-20 rounded overflow-hidden ring-1 ring-white/10"
+                        :alt="'Your avatar'" />
                     <div
                         class="mt-4 text-center flex flex-col justify-center sm:mt-0 sm:text-left bg-dark-800 py-2 px-4 rounded grow ring-1 ring-white/10">
                         <p class="text-sm font-medium text-gray-300">Welcome back,</p>

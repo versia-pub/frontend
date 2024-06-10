@@ -22,6 +22,8 @@
 - [x] Note editing
 - [x] Alt text support everywhere
 - [x] Media uploads
+- [x] WCAG 2.2 AAA compliance
+  - Testing is automated and may not catch all issues, please report any accessibility issues you find.
 - [ ] Settings
 - [ ] Profile editing
 

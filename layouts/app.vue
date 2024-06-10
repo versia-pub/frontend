@@ -15,7 +15,7 @@
         </svg>
         <LazySidebarsNavigation />
         <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
-            <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto">
+            <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto" :element="'main'">
                 <slot />
             </OverlayScrollbarsComponent>
             <ClientOnly>
