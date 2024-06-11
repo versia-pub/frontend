@@ -36,8 +36,9 @@ export default defineNuxtConfig({
             contentSecurityPolicy: {
                 "img-src": ["'self'", "data:", "https:", "blob:"],
                 "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
-                // Add https because of some browsers blocking form-action to 'self' if the page is from a redirect
-                "form-action": ["'self'", "https:", "tuba:"],
+                // Allow all origins for form-action, so that clients registering custom
+                // protocol handlers will work (native clients for example)
+                "form-action": ["*"],
                 "media-src": ["'self'", "https:", "blob:"],
             },
             crossOriginResourcePolicy: "cross-origin",
