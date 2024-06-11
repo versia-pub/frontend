@@ -25,7 +25,8 @@
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
             <ClientOnly>
-                <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)" />
+                <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
+                    @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
                 <NuxtLink href="/register" v-if="!identity">
                     <ButtonsBase
                         class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
