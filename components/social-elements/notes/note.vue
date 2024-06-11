@@ -61,7 +61,7 @@
                                 </ButtonsDropdownElement>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="copy(JSON.stringify(outputtedNote, null, 4))"
+                                <ButtonsDropdownElement @click="copy(JSON.stringify(props.note, null, 4))"
                                     icon="tabler:code" class="w-full">
                                     Copy API
                                     Response

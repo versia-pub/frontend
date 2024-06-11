@@ -33,14 +33,14 @@ export const useNoteData = (
     const loaded = computed(() => content.value !== null);
 
     const reblogDisplayName = useParsedContent(
-        renderedNote.value?.account.display_name ?? "",
-        renderedNote.value?.account.emojis ?? [],
+        toValue(noteProp)?.account.display_name ?? "",
+        toValue(noteProp)?.account.emojis ?? [],
     );
     const reblog = computed(() =>
-        isReblog.value && renderedNote.value && !isQuote.value
+        isReblog.value && toValue(noteProp) && !isQuote.value
             ? {
-                  avatar: renderedNote.value.account.avatar,
-                  acct: renderedNote.value.account.acct,
+                  avatar: toValue(noteProp)?.account.avatar,
+                  acct: toValue(noteProp)?.account.acct,
               }
             : null,
     );
