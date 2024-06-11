@@ -51,11 +51,11 @@
         "overlayscrollbars-vue": "^0.5.9",
         "shiki": "^1.6.3",
         "vue": "^3.4.27",
-        "vue-router": "^4.3.2",
+        "vue-router": "^4.3.3",
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.8.0",
+        "@biomejs/biome": "^1.8.1",
         "@nuxtjs/seo": "^2.0.0-rc.10",
         "@nuxtjs/tailwindcss": "^6.12.0",
         "@tailwindcss/forms": "^0.5.7",
