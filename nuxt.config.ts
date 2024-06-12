@@ -15,6 +15,9 @@ export default defineNuxtConfig({
             isCustomElement: (tag) => tag === "iconify-icon",
         },
     },
+    future: {
+        compatibilityVersion: 4,
+    },
     pwa: {
         manifest: {
             name: "Lysand",
