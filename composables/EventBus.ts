@@ -31,6 +31,11 @@ type ApplicationEvents = {
     "notification:new": NotificationEvent;
     "attachment:view": Attachment;
     "identity:change": Identity;
+    error: {
+        code: string;
+        title: string;
+        message: string;
+    } | null;
 };
 
 const emitter = mitt<ApplicationEvents>();

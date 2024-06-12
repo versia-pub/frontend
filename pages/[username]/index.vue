@@ -1,10 +1,12 @@
 <template>
-    <div class="mx-auto max-w-2xl w-full">
-        <LazyTimelinesTimelineScroller>
-            <LazySocialElementsUsersAccount :account="account ?? undefined" />
-            <LazyTimelinesAccount :id="accountId" :key="accountId" />
-        </LazyTimelinesTimelineScroller>
-    </div>
+    <ErrorsErrorBoundary>
+        <div class="mx-auto max-w-2xl w-full">
+            <LazyTimelinesTimelineScroller>
+                <LazySocialElementsUsersAccount :account="account ?? undefined" />
+                <LazyTimelinesAccount :id="accountId" :key="accountId" />
+            </LazyTimelinesTimelineScroller>
+        </div>
+    </ErrorsErrorBoundary>
 </template>
 
 <script setup lang="ts">
@@ -19,6 +21,17 @@ const client = useClient();
 const username = (route.params.username as string).replace("@", "");
 
 const accounts = useAccountSearch(client, username);
+watch(accounts, (newValue) => {
+    if (Array.isArray(newValue)) {
+        if (!newValue.find((account) => account.acct === username)) {
+            useEvent("error", {
+                title: "Account not found",
+                message: `The account <code>@${username}</code> does not exist.`,
+                code: "ERR_ACCOUNT_NOT_FOUND",
+            });
+        }
+    }
+});
 const account = computed<Account | null>(
     () => accounts.value?.find((account) => account.acct === username) ?? null,
 );

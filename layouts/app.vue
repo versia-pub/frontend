@@ -14,6 +14,7 @@
             <rect width="100%" height="100%" stroke-width="0" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"></rect>
         </svg>
         <LazySidebarsNavigation />
+
         <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
             <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto" :element="'main'">
                 <slot />
@@ -64,12 +65,12 @@ const client = useClient();
 const providers = useSSOConfig();
 
 watchEffect(async () => {
-    if (n.value) {
+    if (n?.value) {
         // Wait 50ms
         await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
     }
-    if (o_i_d_c.value) {
+    if (o_i_d_c?.value) {
         useEvent("notification:new", {
             type: "progress",
             title: "Linking your account",
