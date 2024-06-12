@@ -49,7 +49,7 @@ export const useTimeline = <
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...fetchedNotes.value, ...newNotes];
-            nextMaxId = newNotes[newNotes.length - 1].id;
+            nextMaxId = newNotes[newNotes.length - 1]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }
@@ -70,7 +70,7 @@ export const useTimeline = <
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...newNotes, ...fetchedNotes.value];
-            prevMinId = newNotes[0].id;
+            prevMinId = newNotes[0]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }
@@ -132,7 +132,7 @@ export const useIdTimeline = <
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...fetchedNotes.value, ...newNotes];
-            nextMaxId = newNotes[newNotes.length - 1].id;
+            nextMaxId = newNotes[newNotes.length - 1]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }
@@ -153,7 +153,7 @@ export const useIdTimeline = <
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...newNotes, ...fetchedNotes.value];
-            prevMinId = newNotes[0].id;
+            prevMinId = newNotes[0]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }

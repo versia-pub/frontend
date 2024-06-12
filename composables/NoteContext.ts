@@ -16,7 +16,7 @@ export const useNoteContext = (
             ref(client)
                 .value?.getStatusContext(toValue(noteId) ?? "")
                 .then((res) => {
-                    output.value = res.data as Context;
+                    output.value = res.data;
                 });
     });
 

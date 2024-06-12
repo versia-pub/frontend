@@ -1,3 +1,4 @@
+import type { Role as LysandRole } from "~/composables/Identities";
 import type { Emoji } from "./emoji";
 import type { Field } from "./field";
 import type { Role } from "./role";
@@ -30,5 +31,6 @@ export type Account = {
     bot: boolean | null;
     source?: Source;
     role?: Role;
+    roles: LysandRole[];
     mute_expires_at?: string;
 };

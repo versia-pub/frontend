@@ -58,7 +58,7 @@ export const useNoteData = (
         );
 
         if (result?.data) {
-            useEvent("note:delete", result.data as Status);
+            useEvent("note:delete", result.data);
         }
     };
 

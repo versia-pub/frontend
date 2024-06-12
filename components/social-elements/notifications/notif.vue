@@ -19,8 +19,10 @@
             </div>
             <div v-if="notification?.type === 'follow_request' && relationship?.requested_by"
                 class="w-full grid grid-cols-2 gap-4 p-2 ">
-                <ButtonsPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span></ButtonsPrimary>
-                <ButtonsSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span></ButtonsSecondary>
+                <ButtonsPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span>
+                </ButtonsPrimary>
+                <ButtonsSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span>
+                </ButtonsSecondary>
             </div>
         </div>
     </div>
@@ -47,7 +49,7 @@ const acceptFollowRequest = async () => {
     const { data } = await client.value.acceptFollowRequest(
         props.notification.account.id,
     );
-    relationship.value = data as Relationship;
+    relationship.value = data;
     isWorkingOnFollowRequest.value = false;
 };
 
@@ -57,7 +59,7 @@ const rejectFollowRequest = async () => {
     const { data } = await client.value.rejectFollowRequest(
         props.notification.account.id,
     );
-    relationship.value = data as Relationship;
+    relationship.value = data;
     isWorkingOnFollowRequest.value = false;
 };
 

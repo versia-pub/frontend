@@ -106,7 +106,7 @@ export const useCurrentIdentity = (): Ref<Identity | null> => {
                 );
 
                 if (identities.value.length > 0) {
-                    currentId.value = identities.value[0].id;
+                    currentId.value = identities.value[0]?.id;
                 } else {
                     currentId.value = null;
                 }

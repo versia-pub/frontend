@@ -14,7 +14,7 @@ export const useNote = (
     ref(client)
         .value?.getStatus(noteId)
         .then((res) => {
-            output.value = res.data as Status;
+            output.value = res.data;
         });
 
     return output;
