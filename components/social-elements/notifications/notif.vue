@@ -7,7 +7,7 @@
                 <AvatarsCentered v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`"
                     class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />
-                <span class="text-gray-200"><strong v-html="accountName"></strong> {{ text
+                <span class="text-gray-200 line-clamp-1"><strong v-html="accountName"></strong> {{ text
                     }}</span>
             </Skeleton>
         </div>
@@ -17,16 +17,49 @@
             <div v-else-if="notification.account" class="p-6 ring-1 ring-white/5 bg-dark-800">
                 <SocialElementsUsersSmallCard :account="notification.account" />
             </div>
+            <div v-if="notification?.type === 'follow_request' && relationship?.requested_by"
+                class="w-full grid grid-cols-2 gap-4 p-2 ">
+                <ButtonsPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span></ButtonsPrimary>
+                <ButtonsSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span></ButtonsSecondary>
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import type { Notification } from "~/types/mastodon/notification";
+import type { Relationship } from "~/types/mastodon/relationship";
 
 const props = defineProps<{
     notification?: Notification;
 }>();
+
+const client = useClient();
+const isWorkingOnFollowRequest = ref(false);
+const { relationship } = useRelationship(
+    client,
+    props.notification?.account?.id ?? null,
+);
+
+const acceptFollowRequest = async () => {
+    if (!props.notification?.account) return;
+    isWorkingOnFollowRequest.value = true;
+    const { data } = await client.value.acceptFollowRequest(
+        props.notification.account.id,
+    );
+    relationship.value = data as Relationship;
+    isWorkingOnFollowRequest.value = false;
+};
+
+const rejectFollowRequest = async () => {
+    if (!props.notification?.account) return;
+    isWorkingOnFollowRequest.value = true;
+    const { data } = await client.value.rejectFollowRequest(
+        props.notification.account.id,
+    );
+    relationship.value = data as Relationship;
+    isWorkingOnFollowRequest.value = false;
+};
 
 const accountName = useParsedContent(
     props.notification?.account?.display_name ?? "",

@@ -18,7 +18,7 @@ export const useRelationship = (
             toValue(client)
                 ?.getRelationship(toValue(accountId) ?? "")
                 .then((res) => {
-                    relationship.value = res.data;
+                    relationship.value = res.data as Relationship;
                 });
     });
 
