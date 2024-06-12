@@ -43,7 +43,7 @@
         "magic-regexp": "^0.8.0",
         "mitt": "^3.0.1",
         "nanoid": "^5.0.7",
-        "nuxt": "^3.11.2",
+        "nuxt": "^3.12.1",
         "nuxt-headlessui": "^1.2.0",
         "nuxt-security": "^2.0.0-rc.6",
         "nuxt-shiki": "^0.3.0",
