@@ -4,7 +4,7 @@
         <!-- Overlay that blocks clicks for disabled notes -->
         <div v-if="disabled" class="absolute z-10 inset-0 hover:cursor-not-allowed">
         </div>
-        <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-500">
+        <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-400">
             <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
                 <iconify-icon width="1.5rem" height="1.5rem" icon="tabler:repeat" class="size-6" aria-hidden="true" />
                 <AvatarsCentered v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
@@ -91,8 +91,8 @@
                                 </ButtonsDropdownElement>
                             </Menu.Item>
                         </Menu.ItemGroup>
-                        <hr class="border-white/10 rounded" />
-                        <Menu.ItemGroup>
+                        <hr class="border-white/10 rounded" v-if="identity" />
+                        <Menu.ItemGroup v-if="identity">
                             <Menu.Item value="">
                                 <ButtonsDropdownElement @click="outputtedNote && useEvent('note:reply', outputtedNote)"
                                     icon="tabler:arrow-back-up" class="w-full">
@@ -125,8 +125,8 @@
                                 </ButtonsDropdownElement>
                             </Menu.Item>
                         </Menu.ItemGroup>
-                        <hr class="border-white/10 rounded" />
-                        <Menu.ItemGroup>
+                        <hr class="border-white/10 rounded" v-if="identity" />
+                        <Menu.ItemGroup v-if="identity">
                             <Menu.Item value="">
                                 <ButtonsDropdownElement @click="outputtedNote && useEvent('note:report', outputtedNote)"
                                     icon="tabler:flag" class="w-full"

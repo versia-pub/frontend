@@ -1,6 +1,6 @@
 <template>
     <div v-bind="$props" class="bg-dark-700 overflow-hidden flex items-center justify-center">
-        <Skeleton :enabled="!src" class="!h-full !w-full">
+        <Skeleton :enabled="!src" class="!h-full !w-full !rounded-none">
             <img class="cursor-pointer bg-dark-700 ring-1 w-full h-full object-cover" :src="src" :alt="alt" />
         </Skeleton>
     </div>

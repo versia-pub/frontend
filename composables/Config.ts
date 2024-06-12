@@ -23,5 +23,12 @@ export const useConfig = () => {
             "I'm sorry, Dave. I'm afraid I can't do that.",
             "I am the Senate",
         ],
+        DEVELOPER_HANDLES: [
+            "jessew@social.lysand.org",
+            "aprl@social.lysand.org",
+            "graphite@social.lysand.org",
+            "jessew@mk.cpluspatch.com",
+            "graphite@shonk.phite.ro",
+        ],
     };
 };

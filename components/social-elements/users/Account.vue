@@ -1,8 +1,8 @@
 <template>
     <ClientOnly>
-        <div class="w-full ring-1 ring-inset ring-white/5 pb-10">
+        <div class="w-full ring-1 ring-inset ring-white/5 pb-10 bg-dark-800">
             <AvatarsCentered :src="account?.header" :alt="`${account?.acct}'s header image'`"
-                class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700" />
+                class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700 !rounded-none" />
 
             <div class="flex items-start justify-between px-4 py-3">
                 <AvatarsCentered :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
@@ -36,9 +36,15 @@
                             title="This account manually approves its followers" />
                     </Skeleton>
                 </h2>
-                <span class="text-gray-400 block mt-2">
+                <span class="text-gray-300 block mt-2">
                     <Skeleton :enabled="skeleton" :min-width="130" :max-width="250">@{{ account?.acct }}</Skeleton>
                 </span>
+                <div class="flex flex-row flex-wrap gap-4 mt-4" v-if="isDeveloper || visibleRoles.length > 0">
+                    <SocialElementsUsersBadge v-for="role of visibleRoles" :key="role.id" :name="role.name"
+                        :description="role.description" :img="role.icon" />
+                    <SocialElementsUsersBadge v-if="isDeveloper" name="Lysand Developer"
+                        description="This user is a Lysand developer." :verified="true" />
+                </div>
             </div>
 
             <div class="mt-4 px-4">
@@ -105,6 +111,7 @@ const props = defineProps<{
 const skeleton = computed(() => !props.account);
 const identity = useCurrentIdentity();
 const client = useClient();
+const config = useConfig();
 const accountId = computed(() => props.account?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
 
@@ -138,6 +145,18 @@ const parsedFields: Ref<
         value: string;
     }[]
 > = ref([]);
+const handle = computed(() => {
+    if (!props.account?.acct.includes("@")) {
+        return `${props.account?.acct}@${new URL(useBaseUrl().value).host}`;
+    }
+    return props.account?.acct;
+});
+const isDeveloper = computed(() =>
+    config.DEVELOPER_HANDLES.includes(handle.value),
+);
+const visibleRoles = computed(
+    () => props.account?.roles.filter((r) => r.visible) ?? [],
+);
 
 watch(
     skeleton,
