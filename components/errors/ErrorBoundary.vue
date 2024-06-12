@@ -27,15 +27,15 @@ const error = ref<{
 
 useListen("error", (err) => {
     error.value = err;
+
+    useHead({
+        title: err?.title,
+    });
 });
 
 const back = () => {
     useRouter().back();
 };
-
-useHead({
-    title: computed(() => error.value?.title || "Error"),
-});
 </script>
 
 <style>
