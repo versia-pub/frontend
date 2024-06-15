@@ -52,7 +52,7 @@ useHead({
 });
 
 if (code && appData.value) {
-    signInWithCode(code, appData.value)
+    signInWithCode(code, appData.value);
 }
 
 useListen("identity:change", (newIdentity) => {
