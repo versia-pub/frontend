@@ -2,10 +2,9 @@ import type { LysandClient } from "@lysand-org/client";
 import { type RolePermissions, useCurrentIdentity } from "./Identities";
 
 export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
-    if (process.server) return;
+    if (import.meta.server) return;
 
     const identity = useCurrentIdentity();
-    const instance = useInstance();
 
     // Refresh custom emojis and instance data and me on every reload
     watchEffect(async () => {
@@ -56,7 +55,7 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
         toValue(client)
             ?.getInstance()
             .then((res) => {
-                instance.value = res.data;
+                if (identity.value) identity.value.instance = res.data;
             });
     });
 };

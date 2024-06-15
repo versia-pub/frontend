@@ -1,18 +1,15 @@
 <template>
-    <ClientOnly>
-        <TransitionGroup leave-active-class="ease-in duration-200" leave-from-class="scale-100 opacity-100"
-            leave-to-class="opacity-0 scale-90">
-            <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
-        </TransitionGroup>
-        <span ref="skeleton"></span>
-        <LazySocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+    <TransitionGroup leave-active-class="ease-in duration-200" leave-from-class="scale-100 opacity-100"
+        leave-to-class="opacity-0 scale-90">
+        <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
+    </TransitionGroup>
+    <span ref="skeleton"></span>
+    <LazySocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
-        <div v-if="hasReachedEnd"
-            class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
-            <iconify-icon icon="tabler:message-off" width="1.5rem" height="1.5rem" />
-            <span>No more posts, you've seen them all</span>
-        </div>
-    </ClientOnly>
+    <div v-if="hasReachedEnd" class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
+        <iconify-icon icon="tabler:message-off" width="1.5rem" height="1.5rem" />
+        <span>No more posts, you've seen them all</span>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -32,7 +29,7 @@ const skeleton = ref<HTMLSpanElement | null>(null);
 onMounted(() => {
     useIntersectionObserver(skeleton, async (entries) => {
         if (
-            entries[0].isIntersecting &&
+            entries[0]?.isIntersecting &&
             !hasReachedEnd.value &&
             !isLoading.value
         ) {

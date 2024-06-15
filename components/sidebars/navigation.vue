@@ -4,104 +4,102 @@
         aria-label="Navigation" role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
-                src="/logo.webp" alt="Lysand logo" />
+                :src="instance?.thumbnail.url ?? '/logo.webp'" alt="Logo of your instance" />
         </NuxtLink>
 
         <div class="flex flex-col gap-3">
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Timelines</h3>
-            <ClientOnly>
-                <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
-                    <ButtonsBase
-                        class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                        <iconify-icon :icon="timeline.icon" class="shrink-0 text-2xl" />
-                        <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
-                    </ButtonsBase>
-                </NuxtLink>
-            </ClientOnly>
+
+            <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
+                <ButtonsBase
+                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
+                    <iconify-icon :icon="timeline.icon" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
+                </ButtonsBase>
+            </NuxtLink>
+
         </div>
 
         <div class="flex flex-col gap-3 mt-auto">
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
-            <ClientOnly>
-                <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
-                    @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
-                <NuxtLink href="/register" v-if="!identity">
-                    <ButtonsBase
-                        class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                        <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
-                        <span class="pr-28 line-clamp-1">Register</span>
-                    </ButtonsBase>
-                </NuxtLink>
-                <h3 v-if="identity"
-                    class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
-                    Posts</h3>
-                <ButtonsBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Compose</span>
-                    <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row">
-                        <iconify-icon icon="tabler:keyboard" height="1rem" width="1rem" class="inline"
-                            aria-hidden="true" />
-                        <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
-                            aria-hidden="true" />
-                    </kbd>
+
+            <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
+                @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
+            <NuxtLink href="/register" v-if="!identity">
+                <ButtonsBase
+                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
+                    <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
+                    <span class="pr-28 line-clamp-1">Register</span>
                 </ButtonsBase>
-                <ButtonsBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-pink-600 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon icon="tabler:refresh" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Update</span>
-                </ButtonsBase>
-            </ClientOnly>
+            </NuxtLink>
+            <h3 v-if="identity"
+                class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+                Posts</h3>
+            <ButtonsBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
+                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
+                <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
+                <span class="pr-28 line-clamp-1">Compose</span>
+                <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row">
+                    <iconify-icon icon="tabler:keyboard" height="1rem" width="1rem" class="inline" aria-hidden="true" />
+                    <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
+                        aria-hidden="true" />
+                </kbd>
+            </ButtonsBase>
+            <ButtonsBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
+                class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-pink-600 overflow-hidden h-12 w-full duration-200">
+                <iconify-icon icon="tabler:refresh" class="shrink-0 text-2xl" />
+                <span class="pr-28 line-clamp-1">Update</span>
+            </ButtonsBase>
+
         </div>
     </aside>
     <!-- Mobile bottom navbar -->
     <nav
         class="fixed bottom-0 left-0 right-0 z-20 md:hidden flex justify-around p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
-        <ClientOnly>
-            <DropdownsAdaptiveDropdown>
-                <template #button>
-                    <button class="flex flex-col items-center justify-center p-2 rounded">
-                        <iconify-icon icon="tabler:home" class="text-2xl" />
-                        <span class="text-xs">Timelines</span>
-                    </button>
-                </template>
 
-                <template #items>
-                    <Menu.Item value="" v-for="timeline in visibleTimelines" :key="timeline.href">
-                        <NuxtLink :href="timeline.href">
-                            <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
-                                {{ timeline.name }}
-                            </ButtonsDropdownElement>
-                        </NuxtLink>
-                    </Menu.Item>
-                </template>
-            </DropdownsAdaptiveDropdown>
-            <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
-                <iconify-icon icon="tabler:bell" class="text-2xl" />
-                <span class="text-xs">Notifications</span>
-            </NuxtLink>
-            <ClientOnly v-if="$pwa?.needRefresh">
-                <button class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
-                    @click="$pwa?.updateServiceWorker(true)">
-                    <iconify-icon icon="tabler:refresh" class="text-2xl" />
-                    <span class="text-xs">Update</span>
-                </button>
-            </ClientOnly>
-            <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
-                @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
+        <DropdownsAdaptiveDropdown>
+            <template #button>
                 <button class="flex flex-col items-center justify-center p-2 rounded">
-                    <iconify-icon icon="tabler:user" class="text-2xl" />
-                    <span class="text-xs">Account</span>
+                    <iconify-icon icon="tabler:home" class="text-2xl" />
+                    <span class="text-xs">Timelines</span>
                 </button>
-            </SidebarsAccountPicker>
-            <button @click="compose" v-if="identity"
-                class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
-                <iconify-icon icon="tabler:writing" class="text-2xl" />
-                <span class="text-xs">Compose</span>
+            </template>
+
+            <template #items>
+                <Menu.Item value="" v-for="timeline in visibleTimelines" :key="timeline.href">
+                    <NuxtLink :href="timeline.href">
+                        <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                            {{ timeline.name }}
+                        </ButtonsDropdownElement>
+                    </NuxtLink>
+                </Menu.Item>
+            </template>
+        </DropdownsAdaptiveDropdown>
+        <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
+            <iconify-icon icon="tabler:bell" class="text-2xl" />
+            <span class="text-xs">Notifications</span>
+        </NuxtLink>
+        <button v-if="$pwa?.needRefresh"
+            class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-pink-600"
+            @click="$pwa?.updateServiceWorker(true)">
+            <iconify-icon icon="tabler:refresh" class="text-2xl" />
+            <span class="text-xs">Update</span>
+        </button>
+
+        <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
+            @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
+            <button class="flex flex-col items-center justify-center p-2 rounded">
+                <iconify-icon icon="tabler:user" class="text-2xl" />
+                <span class="text-xs">Account</span>
             </button>
-        </ClientOnly>
+        </SidebarsAccountPicker>
+        <button @click="compose" v-if="identity"
+            class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-pink-300/70 via-purple-300/70 to-indigo-400/70">
+            <iconify-icon icon="tabler:writing" class="text-2xl" />
+            <span class="text-xs">Compose</span>
+        </button>
     </nav>
 </template>
 
@@ -145,6 +143,7 @@ const appData = useAppData();
 const identity = useCurrentIdentity();
 const identities = useIdentities();
 const client = useClient();
+const instance = useInstance();
 
 const compose = () => {
     useEvent("composer:open");

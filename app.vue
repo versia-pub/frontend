@@ -4,10 +4,15 @@
     <PwaAppleImage image="/logo.webp" />
     <PwaMaskableImage image="/logo.webp" />
     <Loading />
-    <NuxtLayout>
-        <NuxtPage />
-    </NuxtLayout>
+    <ClientOnly>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+    </ClientOnly>
     <NotificationsRenderer />
+    <noscript>
+        <ErrorsNoscript />
+    </noscript>
 </template>
 
 <script setup lang="ts">
