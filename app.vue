@@ -1,8 +1,5 @@
 <template>
     <NuxtPwaAssets />
-    <PwaTransparentImage image="/logo.webp" />
-    <PwaAppleImage image="/logo.webp" />
-    <PwaMaskableImage image="/logo.webp" />
     <Loading />
     <ClientOnly>
         <NuxtLayout>
@@ -15,14 +12,12 @@
 <script setup lang="ts">
 import { convert } from "html-to-text";
 import "iconify-icon";
-import { nanoid } from "nanoid";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
 const identity = useCurrentIdentity();
-const identities = useIdentities();
 const client = useClient();
 const instance = useInstance();
 const description = useExtendedDescription(client);
@@ -56,49 +51,8 @@ useHead({
     ],
 });
 
-if (code) {
-    if (appData.value) {
-        client.value
-            ?.fetchAccessToken(
-                appData.value.client_id,
-                appData.value.client_secret,
-                code,
-                new URL("/", useRequestURL().origin).toString(),
-            )
-            .then(async (res) => {
-                const tempClient = useClient(res.data).value;
-
-                const [accountOutput, instanceOutput] = await Promise.all([
-                    tempClient.verifyAccountCredentials(),
-                    tempClient.getInstance(),
-                ]);
-
-                // Get account data
-                if (
-                    !identities.value.find(
-                        (i) => i.account.id === accountOutput.data.id,
-                    )
-                )
-                    identity.value = {
-                        id: nanoid(),
-                        tokens: res.data,
-                        account: accountOutput.data,
-                        instance: instanceOutput.data,
-                        permissions: [],
-                        emojis: [],
-                    };
-
-                // Remove code from URL
-                window.history.replaceState(
-                    {},
-                    document.title,
-                    window.location.pathname,
-                );
-
-                // Redirect to home
-                window.location.pathname = "/";
-            });
-    }
+if (code && appData.value) {
+    signInWithCode(code, appData.value)
 }
 
 useListen("identity:change", (newIdentity) => {
