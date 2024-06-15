@@ -72,7 +72,7 @@ export default defineNuxtConfig({
                     label: "Account switcher",
                 },
                 {
-                    src: "screenshots/desktop/note-menu.webp",
+                    src: "screenshots/mobile/note-menu.webp",
                     sizes: "390x844",
                     type: "image/webp",
                     form_factor: "narrow",
