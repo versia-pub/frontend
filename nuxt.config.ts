@@ -24,6 +24,7 @@ export default defineNuxtConfig({
             short_name: "Lysand",
             description: "Frontend for the Lysand social network",
             theme_color: "#f9a8d4",
+            background_color: "#131313",
             display: "standalone",
             lang: "en",
             categories: ["social", "development"],
