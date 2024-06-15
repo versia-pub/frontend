@@ -57,11 +57,11 @@
     </aside>
     <!-- Mobile bottom navbar -->
     <nav
-        class="fixed bottom-0 left-0 right-0 z-20 md:hidden flex justify-around p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
+        class="fixed bottom-0 left-0 right-0 z-20 md:hidden grid grid-cols-4 gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
 
         <DropdownsAdaptiveDropdown>
             <template #button>
-                <button class="flex flex-col items-center justify-center p-2 rounded">
+                <button class="flex w-full flex-col items-center justify-center p-2 rounded">
                     <iconify-icon icon="tabler:home" class="text-2xl" />
                     <span class="text-xs">Timelines</span>
                 </button>
@@ -90,7 +90,7 @@
 
         <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
             @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
-            <button class="flex flex-col items-center justify-center p-2 rounded">
+            <button class="flex flex-col w-full items-center justify-center p-2 rounded">
                 <iconify-icon icon="tabler:user" class="text-2xl" />
                 <span class="text-xs">Account</span>
             </button>
@@ -206,7 +206,7 @@ const signOut = async (id?: string) => {
             identityToRevoke.tokens.access_token,
             identityToRevoke.tokens.access_token,
         )
-        .catch(() => {});
+        .catch(() => { });
 
     if (id === identity.value.id) {
         identity.value = null;
