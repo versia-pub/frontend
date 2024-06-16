@@ -54,8 +54,8 @@
                             <InputsLabel for="identifier">Username or Email</InputsLabel>
                             <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
                         </InputsLabelAndError>
-                        <InputsText id="identifier" placeholder="joemama" autocomplete="email" required v-bind="field"
-                            :is-invalid="!!errorMessage" />
+                        <InputsText id="identifier" placeholder="joemama" autocomplete="email username" required
+                            v-bind="field" :is-invalid="!!errorMessage" />
                     </InputsField>
                 </VeeField>
 
