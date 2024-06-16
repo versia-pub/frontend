@@ -1,36 +1,46 @@
 <template>
-    <div class="flex min-h-screen relative flex-col justify-center py-12 px-8">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
-            class="mx-auto h-24 hidden md:block mb-10" />
-        <div v-if="validUrlParameters"
-            class="sm:mx-auto w-full sm:max-w-md px-10 py-10 rounded md:ring-1 md:ring-white/10">
+    <div class="flex min-h-screen relative flex-col gap-10 justify-center py-12 px-8">
+        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
+            class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
+        <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
             <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
                 <h2 class="font-bold text-lg">An error occured</h2>
                 <span class="text-sm">{{ error_description }}</span>
             </div>
-            <VeeForm class="space-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
+            <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
                 <input type="hidden" name="token" :value="token" />
 
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Reset your password</h1>
 
-                <VeeField name="password" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Password" placeholder="Password here" type="password"
-                        autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field" />
-                    <VeeErrorMessage name="password" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
+                <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
+                    <h2 class="font-bold text-lg">An error occured</h2>
+                    <span class="text-sm">{{ error_description }}</span>
+                </div>
+
+                <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="password">New password</InputsLabel>
+                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsPassword id="password" placeholder="hunter2" autocomplete="new-password" required
+                            v-bind="field" :is-invalid="!!errorMessage" :show-strength="true" />
+                    </InputsField>
                 </VeeField>
 
-                <VeeField name="password2" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Confirm password" placeholder="Confirm password" type="password"
-                        autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field" />
-                    <VeeErrorMessage name="password2" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
+                <VeeField name="password-confirm" as="div" v-slot="{ errors, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="password-confirm">Confirm password</InputsLabel>
+                            <InputsError v-if="errors.length > 0">{{ errors[0] }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsPassword id="password-confirm" placeholder="hunter2" autocomplete="new-password" required
+                            v-bind="field" :is-invalid="errors.length > 0" />
+                    </InputsField>
                 </VeeField>
 
-                <p class="mt-6 text-sm leading-8 font-semibold text-red-300">This will reset your
-                    password. Be sure to put it in a password manager.
+                <p class="text-xs font-semibold text-red-300">This will reset your
+                    password. Make sure to put it in a password manager.
                 </p>
 
                 <ButtonsPrimary type="submit" class="w-full">Reset</ButtonsPrimary>
@@ -63,7 +73,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-import LoginInput from "../../components/LoginInput.vue";
 
 const identity = useCurrentIdentity();
 identity.value = null;
@@ -72,12 +81,12 @@ const schema = toTypedSchema(
     z
         .object({
             password: z.string().min(3).max(100),
-            password2: z.string().min(3).max(100),
+            "password-confirm": z.string().min(3).max(100),
         })
         .superRefine((data, ctx) => {
-            if (data.password !== data.password2) {
+            if (data.password !== data["password-confirm"]) {
                 ctx.addIssue({
-                    path: [...ctx.path, "password2"],
+                    path: [...ctx.path, "password-confirm"],
                     code: "custom",
                     message: "Passwords do not match",
                 });

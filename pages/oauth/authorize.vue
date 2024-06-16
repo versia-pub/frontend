@@ -3,42 +3,6 @@
         <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
             class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
         <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
-            <!--
-                <VeeForm class="flex flex-col gap-y-6" @submit="s => register((s as any))" :validation-schema="schema">
-                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Passwords</h1>
-
-                <VeeField name="password" as="div" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password">Password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password" placeholder="hunter2" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" />
-                    </InputsField>
-                </VeeField>
-
-                <VeeField name="password-confirm" as="div" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password-confirm">Confirm password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password-confirm" placeholder="hunter2" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" />
-                    </InputsField>
-                </VeeField>
-
-                <p class="text-xs font-semibold text-gray-300">
-                    Passwords are stored securely and hashed. We do not store your password in plain text.
-                    Administrators
-                    cannot see your password.
-                </p>
-
-                <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonsPrimary>
-            </VeeForm>
-            -->
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema"
                 :action="`/api/auth/login?redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Login to your account</h1>
