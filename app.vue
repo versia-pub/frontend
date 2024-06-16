@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import "~/styles/theme.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
 // Use SSR-safe IDs for Headless UI
