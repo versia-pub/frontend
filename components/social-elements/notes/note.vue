@@ -4,7 +4,7 @@
         <!-- Overlay that blocks clicks for disabled notes -->
         <div v-if="disabled" class="absolute z-10 inset-0 hover:cursor-not-allowed">
         </div>
-        <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-pink-400">
+        <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-primary-400">
             <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
                 <iconify-icon width="1.5rem" height="1.5rem" icon="tabler:repeat" class="size-6" aria-hidden="true" />
                 <AvatarsCentered v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
@@ -27,9 +27,9 @@
                 </button>
                 <button class="group" @click="likeFn" :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!outputtedNote?.favourited"
-                        class="size-5 text-gray-200 group-hover:group-enabled:text-pink-600" aria-hidden="true" />
+                        class="size-5 text-gray-200 group-hover:group-enabled:text-primary-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
-                        class="size-5 text-pink-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
+                        class="size-5 text-primary-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.favourites_count) }}</span>
                 </button>
                 <button class="group" @click="reblogFn" :disabled="!identity">

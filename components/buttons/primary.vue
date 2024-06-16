@@ -1,6 +1,6 @@
 <template>
     <ButtonsBase :loading="loading"
-        class="[--btn-border:theme(colors.pink.950/90%)] [--btn-bg:theme(colors.pink.600)] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.pink.400)] active:[--btn-icon:theme(colors.pink.300)] hover:[--btn-icon:theme(colors.pink.300)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5"
+        class="[--btn-border:theme(colors.primary.950/90%)] [--btn-bg:theme(colors.primary.600)] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.primary.400)] active:[--btn-icon:theme(colors.primary.300)] hover:[--btn-icon:theme(colors.primary.300)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5"
         v-bind="$props">
         <slot />
     </ButtonsBase>

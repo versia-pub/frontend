@@ -11,7 +11,7 @@
                     <img crossorigin="anonymous" :src="client.icon" class="h-10 w-10" :alt="`${client.name}'s logo'`" />
                     <div class="flex flex-col justify-between items-start">
                         <h2 class="text-gray-100 font-semibold">{{ client.name }}</h2>
-                        <span class="underline text-pink-700">{{ client.link }}</span>
+                        <span class="underline text-primary-700">{{ client.link }}</span>
                     </div>
                 </a>
             </li>
@@ -28,7 +28,7 @@
 
         <p>
             Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
-                target="_blank" class="underline text-pink-700">the issue tracker</a>.
+                target="_blank" class="underline text-primary-700">the issue tracker</a>.
         </p>
     </div>
 </template>

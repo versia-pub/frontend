@@ -20,7 +20,8 @@
                                     <iconify-icon v-else-if="notification.type === 'error'" icon="tabler:alert-triangle"
                                         height="none" class="h-6 w-6 text-red-400" aria-hidden="true" />
                                     <iconify-icon v-else-if="notification.type === 'progress'" icon="tabler:loader"
-                                        height="none" class="h-6 w-6 text-pink-500 animate-spin" aria-hidden="true" />
+                                        height="none" class="h-6 w-6 text-primary-500 animate-spin"
+                                        aria-hidden="true" />
                                 </div>
                                 <div class="ml-3 w-0 flex-1 pt-0.5">
                                     <p class="text-sm font-semibold text-gray-50">{{ notification.title }}</p>

@@ -25,7 +25,7 @@
 
         <div class="mt-2 px-4">
             <h2
-                class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
+                class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-primary-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
                 <Skeleton :enabled="skeleton" :min-width="200" :max-width="350" class="h-6">
                     {{ account?.display_name }}
                     <iconify-icon v-if="account?.locked" icon="tabler:lock" width="1.25rem" height="1.25rem"
@@ -81,7 +81,7 @@
 
         <div v-if="!skeleton && parsedFields.length > 0" class="mt-4 px-4 flex-col flex space-y-3">
             <div v-for="field of parsedFields" :key="field.name" class="flex flex-col gap-1">
-                <span class="text-pink-500 font-semibold" v-html="field.name"></span>
+                <span class="text-primary-500 font-semibold" v-html="field.name"></span>
                 <span class="text-gray-200 prose prose-invert break-all" v-html="field.value"></span>
             </div>
         </div>

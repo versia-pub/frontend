@@ -22,7 +22,7 @@
                     {{ formatBytes(data.file.size) }}
                     <!-- Loader spinner -->
                     <iconify-icon v-if="data.progress < 1.0" icon="tabler:loader-2" width="none"
-                        class="size-4 animate-spin text-pink-500" />
+                        class="size-4 animate-spin text-primary-500" />
                 </div>
                 <button class="absolute top-1 right-1 p-1 bg-dark-800 text-white text-xs rounded size-6" role="button"
                     tabindex="0" @pointerup="removeFile(data.id)" @keydown.enter="removeFile(data.id)">

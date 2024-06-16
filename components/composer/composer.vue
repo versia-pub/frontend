@@ -2,7 +2,7 @@
     <div v-if="respondingTo" class="mb-4" role="region" aria-label="Responding to">
         <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
             <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true"
-                class="!rounded-none !bg-pink-500/10" />
+                class="!rounded-none !bg-primary-500/10" />
         </OverlayScrollbarsComponent>
     </div>
     <div class="px-6 pb-4 pt-5">
@@ -128,7 +128,7 @@ const handlePaste = (event: ClipboardEvent) => {
     }
 };
 
-watch(Control_Alt, () => {
+watch(Control_Alt as ComputedRef<boolean>, () => {
     chosenSplash.value = splashes[Math.floor(Math.random() * splashes.length)];
 });
 
@@ -190,7 +190,7 @@ onMounted(() => {
 });
 
 watchEffect(() => {
-    if (Control_Enter.value || Command_Enter.value) {
+    if (Control_Enter?.value || Command_Enter?.value) {
         send();
     }
 });

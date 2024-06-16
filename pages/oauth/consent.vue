@@ -9,7 +9,7 @@
                         account?</h1>
                     <div v-if="application" class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full">
                         <h2 class="font-bold text-gray-200">{{ application }}</h2>
-                        <a v-if="website" :href="website" target="_blank" class="underline text-pink-700">{{ website
+                        <a v-if="website" :href="website" target="_blank" class="underline text-primary-700">{{ website
                             }}</a>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
 
                 <ul class="flex flex-col gap-y-1.5">
                     <li v-for="text in getScopeText(scopes)" :key="text[1]" class="flex flex-row gap-1">
-                        <svg class="fill-pink-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        <svg class="fill-primary-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 16 16">
                             <path
                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
@@ -64,7 +64,7 @@
                             class="h-10 w-10" />
                         <div class="flex flex-col justify-between items-start">
                             <h2 class="font-bold text-gray-100">{{ client.name }}</h2>
-                            <span class="underline text-pink-700">{{ client.link }}</span>
+                            <span class="underline text-primary-700">{{ client.link }}</span>
                         </div>
                     </a>
                 </li>
@@ -76,7 +76,7 @@
 
             <p class="mt-6 text-lg leading-8 text-gray-300">
                 Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
-                    target="_blank" class="underline text-pink-700">the issue tracker</a>.
+                    target="_blank" class="underline text-primary-700">the issue tracker</a>.
             </p>
         </div>
     </div>

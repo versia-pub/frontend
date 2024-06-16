@@ -11,10 +11,10 @@
 <script lang="ts" setup>
 import type { LabelHTMLAttributes } from "vue";
 
-interface Props extends /* @vue-ignore */ LabelHTMLAttributes { }
+interface Props extends /* @vue-ignore */ LabelHTMLAttributes {}
 
 defineOptions({
     inheritAttrs: false,
-})
+});
 const props = defineProps<Props>();
 </script>

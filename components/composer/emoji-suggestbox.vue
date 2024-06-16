@@ -2,7 +2,7 @@
     <ComposerSuggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
         <div v-for="(emoji, index) in topEmojis" :key="emoji.shortcode" @click="emit('autocomplete', emoji.shortcode)"
             :ref="el => { if (el) emojiRefs[index] = el as Element }" :title="emoji.shortcode"
-            :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'size-12', 'hover:bg-dark-900/70', { 'bg-pink-500': index === selectedEmojiIndex }]">
+            :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'size-12', 'hover:bg-dark-900/70', { 'bg-primary-500': index === selectedEmojiIndex }]">
             <img :src="emoji.url" class="w-full h-full object-contain"
                 :alt="`Emoji with shortcode ${emoji.shortcode}`" />
         </div>
@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { LysandClient } from "@lysand-org/client";
 import { distance } from "fastest-levenshtein";
 import type { CustomEmoji } from "~/composables/Identities";
 const props = defineProps<{
@@ -48,7 +47,7 @@ watchEffect(() => {
             .slice(0, 20);
     else topEmojis.value = null;
 
-    if (ArrowRight.value && topEmojis.value !== null) {
+    if (ArrowRight?.value && topEmojis.value !== null) {
         selectedEmojiIndex.value = (selectedEmojiIndex.value ?? -1) + 1;
         if (selectedEmojiIndex.value >= topEmojis.value.length) {
             selectedEmojiIndex.value = 0;
@@ -59,7 +58,7 @@ watchEffect(() => {
         });
     }
 
-    if (ArrowLeft.value && topEmojis.value !== null) {
+    if (ArrowLeft?.value && topEmojis.value !== null) {
         selectedEmojiIndex.value =
             (selectedEmojiIndex.value ?? topEmojis.value.length) - 1;
         if (selectedEmojiIndex.value < 0) {
@@ -71,7 +70,7 @@ watchEffect(() => {
         });
     }
 
-    if ((Tab.value || Enter.value) && topEmojis.value !== null) {
+    if ((Tab?.value || Enter?.value) && topEmojis.value !== null) {
         const emoji = topEmojis.value[selectedEmojiIndex.value ?? 0];
         if (emoji) emit("autocomplete", emoji.shortcode);
     }

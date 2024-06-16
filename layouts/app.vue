@@ -15,7 +15,7 @@
                 <!-- <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
                         <div class="text-center">
                             <strong
-                                class="bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">Lysand
+                                class="bg-gradient-to-tr from-primary-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">Lysand
                                 {{ instance?.lysand_version ?? instance?.version }}</strong> • <a
                                 href="https://github.com/lysand-org/lysand" target="_blank">Source Code</a>• <a
                                 href="https://github.com/lysand-org/lysand/issues" target="_blank">Report an Issue</a>
