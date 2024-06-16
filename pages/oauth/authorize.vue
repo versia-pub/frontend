@@ -1,36 +1,81 @@
 <template>
-    <div class="flex min-h-screen relative flex-col justify-center py-12 sm:px-8">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
-            class="mx-auto h-24 hidden md:block mb-10" />
-        <div v-if="validUrlParameters"
-            class="sm:mx-auto w-full sm:max-w-md px-10 py-10 rounded md:ring-1 md:ring-white/10">
-            <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
-                <h2 class="font-bold text-lg">An error occured</h2>
-                <span class="text-sm">{{ error_description }}</span>
-            </div>
-            <VeeForm class="space-y-6" method="POST" :validation-schema="schema"
+    <div class="flex min-h-screen relative flex-col gap-10 justify-center py-12 px-8">
+        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
+            class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
+        <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
+            <!--
+                <VeeForm class="flex flex-col gap-y-6" @submit="s => register((s as any))" :validation-schema="schema">
+                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Passwords</h1>
+
+                <VeeField name="password" as="div" v-slot="{ errorMessage, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="password">Password</InputsLabel>
+                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsPassword id="password" placeholder="hunter2" required v-bind="field"
+                            :disabled="isLoading" :is-invalid="!!errorMessage" />
+                    </InputsField>
+                </VeeField>
+
+                <VeeField name="password-confirm" as="div" v-slot="{ errorMessage, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="password-confirm">Confirm password</InputsLabel>
+                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsPassword id="password-confirm" placeholder="hunter2" required v-bind="field"
+                            :disabled="isLoading" :is-invalid="!!errorMessage" />
+                    </InputsField>
+                </VeeField>
+
+                <p class="text-xs font-semibold text-gray-300">
+                    Passwords are stored securely and hashed. We do not store your password in plain text.
+                    Administrators
+                    cannot see your password.
+                </p>
+
+                <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
+                    "Register" }}</ButtonsPrimary>
+            </VeeForm>
+            -->
+            <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema"
                 :action="`/api/auth/login?redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Login to your account</h1>
 
-                <VeeField name="identifier" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Username or Email" placeholder="joemama" autocomplete="email" required
-                        :is-invalid="errors.length > 0" v-bind="field" />
-                    <VeeErrorMessage name="identifier" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
+                <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
+                    <h2 class="font-bold text-lg">An error occured</h2>
+                    <span class="text-sm">{{ error_description }}</span>
+                </div>
+
+                <VeeField name="identifier" as="div" v-slot="{ errorMessage, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="identifier">Username or Email</InputsLabel>
+                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsText id="identifier" placeholder="joemama" autocomplete="email" required v-bind="field"
+                            :is-invalid="!!errorMessage" />
+                    </InputsField>
                 </VeeField>
 
-                <VeeField name="password" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <LoginInput label="Password" placeholder="Password here" type="password"
-                        autocomplete="current-password" required :is-invalid="errors.length > 0" v-bind="field" />
-                    <VeeErrorMessage name="password" as="p" class="mt-2 text-sm text-red-600" v-slot="{ message }">
-                        {{ message }}
-                    </VeeErrorMessage>
+                <VeeField name="password" as="div" v-slot="{ errorMessage, field }" validate-on-change>
+                    <InputsField>
+                        <InputsLabelAndError>
+                            <InputsLabel for="password">Password</InputsLabel>
+                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
+                        </InputsLabelAndError>
+                        <InputsPassword id="password" placeholder="hunter2" autocomplete="current-password" required
+                            v-bind="field" :is-invalid="!!errorMessage" />
+                    </InputsField>
                 </VeeField>
 
-                <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="w-full flex flex-col gap-3">
-                    <h2 class="text-sm text-gray-200">Or sign in with</h2>
-                    <div class="grid grid-cols-1 gap-4 w-full">
+                <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="w-full space-y-3">
+                    <div
+                        class="flex items-center text-center w-full after:border-b after:border-dark-200 after:flex-1 after:ml-2 before:border-b before:border-dark-200 before:flex-1 before:mr-2">
+                        <h2 class="text-sm text-gray-200 font-semibold">Or sign in with</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 md:[&:has(>:last-child:nth-child(1))]:grid-cols-1 gap-4 w-full">
                         <a v-for="provider of ssoConfig.providers" :key="provider.id"
                             :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
                             <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
@@ -43,6 +88,11 @@
                         </a>
                     </div>
                 </div>
+
+                <p class="text-xs text-gray-300">
+                    You are signing in to <strong>{{ hostname }}</strong>. If you did not intend to sign in
+                    here, please close this page.
+                </p>
 
                 <ButtonsPrimary type="submit" class="w-full">Sign in</ButtonsPrimary>
             </VeeForm>
@@ -85,15 +135,15 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-import LoginInput from "../../components/LoginInput.vue";
 
 const schema = toTypedSchema(
     z.object({
-        identifier: z.string().email().or(z.string().min(3)),
+        identifier: z.string().min(3).or(z.string().email()),
         password: z.string().min(3),
     }),
 );
 
+const hostname = useRequestURL().hostname;
 const query = new URLSearchParams(
     window?.location.search ?? useRequestURL().search,
 );

@@ -35,8 +35,8 @@ useIntervalFn(() => {
 }, 1000 / 60);
 
 app.hook("page:finish", async () => {
-    // Wait until page has loaded for at least 1 second
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Wait until page has loaded for at least 300ms
+    await new Promise((resolve) => setTimeout(resolve, 300));
     loading.value = false;
 
     if (oidcError) {
