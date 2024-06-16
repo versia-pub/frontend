@@ -23,3 +23,9 @@ export const partiallyTypedEmojiValidator = createRegExp(
     ),
     [caseInsensitive, multiline],
 );
+
+export const partiallyTypedMentionValidator = createRegExp(
+    exactly("@"),
+    oneOrMore(letter.or(digit).or(exactly("_"))).notBefore(char),
+    [caseInsensitive, multiline],
+);

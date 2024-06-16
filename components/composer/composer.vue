@@ -15,8 +15,10 @@
                 aria-live="polite">
                 {{ remainingCharacters }}
             </div>
-            <ComposerEmojiSuggestbox :currently-typing-emoji="currentlyBeingTypedEmoji"
-                @autocomplete="autocompleteEmoji" />
+            <ComposerEmojiSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedEmoji"
+                :currently-typing-emoji="currentlyBeingTypedEmoji" @autocomplete="autocompleteEmoji" />
+            <ComposerMentionSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedMention"
+                :currently-typing-mention="currentlyBeingTypedMention" @autocomplete="autocompleteMention" />
         </div>
         <!-- Content warning textbox -->
         <div v-if="cw" class="mb-4">
@@ -82,6 +84,10 @@ const currentlyBeingTypedEmoji = computed(() => {
     const match = content.value?.match(partiallyTypedEmojiValidator);
     return match ? match.at(-1)?.replace(":", "") ?? "" : null;
 });
+const currentlyBeingTypedMention = computed(() => {
+    const match = content.value?.match(partiallyTypedMentionValidator);
+    return match ? match.at(-1)?.replace("@", "") ?? "" : null;
+});
 
 const openFilePicker = () => {
     uploader.value?.openFilePicker();
@@ -95,6 +101,17 @@ const autocompleteEmoji = (emoji: string) => {
             exactly(currentlyBeingTypedEmoji.value ?? "").notBefore(char),
         ),
         `:${emoji}:`,
+    );
+};
+
+const autocompleteMention = (mention: string) => {
+    // Replace the end of the string with the mention
+    content.value = content.value?.replace(
+        createRegExp(
+            exactly("@"),
+            exactly(currentlyBeingTypedMention.value ?? "").notBefore(char),
+        ),
+        `@${mention} `,
     );
 };
 

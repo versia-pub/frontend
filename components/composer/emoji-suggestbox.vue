@@ -14,10 +14,12 @@ import { distance } from "fastest-levenshtein";
 import type { CustomEmoji } from "~/composables/Identities";
 const props = defineProps<{
     currentlyTypingEmoji: string | null;
+    textarea: HTMLTextAreaElement | undefined;
 }>();
 
 const emojiRefs = ref<Element[]>([]);
 const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
+    target: props.textarea,
     passive: false,
     onEventFired(e) {
         if (
