@@ -74,6 +74,20 @@
                         </div>
                     </button>
                 </Menu.Item>
+                <Menu.Item value="" v-if="!currentIdentity">
+                    <NuxtLink href="/register" class="w-full">
+                        <div class="rounded text-left flex flex-row gap-x-2 hover:scale-[95%]">
+                            <div
+                                class="shrink-0 size-12 border-dashed border-white/20 border flex items-center justify-center rounded">
+                                <iconify-icon icon="tabler:certificate" class="size-6 text-gray-200" width="none" />
+                            </div>
+                            <div
+                                class="flex flex-col items-start font-semibold p-1 justify-around text-sm text-gray-300 grow overflow-hidden">
+                                Create new account
+                            </div>
+                        </div>
+                    </NuxtLink>
+                </Menu.Item>
             </div>
         </template>
     </DropdownsAdaptiveDropdown>

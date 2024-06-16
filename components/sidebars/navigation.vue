@@ -57,7 +57,7 @@
     </aside>
     <!-- Mobile bottom navbar -->
     <nav
-        class="fixed bottom-0 left-0 right-0 z-20 md:hidden grid grid-cols-4 gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200">
+        :class="['fixed bottom-0 left-0 right-0 z-20 md:hidden grid gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
 
         <DropdownsAdaptiveDropdown>
             <template #button>
@@ -206,7 +206,7 @@ const signOut = async (id?: string) => {
             identityToRevoke.tokens.access_token,
             identityToRevoke.tokens.access_token,
         )
-        .catch(() => { });
+        .catch(() => {});
 
     if (id === identity.value.id) {
         identity.value = null;

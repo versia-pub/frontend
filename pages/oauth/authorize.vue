@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-h-screen relative flex-col justify-center py-12 px-8">
+    <div class="flex min-h-screen relative flex-col justify-center py-12 sm:px-8">
         <img crossorigin="anonymous" src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand logo"
             class="mx-auto h-24 hidden md:block mb-10" />
         <div v-if="validUrlParameters"
