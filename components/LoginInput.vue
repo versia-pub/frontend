@@ -16,5 +16,8 @@ interface Props extends /* @vue-ignore */ InputHTMLAttributes {
     label: string;
 }
 
+defineOptions({
+    inheritAttrs: false,
+});
 defineProps<Props>();
 </script>
