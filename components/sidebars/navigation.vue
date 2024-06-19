@@ -76,10 +76,6 @@
         <DropdownsAdaptiveDropdown>
             <template #button>
                 <ButtonsMobileNavbarButton icon="tabler:home" text="Timelines" />
-                <!-- <button class="flex w-full flex-col items-center justify-center p-2 rounded">
-                    <iconify-icon icon="tabler:home" class="text-2xl" />
-                    <span class="text-xs">Timelines</span>
-                </button> -->
             </template>
 
             <template #items>

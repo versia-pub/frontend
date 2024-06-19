@@ -12,28 +12,6 @@
                 <LazyTimelinesTimelineScroller>
                     <LazyTimelinesNotifications />
                 </LazyTimelinesTimelineScroller>
-                <!-- <div class="mt-auto prose prose-invert prose-sm flex flex-col gap-4 px-10 pb-10" v-if="!tokenData">
-                        <div class="text-center">
-                            <strong
-                                class="bg-gradient-to-tr from-primary-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">Lysand
-                                {{ instance?.lysand_version ?? instance?.version }}</strong> • <a
-                                href="https://github.com/lysand-org/lysand" target="_blank">Source Code</a>• <a
-                                href="https://github.com/lysand-org/lysand/issues" target="_blank">Report an Issue</a>
-                        </div>
-
-
-                        <NuxtLink href="https://github.com/lysand-org/lysand" target="_blank">
-                            <ButtonsSecondary class="w-full">
-                                Create your own instance
-                            </ButtonsSecondary>
-                        </NuxtLink>
-
-                        <NuxtLink href="/about/apps">
-                            <ButtonsSecondary class="w-full">
-                                Mobile Apps
-                            </ButtonsSecondary>
-                        </NuxtLink>
-                    </div> -->
             </LazySidebarsCollapsibleAside>
         </div>
     </div>
