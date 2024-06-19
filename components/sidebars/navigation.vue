@@ -71,14 +71,15 @@
     </aside>
     <!-- Mobile bottom navbar -->
     <nav
-        :class="['fixed bottom-0 left-0 right-0 z-20 md:hidden grid gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
+        :class="['fixed bottom-0 left-0 right-0 z-20 h-16 md:hidden grid gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
 
         <DropdownsAdaptiveDropdown>
             <template #button>
-                <button class="flex w-full flex-col items-center justify-center p-2 rounded">
+                <ButtonsMobileNavbarButton icon="tabler:home" text="Timelines" />
+                <!-- <button class="flex w-full flex-col items-center justify-center p-2 rounded">
                     <iconify-icon icon="tabler:home" class="text-2xl" />
                     <span class="text-xs">Timelines</span>
-                </button>
+                </button> -->
             </template>
 
             <template #items>
@@ -91,28 +92,19 @@
                 </Menu.Item>
             </template>
         </DropdownsAdaptiveDropdown>
-        <NuxtLink href="/notifications" class="flex flex-col items-center justify-center p-2 rounded">
-            <iconify-icon icon="tabler:bell" class="text-2xl" />
-            <span class="text-xs">Notifications</span>
+        <NuxtLink href="/notifications" class="w-full">
+            <ButtonsMobileNavbarButton icon="tabler:bell" text="Notifications" />
         </NuxtLink>
-        <button v-if="$pwa?.needRefresh"
-            class="flex flex-col items-center justify-center p-2 rounded ring-2 ring-primary-600"
-            @click="$pwa?.updateServiceWorker(true)">
-            <iconify-icon icon="tabler:refresh" class="text-2xl" />
-            <span class="text-xs">Update</span>
-        </button>
-
+        <ButtonsMobileNavbarButton v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)"
+            icon="tabler:refresh" text="Update" />
         <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
             @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
-            <button class="flex flex-col w-full items-center justify-center p-2 rounded">
-                <iconify-icon icon="tabler:user" class="text-2xl" />
-                <span class="text-xs">Account</span>
-            </button>
+            <ButtonsMobileNavbarButton icon="tabler:user" text="Account" />
         </SidebarsAccountPicker>
         <button @click="compose" v-if="identity"
-            class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-primary-300/70 via-purple-300/70 to-indigo-400/70">
+            class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-[theme(colors.primary.300/70%)] via-purple-300/70 to-indigo-400/70">
             <iconify-icon icon="tabler:writing" class="text-2xl" />
-            <span class="text-xs">Compose</span>
+            <span class="text-xs hidden md:inline">Compose</span>
         </button>
     </nav>
 </template>

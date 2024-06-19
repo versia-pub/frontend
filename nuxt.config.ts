@@ -624,7 +624,7 @@ export default defineNuxtConfig({
         url: "https://social.lysand.org",
     },
     devtools: {
-        enabled: true,
+        enabled: false,
 
         timeline: {
             enabled: true,
