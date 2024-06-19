@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Account } from "~/types/mastodon/account";
+import type { Account } from "@lysand-org/client/types";
 
 export const useAccount = (
     client: MaybeRef<LysandClient | null>,

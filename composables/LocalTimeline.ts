@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Status } from "~/types/mastodon/status";
+import type { Status } from "@lysand-org/client/types";
 
 export const useLocalTimeline = (
     client: LysandClient | null,
@@ -42,7 +42,7 @@ export const useLocalTimeline = (
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...fetchedNotes.value, ...newNotes];
-            nextMaxId = newNotes[newNotes.length - 1].id;
+            nextMaxId = newNotes[newNotes.length - 1]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }
@@ -63,7 +63,7 @@ export const useLocalTimeline = (
         );
         if (newNotes.length > 0) {
             fetchedNotes.value = [...newNotes, ...fetchedNotes.value];
-            prevMinId = newNotes[0].id;
+            prevMinId = newNotes[0]?.id;
             for (const note of newNotes) {
                 fetchedNoteIds.add(note.id);
             }

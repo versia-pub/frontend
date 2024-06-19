@@ -46,9 +46,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Instance, Status } from "@lysand-org/client/types";
 import { nanoid } from "nanoid";
-import type { Instance } from "~/types/mastodon/instance";
-import type { Status } from "~/types/mastodon/status";
 import { OverlayScrollbarsComponent } from "#imports";
 import type FileUploader from "./file-uploader.vue";
 

@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Status } from "~/types/mastodon/status";
+import type { Status } from "@lysand-org/client/types";
 
 export const useAccountTimeline = (
     client: LysandClient | null,

@@ -25,7 +25,7 @@
             </div>
 
             <div class="mt-3 px-4">
-                <InputsRichTextbox v-model:model-content="note" :max-characters="noteCharacterLimit" :disabled="loading"
+                <InputsRichTextbox v-model:model-content="note" :max-characters="bio" :disabled="loading"
                     class="rounded ring-white/10 ring-2 focus:ring-primary-600 px-4 py-2 max-h-[40dvh] max-w-full" />
             </div>
 
@@ -52,7 +52,7 @@ const account = computed(() => identity.value?.account);
 const note = ref(account.value?.source?.note ?? "");
 const displayName = ref(account.value?.display_name ?? "");
 const acct = ref(account.value?.acct ?? "");
-const noteCharacterLimit = computed(
+const bio = computed(
     () => identity.value?.instance.configuration.statuses.max_characters ?? 0,
 );
 

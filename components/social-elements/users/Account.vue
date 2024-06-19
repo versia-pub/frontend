@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "~/types/mastodon/account";
+import type { Account } from "@lysand-org/client/types";
 
 const props = defineProps<{
     account?: Account;

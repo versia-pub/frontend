@@ -16,14 +16,14 @@
                     <iconify-icon icon="tabler:file" width="none" class="size-10 text-gray-300" />
                     <p class="text-gray-300 text-sm font-mono">{{ getFilename(attachment.url) }}</p>
                     <p class="text-gray-300 text-xs" v-if="attachment.meta?.length">{{
-                formatBytes(Number(attachment.meta?.length)) }}</p>
+                        formatBytes(Number(attachment.meta?.length)) }}</p>
                 </div>
             </a>
         </div>
         <!-- Alt text viewer -->
         <Popover.Root :positioning="{
-                strategy: 'fixed',
-            }" v-if="attachment.description">
+            strategy: 'fixed',
+        }" v-if="attachment.description">
             <Popover.Trigger aria-hidden="true"
                 class="absolute top-2 right-2 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-8">
                 <iconify-icon icon="tabler:alt" width="none" class="size-6" />
@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import { Popover } from "@ark-ui/vue";
-import type { Attachment } from "~/types/mastodon/attachment";
+import type { Attachment } from "@lysand-org/client/types";
 
 const props = defineProps<{
     attachment: Attachment;

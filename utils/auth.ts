@@ -1,3 +1,4 @@
+import type { ApplicationData } from "@lysand-org/client/types";
 import { nanoid } from "nanoid";
 
 export const signInWithCode = (code: string, appData: ApplicationData) => {

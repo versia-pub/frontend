@@ -1,6 +1,5 @@
+import type { Attachment, Status } from "@lysand-org/client/types";
 import mitt from "mitt";
-import type { Attachment } from "~/types/mastodon/attachment";
-import type { Status } from "~/types/mastodon/status";
 import type { Identity } from "./Identities";
 
 export type NotificationEvent = {

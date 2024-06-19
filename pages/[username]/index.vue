@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from "~/types/mastodon/account";
+import type { Account } from "@lysand-org/client/types";
 
 definePageMeta({
     layout: "app",

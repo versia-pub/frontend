@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Context } from "~/types/mastodon/context";
+import type { Context } from "@lysand-org/client/types";
 
 export const useNoteContext = (
     client: MaybeRef<LysandClient | null>,

@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { Dialog } from "@ark-ui/vue";
-import type { Attachment } from "~/types/mastodon/attachment";
+import type { Attachment } from "@lysand-org/client/types";
 
 const lightbox = ref(false);
 const attachment = ref<Attachment | null>(null);

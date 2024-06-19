@@ -11,14 +11,14 @@
                 <div class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!account" :min-width="90" :max-width="170" shape="rect">
                         {{
-        account?.display_name }}
+                            account?.display_name }}
                     </Skeleton>
                 </div>
             </div>
             <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
                 <Skeleton :enabled="!account" :min-width="130" :max-width="250" shape="rect">
                     @{{
-        account?.acct
+                        account?.acct
                     }}
                 </Skeleton>
             </span>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "~/types/mastodon/account";
+import type { Account } from "@lysand-org/client/types";
 import { NuxtLink } from "#components";
 
 const props = defineProps<{

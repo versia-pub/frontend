@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Emoji } from "@lysand-org/client/types";
 import { distance } from "fastest-levenshtein";
-import type { CustomEmoji } from "~/composables/Identities";
 const props = defineProps<{
     currentlyTypingEmoji: string | null;
     textarea: HTMLTextAreaElement | undefined;
@@ -30,7 +30,7 @@ const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
     },
 });
 const identity = useCurrentIdentity();
-const topEmojis = ref<CustomEmoji[] | null>(null);
+const topEmojis = ref<Emoji[] | null>(null);
 const selectedEmojiIndex = ref<number | null>(null);
 
 watchEffect(() => {

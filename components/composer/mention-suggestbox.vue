@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Account } from "@lysand-org/client/types";
 import { distance } from "fastest-levenshtein";
-import type { Account } from "~/types/mastodon/account";
 const props = defineProps<{
     currentlyTypingMention: string | null;
     textarea: HTMLTextAreaElement | undefined;

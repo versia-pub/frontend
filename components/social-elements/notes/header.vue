@@ -10,7 +10,7 @@
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
                         {{
-        note?.account.display_name }}
+                            note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
                 <NuxtLink :href="noteUrl" class="text-gray-300 ml-2 line-clamp-1 break-all shrink-0">
@@ -32,7 +32,7 @@
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
                         {{
-        note?.account.display_name }}
+                            note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
                 <NuxtLink :href="noteUrl" class="text-gray-300 text-sm ml-2 line-clamp-1 break-all shrink-0"
@@ -46,7 +46,7 @@
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
                     <span class="group-hover:hidden">
                         @{{
-        note?.account.acct
+                            note?.account.acct
                         }}</span>
                     <span @click="copyAccount" v-if="!hasCopied"
                         class="hidden select-none group-hover:flex cursor-pointer items-center gap-x-1">
@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "~/types/mastodon/status";
+import type { Status } from "@lysand-org/client/types";
 
 const props = defineProps<{
     note?: Status;

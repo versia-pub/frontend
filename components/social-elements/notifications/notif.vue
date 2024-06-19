@@ -29,8 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from "~/types/mastodon/notification";
-import type { Relationship } from "~/types/mastodon/relationship";
+import type { Notification, Relationship } from "@lysand-org/client/types";
 
 const props = defineProps<{
     notification?: Notification;

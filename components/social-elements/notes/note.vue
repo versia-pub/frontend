@@ -130,11 +130,11 @@
                             <Menu.Item value="">
                                 <ButtonsDropdownElement @click="outputtedNote && useEvent('note:report', outputtedNote)"
                                     icon="tabler:flag" class="w-full"
-                                    :disabled="!permissions.includes(RolePermissions.MANAGE_OWN_REPORTS)">
+                                    :disabled="!permissions.includes(RolePermission.ManageOwnReports)">
                                     Report
                                 </ButtonsDropdownElement>
                             </Menu.Item>
-                            <Menu.Item value="" v-if="permissions.includes(RolePermissions.MANAGE_ACCOUNTS)">
+                            <Menu.Item value="" v-if="permissions.includes(RolePermission.ManageAccounts)">
                                 <ButtonsDropdownElement icon="tabler:shield-bolt" class="w-full">
                                     Open Moderation Panel
                                 </ButtonsDropdownElement>
@@ -149,8 +149,8 @@
 
 <script lang="ts" setup>
 import { Menu } from "@ark-ui/vue";
+import { RolePermission, type Status } from "@lysand-org/client/types";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
-import type { Status } from "~/types/mastodon/status";
 
 const props = withDefaults(
     defineProps<{

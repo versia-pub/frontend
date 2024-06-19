@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Relationship } from "~/types/mastodon/relationship";
+import type { Relationship } from "@lysand-org/client/types";
 import { useCurrentIdentity } from "./Identities";
 
 export const useRelationship = (

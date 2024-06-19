@@ -1,5 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Notification } from "~/types/mastodon/notification";
+import type { Notification } from "@lysand-org/client/types";
 
 export const useNotificationTimeline = (
     client: LysandClient | null,
@@ -18,6 +18,7 @@ export const useNotificationTimeline = (
 } => {
     return useTimeline(
         client,
+        // @ts-expect-error dont listen to the voices jesse
         (client, options) => client?.getNotifications(options),
         options,
     );

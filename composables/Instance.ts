@@ -1,10 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-
-// Return type of LysandClient.getInstance
-export type Instance = Awaited<ReturnType<LysandClient["getInstance"]>>["data"];
-export type ExtendedDescription = Awaited<
-    ReturnType<LysandClient["getInstanceExtendedDescription"]>
->["data"];
+import type { ExtendedDescription, Instance } from "@lysand-org/client/types";
 
 export const useInstance = () => {
     const identity = useCurrentIdentity();

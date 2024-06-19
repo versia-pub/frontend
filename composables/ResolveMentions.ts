@@ -1,6 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
-import type { Account } from "~/types/mastodon/account";
-import type { Mention } from "~/types/mastodon/mention";
+import type { Account, Mention } from "@lysand-org/client/types";
 
 export const useResolveMentions = (
     mentions: Ref<Mention[]>,

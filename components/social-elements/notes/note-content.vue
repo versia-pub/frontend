@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "~/types/mastodon/status";
+import type { Status } from "@lysand-org/client/types";
 
 const props = defineProps<{
     content: string | null;

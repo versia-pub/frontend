@@ -1,6 +1,6 @@
 import type { LysandClient } from "@lysand-org/client";
+import type { Status } from "@lysand-org/client/types";
 import { SettingIds, type Settings } from "~/settings";
-import type { Status } from "~/types/mastodon/status";
 
 export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,

@@ -30,7 +30,7 @@
     },
     "dependencies": {
         "@ark-ui/vue": "^3.4.0",
-        "@lysand-org/client": "^0.1.8",
+        "@lysand-org/client": "^0.2.0",
         "@nuxt/fonts": "^0.7.0",
         "@tailwindcss/typography": "^0.5.13",
         "@vee-validate/nuxt": "^4.13.1",
@@ -61,7 +61,8 @@
         "@tailwindcss/forms": "^0.5.7",
         "@types/html-to-text": "^9.0.4",
         "@vue-email/nuxt": "^0.8.19",
-        "typescript": "^5.4.5"
+        "typescript": "^5.4.5",
+        "vue-tsc": "^2.0.21"
     },
     "trustedDependencies": [
         "@biomejs/biome",

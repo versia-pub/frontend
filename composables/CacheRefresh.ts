@@ -1,5 +1,6 @@
 import type { LysandClient } from "@lysand-org/client";
-import { type RolePermissions, useCurrentIdentity } from "./Identities";
+import type { RolePermission } from "@lysand-org/client/types";
+import { useCurrentIdentity } from "./Identities";
 
 export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
     if (import.meta.server) return;
@@ -48,7 +49,7 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
 
                     if (identity.value)
                         identity.value.permissions =
-                            permissions as unknown as RolePermissions[];
+                            permissions as unknown as RolePermission[];
                 });
         }
 
