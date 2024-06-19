@@ -27,9 +27,9 @@
                             enter-from="opacity-0 sm:scale-95" enter-to="opacity-100 sm:scale-100"
                             leave="ease-in duration-200" leave-from="opacity-100 sm:scale-100"
                             leave-to="opacity-0 sm:scale-95">
-                            <img @click.stop v-if="attachment?.type === 'image'"
-                                class="rounded max-w-full min-w-[30%] max-h-[70%]" :src="attachment.url"
-                                :alt="attachment.description ?? ''" :title="attachment.description ?? ''" />
+                            <img @click.stop v-if="attachment?.type === 'image'" class="rounded max-w-[70%] max-h-[70%]"
+                                :src="attachment.url" :alt="attachment.description ?? ''"
+                                :title="attachment.description ?? ''" />
                         </HeadlessTransitionChild>
                         <span @click.stop v-if="attachment?.description"
                             class="text-gray-300 rounded mt-6 -mb-20 px-4 py-2 max-w-xl ring-1 ring-white/5 bg-dark-900 max-h-40 overflow-y-auto">
