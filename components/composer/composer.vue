@@ -6,20 +6,8 @@
         </OverlayScrollbarsComponent>
     </div>
     <div class="px-6 pb-4 pt-5">
-        <div class="pb-2 relative">
-            <textarea :disabled="loading" ref="textarea" v-model="content" :placeholder="chosenSplash"
-                @paste="handlePaste"
-                class="resize-none min-h-48 prose prose-invert max-h-[70dvh] w-full p-0 focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"
-                aria-label="Compose your message"></textarea>
-            <div :class="['absolute bottom-0 right-0 p-2 text-gray-400 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']"
-                aria-live="polite">
-                {{ remainingCharacters }}
-            </div>
-            <ComposerEmojiSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedEmoji"
-                :currently-typing-emoji="currentlyBeingTypedEmoji" @autocomplete="autocompleteEmoji" />
-            <ComposerMentionSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedMention"
-                :currently-typing-mention="currentlyBeingTypedMention" @autocomplete="autocompleteMention" />
-        </div>
+        <InputsRichTextbox v-model:model-content="content" @paste="handlePaste" :disabled="loading"
+            :placeholder="chosenSplash" :max-characters="characterLimit" class="focus:!ring-0 max-h-[70dvh]" />
         <!-- Content warning textbox -->
         <div v-if="cw" class="mb-4">
             <input type="text" v-model="cwContent" placeholder="Add a content warning"
@@ -50,27 +38,23 @@
             <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
                 :disabled="!canSubmit || loading">
                 <span>{{
-        respondingType === "edit" ? "Edit!" : "Send!"
-                    }}</span>
+                    respondingType === "edit" ? "Edit!" : "Send!"
+                }}</span>
             </ButtonsPrimary>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { char, createRegExp, exactly } from "magic-regexp";
 import { nanoid } from "nanoid";
 import type { Instance } from "~/types/mastodon/instance";
 import type { Status } from "~/types/mastodon/status";
 import { OverlayScrollbarsComponent } from "#imports";
 import type FileUploader from "./file-uploader.vue";
 
-const textarea = ref<HTMLTextAreaElement | undefined>(undefined);
 const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
-const { input: content } = useTextareaAutosize({
-    element: textarea,
-});
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
+const content = ref("");
 const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | "edit" | null>(null);
 const identity = useCurrentIdentity();
@@ -80,39 +64,9 @@ const markdown = ref(true);
 
 const splashes = useConfig().COMPOSER_SPLASHES;
 const chosenSplash = ref(splashes[Math.floor(Math.random() * splashes.length)]);
-const currentlyBeingTypedEmoji = computed(() => {
-    const match = content.value?.match(partiallyTypedEmojiValidator);
-    return match ? match.at(-1)?.replace(":", "") ?? "" : null;
-});
-const currentlyBeingTypedMention = computed(() => {
-    const match = content.value?.match(partiallyTypedMentionValidator);
-    return match ? match.at(-1)?.replace("@", "") ?? "" : null;
-});
 
 const openFilePicker = () => {
     uploader.value?.openFilePicker();
-};
-
-const autocompleteEmoji = (emoji: string) => {
-    // Replace the end of the string with the emoji
-    content.value = content.value?.replace(
-        createRegExp(
-            exactly(":"),
-            exactly(currentlyBeingTypedEmoji.value ?? "").notBefore(char),
-        ),
-        `:${emoji}:`,
-    );
-};
-
-const autocompleteMention = (mention: string) => {
-    // Replace the end of the string with the mention
-    content.value = content.value?.replace(
-        createRegExp(
-            exactly("@"),
-            exactly(currentlyBeingTypedMention.value ?? "").notBefore(char),
-        ),
-        `@${mention} `,
-    );
 };
 
 const files = ref<
@@ -170,7 +124,6 @@ onMounted(() => {
         respondingType.value = "reply";
         if (note.account.id !== identity.value?.account.id)
             content.value = `@${note.account.acct} `;
-        textarea.value?.focus();
     });
 
     useListen("composer:quote", (note: Status) => {
@@ -178,7 +131,6 @@ onMounted(() => {
         respondingType.value = "quote";
         if (note.account.id !== identity.value?.account.id)
             content.value = `@${note.account.acct} `;
-        textarea.value?.focus();
     });
 
     useListen("composer:edit", async (note: Status) => {
@@ -199,7 +151,6 @@ onMounted(() => {
             respondingType.value = "edit";
             content.value = source.data.text;
             cwContent.value = source.data.spoiler_text;
-            textarea.value?.focus();
         }
 
         loading.value = false;
@@ -284,8 +235,5 @@ const send = async () => {
 
 const characterLimit = computed(
     () => props.instance?.configuration.statuses.max_characters ?? 0,
-);
-const remainingCharacters = computed(
-    () => characterLimit.value - (content.value?.length ?? 0),
 );
 </script>

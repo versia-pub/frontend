@@ -12,7 +12,7 @@
                         <div class="flex flex-row items-center justify-between w-full">
                             <div class="font-semibold text-gray-200 text-sm line-clamp-1 break-all">
                                 {{
-                        currentIdentity.account.display_name }}
+                                    currentIdentity.account.display_name }}
                             </div>
                         </div>
                         <span class="text-gray-400 text-xs line-clamp-1 break-all w-full">
@@ -44,13 +44,13 @@
                             <div class="flex flex-row items-center justify-between w-full">
                                 <div class="font-semibold text-gray-200 line-clamp-1 break-all">
                                     {{
-                        identity.account.display_name }}
+                                        identity.account.display_name }}
                                 </div>
                             </div>
                             <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
                                 @{{
-                        identity.account.acct
-                    }}
+                                    identity.account.acct
+                                }}
                             </span>
                         </div>
                         <button data-part="item"
@@ -59,6 +59,20 @@
                             <iconify-icon icon="tabler:logout" class="size-6 text-gray-200" width="none" />
                         </button>
                     </div>
+                </Menu.Item>
+                <Menu.Item value="" v-if="currentIdentity">
+                    <NuxtLink href="/settings" class="w-full">
+                        <div class="rounded text-left flex flex-row gap-x-2 hover:scale-[95%]">
+                            <div
+                                class="shrink-0 size-12 border-dashed border-white/20 border flex items-center justify-center rounded">
+                                <iconify-icon icon="tabler:adjustments" class="size-6 text-gray-200" width="none" />
+                            </div>
+                            <div
+                                class="flex flex-col items-start font-semibold p-1 justify-around text-sm text-gray-300 grow overflow-hidden">
+                                Settings
+                            </div>
+                        </div>
+                    </NuxtLink>
                 </Menu.Item>
                 <Menu.Item value="">
                     <button @click="$emit('signIn')" class="w-full">

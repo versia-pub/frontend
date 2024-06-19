@@ -11,6 +11,7 @@ export type Setting<T = SettingType> = {
     id: string;
     title: string;
     description: string;
+    notImplemented?: boolean;
     type: T;
     value: T extends SettingType.String | SettingType.Code
         ? string
@@ -29,30 +30,59 @@ export type Setting<T = SettingType> = {
     path: SettingPages;
 };
 
-export type Settings = Setting[];
 export enum SettingPages {
+    Account = "account",
     Behaviour = "behaviour",
-    Appearance = "appearance",
     Advanced = "advanced",
+    Appearance = "appearance",
 }
 
-export const getSettingsForPath = (settings: Settings, path: string) =>
-    settings.filter((setting) => setting.path === path);
+export const getSettingsForPath = (
+    settingsToFilterIn: Settings,
+    path: SettingPages,
+) => settingsToFilterIn.filter((setting) => setting.path === path);
 
-export const getSettingById = (settings: Settings, id: string) =>
-    settings.find((setting) => setting.id === id);
+export const getSettingById = (settingsToFilterIn: Settings, id: SettingIds) =>
+    settingsToFilterIn.find((setting) => setting.id === id);
 
-export const settings: Settings = [
+export const parseFromJson = (json: Record<string, unknown>) => {
+    const finalSettings = structuredClone(settings);
+
+    // Override the default values with the values from the JSON except for the user value
+    for (const setting of finalSettings) {
+        if (setting.id in json) {
+            setting.value = json[setting.id] as (typeof setting)["value"];
+        }
+    }
+
+    return finalSettings;
+};
+
+export enum SettingIds {
+    MFM = "mfm",
+    CustomCSS = "custom-css",
+    Theme = "theme",
+    CustomEmojis = "custom-emojis",
+    ShowContentWarning = "show-content-warning",
+    PopupAvatarHover = "popup-avatar-hover",
+    ConfirmDelete = "confirm-delete",
+    ConfirmFollow = "confirm-follow",
+    ConfirmReblog = "confirm-reblog",
+    ConfirmFavourite = "confirm-favourite",
+}
+
+export const settings = [
     {
-        id: "mfm",
+        id: SettingIds.MFM,
         title: "Render MFM",
         description: "Render Misskey-Flavoured Markdown",
         type: SettingType.Boolean,
         value: false,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
-        id: "custom-css",
+        id: SettingIds.CustomCSS,
         title: "Custom CSS",
         description: "Custom CSS for the UI",
         type: SettingType.Code,
@@ -61,7 +91,7 @@ export const settings: Settings = [
         path: SettingPages.Appearance,
     } as Setting<SettingType.Code>,
     {
-        id: "theme",
+        id: SettingIds.Theme,
         title: "Theme",
         description: "UI theme",
         type: SettingType.Enum,
@@ -70,7 +100,7 @@ export const settings: Settings = [
         path: SettingPages.Appearance,
     } as Setting<SettingType.Enum>,
     {
-        id: "custom-emojis",
+        id: SettingIds.CustomEmojis,
         title: "Render Custom Emojis",
         description: "Render custom emojis",
         type: SettingType.Boolean,
@@ -78,7 +108,7 @@ export const settings: Settings = [
         path: SettingPages.Behaviour,
     } as Setting<SettingType.Boolean>,
     {
-        id: "show-content-warning",
+        id: SettingIds.ShowContentWarning,
         title: "Show Content Warning",
         description: "Show content warnings on notes marked sensitive/spoiler",
         type: SettingType.Boolean,
@@ -86,43 +116,50 @@ export const settings: Settings = [
         path: SettingPages.Behaviour,
     } as Setting<SettingType.Boolean>,
     {
-        id: "popup-avatar-hover",
+        id: SettingIds.PopupAvatarHover,
         title: "Popup Profile Hover",
         description: "Show profile popup when hovering over a user's avatar",
         type: SettingType.Boolean,
         value: true,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
-        id: "confirm-delete",
+        id: SettingIds.ConfirmDelete,
         title: "Confirm Delete",
         description: "Confirm before deleting a note",
         type: SettingType.Boolean,
         value: false,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
-        id: "confirm-follow",
+        id: SettingIds.ConfirmFollow,
         title: "Confirm Follow",
         description: "Confirm before following/unfollowing a user",
         type: SettingType.Boolean,
         value: false,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
-        id: "confirm-reblog",
+        id: SettingIds.ConfirmReblog,
         title: "Confirm Reblog",
         description: "Confirm before reblogging a note",
         type: SettingType.Boolean,
         value: false,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
-        id: "confirm-favourite",
+        id: SettingIds.ConfirmFavourite,
         title: "Confirm Favourite",
         description: "Confirm before favouriting a note",
         type: SettingType.Boolean,
         value: false,
         path: SettingPages.Behaviour,
+        notImplemented: true,
     } as Setting<SettingType.Boolean>,
 ];
+
+export type Settings = typeof settings;

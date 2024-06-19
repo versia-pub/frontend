@@ -34,6 +34,20 @@
                     <span class="pr-28 line-clamp-1">Register</span>
                 </ButtonsBase>
             </NuxtLink>
+            <NuxtLink href="/settings" v-if="identity">
+                <button @click="$emit('signIn')" class="w-full overflow-hidden">
+                    <div class="rounded text-left flex flex-row items-center gap-x-2 hover:scale-[95%]">
+                        <div
+                            class="shrink-0 size-12 border-dashed border-white/20 border flex items-center justify-center rounded">
+                            <iconify-icon icon="tabler:adjustments" class="size-6 text-gray-200" width="none" />
+                        </div>
+                        <span
+                            class="line-clamp-1 font-semibold p-1 justify-around text-sm text-gray-300 grow overflow-hidden">
+                            Settings
+                        </span>
+                    </div>
+                </button>
+            </NuxtLink>
             <h3 v-if="identity"
                 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Posts</h3>

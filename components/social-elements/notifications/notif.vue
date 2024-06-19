@@ -7,7 +7,7 @@
                 <AvatarsCentered v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`"
                     class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />
-                <span class="text-gray-200 line-clamp-1"><strong v-html="accountName"></strong> {{ text
+                <span class="text-gray-200 line-clamp-1"><strong v-html="display_name"></strong> {{ text
                     }}</span>
             </Skeleton>
         </div>
@@ -63,10 +63,12 @@ const rejectFollowRequest = async () => {
     isWorkingOnFollowRequest.value = false;
 };
 
-const accountName = useParsedContent(
-    props.notification?.account?.display_name ?? "",
-    props.notification?.account?.emojis ?? [],
+const settings = useSettings();
+const { display_name } = useParsedAccount(
+    props.notification?.account,
+    settings,
 );
+
 const text = computed(() => {
     if (!props.notification) return "";
 

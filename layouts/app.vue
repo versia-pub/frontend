@@ -45,44 +45,20 @@
 import { OverlayScrollbarsComponent } from "#imports";
 const { width } = useWindowSize();
 
-const { n, o_i_d_c } = useMagicKeys();
+const { n } = useMagicKeys();
+const activeElement = useActiveElement();
+const notUsingInput = computed(
+    () =>
+        activeElement.value?.tagName !== "INPUT" &&
+        activeElement.value?.tagName !== "TEXTAREA",
+);
 const identity = useCurrentIdentity();
-const client = useClient();
-const providers = useSSOConfig();
 
 watchEffect(async () => {
-    if (n?.value) {
+    if (n?.value && notUsingInput.value) {
         // Wait 50ms
         await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
-    }
-    if (o_i_d_c?.value) {
-        useEvent("notification:new", {
-            type: "progress",
-            title: "Linking your account",
-            persistent: true,
-        });
-
-        const issuer = providers.value?.providers[0];
-
-        if (!issuer) {
-            console.error("No SSO provider found");
-            return;
-        }
-
-        const response = await fetch(new URL("/api/v1/sso", client.value.url), {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${identity.value?.tokens.access_token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                issuer: issuer.id,
-            }),
-        });
-
-        const json = await response.json();
-        window.location.href = json.link;
     }
 });
 </script>

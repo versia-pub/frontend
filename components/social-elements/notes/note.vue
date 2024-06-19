@@ -174,6 +174,7 @@ useListen("composer:send-edit", (note) => {
 
 const client = useClient();
 const identity = useCurrentIdentity();
+const settings = useSettings();
 const {
     loaded,
     note: outputtedNote,
@@ -185,7 +186,7 @@ const {
     reblog,
     isReply,
     reblogDisplayName,
-} = useNoteData(noteRef, client);
+} = useNoteData(noteRef, client, settings);
 
 const openBlank = (url: string) => window.open(url, "_blank");
 

@@ -27,7 +27,7 @@
             <h2
                 class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-primary-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
                 <Skeleton :enabled="skeleton" :min-width="200" :max-width="350" class="h-6">
-                    {{ account?.display_name }}
+                    <span v-html="display_name"></span>
                     <iconify-icon v-if="account?.locked" icon="tabler:lock" width="1.25rem" height="1.25rem"
                         class="text-gray-400 cursor-pointer align-text-top"
                         title="This account manually approves its followers" />
@@ -48,7 +48,7 @@
             <Skeleton :enabled="true" v-if="skeleton" class="!h-6" :min-width="50" :max-width="100" width-unit="%"
                 shape="rect" type="content">
             </Skeleton>
-            <div class="prose prose-invert" v-html="parsedNote" v-else></div>
+            <div class="prose prose-invert" v-html="note" v-else></div>
         </div>
 
         <div class="mt-3 flex items-center space-x-4 px-4">
@@ -79,8 +79,8 @@
             </div>
         </div>
 
-        <div v-if="!skeleton && parsedFields.length > 0" class="mt-4 px-4 flex-col flex space-y-3">
-            <div v-for="field of parsedFields" :key="field.name" class="flex flex-col gap-1">
+        <div v-if="!skeleton && fields && fields.length > 0" class="mt-4 px-4 flex-col flex space-y-3">
+            <div v-for="field of fields" :key="field.name" class="flex flex-col gap-1">
                 <span class="text-primary-500 font-semibold" v-html="field.name"></span>
                 <span class="text-gray-200 prose prose-invert break-all" v-html="field.value"></span>
             </div>
@@ -134,13 +134,6 @@ const formattedJoin = computed(() =>
     }).format(new Date(props.account?.created_at ?? 0)),
 );
 
-const parsedNote = ref("");
-const parsedFields: Ref<
-    {
-        name: string;
-        value: string;
-    }[]
-> = ref([]);
 const handle = computed(() => {
     if (!props.account?.acct.includes("@")) {
         return `${props.account?.acct}@${new URL(useBaseUrl().value).host}`;
@@ -154,27 +147,9 @@ const visibleRoles = computed(
     () => props.account?.roles.filter((r) => r.visible) ?? [],
 );
 
-watch(
-    skeleton,
-    async () => {
-        if (skeleton.value) return;
-        parsedNote.value =
-            useParsedContent(
-                props.account?.note ?? "",
-                props.account?.emojis ?? [],
-            ).value ?? "";
-        parsedFields.value =
-            props.account?.fields.map((field) => ({
-                name:
-                    useParsedContent(field.name, props.account?.emojis ?? [])
-                        .value ?? "",
-                value:
-                    useParsedContent(field.value, props.account?.emojis ?? [])
-                        .value ?? "",
-            })) ?? [];
-    },
-    {
-        immediate: true,
-    },
+const settings = useSettings();
+const { display_name, fields, note } = useParsedAccount(
+    computed(() => props.account),
+    settings,
 );
 </script>

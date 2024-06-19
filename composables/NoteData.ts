@@ -1,9 +1,11 @@
 import type { LysandClient } from "@lysand-org/client";
+import { SettingIds, type Settings } from "~/settings";
 import type { Status } from "~/types/mastodon/status";
 
 export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
     client: Ref<LysandClient>,
+    settings: MaybeRef<Settings>,
 ) => {
     const isReply = computed(() => !!toValue(noteProp)?.in_reply_to_id);
     const isQuote = computed(() => !!toValue(noteProp)?.quote);
@@ -15,11 +17,13 @@ export const useNoteData = (
             ? toValue(noteProp)?.reblog ?? toValue(noteProp)
             : toValue(noteProp),
     );
+    const showContentWarning = useSetting(SettingIds.ShowContentWarning);
     const shouldHide = computed(
         () =>
-            renderedNote.value?.sensitive ||
-            !!renderedNote.value?.spoiler_text ||
-            false,
+            (renderedNote.value?.sensitive ||
+                !!renderedNote.value?.spoiler_text ||
+                false) &&
+            (showContentWarning.value.value as boolean),
     );
     const mentions = useResolveMentions(
         computed(() => renderedNote.value?.mentions ?? []),
@@ -29,12 +33,15 @@ export const useNoteData = (
         computed(() => renderedNote.value?.content ?? ""),
         computed(() => renderedNote.value?.emojis ?? []),
         mentions,
+        settings,
     );
     const loaded = computed(() => content.value !== null);
 
     const reblogDisplayName = useParsedContent(
         toValue(noteProp)?.account.display_name ?? "",
         toValue(noteProp)?.account.emojis ?? [],
+        undefined,
+        settings,
     );
     const reblog = computed(() =>
         isReblog.value && toValue(noteProp) && !isQuote.value
