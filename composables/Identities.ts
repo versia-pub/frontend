@@ -45,12 +45,15 @@ export const useCurrentIdentity = (): Ref<Identity | null> => {
             if (newCurrent) {
                 currentId.value = newCurrent.id;
                 // If the identity is updated, update the identity in the list
-                if (identities.value.find((i) => i.id === newCurrent.id))
+                if (identities.value.find((i) => i.id === newCurrent.id)) {
                     identities.value = identities.value.map((i) =>
                         i.id === newCurrent.id ? newCurrent : i,
                     );
+                }
                 // If the identity is not in the list, add it
-                else identities.value.push(newCurrent);
+                else {
+                    identities.value.push(newCurrent);
+                }
 
                 // Force update the identities
                 identities.value = [...identities.value];

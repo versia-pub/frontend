@@ -104,7 +104,9 @@ watch(
     files,
     (newFiles) => {
         for (const data of newFiles) {
-            if (data.progress === 0) uploadFile(data.file);
+            if (data.progress === 0) {
+                uploadFile(data.file);
+            }
         }
     },
     {
@@ -137,14 +139,22 @@ const updateAltText = (id: string, altText?: string) => {
 };
 
 const getIcon = (mimeType: string) => {
-    if (mimeType.startsWith("image/")) return "tabler:photo";
-    if (mimeType.startsWith("video/")) return "tabler:video";
-    if (mimeType.startsWith("audio/")) return "tabler:music";
+    if (mimeType.startsWith("image/")) {
+        return "tabler:photo";
+    }
+    if (mimeType.startsWith("video/")) {
+        return "tabler:video";
+    }
+    if (mimeType.startsWith("audio/")) {
+        return "tabler:music";
+    }
     return "tabler:file";
 };
 
 const formatBytes = (bytes: number) => {
-    if (bytes === 0) return "0 Bytes";
+    if (bytes === 0) {
+        return "0 Bytes";
+    }
     const k = 1000;
     const dm = 2;
     const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];

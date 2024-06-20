@@ -50,7 +50,9 @@ useListen("note:edit", async (note) => {
     useEvent("composer:edit", note);
 });
 useListen("composer:open", () => {
-    if (identity.value) open.value = true;
+    if (identity.value) {
+        open.value = true;
+    }
 });
 useListen("composer:close", () => {
     open.value = false;

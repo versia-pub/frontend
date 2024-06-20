@@ -112,7 +112,9 @@ const accountId = computed(() => props.account?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
 
 const follow = () => {
-    if (!identity.value || !props.account || !relationship.value) return;
+    if (!(identity.value && props.account && relationship.value)) {
+        return;
+    }
     relationship.value = {
         ...relationship.value,
         following: true,
@@ -120,7 +122,9 @@ const follow = () => {
 };
 
 const unfollow = () => {
-    if (!identity.value || !props.account || !relationship.value) return;
+    if (!(identity.value && props.account && relationship.value)) {
+        return;
+    }
     relationship.value = {
         ...relationship.value,
         following: false,

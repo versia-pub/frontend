@@ -59,7 +59,7 @@ export const parseFromJson = (json: Record<string, unknown>) => {
 };
 
 export enum SettingIds {
-    MFM = "mfm",
+    Mfm = "mfm",
     CustomCSS = "custom-css",
     Theme = "theme",
     CustomEmojis = "custom-emojis",
@@ -73,7 +73,7 @@ export enum SettingIds {
 
 export const settings = [
     {
-        id: SettingIds.MFM,
+        id: SettingIds.Mfm,
         title: "Render MFM",
         description: "Render Misskey-Flavoured Markdown",
         type: SettingType.Boolean,

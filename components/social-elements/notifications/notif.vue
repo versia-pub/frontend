@@ -43,7 +43,9 @@ const { relationship } = useRelationship(
 );
 
 const acceptFollowRequest = async () => {
-    if (!props.notification?.account) return;
+    if (!props.notification?.account) {
+        return;
+    }
     isWorkingOnFollowRequest.value = true;
     const { data } = await client.value.acceptFollowRequest(
         props.notification.account.id,
@@ -53,7 +55,9 @@ const acceptFollowRequest = async () => {
 };
 
 const rejectFollowRequest = async () => {
-    if (!props.notification?.account) return;
+    if (!props.notification?.account) {
+        return;
+    }
     isWorkingOnFollowRequest.value = true;
     const { data } = await client.value.rejectFollowRequest(
         props.notification.account.id,
@@ -69,7 +73,9 @@ const { display_name } = useParsedAccount(
 );
 
 const text = computed(() => {
-    if (!props.notification) return "";
+    if (!props.notification) {
+        return "";
+    }
 
     switch (props.notification.type) {
         case "mention":
@@ -82,13 +88,16 @@ const text = computed(() => {
             return "followed you";
         case "follow_request":
             return "requested to follow you";
-        default:
+        default: {
             console.error("Unknown notification type", props.notification.type);
             return "";
+        }
     }
 });
 const icon = computed(() => {
-    if (!props.notification) return "";
+    if (!props.notification) {
+        return "";
+    }
 
     switch (props.notification.type) {
         case "mention":

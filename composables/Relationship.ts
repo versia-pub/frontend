@@ -14,12 +14,13 @@ export const useRelationship = (
     }
 
     watchEffect(() => {
-        if (toValue(accountId))
+        if (toValue(accountId)) {
             toValue(client)
                 ?.getRelationship(toValue(accountId) ?? "")
                 .then((res) => {
                     relationship.value = res.data;
                 });
+        }
     });
 
     watch(relationship, (newOutput, oldOutput) => {

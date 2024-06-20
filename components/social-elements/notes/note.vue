@@ -206,7 +206,9 @@ const numberFormat = (number = 0) =>
     }).format(number);
 
 const likeFn = async () => {
-    if (!outputtedNote.value) return;
+    if (!outputtedNote.value) {
+        return;
+    }
     if (outputtedNote.value.favourited) {
         const output = await client.value.unfavouriteStatus(
             outputtedNote.value.id,
@@ -227,7 +229,9 @@ const likeFn = async () => {
 };
 
 const reblogFn = async () => {
-    if (!outputtedNote.value) return;
+    if (!outputtedNote.value) {
+        return;
+    }
     if (outputtedNote.value?.reblogged) {
         const output = await client.value.unreblogStatus(
             outputtedNote.value.id,

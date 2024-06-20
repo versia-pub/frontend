@@ -104,7 +104,9 @@ const save = async () => {
             type: "success",
         });
 
-        if (identity.value) identity.value.account = data;
+        if (identity.value) {
+            identity.value.account = data;
+        }
     } catch (e) {
         const error = e as ResponseError<{ error: string }>;
 

@@ -86,7 +86,7 @@
                 </p>
 
                 <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-            "Register" }}</ButtonsPrimary>
+                    "Register" }}</ButtonsPrimary>
             </VeeForm>
         </div>
         <div v-else>
@@ -158,10 +158,10 @@ const register = (result: {
             "en",
             result.reason || "Empty reason",
         )
-        .then(async () => {
+        .then(() => {
             navigateTo("/register/success");
         })
-        .catch(async (e) => {
+        .catch((e) => {
             const error = e as ResponseError<{
                 error: string;
             }>;

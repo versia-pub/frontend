@@ -52,7 +52,9 @@ watch(
     () => props.timeline,
     (newTimeline, oldTimeline) => {
         // If posts are deleted, don't start loading more posts
-        if (newTimeline.length === oldTimeline.length - 1) return;
+        if (newTimeline.length === oldTimeline.length - 1) {
+            return;
+        }
         isLoading.value = false;
         // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
         if (

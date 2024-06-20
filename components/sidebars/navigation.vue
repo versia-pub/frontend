@@ -187,7 +187,7 @@ const signIn = async () => {
 const signOut = async (id?: string) => {
     loadingAuth.value = true;
 
-    if (!appData.value || !identity.value) {
+    if (!(appData.value && identity.value)) {
         console.error("No app or identity data to sign out");
         return;
     }
@@ -208,7 +208,9 @@ const signOut = async (id?: string) => {
             identityToRevoke.tokens.access_token,
             identityToRevoke.tokens.access_token,
         )
-        .catch(() => {});
+        .catch(() => {
+            // Do nothing
+        });
 
     if (id === identity.value.id) {
         identity.value = null;

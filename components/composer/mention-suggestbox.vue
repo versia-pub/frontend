@@ -24,8 +24,9 @@ const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
         if (
             ["Tab", "Enter", "ArrowRight", "ArrowLeft"].includes(e.key) &&
             topUsers.value !== null
-        )
+        ) {
             e.preventDefault();
+        }
     },
 });
 const topUsers = ref<Account[] | null>(null);
@@ -79,7 +80,9 @@ watch(
 
         if ((Tab?.value || Enter?.value) && topUsers.value !== null) {
             const user = topUsers.value[selectedUserIndex.value ?? 0];
-            if (user) emit("autocomplete", user.username);
+            if (user) {
+                emit("autocomplete", user.username);
+            }
         }
     },
 );

@@ -24,11 +24,15 @@ export const useTimeline = <
     loadNext: () => Promise<void>;
     loadPrev: () => Promise<void>;
 } => {
-    if (!client || !fetchTimeline) {
+    if (!(client && fetchTimeline)) {
         return {
             timeline: ref([]),
-            loadNext: async () => {},
-            loadPrev: async () => {},
+            loadNext: async () => {
+                // ...
+            },
+            loadPrev: async () => {
+                // ...
+            },
         };
     }
 
@@ -107,11 +111,15 @@ export const useIdTimeline = <
     loadNext: () => Promise<void>;
     loadPrev: () => Promise<void>;
 } => {
-    if (!client || !fetchTimeline) {
+    if (!(client && fetchTimeline)) {
         return {
             timeline: ref([]),
-            loadNext: async () => {},
-            loadPrev: async () => {},
+            loadNext: async () => {
+                // ...
+            },
+            loadPrev: async () => {
+                // ...
+            },
         };
     }
 

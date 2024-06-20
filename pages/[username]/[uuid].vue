@@ -30,8 +30,12 @@ const loaded = computed(() => note.value !== null && context.value !== null);
 watch(
     [() => context.value?.ancestors, loaded],
     async () => {
-        if (context.value?.ancestors.length === 0) return;
-        if (!loaded.value) return;
+        if (context.value?.ancestors.length === 0) {
+            return;
+        }
+        if (!loaded.value) {
+            return;
+        }
         await nextTick();
         // Wait for 200ms
         await new Promise((resolve) => setTimeout(resolve, 200));

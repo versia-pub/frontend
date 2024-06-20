@@ -12,12 +12,13 @@ export const useNoteContext = (
     const output = ref(null as Context | null);
 
     watchEffect(() => {
-        if (toValue(noteId))
+        if (toValue(noteId)) {
             ref(client)
                 .value?.getStatusContext(toValue(noteId) ?? "")
                 .then((res) => {
                     output.value = res.data;
                 });
+        }
     });
 
     return output;

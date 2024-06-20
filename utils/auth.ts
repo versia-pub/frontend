@@ -26,7 +26,7 @@ export const signInWithCode = (code: string, appData: ApplicationData) => {
                 !identities.value.find(
                     (i) => i.account.id === accountOutput.data.id,
                 )
-            )
+            ) {
                 identity.value = {
                     id: nanoid(),
                     tokens: res.data,
@@ -35,6 +35,7 @@ export const signInWithCode = (code: string, appData: ApplicationData) => {
                     permissions: [],
                     emojis: [],
                 };
+            }
 
             // Remove code from URL
             window.history.replaceState(

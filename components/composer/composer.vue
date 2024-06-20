@@ -121,15 +121,17 @@ onMounted(() => {
     useListen("composer:reply", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "reply";
-        if (note.account.id !== identity.value?.account.id)
+        if (note.account.id !== identity.value?.account.id) {
             content.value = `@${note.account.acct} `;
+        }
     });
 
     useListen("composer:quote", (note: Status) => {
         respondingTo.value = note;
         respondingType.value = "quote";
-        if (note.account.id !== identity.value?.account.id)
+        if (note.account.id !== identity.value?.account.id) {
             content.value = `@${note.account.acct} `;
+        }
     });
 
     useListen("composer:edit", async (note: Status) => {
@@ -176,7 +178,7 @@ const client = useClient();
 
 const send = async () => {
     loading.value = true;
-    if (!identity.value || !client.value) {
+    if (!(identity.value && client.value)) {
         throw new Error("Not authenticated");
     }
 

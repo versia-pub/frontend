@@ -25,8 +25,9 @@ const { Tab, ArrowRight, ArrowLeft, Enter } = useMagicKeys({
         if (
             ["Tab", "Enter", "ArrowRight", "ArrowLeft"].includes(e.key) &&
             topEmojis.value !== null
-        )
+        ) {
             e.preventDefault();
+        }
     },
 });
 const identity = useCurrentIdentity();
@@ -34,9 +35,11 @@ const topEmojis = ref<Emoji[] | null>(null);
 const selectedEmojiIndex = ref<number | null>(null);
 
 watchEffect(() => {
-    if (!identity.value) return;
+    if (!identity.value) {
+        return;
+    }
 
-    if (props.currentlyTypingEmoji !== null)
+    if (props.currentlyTypingEmoji !== null) {
         topEmojis.value = identity.value.emojis
             .map((emoji) => ({
                 ...emoji,
@@ -47,7 +50,9 @@ watchEffect(() => {
             }))
             .sort((a, b) => a.distance - b.distance)
             .slice(0, 20);
-    else topEmojis.value = null;
+    } else {
+        topEmojis.value = null;
+    }
 
     if (ArrowRight?.value && topEmojis.value !== null) {
         selectedEmojiIndex.value = (selectedEmojiIndex.value ?? -1) + 1;
@@ -74,7 +79,9 @@ watchEffect(() => {
 
     if ((Tab?.value || Enter?.value) && topEmojis.value !== null) {
         const emoji = topEmojis.value[selectedEmojiIndex.value ?? 0];
-        if (emoji) emit("autocomplete", emoji.shortcode);
+        if (emoji) {
+            emit("autocomplete", emoji.shortcode);
+        }
     }
 });
 

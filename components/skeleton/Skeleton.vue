@@ -41,10 +41,11 @@ const calculatedWidth = computed(
 
 const getWidth = (index: number, lines: number) => {
     if (isWidthSpecified.value) {
-        if (isContent.value)
+        if (isContent.value) {
             return index === lines
                 ? `${calculatedWidth.value}${props.widthUnit}`
                 : "100%";
+        }
         return `${calculatedWidth.value}${props.widthUnit}`;
     }
     return undefined;

@@ -111,14 +111,14 @@ const hostname = useRequestURL().hostname;
 const query = new URLSearchParams(
     window?.location.search ?? useRequestURL().search,
 );
-const redirect_uri = query.get("redirect_uri");
-const response_type = query.get("response_type");
-const client_id = query.get("client_id");
+const redirectUri = query.get("redirect_uri");
+const responseType = query.get("response_type");
+const clientId = query.get("client_id");
 const scope = query.get("scope");
 const error = query.get("error");
-const error_description = query.get("error_description");
+const errorDescription = query.get("error_description");
 
-const validUrlParameters = redirect_uri && response_type && client_id && scope;
+const validUrlParameters = redirectUri && responseType && clientId && scope;
 
 const ssoConfig = useSSOConfig();
 </script>

@@ -21,8 +21,7 @@ export const useNoteData = (
     const shouldHide = computed(
         () =>
             (renderedNote.value?.sensitive ||
-                !!renderedNote.value?.spoiler_text ||
-                false) &&
+                !!renderedNote.value?.spoiler_text) &&
             (showContentWarning.value.value as boolean),
     );
     const mentions = useResolveMentions(

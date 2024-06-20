@@ -99,14 +99,14 @@ const query = new URLSearchParams(
     window?.location.search ?? useRequestURL().search,
 );
 const token = query.get("token");
-const login_reset = query.get("login_reset") === "true";
+const loginReset = query.get("login_reset") === "true";
 const success = query.get("success") === "true";
 let error = query.get("error");
-let error_description = query.get("error_description");
+let errorDescription = query.get("error_description");
 
-if (login_reset) {
+if (loginReset) {
     error = "Login reset";
-    error_description =
+    errorDescription =
         "Your password has been reset by an administrator. Please change it here.";
 }
 

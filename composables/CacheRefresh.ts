@@ -3,7 +3,9 @@ import type { RolePermission } from "@lysand-org/client/types";
 import { useCurrentIdentity } from "./Identities";
 
 export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
-    if (import.meta.server) return;
+    if (import.meta.server) {
+        return;
+    }
 
     const identity = useCurrentIdentity();
 
@@ -14,7 +16,9 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
             toValue(client)
                 ?.verifyAccountCredentials()
                 .then((res) => {
-                    if (identity.value) identity.value.account = res.data;
+                    if (identity.value) {
+                        identity.value.account = res.data;
+                    }
                 })
                 .catch((err) => {
                     const code = err.response.status;
@@ -34,7 +38,9 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
             toValue(client)
                 ?.getInstanceCustomEmojis()
                 .then((res) => {
-                    if (identity.value) identity.value.emojis = res.data;
+                    if (identity.value) {
+                        identity.value.emojis = res.data;
+                    }
                 });
 
             toValue(client)
@@ -47,16 +53,19 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
                         .flatMap((r) => r.permissions)
                         .filter((p, i, arr) => arr.indexOf(p) === i);
 
-                    if (identity.value)
+                    if (identity.value) {
                         identity.value.permissions =
                             permissions as unknown as RolePermission[];
+                    }
                 });
         }
 
         toValue(client)
             ?.getInstance()
             .then((res) => {
-                if (identity.value) identity.value.instance = res.data;
+                if (identity.value) {
+                    identity.value.instance = res.data;
+                }
             });
     });
 };

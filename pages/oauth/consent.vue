@@ -92,11 +92,11 @@ const application = query.application;
 const website = query.website
     ? decodeURIComponent(query.website as string)
     : null;
-const redirect_uri = query.redirect_uri as string;
-const client_id = query.client_id;
+const redirectUri = query.redirect_uri as string;
+const clientId = query.client_id;
 const scope = query.scope ? decodeURIComponent(query.scope as string) : "";
 
-const validUrlParameters = application && redirect_uri && client_id && scope;
+const validUrlParameters = application && redirectUri && clientId && scope;
 
 const oauthScopeText: Record<string, string> = {
     "rw:accounts": "$VERB your account information",
@@ -123,7 +123,7 @@ const scopes = scope.split(" ");
 // Return an array of strings to display
 // "read write:accounts" returns all the fields with $VERB as read, plus the accounts field with $VERB as write
 const getScopeText = (fullScopes: string[]) => {
-    const scopeTexts = [];
+    const scopeTexts: string[][] = [];
 
     const readScopes = fullScopes.filter((scope) => scope.includes("read"));
     const writeScopes = fullScopes.filter((scope) => scope.includes("write"));
@@ -138,12 +138,14 @@ const getScopeText = (fullScopes: string[]) => {
             (writeScopes.includes(`write:${scopeName}`) ||
                 writeScopes.find((scope) => scope === "write"))
         ) {
-            if (oauthScopeText[possibleScope]?.includes("$VERB"))
+            if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
                     "Read and write",
-                    oauthScopeText[possibleScope]?.replace("$VERB", ""),
+                    oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
-            else scopeTexts.push(["", oauthScopeText[possibleScope]]);
+            } else {
+                scopeTexts.push(["", oauthScopeText[possibleScope] ?? ""]);
+            }
             continue;
         }
 
@@ -152,12 +154,14 @@ const getScopeText = (fullScopes: string[]) => {
             (readScopes.includes(`read:${scopeName}`) ||
                 readScopes.find((scope) => scope === "read"))
         ) {
-            if (oauthScopeText[possibleScope]?.includes("$VERB"))
+            if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
                     "Read",
-                    oauthScopeText[possibleScope]?.replace("$VERB", ""),
+                    oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
-            else scopeTexts.push(["", oauthScopeText[possibleScope]]);
+            } else {
+                scopeTexts.push(["", oauthScopeText[possibleScope] ?? ""]);
+            }
         }
 
         if (
@@ -165,12 +169,14 @@ const getScopeText = (fullScopes: string[]) => {
             (writeScopes.includes(`write:${scopeName}`) ||
                 writeScopes.find((scope) => scope === "write"))
         ) {
-            if (oauthScopeText[possibleScope]?.includes("$VERB"))
+            if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
                     "Write",
-                    oauthScopeText[possibleScope]?.replace("$VERB", ""),
+                    oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
-            else scopeTexts.push(["", oauthScopeText[possibleScope]]);
+            } else {
+                scopeTexts.push(["", oauthScopeText[possibleScope] ?? ""]);
+            }
         }
     }
     return scopeTexts;
