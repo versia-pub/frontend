@@ -3,18 +3,14 @@
         <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
             class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
         <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
-            <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
-                <h2 class="font-bold text-lg">An error occured</h2>
-                <span class="text-sm">{{ error_description }}</span>
-            </div>
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
-                <input type="hidden" name="token" :value="token" />
+                <input type="hidden" name="token" :value="params.token" />
 
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Reset your password</h1>
 
                 <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
                     <h2 class="font-bold text-lg">An error occured</h2>
-                    <span class="text-sm">{{ error_description }}</span>
+                    <span class="text-sm">{{ params.error_description }}</span>
                 </div>
 
                 <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
@@ -46,7 +42,7 @@
                 <ButtonsPrimary type="submit" class="w-full">Reset</ButtonsPrimary>
             </VeeForm>
         </div>
-        <div v-else-if="success">
+        <div v-else-if="params.success">
             <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Password reset
                 successful!
             </h1>
@@ -95,20 +91,15 @@ const schema = toTypedSchema(
         }),
 );
 
-const query = new URLSearchParams(
-    window?.location.search ?? useRequestURL().search,
-);
-const token = query.get("token");
-const loginReset = query.get("login_reset") === "true";
-const success = query.get("success") === "true";
-let error = query.get("error");
-let errorDescription = query.get("error_description");
+const params = useUrlSearchParams();
+let error = params.error;
+let errorDescription = params.error_description;
 
-if (loginReset) {
+if (params.login_reset) {
     error = "Login reset";
     errorDescription =
         "Your password has been reset by an administrator. Please change it here.";
 }
 
-const validUrlParameters = token;
+const validUrlParameters = !!params.token;
 </script>

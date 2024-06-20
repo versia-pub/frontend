@@ -4,12 +4,12 @@
             class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
         <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema"
-                :action="`/api/auth/login?redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
+                :action="`/api/auth/login?redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&client_id=${params.client_id}&scope=${params.scope}`">
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Login to your account</h1>
 
-                <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
+                <div v-if="params.error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
                     <h2 class="font-bold text-lg">An error occured</h2>
-                    <span class="text-sm">{{ error_description }}</span>
+                    <span class="text-sm">{{ params.error_description }}</span>
                 </div>
 
                 <VeeField name="identifier" as="div" v-slot="{ errorMessage, field }" validate-on-change>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="grid md:grid-cols-2 md:[&:has(>:last-child:nth-child(1))]:grid-cols-1 gap-4 w-full">
                         <a v-for="provider of ssoConfig.providers" :key="provider.id"
-                            :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${redirect_uri}&response_type=${response_type}&client_id=${client_id}&scope=${scope}`">
+                            :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&client_id=${params.client_id}&scope=${params.scope}`">
                             <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
                                 <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`"
                                     class="w-6 h-6" />
@@ -108,17 +108,13 @@ const schema = toTypedSchema(
 );
 
 const hostname = useRequestURL().hostname;
-const query = new URLSearchParams(
-    window?.location.search ?? useRequestURL().search,
-);
-const redirectUri = query.get("redirect_uri");
-const responseType = query.get("response_type");
-const clientId = query.get("client_id");
-const scope = query.get("scope");
-const error = query.get("error");
-const errorDescription = query.get("error_description");
+const params = useUrlSearchParams();
 
-const validUrlParameters = redirectUri && responseType && clientId && scope;
+const validUrlParameters =
+    params.redirect_uri &&
+    params.response_type &&
+    params.client_id &&
+    params.scope;
 
 const ssoConfig = useSSOConfig();
 </script>

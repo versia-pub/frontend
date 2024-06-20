@@ -23,9 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+const params = useUrlSearchParams();
 
-const query = useRoute().query;
-
-const code = query.code;
+const code = params.code;
 </script>

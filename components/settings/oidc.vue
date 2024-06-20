@@ -51,7 +51,7 @@ const link = async (providerId: string) => {
 
         useEvent("notification:new", {
             title: "Failed to link account",
-            message: e.response.data.error,
+            description: e.response.data.error,
             type: "error",
         });
     }
@@ -78,7 +78,7 @@ const unlink = async (providerId: string) => {
 
         useEvent("notification:new", {
             title: "Failed to unlink account",
-            message: e.response.data.error,
+            description: e.response.data.error,
             type: "error",
         });
     }

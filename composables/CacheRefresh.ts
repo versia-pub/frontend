@@ -29,7 +29,7 @@ export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
                         useEvent("notification:new", {
                             type: "error",
                             title: "Your session has expired",
-                            message:
+                            description:
                                 "You have been logged out. Please log in again.",
                         });
                     }

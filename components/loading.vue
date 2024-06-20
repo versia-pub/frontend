@@ -10,15 +10,7 @@
 
 <script lang="ts" setup>
 const loading = ref(true);
-const oidcError = useRequestURL().searchParams.get(
-    "oidc_account_linking_error",
-);
-const oidcErrorDesc = useRequestURL().searchParams.get(
-    "oidc_account_linking_error_message",
-);
-const oidcAccountLinked = useRequestURL().searchParams.get(
-    "oidc_account_linked",
-);
+const params = useUrlSearchParams();
 
 const estimatedProgress = (duration: number, elapsed: number) =>
     (2 / Math.PI) * 100 * Math.atan(((elapsed / duration) * 100) / 50);
@@ -39,39 +31,41 @@ app.hook("page:finish", async () => {
     await new Promise((resolve) => setTimeout(resolve, 300));
     loading.value = false;
 
-    if (oidcError) {
+    if (params.oidc_account_linking_error) {
         useEvent("notification:new", {
             type: "error",
-            title: oidcError,
-            message: oidcErrorDesc ?? undefined,
-            persistent: true,
-            onDismiss: () => {
-                // Remove data from URL
-                window.history.replaceState(
-                    {},
-                    document.title,
-                    window.location.pathname,
-                );
+            title: params.oidc_account_linking_error,
+            description: params.oidc_account_linking_error_message ?? undefined,
+            duration: 999999,
+            onStatusChange: (details) => {
+                if (details.status === "dismissing") {
+                    // Remove data from URL
+                    window.history.replaceState(
+                        {},
+                        document.title,
+                        window.location.pathname,
+                    );
+                }
             },
         });
-
-        // Remove the error from the URL
     }
 
-    if (oidcAccountLinked) {
+    if (params.oidc_account_linked) {
         useEvent("notification:new", {
             type: "success",
             title: "Account linked",
-            message:
+            description:
                 "Your account has been successfully linked to your OpenID Connect provider.",
-            persistent: true,
-            onDismiss: () => {
-                // Remove data from URL
-                window.history.replaceState(
-                    {},
-                    document.title,
-                    window.location.pathname,
-                );
+            duration: 999999,
+            onStatusChange: (details) => {
+                if (details.status === "dismissing") {
+                    // Remove data from URL
+                    window.history.replaceState(
+                        {},
+                        document.title,
+                        window.location.pathname,
+                    );
+                }
             },
         });
     }

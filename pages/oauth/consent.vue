@@ -83,18 +83,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-
 const url = useRequestURL();
-const query = useRoute().query;
+const params = useUrlSearchParams();
 
-const application = query.application;
-const website = query.website
-    ? decodeURIComponent(query.website as string)
+const application = params.application;
+const website = params.website
+    ? decodeURIComponent(params.website as string)
     : null;
-const redirectUri = query.redirect_uri as string;
-const clientId = query.client_id;
-const scope = query.scope ? decodeURIComponent(query.scope as string) : "";
+const redirectUri = params.redirect_uri as string;
+const clientId = params.client_id;
+const scope = params.scope ? decodeURIComponent(params.scope as string) : "";
 
 const validUrlParameters = application && redirectUri && clientId && scope;
 

@@ -1,14 +1,11 @@
+import type { createToaster } from "@ark-ui/vue";
 import type { Attachment, Status } from "@lysand-org/client/types";
 import mitt from "mitt";
 import type { Identity } from "./Identities";
 
-export type NotificationEvent = {
-    type: "error" | "success" | "progress";
-    title: string;
-    message?: string;
-    persistent?: boolean;
-    onDismiss?: () => void;
-};
+export type NotificationEvent = Parameters<
+    ReturnType<typeof createToaster>["create"]
+>[0];
 
 type ApplicationEvents = {
     "note:reply": Status;

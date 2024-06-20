@@ -112,7 +112,7 @@ const save = async () => {
 
         useEvent("notification:new", {
             title: "Failed to update profile",
-            message: error.response.data.error,
+            description: error.response.data.error,
             type: "error",
         });
     }

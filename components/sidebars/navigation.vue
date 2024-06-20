@@ -222,7 +222,7 @@ const signOut = async (id?: string) => {
     await useEvent("notification:new", {
         type: "success",
         title: "Signed out",
-        message: "Account signed out successfully",
+        description: "Account signed out successfully",
     });
 };
 </script>

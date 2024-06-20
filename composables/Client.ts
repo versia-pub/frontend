@@ -17,7 +17,7 @@ export const useClient = (
                     useEvent("notification:new", {
                         title: "An error occured",
                         type: "error",
-                        message:
+                        description:
                             error.response.data.error ??
                             "No error message provided",
                     });
