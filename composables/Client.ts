@@ -13,6 +13,15 @@ export const useClient = (
                 toValue(customToken)?.access_token ??
                     identity.value?.tokens.access_token ??
                     undefined,
+                (error) => {
+                    useEvent("notification:new", {
+                        title: "An error occured",
+                        type: "error",
+                        message:
+                            error.response.data.error ??
+                            "No error message provided",
+                    });
+                },
             ),
     );
 };
