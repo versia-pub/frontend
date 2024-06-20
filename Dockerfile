@@ -1,4 +1,4 @@
-FROM oven/bun:1.1.14-alpine AS base
+FROM imbios/bun-node:21-alpine AS base
 
 # Install dependencies into temp directory
 # This will cache them and speed up future builds
@@ -12,9 +12,9 @@ FROM base AS builder
 
 COPY . /app
 COPY --from=install /temp/dev/node_modules /app/node_modules
-RUN cd /app && bun run build
+RUN cd /app && bun run build --preset node-server
 
-FROM oven/bun:1.1.14-alpine as final
+FROM node:21-alpine as final
 
 COPY --from=builder /app/.output/ /app
 
