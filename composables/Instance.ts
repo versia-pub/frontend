@@ -21,6 +21,8 @@ export const useInstanceFromClient = (client: MaybeRef<LysandClient>) => {
                 output.value = res.data;
             });
     });
+
+    return output;
 };
 
 export const useTos = (client: MaybeRef<LysandClient>) => {

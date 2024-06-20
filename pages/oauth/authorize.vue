@@ -97,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+import { LysandClient } from "@lysand-org/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 
@@ -116,5 +117,9 @@ const validUrlParameters =
     params.client_id &&
     params.scope;
 
-const ssoConfig = useSSOConfig();
+const instance = useInstanceFromClient(
+    new LysandClient(new URL(useBaseUrl().value)),
+);
+
+const ssoConfig = computed(() => instance.value?.sso);
 </script>
