@@ -2,7 +2,8 @@
     <AutocompleteSuggestbox :currently-typing="currentlyTypingEmoji" :textarea="textarea" :suggestions="emojis"
         :distance-function="distance">
         <template #default="{ suggestion }">
-            <Avatar :src="(suggestion.value as Emoji).url" class="w-full h-full [&>img]:object-contain rounded"
+            <Avatar :src="(suggestion.value as Emoji).url"
+                class="w-full h-full [&>img]:object-contain !bg-transparent rounded"
                 :alt="`Emoji with shortcode ${(suggestion.value as Emoji).shortcode}`" />
         </template>
     </AutocompleteSuggestbox>

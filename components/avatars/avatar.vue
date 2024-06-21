@@ -1,7 +1,7 @@
 <template>
     <div v-bind="$attrs" class="bg-dark-700 overflow-hidden flex items-center justify-center">
         <Skeleton :enabled="!imageLoaded" class="!h-full !w-full !rounded-none">
-            <img class="cursor-pointer bg-dark-700 ring-1 w-full h-full object-cover" :src="src" :alt="alt" />
+            <img class="cursor-pointer ring-1 w-full h-full object-cover" :src="src" :alt="alt" />
         </Skeleton>
     </div>
 </template>

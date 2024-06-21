@@ -1,18 +1,22 @@
 <template>
-    <div class="max-h-40 max-w-full rounded ring-1 ring-dark-300 bg-dark-800 fixed z-20" :style="{
-        left: `${x}px`,
-        top: `${y}px`,
-        width: `${width}px`,
-    }" v-show="topSuggestions && topSuggestions.length > 0">
-        <OverlayScrollbarsComponent class="w-full [&>div]:flex">
-            <div v-for="(suggestion, index) in topSuggestions" :key="suggestion.key"
-                @click="emit('autocomplete', suggestion.key)"
-                :ref="el => { if (el) suggestionRefs[index] = el as Element }" :title="suggestion.key"
-                :class="['flex justify-center shrink-0 items-center size-12 p-2 hover:bg-dark-900/70', index === selectedSuggestionIndex && 'bg-primary-500']">
-                <slot :suggestion="suggestion"></slot>
-            </div>
-        </OverlayScrollbarsComponent>
-    </div>
+    <Transition enter-active-class="transition duration-300 ease-in-out" enter-from-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100" leave-active-class="duration-200 ease-in-out"
+        leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+        <div class="max-h-40 max-w-full rounded ring-1 ring-dark-300 bg-dark-800 fixed z-20" :style="{
+            left: `${x}px`,
+            top: `${y}px`,
+            width: `${width}px`,
+        }" v-show="topSuggestions && topSuggestions.length > 0">
+            <OverlayScrollbarsComponent class="w-full [&>div]:flex">
+                <div v-for="(suggestion, index) in topSuggestions" :key="suggestion.key"
+                    @click="emit('autocomplete', suggestion.key)"
+                    :ref="el => { if (el) suggestionRefs[index] = el as Element }" :title="suggestion.key"
+                    :class="['flex justify-center shrink-0 items-center size-12 p-2 hover:bg-dark-900/70', index === selectedSuggestionIndex && 'bg-primary-500']">
+                    <slot :suggestion="suggestion"></slot>
+                </div>
+            </OverlayScrollbarsComponent>
+        </div>
+    </Transition>
 </template>
 
 <script lang="ts" setup>
