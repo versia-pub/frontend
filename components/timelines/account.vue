@@ -13,7 +13,7 @@ const client = useClient();
 const timelineParameters = ref({});
 const { timeline, loadNext, loadPrev } = useAccountTimeline(
     client.value,
-    props.id ?? null,
+    props.id || null,
     timelineParameters,
 );
 

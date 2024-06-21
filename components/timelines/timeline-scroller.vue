@@ -3,21 +3,24 @@
 </template>
 
 <script lang="ts" setup>
-const root = useParentElement();
+const root = useParentElement(useParentElement());
 // Store and keep y to restore it on page change
 const route = useRoute();
-const yStored = useLocalStorage(`lysand:scroll-${route.fullPath}`, 0);
+const yStored = useLocalStorage("lysand:scroll", {
+    [route.fullPath]: 0,
+});
 const { y } = useScroll(root);
 
 useEventListener("popstate", async (event) => {
-    if (yStored.value !== null) {
+    if (yStored.value[route.fullPath] !== undefined) {
         // Wait for the Vue component to load
         await new Promise((resolve) => setTimeout(resolve, 100));
-        y.value = yStored.value;
+        y.value = yStored.value[route.fullPath] ?? 0;
     }
 });
 
 onBeforeRouteLeave(() => {
-    yStored.value = y.value;
+    yStored.value[route.fullPath] = y.value;
+    yStored.value = { ...yStored.value };
 });
 </script>
