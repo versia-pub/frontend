@@ -16,8 +16,7 @@ const themeVariables = (color: string) => ({
     950: `var(--theme-${color}-950)`,
 });
 
-// Default are on https://tailwindcss.nuxtjs.org/tailwind/config#default-configuration
-export default (<Partial<Config>>{
+export default (<Config>{
     theme: {
         extend: {
             colors: {
