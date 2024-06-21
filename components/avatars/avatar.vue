@@ -1,19 +1,38 @@
 <template>
-    <div v-bind="$props" class="bg-dark-700 overflow-hidden flex items-center justify-center">
-        <Skeleton :enabled="!src" class="!h-full !w-full !rounded-none">
+    <div v-bind="$attrs" class="bg-dark-700 overflow-hidden flex items-center justify-center">
+        <Skeleton :enabled="!imageLoaded" class="!h-full !w-full !rounded-none">
             <img class="cursor-pointer bg-dark-700 ring-1 w-full h-full object-cover" :src="src" :alt="alt" />
         </Skeleton>
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { HTMLAttributes } from "vue";
 import Skeleton from "../skeleton/Skeleton.vue";
 
-interface Props extends /* @vue-ignore */ HTMLAttributes {
+defineOptions({
+    inheritAttrs: false,
+});
+const props = defineProps<{
     src?: string;
     alt?: string;
-}
+}>();
+const imageLoaded = ref(false);
 
-defineProps<Props>();
+watch(
+    () => props.src,
+    (src) => {
+        if (!src) {
+            return;
+        }
+
+        // Load in background
+        const img = new Image();
+        img.src = src;
+
+        img.onload = () => {
+            imageLoaded.value = true;
+        };
+    },
+    { immediate: true },
+);
 </script>
