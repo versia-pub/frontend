@@ -76,4 +76,8 @@ body {
 .os-scrollbar .os-scrollbar-handle {
     background: #9999;
 }
+
+.os-scrollbar .os-scrollbar-handle:hover {
+    background: #6666;
+}
 </style>
