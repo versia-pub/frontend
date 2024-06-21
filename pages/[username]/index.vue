@@ -56,5 +56,11 @@ useServerSeoMeta({
     description: computed(() =>
         account.value ? account.value.note : undefined,
     ),
+    robots: computed(() => ({
+        noindex: !!account.value?.noindex,
+        nofollow: !!account.value?.noindex,
+        noarchive: !!account.value?.noindex,
+        noimageindex: !!account.value?.noindex,
+    })),
 });
 </script>

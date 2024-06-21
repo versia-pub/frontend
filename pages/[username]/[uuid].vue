@@ -54,5 +54,11 @@ useServerSeoMeta({
     title: note.value?.account.display_name,
     description: note.value?.content,
     ogImage: note.value?.media_attachments[0]?.preview_url,
+    robots: computed(() => ({
+        noindex: !!note.value?.account.noindex,
+        nofollow: !!note.value?.account.noindex,
+        noarchive: !!note.value?.account.noindex,
+        noimageindex: !!note.value?.account.noindex,
+    })),
 });
 </script>

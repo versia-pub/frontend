@@ -597,6 +597,9 @@ export default defineNuxtConfig({
     ogImage: {
         enabled: false,
     },
+    robots: {
+        blockNonSeoBots: true,
+    },
     veeValidate: {
         autoImports: true,
         componentNames: {
