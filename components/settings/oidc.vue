@@ -9,17 +9,17 @@
                 <div v-for="provider of ssoConfig?.providers" :key="provider.id"
                     class="flex items-center justify-between p-4 bg-dark-700 rounded">
                     <div class="flex items-center gap-4">
-                        <AvatarsCentered :src="provider.icon" :alt="provider.name" class="h-8 w-8" />
+                        <Avatar :src="provider.icon" :alt="provider.name" class="h-8 w-8" />
                         <span class="font-semibold text-gray-300">{{ provider.name }}</span>
                     </div>
                     <div>
-                        <ButtonsPrimary :loading="loading" v-if="!linkedProviders?.find(p => p.id === provider.id)"
+                        <ButtonPrimary :loading="loading" v-if="!linkedProviders?.find(p => p.id === provider.id)"
                             @click="link(provider.id)">
                             <span>Link</span>
-                        </ButtonsPrimary>
-                        <ButtonsSecondary :loading="loading" v-else @click="unlink(provider.id)">
+                        </ButtonPrimary>
+                        <ButtonSecondary :loading="loading" v-else @click="unlink(provider.id)">
                             <span>Unlink</span>
-                        </ButtonsSecondary>
+                        </ButtonSecondary>
                     </div>
                 </div>
             </div>
@@ -29,6 +29,9 @@
 
 <script lang="ts" setup>
 import type { ResponseError } from "@lysand-org/client";
+import Avatar from "../avatars/avatar.vue";
+import ButtonPrimary from "../buttons/button-primary.vue";
+import ButtonSecondary from "../buttons/button-secondary.vue";
 
 const client = useClient();
 const ssoConfig = useSSOConfig();

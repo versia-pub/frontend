@@ -15,6 +15,9 @@ export default defineNuxtConfig({
             isCustomElement: (tag) => tag === "iconify-icon",
         },
     },
+    components: {
+        dirs: [],
+    },
     future: {
         compatibilityVersion: 4,
     },

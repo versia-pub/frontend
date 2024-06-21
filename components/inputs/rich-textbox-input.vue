@@ -8,15 +8,17 @@
             aria-live="polite">
             {{ remainingCharacters }}
         </div>
-        <ComposerEmojiSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedEmoji"
+        <EmojiSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedEmoji"
             :currently-typing-emoji="currentlyBeingTypedEmoji" @autocomplete="autocompleteEmoji" />
-        <ComposerMentionSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedMention"
+        <MentionSuggestbox :textarea="textarea" v-if="!!currentlyBeingTypedMention"
             :currently-typing-mention="currentlyBeingTypedMention" @autocomplete="autocompleteMention" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { char, createRegExp, exactly } from "magic-regexp";
+import EmojiSuggestbox from "../composer/emoji-suggestbox.vue";
+import MentionSuggestbox from "../composer/mention-suggestbox.vue";
 
 defineOptions({
     inheritAttrs: false,

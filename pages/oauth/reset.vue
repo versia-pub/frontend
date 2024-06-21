@@ -14,32 +14,32 @@
                 </div>
 
                 <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password">New password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password" placeholder="hunter2" autocomplete="new-password" required
+                    <Field>
+                        <LabelAndError>
+                            <Label for="password">New password</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <PasswordInput id="password" placeholder="hunter2" autocomplete="new-password" required
                             v-bind="field" :is-invalid="!!errorMessage" :show-strength="true" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <VeeField name="password-confirm" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password-confirm">Confirm password</InputsLabel>
-                            <InputsError v-if="errors.length > 0">{{ errors[0] }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password-confirm" placeholder="hunter2" autocomplete="new-password" required
+                    <Field>
+                        <LabelAndError>
+                            <Label for="password-confirm">Confirm password</Label>
+                            <FieldError v-if="errors.length > 0">{{ errors[0] }}</FieldError>
+                        </LabelAndError>
+                        <PasswordInput id="password-confirm" placeholder="hunter2" autocomplete="new-password" required
                             v-bind="field" :is-invalid="errors.length > 0" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <p class="text-xs font-semibold text-red-300">This will reset your
                     password. Make sure to put it in a password manager.
                 </p>
 
-                <ButtonsPrimary type="submit" class="w-full">Reset</ButtonsPrimary>
+                <ButtonPrimary type="submit" class="w-full">Reset</ButtonPrimary>
             </VeeForm>
         </div>
         <div v-else-if="params.success">
@@ -69,6 +69,12 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+import ButtonPrimary from "~/components/buttons/button-primary.vue";
+import FieldError from "~/components/inputs/field-error.vue";
+import Field from "~/components/inputs/field.vue";
+import LabelAndError from "~/components/inputs/label-and-error.vue";
+import Label from "~/components/inputs/label.vue";
+import PasswordInput from "~/components/inputs/password-input.vue";
 
 const identity = useCurrentIdentity();
 identity.value = null;

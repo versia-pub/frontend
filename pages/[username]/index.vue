@@ -1,16 +1,20 @@
 <template>
-    <ErrorsErrorBoundary>
+    <ErrorBoundary>
         <div class="mx-auto max-w-2xl w-full">
-            <LazyTimelinesTimelineScroller>
-                <LazySocialElementsUsersAccount :account="account ?? undefined" />
-                <LazyTimelinesAccount :id="accountId" :key="accountId" />
-            </LazyTimelinesTimelineScroller>
+            <TimelineScroller>
+                <AccountProfile :account="account ?? undefined" />
+                <AccountTimeline :id="accountId" :key="accountId" />
+            </TimelineScroller>
         </div>
-    </ErrorsErrorBoundary>
+    </ErrorBoundary>
 </template>
 
 <script setup lang="ts">
 import type { Account } from "@lysand-org/client/types";
+import ErrorBoundary from "~/components/errors/ErrorBoundary.vue";
+import AccountProfile from "~/components/timelines/account.vue";
+import AccountTimeline from "~/components/timelines/account.vue";
+import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
 definePageMeta({
     layout: "app",

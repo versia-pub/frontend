@@ -13,6 +13,8 @@
 import "~/styles/theme.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
+import Loading from "./components/loading.vue";
+import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 

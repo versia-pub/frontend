@@ -1,7 +1,7 @@
 <template>
-    <SocialElementsNotificationsNotif v-for="notif of timeline" :key="notif.id" :notification="notif" />
+    <Notif v-for="notif of timeline" :key="notif.id" :notification="notif" />
     <span ref="skeleton"></span>
-    <SocialElementsNotificationsNotif v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+    <Notif v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
     <div v-if="hasReachedEnd" class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
         <iconify-icon name="tabler:message-off" width="1.5rem" height="1.5rem" />
@@ -10,6 +10,8 @@
 </template>
 
 <script lang="ts" setup>
+import Notif from "../social-elements/notifications/notif.vue";
+
 const client = useClient();
 
 const isLoading = ref(true);

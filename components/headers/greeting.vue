@@ -2,7 +2,7 @@
     <div v-if="identity" class="bg-dark-800 z-0 p-6 my-5 relative overflow-hidden rounded ring-1 ring-white/5">
         <div class="sm:flex sm:items-center sm:justify-between gap-3">
             <div class="sm:flex sm:space-x-5 grow">
-                <AvatarsCentered :src="identity.account.avatar"
+                <Avatar :src="identity.account.avatar"
                     class="mx-auto shrink-0 size-20 rounded overflow-hidden ring-1 ring-white/10"
                     :alt="'Your avatar'" />
                 <div
@@ -16,6 +16,8 @@
 </template>
 
 <script lang="ts" setup>
+import Avatar from "../avatars/avatar.vue";
+
 const identity = useCurrentIdentity();
 const settings = useSettings();
 const { display_name } = useParsedAccount(

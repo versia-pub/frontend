@@ -1,7 +1,7 @@
 <template>
     <div v-if="small" class="flex flex-row">
         <NuxtLink :href="accountUrl" class="shrink-0">
-            <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+            <Avatar :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="size-6 rounded ring-1 ring-white/5" />
             <span class="sr-only">Account profile</span>
         </NuxtLink>
@@ -23,7 +23,7 @@
     </div>
     <div v-else class="flex flex-row">
         <NuxtLink :href="accountUrl" class="shrink-0">
-            <AvatarsCentered :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+            <Avatar :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
                 class="h-12 w-12 rounded ring-1 ring-white/5" />
             <span class="sr-only">Account profile</span>
         </NuxtLink>
@@ -67,6 +67,8 @@
 
 <script lang="ts" setup>
 import type { Status } from "@lysand-org/client/types";
+import Avatar from "~/components/avatars/avatar.vue";
+import Skeleton from "~/components/skeleton/Skeleton.vue";
 
 const props = defineProps<{
     note?: Status;

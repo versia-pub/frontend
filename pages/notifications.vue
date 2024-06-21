@@ -11,16 +11,20 @@
                     sign in</span>
             </button>
         </div>
-        <LazyTimelinesTimelineScroller v-else>
-            <LazyHeadersGreeting />
+        <TimelineScroller v-else>
+            <Greeting />
             <div class="rounded overflow-hidden ring-1 ring-white/10">
-                <LazyTimelinesNotifications />
+                <Notifications />
             </div>
-        </LazyTimelinesTimelineScroller>
+        </TimelineScroller>
     </div>
 </template>
 
 <script lang="ts" setup>
+import Greeting from "~/components/headers/greeting.vue";
+import Notifications from "~/components/timelines/notifications.vue";
+import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+
 definePageMeta({
     layout: "app",
 });

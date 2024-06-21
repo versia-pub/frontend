@@ -1,16 +1,17 @@
 <template>
-    <ComposerSuggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
+    <Suggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
         <div v-for="(user, index) in topUsers" :key="user.username" @click="emit('autocomplete', user.acct)"
             :ref="el => { if (el) userRefs[index] = el as Element }" :title="user.acct"
             :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'size-12', 'hover:bg-dark-900/70', { 'bg-primary-500': index === selectedUserIndex }]">
             <img :src="user.avatar" class="w-full h-full object-contain" :alt="`User ${user.acct}`" />
         </div>
-    </ComposerSuggestbox>
+    </Suggestbox>
 </template>
 
 <script lang="ts" setup>
 import type { Account } from "@lysand-org/client/types";
 import { distance } from "fastest-levenshtein";
+import Suggestbox from "./suggestbox.vue";
 const props = defineProps<{
     currentlyTypingMention: string | null;
     textarea: HTMLTextAreaElement | undefined;

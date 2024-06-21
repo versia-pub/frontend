@@ -7,15 +7,15 @@
         <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-primary-400">
             <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
                 <iconify-icon width="1.5rem" height="1.5rem" icon="tabler:repeat" class="size-6" aria-hidden="true" />
-                <AvatarsCentered v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
+                <Avatar v-if="reblog.avatar" :src="reblog.avatar" :alt="`${reblog.acct}'s avatar'`"
                     class="size-6 rounded shrink-0 ring-1 ring-white/10" />
                 <span><strong v-html="reblogDisplayName"></strong> reblogged</span>
             </Skeleton>
         </div>
-        <SocialElementsNotesReplyHeader v-if="isReply" :account_id="outputtedNote?.in_reply_to_account_id ?? null" />
-        <SocialElementsNotesHeader :note="outputtedNote" :small="small" />
-        <LazySocialElementsNotesNoteContent :note="outputtedNote" :loaded="loaded" :url="url" :content="content"
-            :is-quote="isQuote" :should-hide="shouldHide" />
+        <ReplyHeader v-if="isReply" :account_id="outputtedNote?.in_reply_to_account_id ?? null" />
+        <Header :note="outputtedNote" :small="small" />
+        <NoteContent :note="outputtedNote" :loaded="loaded" :url="url" :content="content" :is-quote="isQuote"
+            :should-hide="shouldHide" />
         <Skeleton class="!h-10 w-full mt-6" :enabled="!props.note || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
                 class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
@@ -45,7 +45,7 @@
                         class="size-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
                     <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
                 </button>
-                <DropdownsAdaptiveDropdown>
+                <AdaptiveDropdown>
                     <template #button>
                         <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:dots" class="size-5 text-gray-200"
                             aria-hidden="true" />
@@ -55,93 +55,91 @@
                     <template #items>
                         <Menu.ItemGroup>
                             <Menu.Item value="" v-if="isMyAccount">
-                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:edit', outputtedNote)"
+                                <ButtonDropdown @click="outputtedNote && useEvent('note:edit', outputtedNote)"
                                     icon="tabler:pencil" class="w-full">
                                     Edit
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="copy(JSON.stringify(props.note, null, 4))"
-                                    icon="tabler:code" class="w-full">
+                                <ButtonDropdown @click="copy(JSON.stringify(props.note, null, 4))" icon="tabler:code"
+                                    class="w-full">
                                     Copy API
                                     Response
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="copy(url)" icon="tabler:link" class="w-full">
+                                <ButtonDropdown @click="copy(url)" icon="tabler:link" class="w-full">
                                     Copy Link
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
-                                <ButtonsDropdownElement @click="copy(outputtedNote.url)" icon="tabler:link"
-                                    class="w-full">
+                                <ButtonDropdown @click="copy(outputtedNote.url)" icon="tabler:link" class="w-full">
                                     Copy Link (Origin)
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
-                                <ButtonsDropdownElement @click="openBlank(outputtedNote.url)"
-                                    icon="tabler:external-link" class="w-full">
+                                <ButtonDropdown @click="openBlank(outputtedNote.url)" icon="tabler:external-link"
+                                    class="w-full">
                                     View on Remote
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="isMyAccount">
-                                <ButtonsDropdownElement @click="remove" icon="tabler:backspace" :disabled="!identity"
+                                <ButtonDropdown @click="remove" icon="tabler:backspace" :disabled="!identity"
                                     class="w-full border-r-2 border-red-500">
                                     Delete
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                         </Menu.ItemGroup>
                         <hr class="border-white/10 rounded" v-if="identity" />
                         <Menu.ItemGroup v-if="identity">
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:reply', outputtedNote)"
+                                <ButtonDropdown @click="outputtedNote && useEvent('note:reply', outputtedNote)"
                                     icon="tabler:arrow-back-up" class="w-full">
                                     Reply
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="likeFn" icon="tabler:heart" class="w-full"
+                                <ButtonDropdown @click="likeFn" icon="tabler:heart" class="w-full"
                                     v-if="!outputtedNote?.favourited">
                                     Like
-                                </ButtonsDropdownElement>
-                                <ButtonsDropdownElement @click="likeFn" icon="tabler:heart-filled" class="w-full"
-                                    v-else>
+                                </ButtonDropdown>
+                                <ButtonDropdown @click="likeFn" icon="tabler:heart-filled" class="w-full" v-else>
                                     Unlike
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="reblogFn" icon="tabler:repeat" class="w-full"
+                                <ButtonDropdown @click="reblogFn" icon="tabler:repeat" class="w-full"
                                     v-if="!outputtedNote?.reblogged">
                                     Reblog
-                                </ButtonsDropdownElement>
-                                <ButtonsDropdownElement @click="reblogFn" icon="tabler:repeat" class="w-full" v-else>
+                                </ButtonDropdown>
+                                <ButtonDropdown @click="reblogFn" icon="tabler:repeat" class="w-full" v-else>
                                     Unreblog
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:quote', outputtedNote)"
+                                <ButtonDropdown @click="outputtedNote && useEvent('note:quote', outputtedNote)"
                                     icon="tabler:quote" class="w-full">
                                     Quote
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                         </Menu.ItemGroup>
                         <hr class="border-white/10 rounded" v-if="identity" />
                         <Menu.ItemGroup v-if="identity">
                             <Menu.Item value="">
-                                <ButtonsDropdownElement @click="outputtedNote && useEvent('note:report', outputtedNote)"
+                                <ButtonDropdown @click="outputtedNote && useEvent('note:report', outputtedNote)"
                                     icon="tabler:flag" class="w-full"
                                     :disabled="!permissions.includes(RolePermission.ManageOwnReports)">
                                     Report
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="permissions.includes(RolePermission.ManageAccounts)">
-                                <ButtonsDropdownElement icon="tabler:shield-bolt" class="w-full">
+                                <ButtonDropdown icon="tabler:shield-bolt" class="w-full">
                                     Open Moderation Panel
-                                </ButtonsDropdownElement>
+                                </ButtonDropdown>
                             </Menu.Item>
                         </Menu.ItemGroup>
                     </template>
-                </DropdownsAdaptiveDropdown>
+                </AdaptiveDropdown>
             </div>
         </Skeleton>
     </article>
@@ -150,7 +148,13 @@
 <script lang="ts" setup>
 import { Menu } from "@ark-ui/vue";
 import { RolePermission, type Status } from "@lysand-org/client/types";
+import Avatar from "~/components/avatars/avatar.vue";
+import ButtonDropdown from "~/components/buttons/button-dropdown.vue";
+import AdaptiveDropdown from "~/components/dropdowns/AdaptiveDropdown.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Header from "./header.vue";
+import NoteContent from "./note-content.vue";
+import ReplyHeader from "./reply-header.vue";
 
 const props = withDefaults(
     defineProps<{

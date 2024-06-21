@@ -1,11 +1,13 @@
 <template>
-    <TimelinesTimeline :timeline="timeline" :load-next="loadNext" :load-prev="loadPrev" />
+    <Timeline :timeline="timeline" :load-next="loadNext" :load-prev="loadPrev" />
 </template>
 
 <script lang="ts" setup>
+import Timeline from "./timeline.vue";
+
 const client = useClient();
 const timelineParameters = ref({});
-const { timeline, loadNext, loadPrev } = usePublicTimeline(
+const { timeline, loadNext, loadPrev } = useHomeTimeline(
     client.value,
     timelineParameters,
 );

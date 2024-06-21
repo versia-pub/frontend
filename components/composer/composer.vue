@@ -1,12 +1,11 @@
 <template>
     <div v-if="respondingTo" class="mb-4" role="region" aria-label="Responding to">
         <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
-            <LazySocialElementsNotesNote :note="respondingTo" :small="true" :disabled="true"
-                class="!rounded-none !bg-primary-500/10" />
+            <Note :note="respondingTo" :small="true" :disabled="true" class="!rounded-none !bg-primary-500/10" />
         </OverlayScrollbarsComponent>
     </div>
     <div class="px-6 pb-4 pt-5">
-        <InputsRichTextbox v-model:model-content="content" @paste="handlePaste" :disabled="loading"
+        <RichTextboxInput v-model:model-content="content" @paste="handlePaste" :disabled="loading"
             :placeholder="chosenSplash" :max-characters="characterLimit" class="focus:!ring-0 max-h-[70dvh]" />
         <!-- Content warning textbox -->
         <div v-if="cw" class="mb-4">
@@ -14,33 +13,33 @@
                 class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none"
                 aria-label="Content warning" />
         </div>
-        <ComposerFileUploader v-model:files="files" ref="uploader" />
+        <FileUploader v-model:files="files" ref="uploader" />
         <div class="flex flex-row gap-1 border-white/20">
-            <ComposerButton title="Mention someone">
+            <Button title="Mention someone">
                 <iconify-icon height="1.5rem" width="1.5rem" icon="tabler:at" aria-hidden="true" />
-            </ComposerButton>
-            <ComposerButton title="Toggle Markdown" @click="markdown = !markdown" :toggled="markdown">
+            </Button>
+            <Button title="Toggle Markdown" @click="markdown = !markdown" :toggled="markdown">
                 <iconify-icon width="1.25rem" height="1.25rem"
                     :icon="markdown ? 'tabler:markdown' : 'tabler:markdown-off'" aria-hidden="true" />
-            </ComposerButton>
-            <ComposerButton title="Use a custom emoji">
+            </Button>
+            <Button title="Use a custom emoji">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:mood-smile" aria-hidden="true" />
-            </ComposerButton>
-            <ComposerButton title="Add media" @click="openFilePicker">
+            </Button>
+            <Button title="Add media" @click="openFilePicker">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:photo-up" aria-hidden="true" />
-            </ComposerButton>
-            <ComposerButton title="Add a file" @click="openFilePicker">
+            </Button>
+            <Button title="Add a file" @click="openFilePicker">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:file-upload" aria-hidden="true" />
-            </ComposerButton>
-            <ComposerButton title="Add content warning" @click="cw = !cw" :toggled="cw">
+            </Button>
+            <Button title="Add content warning" @click="cw = !cw" :toggled="cw">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
-            </ComposerButton>
-            <ButtonsPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
+            </Button>
+            <ButtonPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
                 :disabled="!canSubmit || loading">
                 <span>{{
                     respondingType === "edit" ? "Edit!" : "Send!"
                 }}</span>
-            </ButtonsPrimary>
+            </ButtonPrimary>
         </div>
     </div>
 </template>
@@ -49,7 +48,12 @@
 import type { Instance, Status } from "@lysand-org/client/types";
 import { nanoid } from "nanoid";
 import { OverlayScrollbarsComponent } from "#imports";
-import type FileUploader from "./file-uploader.vue";
+import ButtonPrimary from "../buttons/button-primary.vue";
+import RichTextboxInput from "../inputs/rich-textbox-input.vue";
+import Note from "../social-elements/notes/note.vue";
+import Button from "./button.vue";
+// biome-ignore lint/style/useImportType: Biome doesn't see the Vue code
+import FileUploader from "./file-uploader.vue";
 
 const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();

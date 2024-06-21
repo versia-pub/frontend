@@ -1,13 +1,13 @@
 <template>
-    <InputsText @input="e => content = (e.target as HTMLInputElement).value" v-bind="$attrs, $props" v-model="content"
+    <TextInput @input="e => content = (e.target as HTMLInputElement).value" v-bind="$attrs, $props" v-model="content"
         :type="showPassword ? 'text' : 'password'" :spellcheck="false" />
     <Progress.Root class="flex flex-row items-center gap-x-2" v-if="showStrength">
         <Progress.Label class="text-xs text-gray-300 font-semibold w-12">
             {{ text }}
         </Progress.Label>
         <Progress.Track class="rounded-sm w-full h-2 duration-300" :style="{
-        backgroundColor: color,
-    }">
+            backgroundColor: color,
+        }">
             <Progress.Range />
         </Progress.Track>
     </Progress.Root>
@@ -27,6 +27,7 @@ const showPassword = ref(false);
 const content = ref("");
 
 import type { InputHTMLAttributes } from "vue";
+import TextInput from "./text-input.vue";
 
 interface Props extends /* @vue-ignore */ InputHTMLAttributes {
     isInvalid?: boolean;
@@ -66,6 +67,7 @@ const color = computed(() => {
 });
 
 onMounted(() => {
+    // Workaround to make sure the teleport is rendered after the parent component
     teleport.value = true;
 });
 </script>

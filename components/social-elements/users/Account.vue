@@ -1,26 +1,26 @@
 <template>
     <div class="w-full ring-1 ring-inset ring-white/5 pb-10 bg-dark-800">
-        <AvatarsCentered :src="account?.header" :alt="`${account?.acct}'s header image'`"
+        <Avatar :src="account?.header" :alt="`${account?.acct}'s header image'`"
             class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700 !rounded-none" />
 
         <div class="flex items-start justify-between px-4 py-3">
-            <AvatarsCentered :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
+            <Avatar :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
                 class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
 
-            <ButtonsSecondary v-if="account && account?.id === identity?.account?.id">Edit Profile
-            </ButtonsSecondary>
-            <ButtonsSecondary :loading="isLoading" @click="follow()"
+            <ButtonSecondary v-if="account && account?.id === identity?.account?.id">Edit Profile
+            </ButtonSecondary>
+            <ButtonSecondary :loading="isLoading" @click="follow()"
                 v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && !relationship.requested">
                 <span>Follow</span>
-            </ButtonsSecondary>
-            <ButtonsSecondary :loading="isLoading" @click="unfollow()"
+            </ButtonSecondary>
+            <ButtonSecondary :loading="isLoading" @click="unfollow()"
                 v-if="account && account?.id !== identity?.account?.id && relationship && relationship.following">
                 <span>Unfollow</span>
-            </ButtonsSecondary>
-            <ButtonsSecondary :loading="isLoading" :disabled="true"
+            </ButtonSecondary>
+            <ButtonSecondary :loading="isLoading" :disabled="true"
                 v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && relationship.requested">
                 <span>Requested</span>
-            </ButtonsSecondary>
+            </ButtonSecondary>
         </div>
 
         <div class="mt-2 px-4">
@@ -37,10 +37,10 @@
                 <Skeleton :enabled="skeleton" :min-width="130" :max-width="250">@{{ account?.acct }}</Skeleton>
             </span>
             <div class="flex flex-row flex-wrap gap-4 mt-4" v-if="isDeveloper || visibleRoles.length > 0">
-                <SocialElementsUsersBadge v-for="role of visibleRoles" :key="role.id" :name="role.name"
-                    :description="role.description" :img="role.icon" />
-                <SocialElementsUsersBadge v-if="isDeveloper" name="Lysand Developer"
-                    description="This user is a Lysand developer." :verified="true" />
+                <Badge v-for="role of visibleRoles" :key="role.id" :name="role.name" :description="role.description"
+                    :img="role.icon" />
+                <Badge v-if="isDeveloper" name="Lysand Developer" description="This user is a Lysand developer."
+                    :verified="true" />
             </div>
         </div>
 
@@ -99,6 +99,10 @@
 
 <script lang="ts" setup>
 import type { Account } from "@lysand-org/client/types";
+import Avatar from "~/components/avatars/avatar.vue";
+import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Badge from "./Badge.vue";
 
 const props = defineProps<{
     account?: Account;

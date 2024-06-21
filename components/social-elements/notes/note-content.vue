@@ -9,11 +9,9 @@
         </Skeleton>
         <div v-if="note && note.media_attachments.length > 0"
             class="[&:not(:first-child)]:mt-6 grid grid-cols-2 gap-4 [&>*]:aspect-square [&:has(>:last-child:nth-child(1))>*]:aspect-video [&:has(>:last-child:nth-child(1))]:block">
-            <SocialElementsNotesAttachment v-for="attachment of note.media_attachments" :key="attachment.id"
-                :attachment="attachment" />
+            <Attachment v-for="attachment of note.media_attachments" :key="attachment.id" :attachment="attachment" />
         </div>
-        <LazySocialElementsNotesNote v-if="isQuote && note?.quote" :note="note?.quote" :small="true"
-            class="mt-4 !rounded" />
+        <Note v-if="isQuote && note?.quote" :note="note?.quote" :small="true" class="mt-4 !rounded" />
     </div>
     <div v-else
         class="rounded text-center ring-1 !max-w-full ring-white/10 h-52 mt-6 prose prose-invert p-4 flex flex-col justify-center items-center">
@@ -22,12 +20,16 @@
         <!-- Spoiler text is it's specified -->
         <span v-if="note?.spoiler_text" class="mt-2 break-all">{{ note.spoiler_text
             }}</span>
-        <ButtonsSecondary @click="collapsed = false" class="mt-4">Show content</ButtonsSecondary>
+        <ButtonSecondary @click="collapsed = false" class="mt-4">Show content</ButtonSecondary>
     </div>
 </template>
 
 <script lang="ts" setup>
 import type { Status } from "@lysand-org/client/types";
+import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Attachment from "./attachment.vue";
+import Note from "./note.vue";
 
 const props = defineProps<{
     content: string | null;

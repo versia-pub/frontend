@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import type { Account } from "@lysand-org/client/types";
 
-const props = defineProps<{
+defineProps<{
     account: Account;
 }>();
 </script>

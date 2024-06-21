@@ -1,17 +1,18 @@
 <template>
-    <ComposerSuggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
+    <Suggestbox class="max-h-40 overflow-auto !w-auto !flex-row">
         <div v-for="(emoji, index) in topEmojis" :key="emoji.shortcode" @click="emit('autocomplete', emoji.shortcode)"
             :ref="el => { if (el) emojiRefs[index] = el as Element }" :title="emoji.shortcode"
             :class="['flex', 'justify-center', 'shrink-0', 'items-center', 'p-2', 'size-12', 'hover:bg-dark-900/70', { 'bg-primary-500': index === selectedEmojiIndex }]">
             <img :src="emoji.url" class="w-full h-full object-contain"
                 :alt="`Emoji with shortcode ${emoji.shortcode}`" />
         </div>
-    </ComposerSuggestbox>
+    </Suggestbox>
 </template>
 
 <script lang="ts" setup>
 import type { Emoji } from "@lysand-org/client/types";
 import { distance } from "fastest-levenshtein";
+import Suggestbox from "./suggestbox.vue";
 const props = defineProps<{
     currentlyTypingEmoji: string | null;
     textarea: HTMLTextAreaElement | undefined;

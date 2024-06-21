@@ -8,6 +8,7 @@
 
 <script lang="ts" setup>
 import type { HTMLAttributes } from "vue";
+import Skeleton from "../skeleton/Skeleton.vue";
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
     src?: string;

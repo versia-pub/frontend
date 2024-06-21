@@ -13,12 +13,14 @@
 
         <div v-if="instance?.contact.account" class="flex flex-col gap-2 mt-auto">
             <h2 class="text-gray-200 font-semibold uppercase text-xs">Administrator</h2>
-            <SocialElementsUsersSmallCard :account="instance.contact.account" />
+            <SmallCard :account="instance.contact.account" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import SmallCard from "../users/SmallCard.vue";
+
 const client = useClient();
 const instance = useInstance();
 const description = useExtendedDescription(client);

@@ -1,3 +1,4 @@
 {
-    "conventionalCommits.scopes": ["build"]
+    "conventionalCommits.scopes": ["build"],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

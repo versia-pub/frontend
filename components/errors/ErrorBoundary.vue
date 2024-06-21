@@ -7,9 +7,9 @@
                 </h1>
                 <p class="mt-6 text-base leading-7 text-gray-400" v-html="error.message"></p>
                 <div class="mt-10 grid grid-cols-2 gap-x-6 mx-auto max-w-md">
-                    <ButtonsPrimary class="w-full" @click="back">Go back</ButtonsPrimary>
+                    <ButtonPrimary class="w-full" @click="back">Go back</ButtonPrimary>
                     <a href="https://github.com/lysand-org/lysand-fe/issues" target="_blank">
-                        <ButtonsSecondary class="w-full">Report an issue</ButtonsSecondary>
+                        <ButtonSecondary class="w-full">Report an issue</ButtonSecondary>
                     </a>
                 </div>
             </div>
@@ -19,6 +19,9 @@
 </template>
 
 <script lang="ts" setup>
+import ButtonPrimary from "../buttons/button-primary.vue";
+import ButtonSecondary from "../buttons/button-secondary.vue";
+
 const error = ref<{
     title: string;
     message: string;

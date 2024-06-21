@@ -1,10 +1,10 @@
 <template>
     <TransitionGroup leave-active-class="ease-in duration-200" leave-from-class="scale-100 opacity-100"
         leave-to-class="opacity-0 scale-90">
-        <SocialElementsNotesNote v-for="note of timeline" :key="note.id" :note="note" />
+        <Note v-for="note of timeline" :key="note.id" :note="note" />
     </TransitionGroup>
     <span ref="skeleton"></span>
-    <LazySocialElementsNotesNote v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
+    <Note v-for="_ of 5" v-if="!hasReachedEnd" :skeleton="true" />
 
     <div v-if="hasReachedEnd" class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
         <iconify-icon icon="tabler:message-off" width="1.5rem" height="1.5rem" />
@@ -14,6 +14,7 @@
 
 <script lang="ts" setup>
 import type { Status } from "@lysand-org/client/types";
+import Note from "../social-elements/notes/note.vue";
 
 const props = defineProps<{
     timeline: Status[];

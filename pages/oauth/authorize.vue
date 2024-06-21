@@ -13,25 +13,25 @@
                 </div>
 
                 <VeeField name="identifier" as="div" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="identifier">Username or Email</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsText id="identifier" placeholder="joemama" autocomplete="email username" required
+                    <Field>
+                        <LabelAndError>
+                            <Label for="identifier">Username or Email</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <TextInput id="identifier" placeholder="joemama" autocomplete="email username" required
                             v-bind="field" :is-invalid="!!errorMessage" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <VeeField name="password" as="div" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password">Password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password" placeholder="hunter2" autocomplete="current-password" required
+                    <Field>
+                        <LabelAndError>
+                            <Label for="password">Password</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <PasswordInput id="password" placeholder="hunter2" autocomplete="current-password" required
                             v-bind="field" :is-invalid="!!errorMessage" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="w-full space-y-3">
@@ -42,13 +42,13 @@
                     <div class="grid md:grid-cols-2 md:[&:has(>:last-child:nth-child(1))]:grid-cols-1 gap-4 w-full">
                         <a v-for="provider of ssoConfig.providers" :key="provider.id"
                             :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&client_id=${params.client_id}&scope=${params.scope}`">
-                            <ButtonsSecondary class="flex flex-row w-full items-center justify-center gap-3">
+                            <ButtonSecondary class="flex flex-row w-full items-center justify-center gap-3">
                                 <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`"
                                     class="w-6 h-6" />
                                 <div class="flex flex-col gap-0 justify-center">
                                     <h3 class="font-bold">{{ provider.name }}</h3>
                                 </div>
-                            </ButtonsSecondary>
+                            </ButtonSecondary>
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     here, please close this page.
                 </p>
 
-                <ButtonsPrimary type="submit" class="w-full">Sign in</ButtonsPrimary>
+                <ButtonPrimary type="submit" class="w-full">Sign in</ButtonPrimary>
             </VeeForm>
         </div>
         <div v-else class="mx-auto max-w-md">
@@ -100,6 +100,14 @@
 import { LysandClient } from "@lysand-org/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+import ButtonPrimary from "~/components/buttons/button-primary.vue";
+import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import FieldError from "~/components/inputs/field-error.vue";
+import Field from "~/components/inputs/field.vue";
+import LabelAndError from "~/components/inputs/label-and-error.vue";
+import Label from "~/components/inputs/label.vue";
+import PasswordInput from "~/components/inputs/password-input.vue";
+import TextInput from "~/components/inputs/text-input.vue";
 
 const schema = toTypedSchema(
     z.object({

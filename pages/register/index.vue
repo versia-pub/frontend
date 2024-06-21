@@ -12,66 +12,65 @@
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Account details</h1>
 
                 <VeeField name="username" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="username">Username</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsText id="username" type="text" placeholder="thespeedy" required v-bind="field"
+                    <Field>
+                        <LabelAndError>
+                            <Label for="username">Username</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <TextInput id="username" type="text" placeholder="thespeedy" required v-bind="field"
                             :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="username"
                             :spellcheck="false" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <VeeField name="email" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="email">Email address</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsText id="email" type="email" placeholder="joseph.jones@gmail.com" required v-bind="field"
+                    <Field>
+                        <LabelAndError>
+                            <Label for="email">Email address</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <TextInput id="email" type="email" placeholder="joseph.jones@gmail.com" required v-bind="field"
                             :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="email" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password">Password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password" placeholder="hunter2" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" :show-strength="true"
-                            autocomplete="new-password" />
-                    </InputsField>
+                    <Field>
+                        <LabelAndError>
+                            <Label for="password">Password</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <PasswordInput id="password" placeholder="hunter2" required v-bind="field" :disabled="isLoading"
+                            :is-invalid="!!errorMessage" :show-strength="true" autocomplete="new-password" />
+                    </Field>
                 </VeeField>
 
                 <VeeField name="password-confirm" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
-                        <InputsLabelAndError>
-                            <InputsLabel for="password-confirm">Confirm password</InputsLabel>
-                            <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                        </InputsLabelAndError>
-                        <InputsPassword id="password-confirm" placeholder="hunter2" required v-bind="field"
+                    <Field>
+                        <LabelAndError>
+                            <Label for="password-confirm">Confirm password</Label>
+                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                        </LabelAndError>
+                        <PasswordInput id="password-confirm" placeholder="hunter2" required v-bind="field"
                             :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="new-password" />
-                    </InputsField>
+                    </Field>
                 </VeeField>
 
                 <VeeField name="tos" v-slot="{ errorMessage, field }" validate-on-change>
-                    <InputsField>
+                    <Field>
                         <div class="flex flex-row gap-x-2 items-center">
-                            <InputsCheckbox :checked="true" id="tos" required :disabled="true" v-bind="field" />
-                            <InputsLabel for="tos" class="!text-gray-200">
+                            <CheckboxInput :checked="true" id="tos" required :disabled="true" v-bind="field" />
+                            <Label for="tos" class="!text-gray-200">
                                 I agree to the Terms of Service
-                            </InputsLabel>
+                            </Label>
                         </div>
-                        <InputsError v-if="errorMessage">{{ errorMessage }}</InputsError>
-                    </InputsField>
+                        <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
+                    </Field>
                 </VeeField>
 
                 <Collapsible.Root>
                     <Collapsible.Trigger class="w-full">
-                        <ButtonsSecondary type="button" class="w-full">View Terms of Service</ButtonsSecondary>
+                        <ButtonSecondary type="button" class="w-full">View Terms of Service</ButtonSecondary>
                     </Collapsible.Trigger>
                     <Collapsible.Content
                         class="prose prose-invert prose-sm p-4 ring-1 ring-white/10 bg-dark-700 rounded mt-3">
@@ -85,8 +84,8 @@
                     cannot see your password.
                 </p>
 
-                <ButtonsPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonsPrimary>
+                <ButtonPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
+                    "Register" }}</ButtonPrimary>
             </VeeForm>
         </div>
         <div v-else>
@@ -105,6 +104,15 @@ import { Collapsible } from "@ark-ui/vue";
 import type { ResponseError } from "@lysand-org/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+import ButtonPrimary from "~/components/buttons/button-primary.vue";
+import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import CheckboxInput from "~/components/inputs/checkbox-input.vue";
+import FieldError from "~/components/inputs/field-error.vue";
+import Field from "~/components/inputs/field.vue";
+import LabelAndError from "~/components/inputs/label-and-error.vue";
+import Label from "~/components/inputs/label.vue";
+import PasswordInput from "~/components/inputs/password-input.vue";
+import TextInput from "~/components/inputs/text-input.vue";
 
 const schema = toTypedSchema(
     z

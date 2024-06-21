@@ -2,7 +2,7 @@
     <component :is="disableLink ? 'div' : NuxtLink" :href="accountUrl" class="flex flex-row">
         <Skeleton :enabled="!account" shape="rect" class="!h-12 w-12">
             <div class="shrink-0">
-                <AvatarsCentered class="h-12 w-12 rounded ring-1 ring-white/5" :src="account?.avatar"
+                <Avatar class="h-12 w-12 rounded ring-1 ring-white/5" :src="account?.avatar"
                     :alt="`${account?.acct}'s avatar'`" />
             </div>
         </Skeleton>
@@ -28,6 +28,8 @@
 
 <script lang="ts" setup>
 import type { Account } from "@lysand-org/client/types";
+import Avatar from "~/components/avatars/avatar.vue";
+import Skeleton from "~/components/skeleton/Skeleton.vue";
 import { NuxtLink } from "#components";
 
 const props = defineProps<{

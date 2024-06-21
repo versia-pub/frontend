@@ -30,8 +30,8 @@
                 </button>
                 <!-- Alt text editor -->
                 <Popover.Root :positioning="{
-            strategy: 'fixed',
-        }" v-if="data.api_id" @update:open="o => !o && updateAltText(data.id, data.alt_text)">
+                    strategy: 'fixed',
+                }" v-if="data.api_id" @update:open="o => !o && updateAltText(data.id, data.alt_text)">
                     <Popover.Trigger aria-hidden="true"
                         class="absolute top-1 left-1 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-6">
                         <iconify-icon icon="tabler:alt" width="none" class="size-4" />
@@ -42,10 +42,10 @@
                             <textarea :disabled="data.progress < 1.0" @keydown.enter.stop v-model="data.alt_text"
                                 placeholder="Add alt text"
                                 class="w-full p-2 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
-                            <ButtonsSecondary @click="updateAltText(data.id, data.alt_text)" class="w-full"
+                            <ButtonSecondary @click="updateAltText(data.id, data.alt_text)" class="w-full"
                                 :loading="data.progress < 1.0">
                                 <span>Edit</span>
-                            </ButtonsSecondary>
+                            </ButtonSecondary>
                         </Popover.Content>
                     </Popover.Positioner>
                 </Popover.Root>
@@ -57,6 +57,7 @@
 <script lang="ts" setup>
 import { Popover } from "@ark-ui/vue";
 import { nanoid } from "nanoid";
+import ButtonSecondary from "../buttons/button-secondary.vue";
 
 const files = defineModel<
     {

@@ -12,11 +12,11 @@
                 Timelines</h3>
 
             <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
-                <ButtonsBase
+                <ButtonBase
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
                     <iconify-icon :icon="timeline.icon" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
-                </ButtonsBase>
+                </ButtonBase>
             </NuxtLink>
 
         </div>
@@ -25,14 +25,14 @@
             <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
 
-            <SidebarsAccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
+            <AccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
                 @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
             <NuxtLink href="/register" v-if="!identity">
-                <ButtonsBase
+                <ButtonBase
                     class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
                     <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
                     <span class="pr-28 line-clamp-1">Register</span>
-                </ButtonsBase>
+                </ButtonBase>
             </NuxtLink>
             <NuxtLink href="/settings" v-if="identity">
                 <button @click="$emit('signIn')" class="w-full overflow-hidden">
@@ -51,7 +51,7 @@
             <h3 v-if="identity"
                 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Posts</h3>
-            <ButtonsBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
+            <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
                 class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-primary-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
                 <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
                 <span class="pr-28 line-clamp-1">Compose</span>
@@ -60,12 +60,12 @@
                     <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
                         aria-hidden="true" />
                 </kbd>
-            </ButtonsBase>
-            <ButtonsBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
+            </ButtonBase>
+            <ButtonBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
                 class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-primary-600 overflow-hidden h-12 w-full duration-200">
                 <iconify-icon icon="tabler:refresh" class="shrink-0 text-2xl" />
                 <span class="pr-28 line-clamp-1">Update</span>
-            </ButtonsBase>
+            </ButtonBase>
 
         </div>
     </aside>
@@ -73,30 +73,30 @@
     <nav
         :class="['fixed bottom-0 left-0 right-0 z-20 h-16 md:hidden grid gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
 
-        <DropdownsAdaptiveDropdown>
+        <AdaptiveDropdown>
             <template #button>
-                <ButtonsMobileNavbarButton icon="tabler:home" text="Timelines" />
+                <ButtonMobileNavbar icon="tabler:home" text="Timelines" />
             </template>
 
             <template #items>
                 <Menu.Item value="" v-for="timeline in visibleTimelines" :key="timeline.href">
                     <NuxtLink :href="timeline.href">
-                        <ButtonsDropdownElement :icon="timeline.icon" class="w-full">
+                        <ButtonDropdown :icon="timeline.icon" class="w-full">
                             {{ timeline.name }}
-                        </ButtonsDropdownElement>
+                        </ButtonDropdown>
                     </NuxtLink>
                 </Menu.Item>
             </template>
-        </DropdownsAdaptiveDropdown>
+        </AdaptiveDropdown>
         <NuxtLink href="/notifications" class="w-full">
-            <ButtonsMobileNavbarButton icon="tabler:bell" text="Notifications" />
+            <ButtonMobileNavbar icon="tabler:bell" text="Notifications" />
         </NuxtLink>
-        <ButtonsMobileNavbarButton v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)"
-            icon="tabler:refresh" text="Update" />
-        <SidebarsAccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
+        <ButtonMobileNavbar v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)" icon="tabler:refresh"
+            text="Update" />
+        <AccountPicker v-else @sign-in="signIn().finally(() => loadingAuth = false)"
             @sign-out="id => signOut(id).finally(() => loadingAuth = false)">
-            <ButtonsMobileNavbarButton icon="tabler:user" text="Account" />
-        </SidebarsAccountPicker>
+            <ButtonMobileNavbar icon="tabler:user" text="Account" />
+        </AccountPicker>
         <button @click="compose" v-if="identity"
             class="flex flex-col items-center justify-center p-2 rounded bg-gradient-to-tr from-[theme(colors.primary.300/70%)] via-purple-300/70 to-indigo-400/70">
             <iconify-icon icon="tabler:writing" class="text-2xl" />
@@ -107,6 +107,11 @@
 
 <script lang="ts" setup>
 import { Menu } from "@ark-ui/vue";
+import ButtonBase from "../buttons/button-base.vue";
+import ButtonDropdown from "../buttons/button-dropdown.vue";
+import ButtonMobileNavbar from "../buttons/button-mobile-navbar.vue";
+import AdaptiveDropdown from "../dropdowns/AdaptiveDropdown.vue";
+import AccountPicker from "./account-picker.vue";
 const { $pwa } = useNuxtApp();
 const timelines = ref([
     {

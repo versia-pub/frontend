@@ -4,7 +4,7 @@
             <Skeleton :enabled="!notification" shape="rect" class="!h-6" :min-width="40" :max-width="100"
                 width-unit="%">
                 <iconify-icon :icon="icon" width="1.5rem" height="1.5rem" class="text-gray-200" aria-hidden="true" />
-                <AvatarsCentered v-if="notification?.account?.avatar" :src="notification?.account.avatar"
+                <Avatar v-if="notification?.account?.avatar" :src="notification?.account.avatar"
                     :alt="`${notification?.account.acct}'s avatar'`"
                     class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />
                 <span class="text-gray-200 line-clamp-1"><strong v-html="display_name"></strong> {{ text
@@ -12,24 +12,29 @@
             </Skeleton>
         </div>
         <div>
-            <LazySocialElementsNotesNote v-if="notification?.status || !notification" :note="notification?.status"
-                :small="true" />
+            <Note v-if="notification?.status || !notification" :note="notification?.status" :small="true" />
             <div v-else-if="notification.account" class="p-6 ring-1 ring-white/5 bg-dark-800">
-                <SocialElementsUsersSmallCard :account="notification.account" />
+                <SmallCard :account="notification.account" />
             </div>
             <div v-if="notification?.type === 'follow_request' && relationship?.requested_by"
                 class="w-full grid grid-cols-2 gap-4 p-2 ">
-                <ButtonsPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span>
-                </ButtonsPrimary>
-                <ButtonsSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span>
-                </ButtonsSecondary>
+                <ButtonPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span>
+                </ButtonPrimary>
+                <ButtonSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span>
+                </ButtonSecondary>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { Notification, Relationship } from "@lysand-org/client/types";
+import type { Notification } from "@lysand-org/client/types";
+import Avatar from "~/components/avatars/avatar.vue";
+import ButtonPrimary from "~/components/buttons/button-primary.vue";
+import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Note from "../notes/note.vue";
+import SmallCard from "../users/SmallCard.vue";
 
 const props = defineProps<{
     notification?: Notification;

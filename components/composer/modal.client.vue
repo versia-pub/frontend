@@ -31,6 +31,7 @@
 
 <script lang="ts" setup>
 import { Dialog } from "@ark-ui/vue";
+import Composer from "./composer.vue";
 const open = ref(false);
 
 const identity = useCurrentIdentity();
