@@ -15,7 +15,7 @@
         </div>
         <FileUploader v-model:files="files" ref="uploader" />
         <div class="flex flex-row gap-1 border-white/20">
-            <Button title="Mention someone">
+            <Button title="Mention someone" @click="content = content + '@'">
                 <iconify-icon height="1.5rem" width="1.5rem" icon="tabler:at" aria-hidden="true" />
             </Button>
             <Button title="Toggle Markdown" @click="markdown = !markdown" :toggled="markdown">
@@ -38,7 +38,7 @@
                 :disabled="!canSubmit || loading">
                 <span>{{
                     respondingType === "edit" ? "Edit!" : "Send!"
-                }}</span>
+                    }}</span>
             </ButtonPrimary>
         </div>
     </div>
