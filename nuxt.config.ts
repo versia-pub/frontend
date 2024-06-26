@@ -616,6 +616,7 @@ export default defineNuxtConfig({
             siteName: "Lysand",
             trailingSlash: true,
             apiHost: "https://social.lysand.org",
+            onionApiHost: undefined,
         },
     },
     imports: {

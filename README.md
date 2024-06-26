@@ -75,6 +75,8 @@ services:
             - lysand-net
         environment:
             NUXT_PUBLIC_API_HOST: https://yourserver.com
+            # For Tor users, set the following environment variable in addition to the above
+            # NUXT_PUBLIC_ONION_API_HOST: http://youronionserver.onion
 ```
 
 Then, the frontend will be available at `http://localhost:3000` inside the container. To link it to a Lysand Server, set the `NUXT_PUBLIC_API_HOST` environment variable to the server's URL.
