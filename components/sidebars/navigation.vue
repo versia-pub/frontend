@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 duration-200 group ring-1 ring-dark-500"
+        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 w-full duration-200 group ring-1 ring-dark-500"
         aria-label="Navigation" role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
@@ -12,10 +12,9 @@
                 Timelines</h3>
 
             <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
-                <ButtonBase
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon :icon="timeline.icon" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">{{ timeline.name }}</span>
+                <ButtonBase theme="secondary" class="w-full !justify-start">
+                    <Icon :icon="timeline.icon" class="!size-6" />
+                    <span class="shrink-0 line-clamp-1">{{ timeline.name }}</span>
                 </ButtonBase>
             </NuxtLink>
 
@@ -28,43 +27,32 @@
             <AccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
                 @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
             <NuxtLink href="/register" v-if="!identity">
-                <ButtonBase
-                    class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 overflow-hidden h-12 w-full duration-200">
-                    <iconify-icon icon="tabler:certificate" class="shrink-0 text-2xl" />
-                    <span class="pr-28 line-clamp-1">Register</span>
+                <ButtonBase theme="secondary" class="w-full !justify-start">
+                    <Icon icon="tabler:certificate" class="!size-6" />
+                    <span class="shrink-0 line-clamp-1">Register</span>
                 </ButtonBase>
             </NuxtLink>
             <NuxtLink href="/settings" v-if="identity">
-                <button @click="$emit('signIn')" class="w-full overflow-hidden">
-                    <div class="rounded text-left flex flex-row items-center gap-x-2 hover:scale-[95%]">
-                        <div
-                            class="shrink-0 size-12 border-dashed border-white/20 border flex items-center justify-center rounded">
-                            <iconify-icon icon="tabler:adjustments" class="size-6 text-gray-200" width="none" />
-                        </div>
-                        <span
-                            class="line-clamp-1 font-semibold p-1 justify-around text-sm text-gray-300 grow overflow-hidden">
-                            Settings
-                        </span>
-                    </div>
-                </button>
+                <ButtonBase @click="$emit('signIn')" theme="secondary" class="w-full !justify-start">
+                    <Icon icon="tabler:adjustments" class="!size-6" />
+                    <span class="shrink-0 line-clamp-1">Settings</span>
+                </ButtonBase>
             </NuxtLink>
             <h3 v-if="identity"
                 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Posts</h3>
-            <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)"
-                class="flex flex-row text-left items-center justify-start gap-3 text-lg hover:ring-1 ring-white/10 bg-gradient-to-tr from-primary-300 via-purple-300 to-indigo-400 overflow-hidden h-12 w-full duration-200">
-                <iconify-icon icon="tabler:writing" class="shrink-0 text-2xl" />
-                <span class="pr-28 line-clamp-1">Compose</span>
-                <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row">
+            <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)" theme="gradient" class="!justify-start">
+                <Icon icon="tabler:writing" class="!size-6" />
+                <span class="shrink-0 line-clamp-1">Compose</span>
+                <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row ml-auto">
                     <iconify-icon icon="tabler:keyboard" height="1rem" width="1rem" class="inline" aria-hidden="true" />
                     <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
                         aria-hidden="true" />
                 </kbd>
             </ButtonBase>
-            <ButtonBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
-                class="flex flex-row text-left items-center justify-start gap-3 text-lg ring-2   ring-primary-600 overflow-hidden h-12 w-full duration-200">
-                <iconify-icon icon="tabler:refresh" class="shrink-0 text-2xl" />
-                <span class="pr-28 line-clamp-1">Update</span>
+            <ButtonBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker" theme="primary" class="w-full !justify-start">
+                <Icon icon="tabler:refresh" class="!size-6" />
+                <span class="shrink-0 line-clamp-1">Update</span>
             </ButtonBase>
 
         </div>
@@ -107,9 +95,11 @@
 
 <script lang="ts" setup>
 import { Menu } from "@ark-ui/vue";
-import ButtonBase from "../buttons/button-base.vue";
+import ButtonBase from "~/packages/ui/components/buttons/button.vue";
+import Icon from "~/packages/ui/components/icons/icon.vue";
 import ButtonDropdown from "../buttons/button-dropdown.vue";
 import ButtonMobileNavbar from "../buttons/button-mobile-navbar.vue";
+import Button from "../composer/button.vue";
 import AdaptiveDropdown from "../dropdowns/AdaptiveDropdown.vue";
 import AccountPicker from "./account-picker.vue";
 const { $pwa } = useNuxtApp();

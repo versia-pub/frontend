@@ -12,6 +12,7 @@ import Skeleton from "../skeleton/Skeleton.vue";
 defineOptions({
     inheritAttrs: false,
 });
+
 const props = defineProps<{
     src?: string;
     alt?: string;

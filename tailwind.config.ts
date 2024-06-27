@@ -42,5 +42,5 @@ export default (<Config>{
         },
     },
     plugins: [forms, typography],
-    content: [],
+    content: ["packages/**/*.{vue,js,ts}"],
 });

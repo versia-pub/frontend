@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
 import { Tabs } from "@ark-ui/vue";
+import ButtonBase from "~/packages/ui/components/buttons/button.vue";
 import { SettingPages } from "~/settings";
-import ButtonBase from "../buttons/button-base.vue";
 
 const tab = ref<SettingPages>(
     (window.location.hash.slice(1) as SettingPages) || SettingPages.Account,
