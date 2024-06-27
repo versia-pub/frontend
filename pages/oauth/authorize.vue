@@ -4,7 +4,7 @@
             class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
         <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema"
-                :action="`/api/auth/login?redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&client_id=${params.client_id}&scope=${params.scope}`">
+                :action="redirectUrl.toString()">
                 <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Login to your account</h1>
 
                 <div v-if="params.error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="grid md:grid-cols-2 md:[&:has(>:last-child:nth-child(1))]:grid-cols-1 gap-4 w-full">
                         <a v-for="provider of ssoConfig.providers" :key="provider.id"
-                            :href="`/oauth/sso?issuer=${provider.id}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&client_id=${params.client_id}&scope=${params.scope}`">
+                            :href="issuerRedirectUrl(provider.id)">
                             <ButtonSecondary class="flex flex-row w-full items-center justify-center gap-3">
                                 <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`"
                                     class="w-6 h-6" />
@@ -130,4 +130,39 @@ const instance = useInstanceFromClient(
 );
 
 const ssoConfig = computed(() => instance.value?.sso);
+
+const redirectUrl = new URL("/api/auth/login", useBaseUrl().value);
+
+if (params.redirect_uri) {
+    redirectUrl.searchParams.set("redirect_uri", params.redirect_uri as string);
+}
+if (params.response_type) {
+    redirectUrl.searchParams.set(
+        "response_type",
+        params.response_type as string,
+    );
+}
+if (params.client_id) {
+    redirectUrl.searchParams.set("client_id", params.client_id as string);
+}
+if (params.scope) {
+    redirectUrl.searchParams.set("scope", params.scope as string);
+}
+if (params.state) {
+    redirectUrl.searchParams.set("state", params.state as string);
+}
+
+const issuerRedirectUrl = (issuerId: string) => {
+    const url = new URL("/oauth/sso", useBaseUrl().value);
+    params.redirect_uri &&
+        url.searchParams.set("redirect_uri", params.redirect_uri as string);
+    params.response_type &&
+        url.searchParams.set("response_type", params.response_type as string);
+    params.client_id &&
+        url.searchParams.set("client_id", params.client_id as string);
+    params.scope && url.searchParams.set("scope", params.scope as string);
+    params.state && url.searchParams.set("state", params.state as string);
+    url.searchParams.set("issuer", issuerId);
+    return url.toString();
+};
 </script>
