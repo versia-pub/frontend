@@ -39,7 +39,7 @@
                     password. Make sure to put it in a password manager.
                 </p>
 
-                <ButtonPrimary type="submit" class="w-full">Reset</ButtonPrimary>
+                <Button theme="primary" type="submit" class="w-full">Reset</Button>
             </VeeForm>
         </div>
         <div v-else-if="params.success">
@@ -69,12 +69,12 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-import ButtonPrimary from "~/components/buttons/button-primary.vue";
 import FieldError from "~/components/inputs/field-error.vue";
 import Field from "~/components/inputs/field.vue";
 import LabelAndError from "~/components/inputs/label-and-error.vue";
 import Label from "~/components/inputs/label.vue";
 import PasswordInput from "~/components/inputs/password-input.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const identity = useCurrentIdentity();
 identity.value = null;

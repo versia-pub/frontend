@@ -70,7 +70,7 @@
 
                 <Collapsible.Root>
                     <Collapsible.Trigger class="w-full">
-                        <ButtonSecondary type="button" class="w-full">View Terms of Service</ButtonSecondary>
+                        <Button theme="secondary" class="w-full">View Terms of Service</Button>
                     </Collapsible.Trigger>
                     <Collapsible.Content
                         class="prose prose-invert prose-sm p-4 ring-1 ring-white/10 bg-dark-700 rounded mt-3">
@@ -84,8 +84,8 @@
                     cannot see your password.
                 </p>
 
-                <ButtonPrimary type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
-                    "Register" }}</ButtonPrimary>
+                <Button theme="primary" type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
+                    "Register" }}</Button>
             </VeeForm>
         </div>
         <div v-else>
@@ -104,8 +104,6 @@ import { Collapsible } from "@ark-ui/vue";
 import type { ResponseError } from "@lysand-org/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-import ButtonPrimary from "~/components/buttons/button-primary.vue";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
 import CheckboxInput from "~/components/inputs/checkbox-input.vue";
 import FieldError from "~/components/inputs/field-error.vue";
 import Field from "~/components/inputs/field.vue";
@@ -113,6 +111,7 @@ import LabelAndError from "~/components/inputs/label-and-error.vue";
 import Label from "~/components/inputs/label.vue";
 import PasswordInput from "~/components/inputs/password-input.vue";
 import TextInput from "~/components/inputs/text-input.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const schema = toTypedSchema(
     z

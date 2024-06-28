@@ -13,13 +13,13 @@
                         <span class="font-semibold text-gray-300">{{ provider.name }}</span>
                     </div>
                     <div>
-                        <ButtonPrimary :loading="loading" v-if="!linkedProviders?.find(p => p.id === provider.id)"
-                            @click="link(provider.id)">
-                            <span>Link</span>
-                        </ButtonPrimary>
-                        <ButtonSecondary :loading="loading" v-else @click="unlink(provider.id)">
-                            <span>Unlink</span>
-                        </ButtonSecondary>
+                        <Button theme="primary" :loading="loading"
+                            v-if="!linkedProviders?.find(p => p.id === provider.id)" @click="link(provider.id)">
+                            Link
+                        </Button>
+                        <Button theme="secondary" :loading="loading" v-else @click="unlink(provider.id)">
+                            Unlink
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -29,9 +29,8 @@
 
 <script lang="ts" setup>
 import type { ResponseError } from "@lysand-org/client";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import Avatar from "../avatars/avatar.vue";
-import ButtonPrimary from "../buttons/button-primary.vue";
-import ButtonSecondary from "../buttons/button-secondary.vue";
 
 const client = useClient();
 const ssoConfig = useSSOConfig();

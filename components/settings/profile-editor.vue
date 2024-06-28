@@ -30,12 +30,12 @@
             </div>
 
             <div class="px-4 mt-4 grid grid-cols-2 gap-2">
-                <ButtonPrimary class="w-full" type="submit" :loading="loading">
+                <Button theme="primary" class="w-full" type="submit" :loading="loading">
                     <span>Save</span>
-                </ButtonPrimary>
-                <ButtonSecondary class="w-full" @click="revert" type="button" :loading="loading">
+                </Button>
+                <Button theme="secondary" class="w-full" @click="revert" type="button" :loading="loading">
                     <span>Revert</span>
-                </ButtonSecondary>
+                </Button>
             </div>
         </form>
         <div>
@@ -46,9 +46,8 @@
 
 <script lang="ts" setup>
 import type { ResponseError } from "@lysand-org/client";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import Avatar from "../avatars/avatar.vue";
-import ButtonPrimary from "../buttons/button-primary.vue";
-import ButtonSecondary from "../buttons/button-secondary.vue";
 import RichTextboxInput from "../inputs/rich-textbox-input.vue";
 import TextInput from "../inputs/text-input.vue";
 import Oidc from "./oidc.vue";

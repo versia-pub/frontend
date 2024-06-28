@@ -1,15 +1,14 @@
 <template>
     <slot name="error" v-if="error" v-bind="{ error }">
         <div id="error" class="grid min-h-screen place-items-center px-6 py-24 sm:py-32 lg:px-8">
-            <div class="text-center prose prose-invert">
-                <p class="text-base font-semibold text-primary-400">404</p>
+            <div class="text-center prose prose-invert max-w-md w-full">
                 <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-100 sm:text-5xl">{{ error.title }}
                 </h1>
                 <p class="mt-6 text-base leading-7 text-gray-400" v-html="error.message"></p>
                 <div class="mt-10 grid grid-cols-2 gap-x-6 mx-auto max-w-md">
-                    <ButtonPrimary class="w-full" @click="back">Go back</ButtonPrimary>
+                    <Button theme="primary" class="w-full" @click="back">Go back</Button>
                     <a href="https://github.com/lysand-org/lysand-fe/issues" target="_blank">
-                        <ButtonSecondary class="w-full">Report an issue</ButtonSecondary>
+                        <Button theme="secondary" class="w-full">Report an issue</Button>
                     </a>
                 </div>
             </div>
@@ -19,8 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import ButtonPrimary from "../buttons/button-primary.vue";
-import ButtonSecondary from "../buttons/button-secondary.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const error = ref<{
     title: string;

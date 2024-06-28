@@ -20,7 +20,7 @@
                         </span>
                     </div>
                 </div>
-                <ButtonBase theme="secondary" v-else  class="w-full !justify-start">
+                <ButtonBase theme="secondary" v-else class="w-full !justify-start overflow-hidden">
                     <Icon icon="tabler:login" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">Sign In</span>
                 </ButtonBase>
@@ -61,21 +61,21 @@
                 </Menu.Item>
                 <Menu.Item value="" v-if="currentIdentity">
                     <NuxtLink href="/settings" class="w-full">
-                        <ButtonBase theme="secondary" class="w-full !justify-start">
+                        <ButtonBase theme="outline" class="w-full !justify-start">
                             <Icon icon="tabler:adjustments" class="!size-6" />
                             <span class="shrink-0 line-clamp-1">Settings</span>
                         </ButtonBase>
                     </NuxtLink>
                 </Menu.Item>
                 <Menu.Item value="">
-                    <ButtonBase @click="$emit('signIn')" theme="secondary" class="w-full !justify-start">
+                    <ButtonBase @click="$emit('signIn')" theme="outline" class="w-full !justify-start">
                         <Icon icon="tabler:user-plus" class="!size-6" />
                         <span class="shrink-0 line-clamp-1">Add new account</span>
                     </ButtonBase>
                 </Menu.Item>
                 <Menu.Item value="" v-if="!currentIdentity">
                     <NuxtLink href="/register" class="w-full">
-                        <ButtonBase theme="secondary" class="w-full !justify-start">
+                        <ButtonBase theme="outline" class="w-full !justify-start">
                             <Icon icon="tabler:certificate" class="!size-6" />
                             <span class="shrink-0 line-clamp-1">Create new account</span>
                         </ButtonBase>

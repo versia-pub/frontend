@@ -20,14 +20,14 @@
         <!-- Spoiler text is it's specified -->
         <span v-if="note?.spoiler_text" class="mt-2 break-all">{{ note.spoiler_text
             }}</span>
-        <ButtonSecondary @click="collapsed = false" class="mt-4">Show content</ButtonSecondary>
+        <Button theme="secondary" @click="collapsed = false" class="mt-4">Show content</Button>
     </div>
 </template>
 
 <script lang="ts" setup>
 import type { Status } from "@lysand-org/client/types";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import Attachment from "./attachment.vue";
 import Note from "./note.vue";
 

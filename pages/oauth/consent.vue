@@ -40,9 +40,9 @@
                 </div>
 
                 <div class="flex flex-col gap-3">
-                    <ButtonPrimary type="submit">Authorize</ButtonPrimary>
+                    <Button theme="primary" type="submit">Authorize</Button>
                     <NuxtLink href="/" class="w-full">
-                        <ButtonSecondary class="w-full">Cancel</ButtonSecondary>
+                        <Button theme="secondary" class="w-full">Cancel</Button>
                     </NuxtLink>
                 </div>
             </form>
@@ -83,8 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import ButtonPrimary from "~/components/buttons/button-primary.vue";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const url = useRequestURL();
 const params = useUrlSearchParams();

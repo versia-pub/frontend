@@ -34,12 +34,12 @@
             <Button title="Add content warning" @click="cw = !cw" :toggled="cw">
                 <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
             </Button>
-            <ButtonPrimary :loading="loading" @click="send" class="ml-auto rounded-full"
+            <ButtonBase theme="primary" :loading="loading" @click="send" class="ml-auto rounded-full"
                 :disabled="!canSubmit || loading">
-                <span>{{
+                {{
                     respondingType === "edit" ? "Edit!" : "Send!"
-                    }}</span>
-            </ButtonPrimary>
+                }}
+            </ButtonBase>
         </div>
     </div>
 </template>
@@ -47,8 +47,8 @@
 <script lang="ts" setup>
 import type { Instance, Status } from "@lysand-org/client/types";
 import { nanoid } from "nanoid";
+import ButtonBase from "~/packages/ui/components/buttons/button.vue";
 import { OverlayScrollbarsComponent } from "#imports";
-import ButtonPrimary from "../buttons/button-primary.vue";
 import RichTextboxInput from "../inputs/rich-textbox-input.vue";
 import Note from "../social-elements/notes/note.vue";
 import Button from "./button.vue";

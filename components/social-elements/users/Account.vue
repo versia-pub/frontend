@@ -7,20 +7,20 @@
             <Avatar :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
                 class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
 
-            <ButtonSecondary v-if="account && account?.id === identity?.account?.id">Edit Profile
-            </ButtonSecondary>
-            <ButtonSecondary :loading="isLoading" @click="follow()"
+            <Button theme="secondary" v-if="account && account?.id === identity?.account?.id">Edit Profile
+            </Button>
+            <Button theme="secondary" :loading="isLoading" @click="follow()"
                 v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && !relationship.requested">
                 <span>Follow</span>
-            </ButtonSecondary>
-            <ButtonSecondary :loading="isLoading" @click="unfollow()"
+            </Button>
+            <Button theme="secondary" :loading="isLoading" @click="unfollow()"
                 v-if="account && account?.id !== identity?.account?.id && relationship && relationship.following">
                 <span>Unfollow</span>
-            </ButtonSecondary>
-            <ButtonSecondary :loading="isLoading" :disabled="true"
+            </Button>
+            <Button theme="secondary" :loading="isLoading" :disabled="true"
                 v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && relationship.requested">
                 <span>Requested</span>
-            </ButtonSecondary>
+            </Button>
         </div>
 
         <div class="mt-2 px-4">
@@ -100,8 +100,8 @@
 <script lang="ts" setup>
 import type { Account } from "@lysand-org/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import Badge from "./Badge.vue";
 
 const props = defineProps<{

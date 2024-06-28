@@ -42,10 +42,10 @@
                             <textarea :disabled="data.progress < 1.0" @keydown.enter.stop v-model="data.alt_text"
                                 placeholder="Add alt text"
                                 class="w-full p-2 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
-                            <ButtonSecondary @click="updateAltText(data.id, data.alt_text)" class="w-full"
+                            <Button theme="secondary" @click="updateAltText(data.id, data.alt_text)" class="w-full"
                                 :loading="data.progress < 1.0">
                                 <span>Edit</span>
-                            </ButtonSecondary>
+                            </Button>
                         </Popover.Content>
                     </Popover.Positioner>
                 </Popover.Root>
@@ -57,7 +57,7 @@
 <script lang="ts" setup>
 import { Popover } from "@ark-ui/vue";
 import { nanoid } from "nanoid";
-import ButtonSecondary from "../buttons/button-secondary.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const files = defineModel<
     {

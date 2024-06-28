@@ -42,13 +42,13 @@
                     <div class="grid md:grid-cols-2 md:[&:has(>:last-child:nth-child(1))]:grid-cols-1 gap-4 w-full">
                         <a v-for="provider of ssoConfig.providers" :key="provider.id"
                             :href="issuerRedirectUrl(provider.id)">
-                            <ButtonSecondary class="flex flex-row w-full items-center justify-center gap-3">
+                            <Button theme="secondary" class="flex flex-row w-full items-center justify-center gap-3">
                                 <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo'`"
                                     class="w-6 h-6" />
                                 <div class="flex flex-col gap-0 justify-center">
                                     <h3 class="font-bold">{{ provider.name }}</h3>
                                 </div>
-                            </ButtonSecondary>
+                            </Button>
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     here, please close this page.
                 </p>
 
-                <ButtonPrimary type="submit" class="w-full">Sign in</ButtonPrimary>
+                <Button theme="primary" type="submit" class="w-full">Sign in</Button>
             </VeeForm>
         </div>
         <div v-else class="mx-auto max-w-md">
@@ -100,14 +100,13 @@
 import { LysandClient } from "@lysand-org/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-import ButtonPrimary from "~/components/buttons/button-primary.vue";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
 import FieldError from "~/components/inputs/field-error.vue";
 import Field from "~/components/inputs/field.vue";
 import LabelAndError from "~/components/inputs/label-and-error.vue";
 import Label from "~/components/inputs/label.vue";
 import PasswordInput from "~/components/inputs/password-input.vue";
 import TextInput from "~/components/inputs/text-input.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 
 const schema = toTypedSchema(
     z.object({

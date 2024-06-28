@@ -12,7 +12,7 @@
                 Timelines</h3>
 
             <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
-                <ButtonBase theme="secondary" class="w-full !justify-start">
+                <ButtonBase theme="outline" class="w-full !justify-start overflow-hidden rounded-sm">
                     <Icon :icon="timeline.icon" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">{{ timeline.name }}</span>
                 </ButtonBase>
@@ -27,13 +27,13 @@
             <AccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
                 @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
             <NuxtLink href="/register" v-if="!identity">
-                <ButtonBase theme="secondary" class="w-full !justify-start">
+                <ButtonBase theme="outline" class="w-full !justify-start overflow-hidden rounded-sm">
                     <Icon icon="tabler:certificate" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">Register</span>
                 </ButtonBase>
             </NuxtLink>
             <NuxtLink href="/settings" v-if="identity">
-                <ButtonBase @click="$emit('signIn')" theme="secondary" class="w-full !justify-start">
+                <ButtonBase @click="$emit('signIn')" theme="secondary" class="w-full !justify-start overflow-hidden">
                     <Icon icon="tabler:adjustments" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">Settings</span>
                 </ButtonBase>
@@ -41,7 +41,8 @@
             <h3 v-if="identity"
                 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Posts</h3>
-            <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)" theme="gradient" class="!justify-start">
+            <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)" theme="gradient"
+                class="!justify-start overflow-hidden">
                 <Icon icon="tabler:writing" class="!size-6" />
                 <span class="shrink-0 line-clamp-1">Compose</span>
                 <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row ml-auto">
@@ -50,7 +51,8 @@
                         aria-hidden="true" />
                 </kbd>
             </ButtonBase>
-            <ButtonBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker" theme="primary" class="w-full !justify-start">
+            <ButtonBase v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker()" title="Update service worker"
+                theme="primary" class="w-full !justify-start overflow-hidden">
                 <Icon icon="tabler:refresh" class="!size-6" />
                 <span class="shrink-0 line-clamp-1">Update</span>
             </ButtonBase>

@@ -18,10 +18,12 @@
             </div>
             <div v-if="notification?.type === 'follow_request' && relationship?.requested_by"
                 class="w-full grid grid-cols-2 gap-4 p-2 ">
-                <ButtonPrimary :loading="isWorkingOnFollowRequest" @click="acceptFollowRequest"><span>Accept</span>
-                </ButtonPrimary>
-                <ButtonSecondary :loading="isWorkingOnFollowRequest" @click="rejectFollowRequest"><span>Reject</span>
-                </ButtonSecondary>
+                <Button theme="primary" :loading="isWorkingOnFollowRequest"
+                    @click="acceptFollowRequest"><span>Accept</span>
+                </Button>
+                <Button theme="secondary" :loading="isWorkingOnFollowRequest"
+                    @click="rejectFollowRequest"><span>Reject</span>
+                </Button>
             </div>
         </div>
     </div>
@@ -30,9 +32,8 @@
 <script lang="ts" setup>
 import type { Notification } from "@lysand-org/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
-import ButtonPrimary from "~/components/buttons/button-primary.vue";
-import ButtonSecondary from "~/components/buttons/button-secondary.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import Note from "../notes/note.vue";
 import SmallCard from "../users/SmallCard.vue";
 
