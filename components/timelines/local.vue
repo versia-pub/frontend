@@ -1,18 +1,32 @@
 <template>
-    <Timeline :timeline="timeline" :load-next="loadNext" :load-prev="loadPrev" />
+    <Timeline type="status" :items="(items as Status[])" :is-loading="isLoading" :has-reached-end="hasReachedEnd"
+        :error="error" :load-next="loadNext" :load-prev="loadPrev" :remove-item="removeItem"
+        :update-item="updateItem" />
 </template>
 
 <script lang="ts" setup>
+import type { Status } from "@lysand-org/client/types";
+import { useLocalTimeline } from "~/composables/LocalTimeline";
 import Timeline from "./timeline.vue";
-
 const client = useClient();
-const timelineParameters = ref({});
-const { timeline, loadNext, loadPrev } = useLocalTimeline(
-    client.value,
-    timelineParameters,
-);
 
+const {
+    error,
+    hasReachedEnd,
+    isLoading,
+    items,
+    loadNext,
+    loadPrev,
+    removeItem,
+    updateItem,
+} = useLocalTimeline(client.value);
+
+// Example of how to handle global events
 useListen("note:delete", ({ id }) => {
-    timeline.value = timeline.value.filter((note) => note.id !== id);
+    removeItem(id);
+});
+
+useListen("note:edit", (updatedNote) => {
+    updateItem(updatedNote);
 });
 </script>

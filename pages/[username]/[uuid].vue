@@ -1,10 +1,10 @@
 <template>
     <div v-if="loaded" :defer="true" class="mx-auto max-w-2xl w-full pb-72">
-        <Note v-for="note of context?.ancestors" :note="note" />
+        <Note v-for="note of context?.ancestors" :element="note" />
         <div ref="element" class="first:rounded-t last:rounded-b overflow-hidden">
-            <Note class="!rounded-none border-2 border-primary-500" v-if="note" :note="note" />
+            <Note class="!rounded-none border-2 border-primary-500" v-if="note" :element="note" />
         </div>
-        <Note v-for="note of context?.descendants" :note="note" />
+        <Note v-for="note of context?.descendants" :element="note" />
     </div>
     <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
         <Note v-for="_ of 5" :skeleton="true" />

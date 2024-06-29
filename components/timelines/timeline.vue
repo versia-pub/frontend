@@ -1,69 +1,92 @@
+<!-- Timeline.vue -->
 <template>
-    <TransitionGroup leave-active-class="ease-in duration-200" leave-from-class="scale-100 opacity-100"
-        leave-to-class="opacity-0 scale-90">
-        <Note v-for="note of timeline" :key="note.id" :note="note" />
-    </TransitionGroup>
-    <span ref="skeleton"></span>
-    <Note v-for="_ of 5" v-if="!hasReachedEnd" :skeleton="true" />
+    <div class="timeline">
+        <TransitionGroup name="timeline-item" tag="div" class="timeline-items">
+            <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
+                @delete="removeItem" />
+        </TransitionGroup>
 
-    <div v-if="hasReachedEnd" class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
-        <iconify-icon icon="tabler:message-off" width="1.5rem" height="1.5rem" />
-        <span>No more posts, you've seen them all</span>
+        <TimelineItem v-if="isLoading" :type="type" v-for="_ in 5" />
+
+        <div v-if="error" class="timeline-error">
+            {{ error.message }}
+        </div>
+
+        <div v-if="hasReachedEnd && items.length > 0"
+            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
+            <span class="text-lg font-semibold">You've scrolled so far, there's nothing left to show.</span>
+            <span class="text-sm">You can always go back and see what you missed.</span>
+        </div>
+
+        <div v-else-if="hasReachedEnd && items.length === 0"
+            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
+            <span class="text-lg font-semibold">There's nothing to show here.</span>
+            <span class="text-sm">Either you're all caught up or there's nothing to show.</span>
+        </div>
+
+        <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
+            <Button theme="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
+                Load More
+            </Button>
+        </div>
+
+        <div v-else ref="loadMoreTrigger" class="h-20"></div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@lysand-org/client/types";
-import Note from "../social-elements/notes/note.vue";
+import type { Notification, Status } from "@lysand-org/client/types";
+import { useIntersectionObserver } from "@vueuse/core";
+import { onMounted, watch } from "vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
+import { SettingIds } from "~/settings";
+import TimelineItem from "./timeline-item.vue";
 
 const props = defineProps<{
-    timeline: Status[];
-    loadNext: () => Promise<void>;
-    loadPrev: () => Promise<void>;
+    items: Status[] | Notification[];
+    type: "status" | "notification";
+    isLoading: boolean;
+    hasReachedEnd: boolean;
+    error: Error | null;
+    loadNext: () => void;
+    loadPrev: () => void;
+    removeItem: (id: string) => void;
+    updateItem: ((item: Status) => void) | ((item: Notification) => void);
 }>();
 
-const isLoading = ref(true);
+const emit = defineEmits<(e: "update") => void>();
 
-const hasReachedEnd = ref(false);
-const skeleton = ref<HTMLSpanElement | null>(null);
+const loadMoreTrigger = ref<HTMLElement | null>(null);
 
-onMounted(() => {
-    useIntersectionObserver(skeleton, async (entries) => {
-        if (
-            entries[0]?.isIntersecting &&
-            !hasReachedEnd.value &&
-            !isLoading.value
-        ) {
-            isLoading.value = true;
-            await props.loadNext();
-        }
-    });
+useIntersectionObserver(loadMoreTrigger, ([observer]) => {
+    if (observer?.isIntersecting && !props.isLoading && !props.hasReachedEnd) {
+        props.loadNext();
+    }
 });
 
-useListen("composer:send", () => {
-    props.loadPrev();
-});
-
-// Every 5 seconds, load newer posts (prev)
-useIntervalFn(() => {
-    props.loadPrev();
-}, 10000);
+const infiniteScroll = useSetting(SettingIds.InfiniteScroll);
 
 watch(
-    () => props.timeline,
-    (newTimeline, oldTimeline) => {
-        // If posts are deleted, don't start loading more posts
-        if (newTimeline.length === oldTimeline.length - 1) {
-            return;
-        }
-        isLoading.value = false;
-        // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
-        if (
-            newTimeline.length - oldTimeline.length <
-            useConfig().NOTES_PER_PAGE
-        ) {
-            hasReachedEnd.value = true;
-        }
+    () => props.items,
+    () => {
+        emit("update");
     },
 );
+
+onMounted(() => {
+    props.loadNext();
+});
 </script>
+
+<style scoped>
+.timeline-item-enter-active,
+.timeline-item-leave-active {
+    transition: all 0.5s ease;
+}
+
+.timeline-item-enter-from,
+.timeline-item-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+</style>

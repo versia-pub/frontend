@@ -65,6 +65,7 @@ export enum SettingIds {
     CustomEmojis = "custom-emojis",
     ShowContentWarning = "show-content-warning",
     PopupAvatarHover = "popup-avatar-hover",
+    InfiniteScroll = "infinite-scroll",
     ConfirmDelete = "confirm-delete",
     ConfirmFollow = "confirm-follow",
     ConfirmReblog = "confirm-reblog",
@@ -123,6 +124,15 @@ export const settings = [
         value: true,
         path: SettingPages.Behaviour,
         notImplemented: true,
+    } as Setting<SettingType.Boolean>,
+    {
+        id: SettingIds.InfiniteScroll,
+        title: "Infinite Scroll",
+        description:
+            "Automatically load more notes when reaching the bottom of the page",
+        type: SettingType.Boolean,
+        value: true,
+        path: SettingPages.Behaviour,
     } as Setting<SettingType.Boolean>,
     {
         id: SettingIds.ConfirmDelete,

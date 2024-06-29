@@ -1,47 +1,24 @@
 <template>
-    <Notif v-for="notif of timeline" :key="notif.id" :notification="notif" />
-    <span ref="skeleton"></span>
-    <Notif v-for="index of 5" v-if="!hasReachedEnd" :skeleton="true" />
-
-    <div v-if="hasReachedEnd" class="text-center flex flex-row justify-center items-center py-10 text-gray-400 gap-3">
-        <iconify-icon name="tabler:message-off" width="1.5rem" height="1.5rem" />
-        <span>No more notifications, you've seen them all</span>
-    </div>
+    <Timeline type="notification" :items="(items as Notification[])" :is-loading="isLoading"
+        :has-reached-end="hasReachedEnd" :error="error" :load-next="loadNext" :load-prev="loadPrev"
+        :remove-item="removeItem" :update-item="updateItem" />
 </template>
 
 <script lang="ts" setup>
-import Notif from "../social-elements/notifications/notif.vue";
+import type { Notification } from "@lysand-org/client/types";
+import { useNotificationTimeline } from "~/composables/NotificationTimeline";
+import Timeline from "./timeline.vue";
 
 const client = useClient();
 
-const isLoading = ref(true);
-
-const timelineParameters = ref({});
-const hasReachedEnd = ref(false);
-const { timeline, loadNext, loadPrev } = useNotificationTimeline(
-    client.value,
-    timelineParameters,
-);
-const skeleton = ref<HTMLSpanElement | null>(null);
-
-onMounted(() => {
-    useIntersectionObserver(skeleton, async (entries) => {
-        if (
-            entries[0]?.isIntersecting &&
-            !hasReachedEnd.value &&
-            !isLoading.value
-        ) {
-            isLoading.value = true;
-            await loadNext();
-        }
-    });
-});
-
-watch(timeline, (newTimeline, oldTimeline) => {
-    isLoading.value = false;
-    // If less than NOTES_PER_PAGE statuses are returned, we have reached the end
-    if (newTimeline.length - oldTimeline.length < useConfig().NOTES_PER_PAGE) {
-        hasReachedEnd.value = true;
-    }
-});
+const {
+    error,
+    hasReachedEnd,
+    isLoading,
+    items,
+    loadNext,
+    loadPrev,
+    removeItem,
+    updateItem,
+} = useNotificationTimeline(client.value);
 </script>

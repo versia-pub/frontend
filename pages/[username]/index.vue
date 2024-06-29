@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-2xl w-full">
             <TimelineScroller>
                 <AccountProfile :account="account ?? undefined" />
-                <AccountTimeline :id="accountId" :key="accountId" />
+                <AccountTimeline v-if="accountId" :id="accountId" :key="accountId" />
             </TimelineScroller>
         </div>
     </ErrorBoundary>

@@ -13,7 +13,7 @@
         </div>
         <TimelineScroller v-else>
             <Greeting />
-            <div class="rounded overflow-hidden ring-1 ring-white/10">
+            <div class="rounded overflow-hidden">
                 <Notifications />
             </div>
         </TimelineScroller>

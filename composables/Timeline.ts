@@ -1,184 +1,116 @@
 import type { LysandClient, Output } from "@lysand-org/client";
+import type { Notification, Status } from "@lysand-org/client/types";
+import { useIntervalFn } from "@vueuse/core";
 
-interface BaseOptions {
-    max_id?: string;
-    min_id?: string;
+export interface TimelineOptions<T> {
+    fetchFunction: (
+        client: LysandClient,
+        options: object,
+    ) => Promise<Output<T[]>>;
+    updateInterval?: number;
+    limit?: number;
 }
 
-type FetchTimelineFunction<Element, Options> = (
+export function useTimeline<T extends Status | Notification>(
     client: LysandClient,
-    options: Options & BaseOptions,
-) => Promise<Output<Element[]>>;
+    options: TimelineOptions<T>,
+) {
+    const items = ref<T[]>([]) as Ref<T[]>;
+    const isLoading = ref(false);
+    const hasReachedEnd = ref(false);
+    const error = ref<Error | null>(null);
 
-export const useTimeline = <
-    Element extends {
-        id: string;
-    },
-    Options,
->(
-    client: LysandClient | null,
-    fetchTimeline: FetchTimelineFunction<Element, Options> | null | undefined,
-    options: MaybeRef<Options & BaseOptions>,
-): {
-    timeline: Ref<Element[]>;
-    loadNext: () => Promise<void>;
-    loadPrev: () => Promise<void>;
-} => {
-    if (!(client && fetchTimeline)) {
-        return {
-            timeline: ref([]),
-            loadNext: async () => {
-                // ...
-            },
-            loadPrev: async () => {
-                // ...
-            },
-        };
-    }
+    const nextMaxId = ref<string | undefined>(undefined);
+    const prevMinId = ref<string | undefined>(undefined);
 
-    const fetchedNotes: Ref<Element[]> = ref([]);
-    const fetchedNoteIds = new Set<string>();
-    let nextMaxId: string | undefined = undefined;
-    let prevMinId: string | undefined = undefined;
+    const fetchItems = async (direction: "next" | "prev") => {
+        if (isLoading.value || (direction === "next" && hasReachedEnd.value)) {
+            return;
+        }
 
-    const loadNext = async () => {
-        const response = await fetchTimeline(client, {
-            ...(ref(options).value as Options & BaseOptions),
-            max_id: nextMaxId,
-            limit: useConfig().NOTES_PER_PAGE,
-        });
+        isLoading.value = true;
+        error.value = null;
 
-        const newNotes = response.data.filter(
-            (note) => !fetchedNoteIds.has(note.id),
-        );
-        if (newNotes.length > 0) {
-            fetchedNotes.value = [...fetchedNotes.value, ...newNotes];
-            nextMaxId = newNotes[newNotes.length - 1]?.id;
-            for (const note of newNotes) {
-                fetchedNoteIds.add(note.id);
+        try {
+            const response = await options.fetchFunction(client, {
+                limit: options.limit || 20,
+                max_id: direction === "next" ? nextMaxId.value : undefined,
+                min_id: direction === "prev" ? prevMinId.value : undefined,
+            });
+
+            const newItems = response.data.filter(
+                (item: T) =>
+                    !items.value.some((existing) => existing.id === item.id),
+            );
+
+            if (direction === "next") {
+                items.value.push(...newItems);
+                if (newItems.length < (options.limit || 20)) {
+                    hasReachedEnd.value = true;
+                }
+                if (newItems.length > 0) {
+                    nextMaxId.value = newItems[newItems.length - 1]?.id;
+                }
+            } else {
+                items.value.unshift(...newItems);
+                if (newItems.length > 0) {
+                    prevMinId.value = newItems[0]?.id;
+                }
             }
-        } else {
-            nextMaxId = undefined;
+        } catch (e) {
+            error.value =
+                e instanceof Error ? e : new Error("An error occurred");
+        } finally {
+            isLoading.value = false;
         }
     };
 
-    const loadPrev = async () => {
-        const response = await fetchTimeline(client, {
-            ...(ref(options).value as Options & BaseOptions),
-            min_id: prevMinId,
-            limit: useConfig().NOTES_PER_PAGE,
-        });
+    const loadNext = () => fetchItems("next");
+    const loadPrev = () => fetchItems("prev");
 
-        const newNotes = response.data.filter(
-            (note) => !fetchedNoteIds.has(note.id),
-        );
-        if (newNotes.length > 0) {
-            fetchedNotes.value = [...newNotes, ...fetchedNotes.value];
-            prevMinId = newNotes[0]?.id;
-            for (const note of newNotes) {
-                fetchedNoteIds.add(note.id);
-            }
-        } else {
-            prevMinId = undefined;
+    const addItem = (newItem: T) => {
+        items.value.unshift(newItem);
+    };
+
+    const removeItem = (id: string) => {
+        const index = items.value.findIndex((item) => item.id === id);
+        if (index !== -1) {
+            items.value.splice(index, 1);
         }
     };
 
-    watch(
-        () => ref(options).value,
-        async ({ max_id, min_id }) => {
-            nextMaxId = max_id;
-            prevMinId = min_id;
-            await loadNext();
-        },
-        { immediate: true },
-    );
-
-    return { timeline: fetchedNotes, loadNext, loadPrev };
-};
-
-export const useIdTimeline = <
-    Element extends {
-        id: string;
-    },
-    Options,
->(
-    client: LysandClient | null,
-    id: MaybeRef<string | null>,
-    fetchTimeline: FetchTimelineFunction<Element, Options> | null | undefined,
-    options: MaybeRef<Options & BaseOptions>,
-): {
-    timeline: Ref<Element[]>;
-    loadNext: () => Promise<void>;
-    loadPrev: () => Promise<void>;
-} => {
-    if (!(client && fetchTimeline)) {
-        return {
-            timeline: ref([]),
-            loadNext: async () => {
-                // ...
-            },
-            loadPrev: async () => {
-                // ...
-            },
-        };
-    }
-
-    const fetchedNotes: Ref<Element[]> = ref([]);
-    const fetchedNoteIds = new Set<string>();
-    let nextMaxId: string | undefined = undefined;
-    let prevMinId: string | undefined = undefined;
-
-    const loadNext = async () => {
-        const response = await fetchTimeline(client, {
-            ...(ref(options).value as Options & BaseOptions),
-            max_id: nextMaxId,
-            limit: useConfig().NOTES_PER_PAGE,
-        });
-
-        const newNotes = response.data.filter(
-            (note) => !fetchedNoteIds.has(note.id),
+    const updateItem = (updatedItem: T) => {
+        const index = items.value.findIndex(
+            (item) => item.id === updatedItem.id,
         );
-        if (newNotes.length > 0) {
-            fetchedNotes.value = [...fetchedNotes.value, ...newNotes];
-            nextMaxId = newNotes[newNotes.length - 1]?.id;
-            for (const note of newNotes) {
-                fetchedNoteIds.add(note.id);
-            }
-        } else {
-            nextMaxId = undefined;
+        if (index !== -1) {
+            items.value[index] = updatedItem;
         }
     };
 
-    const loadPrev = async () => {
-        const response = await fetchTimeline(client, {
-            ...(ref(options).value as Options & BaseOptions),
-            min_id: prevMinId,
-            limit: useConfig().NOTES_PER_PAGE,
-        });
+    // Set up periodic updates
+    const { pause, resume } = useIntervalFn(() => {
+        loadPrev();
+    }, options.updateInterval || 30000);
 
-        const newNotes = response.data.filter(
-            (note) => !fetchedNoteIds.has(note.id),
-        );
-        if (newNotes.length > 0) {
-            fetchedNotes.value = [...newNotes, ...fetchedNotes.value];
-            prevMinId = newNotes[0]?.id;
-            for (const note of newNotes) {
-                fetchedNoteIds.add(note.id);
-            }
-        } else {
-            prevMinId = undefined;
-        }
+    onMounted(() => {
+        loadNext();
+        resume();
+    });
+
+    onUnmounted(() => {
+        pause();
+    });
+
+    return {
+        items,
+        isLoading,
+        hasReachedEnd,
+        error,
+        loadNext,
+        loadPrev,
+        addItem,
+        removeItem,
+        updateItem,
     };
-
-    watch(
-        [() => ref(id).value, () => ref(options).value],
-        async ([id, { max_id, min_id }]) => {
-            nextMaxId = max_id;
-            prevMinId = min_id;
-            id && (await loadNext());
-        },
-        { immediate: true },
-    );
-
-    return { timeline: fetchedNotes, loadNext, loadPrev };
-};
+}

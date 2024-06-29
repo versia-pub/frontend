@@ -16,7 +16,7 @@
         <Header :note="outputtedNote" :small="small" />
         <NoteContent :note="outputtedNote" :loaded="loaded" :url="url" :content="content" :is-quote="isQuote"
             :should-hide="shouldHide" />
-        <Skeleton class="!h-10 w-full mt-6" :enabled="!props.note || !loaded" v-if="!small || !showInteractions">
+        <Skeleton class="!h-10 w-full mt-6" :enabled="!props.element || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
                 class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
                 <button class="group" @click="outputtedNote && useEvent('note:reply', outputtedNote)"
@@ -61,7 +61,7 @@
                                 </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
-                                <ButtonDropdown @click="copy(JSON.stringify(props.note, null, 4))" icon="tabler:code"
+                                <ButtonDropdown @click="copy(JSON.stringify(props.element, null, 4))" icon="tabler:code"
                                     class="w-full">
                                     Copy API
                                     Response
@@ -158,7 +158,7 @@ import ReplyHeader from "./reply-header.vue";
 
 const props = withDefaults(
     defineProps<{
-        note?: Status;
+        element?: Status;
         small?: boolean;
         disabled?: boolean;
         showInteractions?: boolean;
@@ -168,7 +168,7 @@ const props = withDefaults(
     },
 );
 
-const noteRef = ref(props.note);
+const noteRef = ref(props.element);
 
 useListen("composer:send-edit", (note) => {
     if (note.id === noteRef.value?.id) {

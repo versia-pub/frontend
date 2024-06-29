@@ -11,7 +11,7 @@
             class="[&:not(:first-child)]:mt-6 grid grid-cols-2 gap-4 [&>*]:aspect-square [&:has(>:last-child:nth-child(1))>*]:aspect-video [&:has(>:last-child:nth-child(1))]:block">
             <Attachment v-for="attachment of note.media_attachments" :key="attachment.id" :attachment="attachment" />
         </div>
-        <Note v-if="isQuote && note?.quote" :note="note?.quote" :small="true" class="mt-4 !rounded" />
+        <Note v-if="isQuote && note?.quote" :element="note?.quote" :small="true" class="mt-4 !rounded" />
     </div>
     <div v-else
         class="rounded text-center ring-1 !max-w-full ring-white/10 h-52 mt-6 prose prose-invert p-4 flex flex-col justify-center items-center">
