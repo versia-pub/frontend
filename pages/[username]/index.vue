@@ -22,12 +22,19 @@ definePageMeta({
 
 const route = useRoute();
 const client = useClient();
-const username = (route.params.username as string).replace("@", "");
+const username = (route.params.username as string).startsWith("@")
+    ? (route.params.username as string).substring(1)
+    : (route.params.username as string);
 
 const accounts = useAccountSearch(client, username);
 watch(accounts, (newValue) => {
     if (Array.isArray(newValue)) {
-        if (!newValue.find((account) => account.acct === username)) {
+        if (
+            !newValue.find(
+                (account) =>
+                    account.acct.toLowerCase() === username.toLowerCase(),
+            )
+        ) {
             useEvent("error", {
                 title: "Account not found",
                 message: `The account <code>@${username}</code> does not exist.`,
@@ -37,7 +44,10 @@ watch(accounts, (newValue) => {
     }
 });
 const account = computed<Account | null>(
-    () => accounts.value?.find((account) => account.acct === username) ?? null,
+    () =>
+        accounts.value?.find(
+            (account) => account.acct.toLowerCase() === username.toLowerCase(),
+        ) ?? null,
 );
 const accountId = computed(() => account.value?.id ?? undefined);
 
