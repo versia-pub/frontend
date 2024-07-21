@@ -2,14 +2,19 @@
     <HoverCard.Root :positioning="{
         placement: 'bottom',
         strategy: 'fixed',
-    }" v-if="isEnabled.value">
+    }" v-if="isEnabled.value" v-model:open="open">
         <HoverCard.Trigger :as-child="true">
             <slot />
         </HoverCard.Trigger>
         <Teleport to="body" v-if="account">
+            <Transition enter-active-class="transition duration-300 ease-in-out" enter-from-class="opacity-0"
+                enter-to-class="opacity-100" leave-active-class="duration-200 ease-in-out"
+                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                <div class="fixed bg-black/70 inset-0 z-10 pointer-events-none" v-if="open"></div>
+            </Transition>
             <HoverCard.Positioner>
                 <HoverCard.Content
-                    class="bg-dark-700 w-96 overflow-y-auto rounded ring-1 ring-white/10 max-h-[60vh] text-sm">
+                    class="bg-dark-700 w-96 z-20 overflow-y-auto rounded overflow-x-hidden ring-1 ring-white/20 shadow-xl max-h-[60vh] text-sm">
                     <Avatar :src="account.header" :alt="`${account.acct}'s header image'`"
                         class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700 !rounded-none" />
 
@@ -91,6 +96,7 @@ const props = defineProps<{
 
 const config = useConfig();
 const isEnabled = useSetting(SettingIds.PopupAvatarHover);
+const open = ref(false);
 
 const formattedJoin = computed(() =>
     Intl.DateTimeFormat("en-US", {
