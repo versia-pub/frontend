@@ -2,7 +2,7 @@
     <HoverCard.Root :positioning="{
         placement: 'bottom',
         strategy: 'fixed',
-    }" v-if="isEnabled.value" v-model:open="open">
+    }" v-if="isEnabled.value" v-model:open="open" :open-delay="1000">
         <HoverCard.Trigger :as-child="true">
             <slot />
         </HoverCard.Trigger>
