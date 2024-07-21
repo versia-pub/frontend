@@ -85,7 +85,7 @@
         </div>
 
         <div v-if="!skeleton && fields && fields.length > 0" class="mt-4 px-4 flex-col flex space-y-3">
-            <div v-for="field of fields" :key="field.name" class="flex flex-col gap-1">
+            <div v-for="field of fields" :key="field.name ?? ''" class="flex flex-col gap-1">
                 <span class="text-primary-500 font-semibold" v-html="field.name"></span>
                 <span class="text-gray-200 prose prose-invert break-all" v-html="field.value"></span>
             </div>

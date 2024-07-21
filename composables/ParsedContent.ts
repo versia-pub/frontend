@@ -32,28 +32,24 @@ export const useParsedContent = (
 
             // Replace emoji shortcodes with images
             if (shouldRenderEmoji) {
-                const paragraphs = contentHtml.querySelectorAll("p");
-
-                for (const paragraph of paragraphs) {
-                    paragraph.innerHTML = paragraph.innerHTML.replace(
-                        /:([a-zA-Z0-9_-]+):/g,
-                        (match, emoji) => {
-                            const emojiData = toValue(emojis).find(
-                                (e) => e.shortcode === emoji,
-                            );
-                            if (!emojiData) {
-                                return match;
-                            }
-                            const image = document.createElement("img");
-                            image.src = emojiData.url;
-                            image.alt = `:${emoji}:`;
-                            image.title = emojiData.shortcode;
-                            image.className =
-                                "h-6 align-text-bottom inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out";
-                            return image.outerHTML;
-                        },
-                    );
-                }
+                contentHtml.innerHTML = contentHtml.innerHTML.replace(
+                    /:([a-zA-Z0-9_-]+):/g,
+                    (match, emoji) => {
+                        const emojiData = toValue(emojis).find(
+                            (e) => e.shortcode === emoji,
+                        );
+                        if (!emojiData) {
+                            return match;
+                        }
+                        const image = document.createElement("img");
+                        image.src = emojiData.url;
+                        image.alt = `:${emoji}:`;
+                        image.title = emojiData.shortcode;
+                        image.className =
+                            "h-[1.6em] mt-[-0.2ex] mx-1 mb-[0.2ex] align-middle inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out";
+                        return image.outerHTML;
+                    },
+                );
             }
 
             // Replace links containing mentions with interactive mentions
@@ -104,6 +100,8 @@ export const useParsedAccount = (
     const parsedFields = computed(() =>
         fields.value.map((field) => ({
             ...field,
+            name: useParsedContent(field.name, emojis, undefined, settings)
+                .value,
             value: useParsedContent(field.value, emojis, undefined, settings)
                 .value,
         })),
