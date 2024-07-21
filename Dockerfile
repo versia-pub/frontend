@@ -19,7 +19,7 @@ FROM node:21-alpine as final
 COPY --from=builder /app/.output/ /app
 
 LABEL org.opencontainers.image.authors "Gaspard Wierzbinski (https://cpluspatch.com)"
-LABEL org.opencontainers.image.source "https://github.com/lysand-org/lysand-fe"
+LABEL org.opencontainers.image.source "https://github.com/lysand-org/frontend"
 LABEL org.opencontainers.image.vendor "Lysand Org"
 LABEL org.opencontainers.image.licenses "AGPL-3.0"
 LABEL org.opencontainers.image.title "Lysand-FE"

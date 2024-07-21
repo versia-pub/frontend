@@ -68,7 +68,7 @@ Here are the steps to install Lysand-FE manually:
 ```yaml
 services:
     fe:
-        image: ghcr.io/lysand-org/lysand-fe:main
+        image: ghcr.io/lysand-org/frontend:main
         container_name: lysand-fe
         restart: unless-stopped
         networks:

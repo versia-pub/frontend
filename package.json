@@ -17,7 +17,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/lysand-org/lysand-fe.git"
+        "url": "git+https://github.com/lysand-org/frontend.git"
     },
     "scripts": {
         "build": "nuxt build",
