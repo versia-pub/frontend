@@ -1,4 +1,9 @@
 <template>
+    <ClientOnly>
+        <Component is="style">
+            {{ customCss.value }}
+        </Component>
+    </ClientOnly>
     <NuxtPwaAssets />
     <ClientOnly>
         <NuxtLayout>
@@ -13,6 +18,7 @@ import "~/styles/theme.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
 import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
+import { SettingIds } from "./settings";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 
@@ -20,6 +26,7 @@ const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
 const instance = useInstance();
 const description = useExtendedDescription(client);
+const customCss = useSetting(SettingIds.CustomCSS);
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
