@@ -8,14 +8,14 @@
         </Skeleton>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
-                <div class="font-semibold text-text-200 line-clamp-1 break-all">
+                <div class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!account" :min-width="90" :max-width="170" shape="rect">
                         {{
                             account?.display_name }}
                     </Skeleton>
                 </div>
             </div>
-            <span class="text-text-400 text-sm line-clamp-1 break-all w-full">
+            <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
                 <Skeleton :enabled="!account" :min-width="130" :max-width="250" shape="rect">
                     @{{
                         account?.acct

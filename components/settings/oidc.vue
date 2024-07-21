@@ -1,16 +1,16 @@
 <template>
     <!-- OIDC linked accounts manager -->
-    <div class="w-full ring-1 ring-white/5 pb-5 bg-background-800 rounded overflow-hidden">
+    <div class="w-full ring-1 ring-white/5 pb-5 bg-dark-800 rounded overflow-hidden">
         <div class="px-4 py-4">
-            <h3 class="font-semibold text-text-300 text-xl">Linked accounts</h3>
+            <h3 class="font-semibold text-gray-300 text-xl">Linked accounts</h3>
         </div>
         <div class="px-4 py-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
                 <div v-for="provider of ssoConfig?.providers" :key="provider.id"
-                    class="flex items-center justify-between p-4 bg-background-700 rounded">
+                    class="flex items-center justify-between p-4 bg-dark-700 rounded">
                     <div class="flex items-center gap-4">
                         <Avatar :src="provider.icon" :alt="provider.name" class="h-8 w-8" />
-                        <span class="font-semibold text-text-300">{{ provider.name }}</span>
+                        <span class="font-semibold text-gray-300">{{ provider.name }}</span>
                     </div>
                     <div>
                         <Button theme="primary" :loading="loading"

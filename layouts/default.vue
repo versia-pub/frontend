@@ -1,5 +1,5 @@
 <template>
-    <main class="from-background-600 to-background-900 bg-gradient-to-tl min-h-dvh pb-20 md:pb-0">
+    <main class="from-dark-600 to-dark-900 bg-gradient-to-tl min-h-dvh pb-20 md:pb-0">
         <Navigation />
         <slot />
     </main>

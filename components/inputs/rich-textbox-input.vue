@@ -4,7 +4,7 @@
             class="resize-none min-h-48 prose prose-invert w-full p-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 bg-transparent appearance-none focus:!border-none focus:!outline-none disabled:cursor-not-allowed"
             aria-label="Compose your message" :autofocus="true"></textarea>
         <div v-if="maxCharacters"
-            :class="['absolute bottom-0 right-0 p-2 text-text-300 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']"
+            :class="['absolute bottom-0 right-0 p-2 text-gray-300 font-semibold text-xs', remainingCharacters < 0 && 'text-red-500']"
             aria-live="polite">
             {{ remainingCharacters }}
         </div>

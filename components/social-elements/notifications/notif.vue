@@ -1,17 +1,17 @@
 <template>
-    <div class="flex flex-col p-1 bg-background-400">
+    <div class="flex flex-col p-1 bg-dark-400">
         <div class="px-4 pt-2 pb-3 flex flex-row gap-2 items-center">
             <Skeleton :enabled="!element" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
-                <iconify-icon :icon="icon" width="1.5rem" height="1.5rem" class="text-text-200" aria-hidden="true" />
+                <iconify-icon :icon="icon" width="1.5rem" height="1.5rem" class="text-gray-200" aria-hidden="true" />
                 <Avatar v-if="element?.account?.avatar" :src="element?.account.avatar"
                     :alt="`${element?.account.acct}'s avatar'`" class="h-6 w-6 shrink-0 rounded ring-1 ring-white/10" />
-                <span class="text-text-200 line-clamp-1"><strong v-html="display_name"></strong> {{ text
+                <span class="text-gray-200 line-clamp-1"><strong v-html="display_name"></strong> {{ text
                     }}</span>
             </Skeleton>
         </div>
         <div>
             <Note v-if="element?.status || !element" :element="element?.status" :small="true" />
-            <div v-else-if="element.account" class="p-6 ring-1 ring-white/5 bg-background-800">
+            <div v-else-if="element.account" class="p-6 ring-1 ring-white/5 bg-dark-800">
                 <SmallCard :account="element.account" />
             </div>
             <div v-if="element?.type === 'follow_request' && relationship?.requested_by"

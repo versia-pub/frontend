@@ -17,9 +17,9 @@
                     leave-active-class="transition ease-out duration-75"
                     leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                     <Menu.Content v-if="open"
-                        :class="['z-20 mt-2 rounded overflow-hidden p-1 space-y-1 bg-background-700 shadow-lg ring-1 ring-white/10 focus:outline-none min-w-56', id]">
+                        :class="['z-20 mt-2 rounded overflow-hidden p-1 space-y-1 bg-dark-700 shadow-lg ring-1 ring-white/10 focus:outline-none min-w-56', id]">
                         <div v-if="isSmallScreen" class="w-full py-2">
-                            <div class="rounded-full h-1 bg-text-400 w-12 mx-auto"></div>
+                            <div class="rounded-full h-1 bg-gray-400 w-12 mx-auto"></div>
                         </div>
                         <slot name="items"></slot>
                     </Menu.Content>

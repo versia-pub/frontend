@@ -1,10 +1,10 @@
 <template>
     <div v-for="index of lines" :class="[
-        'duration-200 animate-pulse bg-background-100 [&:not(:first-child)]:mt-2',
-        shape === 'circle' ? 'rounded-full' : 'rounded',
-        ['text', 'content'].includes(type) && 'h-[1em]',
-        props.class
-    ]" v-if="enabled" :style="{
+            'duration-200 animate-pulse bg-dark-100 [&:not(:first-child)]:mt-2',
+            shape === 'circle' ? 'rounded-full' : 'rounded',
+            ['text', 'content'].includes(type) && 'h-[1em]',
+            props.class
+        ]" v-if="enabled" :style="{
             width: getWidth(index, lines),
         }">
     </div>

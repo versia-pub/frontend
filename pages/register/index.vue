@@ -9,7 +9,7 @@
                 <span class="text-sm">{{ errors.error }}</span>
             </div>
             <VeeForm class="flex flex-col gap-y-6" @submit="s => register((s as any))" :validation-schema="schema">
-                <h1 class="font-bold text-2xl text-text-50 text-center tracking-tight">Account details</h1>
+                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Account details</h1>
 
                 <VeeField name="username" v-slot="{ errorMessage, field }" validate-on-change>
                     <Field>
@@ -60,7 +60,7 @@
                     <Field>
                         <div class="flex flex-row gap-x-2 items-center">
                             <CheckboxInput :checked="true" id="tos" required :disabled="true" v-bind="field" />
-                            <Label for="tos" class="!text-text-200">
+                            <Label for="tos" class="!text-gray-200">
                                 I agree to the Terms of Service
                             </Label>
                         </div>
@@ -73,12 +73,12 @@
                         <Button theme="secondary" class="w-full">View Terms of Service</Button>
                     </Collapsible.Trigger>
                     <Collapsible.Content
-                        class="prose prose-invert prose-sm p-4 ring-1 ring-white/10 bg-background-700 rounded mt-3">
+                        class="prose prose-invert prose-sm p-4 ring-1 ring-white/10 bg-dark-700 rounded mt-3">
                         <div v-html="tos?.content"></div>
                     </Collapsible.Content>
                 </Collapsible.Root>
 
-                <p class="text-xs font-semibold text-text-300">
+                <p class="text-xs font-semibold text-gray-300">
                     Passwords are stored securely and hashed. We do not store your password in plain text.
                     Administrators
                     cannot see your password.
@@ -90,10 +90,10 @@
             </VeeForm>
         </div>
         <div v-else>
-            <h1 class="text-2xl font-bold tracking-tight text-text-50 sm:text-4xl text-center">Registrations are
+            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Registrations are
                 disabled
             </h1>
-            <p class="mt-6 text-lg leading-8 text-text-200 text-center">Ask this instance's admin to enable them in
+            <p class="mt-6 text-lg leading-8 text-gray-200 text-center">Ask this instance's admin to enable them in
                 config!
             </p>
         </div>

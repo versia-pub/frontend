@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink :href="`/@${account?.acct}`" class="mb-4 flex flex-row gap-2 items-center text-text-300 opacity-70">
+    <NuxtLink :href="`/@${account?.acct}`" class="mb-4 flex flex-row gap-2 items-center text-gray-300 opacity-70">
         <Skeleton :enabled="!account" shape="rect" class="!h-6" :min-width="40" :max-width="100" width-unit="%">
             <iconify-icon icon="tabler:arrow-back-up" width="1.5rem" height="1.5rem" aria-hidden="true" />
             <span class="shrink-0">Replying to</span>

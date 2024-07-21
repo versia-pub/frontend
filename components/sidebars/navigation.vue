@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-background-800 gap-10 max-w-[80px] hover:max-w-72 w-full duration-200 group ring-1 ring-background-500"
+        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-[80px] hover:max-w-72 w-full duration-200 group ring-1 ring-dark-500"
         aria-label="Navigation" role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
@@ -8,7 +8,7 @@
         </NuxtLink>
 
         <div class="flex flex-col gap-3">
-            <h3 class="font-semibold text-text-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+            <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Timelines</h3>
 
             <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="flex flex-col gap-3 mt-auto">
-            <h3 class="font-semibold text-text-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+            <h3 class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Account</h3>
 
             <AccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
@@ -39,13 +39,13 @@
                 </ButtonBase>
             </NuxtLink>
             <h3 v-if="identity"
-                class="font-semibold text-text-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
+                class="font-semibold text-gray-300 text-xs uppercase opacity-0 group-hover:opacity-100 duration-200">
                 Posts</h3>
             <ButtonBase v-if="identity" @click="compose" title="Open composer (shortcut: n)" theme="gradient"
                 class="!justify-start overflow-hidden">
                 <Icon icon="tabler:writing" class="!size-6" />
                 <span class="shrink-0 line-clamp-1">Compose</span>
-                <kbd class="text-xs font-semibold rounded bg-background-500 font-mono px-1 flex flex-row ml-auto">
+                <kbd class="text-xs font-semibold rounded bg-dark-500 font-mono px-1 flex flex-row ml-auto">
                     <iconify-icon icon="tabler:keyboard" height="1rem" width="1rem" class="inline" aria-hidden="true" />
                     <iconify-icon icon="tabler:letter-n-small" height="1rem" width="1rem" class="inline -mr-1"
                         aria-hidden="true" />
@@ -61,7 +61,7 @@
     </aside>
     <!-- Mobile bottom navbar -->
     <nav
-        :class="['fixed bottom-0 left-0 right-0 z-20 h-16 md:hidden grid gap-3 p-2 *:shadow-xl bg-background-900 ring-1 ring-white/10 text-text-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
+        :class="['fixed bottom-0 left-0 right-0 z-20 h-16 md:hidden grid gap-3 p-2 *:shadow-xl bg-dark-900 ring-1 ring-white/10 text-gray-200', !!identity ? 'grid-cols-4' : 'grid-cols-3']">
 
         <AdaptiveDropdown>
             <template #button>

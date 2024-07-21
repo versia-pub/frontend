@@ -1,14 +1,14 @@
 <template>
     <div
-        class="w-full md:px-8 px-4 py-4 bg-background-700 grid justify-center lg:grid-cols-[minmax(auto,_36rem)_1fr] grid-cols-1 gap-4">
-        <form class="w-full ring-1 ring-inset ring-white/5 pb-5 bg-background-800 rounded overflow-hidden"
+        class="w-full md:px-8 px-4 py-4 bg-dark-700 grid justify-center lg:grid-cols-[minmax(auto,_36rem)_1fr] grid-cols-1 gap-4">
+        <form class="w-full ring-1 ring-inset ring-white/5 pb-5 bg-dark-800 rounded overflow-hidden"
             @submit.prevent="save">
             <Avatar :src="account?.header" :alt="`${account?.acct}'s header image'`"
-                class="w-full aspect-[8/3] border-b border-white/10 bg-background-700 !rounded-none" />
+                class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700 !rounded-none" />
 
             <div class="flex items-start justify-between px-4 py-3">
                 <Avatar :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
-                    class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-background-800" />
+                    class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
             </div>
 
             <div class="mt-2 px-4">
@@ -19,7 +19,7 @@
                     <TextInput @input="acct = ($event.target as HTMLInputElement).value" :value="acct"
                         aria-label="Username" :disabled="loading" />
                 </div>
-                <p class="text-text-300 text-xs mt-2">
+                <p class="text-gray-300 text-xs mt-2">
                     Changing your username will break all links to your profile.
                 </p>
             </div>

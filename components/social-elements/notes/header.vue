@@ -7,13 +7,13 @@
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row text-sm items-center justify-between w-full">
-                <NuxtLink :href="accountUrl" class="font-semibold text-text-200 line-clamp-1 break-all">
+                <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
                         {{
                             note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
-                <NuxtLink :href="noteUrl" class="text-text-300 ml-2 line-clamp-1 break-all shrink-0">
+                <NuxtLink :href="noteUrl" class="text-gray-300 ml-2 line-clamp-1 break-all shrink-0">
                     <Skeleton :enabled="!note" :min-width="50" :max-width="100" shape="rect">
                         {{ timeAgo }}
                     </Skeleton>
@@ -31,20 +31,20 @@
         </UserCard>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
-                <NuxtLink :href="accountUrl" class="font-semibold text-text-200 line-clamp-1 break-all">
+                <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
                         {{
                             note?.account.display_name }}
                     </Skeleton>
                 </NuxtLink>
-                <NuxtLink :href="noteUrl" class="text-text-300 text-sm ml-2 line-clamp-1 break-all shrink-0"
+                <NuxtLink :href="noteUrl" class="text-gray-300 text-sm ml-2 line-clamp-1 break-all shrink-0"
                     :alt="fullTime" :title="fullTime">
                     <Skeleton :enabled="!note" :min-width="50" :max-width="100" shape="rect">
                         {{ timeAgo }}
                     </Skeleton>
                 </NuxtLink>
             </div>
-            <span class="text-text-300 text-sm line-clamp-1 break-all w-full group">
+            <span class="text-gray-300 text-sm line-clamp-1 break-all w-full group">
                 <Skeleton :enabled="!note" :min-width="130" :max-width="250" shape="rect">
                     <span class="group-hover:hidden">
                         @{{
@@ -52,7 +52,7 @@
                         }}</span>
                     <span @click="copyAccount" v-if="!hasCopied"
                         class="hidden select-none group-hover:flex cursor-pointer items-center gap-x-1">
-                        <iconify-icon icon="tabler:clipboard" height="1rem" width="1rem" class="text-text-200"
+                        <iconify-icon icon="tabler:clipboard" height="1rem" width="1rem" class="text-gray-200"
                             aria-hidden="true" />
                         Click to copy
                     </span>

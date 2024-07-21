@@ -2,7 +2,7 @@
     <AdaptiveDropdown>
         <template #button>
             <Button theme="secondary" class="h-full">
-                <iconify-icon width="unset" icon="tabler:dots" class="size-5 text-text-200" aria-hidden="true" />
+                <iconify-icon width="unset" icon="tabler:dots" class="size-5 text-gray-200" aria-hidden="true" />
                 <span class="sr-only">Open menu</span>
             </Button>
         </template>
