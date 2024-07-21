@@ -2,7 +2,7 @@
     <TextInput @input="e => content = (e.target as HTMLInputElement).value" v-bind="$attrs, $props" v-model="content"
         :type="showPassword ? 'text' : 'password'" :spellcheck="false" />
     <Progress.Root class="flex flex-row items-center gap-x-2" v-if="showStrength">
-        <Progress.Label class="text-xs text-gray-300 font-semibold w-12">
+        <Progress.Label class="text-xs text-text-300 font-semibold w-12">
             {{ text }}
         </Progress.Label>
         <Progress.Track class="rounded-sm w-full h-2 duration-300" :style="{
@@ -13,7 +13,7 @@
     </Progress.Root>
     <Teleport :to="`#${$attrs.id}-label-slot`" v-if="teleport">
         <button type="button" @click="showPassword = !showPassword"
-            class="text-xs ml-auto block mt-2 font-semibold text-gray-400">
+            class="text-xs ml-auto block mt-2 font-semibold text-text-400">
             <iconify-icon icon="tabler:eye" class="size-4 align-text-top" height="none" />
             {{ showPassword ? "Hide password" : "Show password" }}
         </button>

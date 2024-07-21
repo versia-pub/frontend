@@ -6,7 +6,7 @@
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
                 <input type="hidden" name="token" :value="params.token" />
 
-                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Reset your password</h1>
+                <h1 class="font-bold text-2xl text-text-50 text-center tracking-tight">Reset your password</h1>
 
                 <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
                     <h2 class="font-bold text-lg">An error occured</h2>
@@ -43,22 +43,22 @@
             </VeeForm>
         </div>
         <div v-else-if="params.success">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Password reset
+            <h1 class="text-2xl font-bold tracking-tight text-text-50 sm:text-4xl text-center">Password reset
                 successful!
             </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300 text-center">
+            <p class="mt-6 text-lg leading-8 text-text-300 text-center">
                 You can now login to your account with your new password.
             </p>
         </div>
         <div v-else class="mx-auto max-w-md">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
+            <h1 class="text-2xl font-bold tracking-tight text-text-50 sm:text-4xl">Invalid access
                 parameters
             </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300">This page should be accessed
+            <p class="mt-6 text-lg leading-8 text-text-300">This page should be accessed
                 through a valid password reset request. Please ask your admin to reset your password.
             </p>
 
-            <p class="mt-6 text-lg leading-8 text-gray-300">
+            <p class="mt-6 text-lg leading-8 text-text-300">
                 Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
                     target="_blank" class="underline text-primary-700">the issue tracker</a>.
             </p>

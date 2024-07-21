@@ -2,20 +2,19 @@
     <AdaptiveDropdown>
         <template #button>
             <slot>
-                <div class="rounded text-left flex flex-row gap-x-2 hover:scale-[95%] duration-100"
-                    v-if="identity">
+                <div class="rounded text-left flex flex-row gap-x-2 hover:scale-[95%] duration-100" v-if="identity">
                     <div class="shrink-0">
                         <Avatar class="size-12 rounded ring-1 ring-white/5" :src="identity.account.avatar"
                             :alt="`${identity.account.acct}'s avatar'`" />
                     </div>
                     <div class="flex flex-col items-start p-1 justify-around grow overflow-hidden">
                         <div class="flex flex-row items-center justify-between w-full">
-                            <div class="font-semibold text-gray-200 text-sm line-clamp-1 break-all">
+                            <div class="font-semibold text-text-200 text-sm line-clamp-1 break-all">
                                 {{
                                     identity.account.display_name }}
                             </div>
                         </div>
-                        <span class="text-gray-400 text-xs line-clamp-1 break-all w-full">
+                        <span class="text-text-400 text-xs line-clamp-1 break-all w-full">
                             Change account
                         </span>
                     </div>
@@ -28,7 +27,7 @@
         </template>
         <template #items>
             <div class="p-2">
-                <h3 class="text-gray-400 text-xs text-center md:text-left uppercase font-semibold">Switch to account
+                <h3 class="text-text-400 text-xs text-center md:text-left uppercase font-semibold">Switch to account
                 </h3>
             </div>
             <div class="px-2 py-4 md:py-2 flex flex-col gap-3 max-w-[100vw]">
@@ -41,12 +40,12 @@
                         <div data-part="item" class="flex flex-col items-start justify-around grow overflow-hidden"
                             @click="useEvent('identity:change', identity)">
                             <div class="flex flex-row items-center justify-between w-full">
-                                <div class="font-semibold text-gray-200 line-clamp-1 break-all">
+                                <div class="font-semibold text-text-200 line-clamp-1 break-all">
                                     {{
                                         identity.account.display_name }}
                                 </div>
                             </div>
-                            <span class="text-gray-400 text-sm line-clamp-1 break-all w-full">
+                            <span class="text-text-400 text-sm line-clamp-1 break-all w-full">
                                 @{{
                                     identity.account.acct
                                 }}
@@ -55,7 +54,7 @@
                         <button data-part="item"
                             class="shrink-0 ml-6 size-12 ring-white/5 ring-1 flex items-center justify-center rounded"
                             @click="$emit('signOut', identity.id)">
-                            <iconify-icon icon="tabler:logout" class="size-6 text-gray-200" width="none" />
+                            <iconify-icon icon="tabler:logout" class="size-6 text-text-200" width="none" />
                         </button>
                     </div>
                 </Menu.Item>

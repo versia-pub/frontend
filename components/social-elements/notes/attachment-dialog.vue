@@ -13,7 +13,7 @@
 
                     <Dialog.Content
                         class="w-screen h-screen flex !z-50 justify-center items-center flex-col overflow-hidden p-10 fixed inset-0">
-                        <div class="w-full absolute inset-x-0 top-0 p-10 shrink text-gray-400 flex flex-row gap-3">
+                        <div class="w-full absolute inset-x-0 top-0 p-10 shrink text-text-400 flex flex-row gap-3">
                             <a @click.stop :href="attachment?.url" target="_blank" download class="ml-auto">
                                 <iconify-icon icon="tabler:download" width="1.5rem" height="1.5rem" />
                                 <span class="sr-only">Close</span>
@@ -32,7 +32,7 @@
                                 :title="attachment.description ?? ''" />
                         </HeadlessTransitionChild>
                         <span @click.stop v-if="attachment?.description"
-                            class="text-gray-300 rounded mt-6 -mb-20 px-4 py-2 max-w-xl ring-1 ring-white/5 bg-dark-900 max-h-40 overflow-y-auto">
+                            class="text-text-300 rounded mt-6 -mb-20 px-4 py-2 max-w-xl ring-1 ring-white/5 bg-background-900 max-h-40 overflow-y-auto">
                             {{ attachment.description }}
                         </span>
                     </Dialog.Content>

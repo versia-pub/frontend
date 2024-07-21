@@ -1,6 +1,6 @@
 <template>
     <article
-        class="first:rounded-t last:rounded-b ring-1 relative ring-white/5 p-6 flex flex-col bg-dark-800 hover:bg-dark-700 duration-200">
+        class="first:rounded-t last:rounded-b ring-1 relative ring-white/5 p-6 flex flex-col bg-background-800 hover:bg-background-700 duration-200">
         <!-- Overlay that blocks clicks for disabled notes -->
         <div v-if="disabled" class="absolute z-10 inset-0 hover:cursor-not-allowed">
         </div>
@@ -18,36 +18,36 @@
             :should-hide="shouldHide" />
         <Skeleton class="!h-10 w-full mt-6" :enabled="!props.element || !loaded" v-if="!small || !showInteractions">
             <div v-if="showInteractions"
-                class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-dark-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
+                class="mt-6 flex flex-row items-stretch disabled:*:opacity-70 [&>button]:max-w-28 disabled:*:cursor-not-allowed relative justify-around text-sm h-10 hover:enabled:[&>button]:bg-background-800 [&>button]:duration-200 [&>button]:rounded [&>button]:flex [&>button]:flex-1 [&>button]:flex-row [&>button]:items-center [&>button]:justify-center">
                 <button class="group" @click="outputtedNote && useEvent('note:reply', outputtedNote)"
                     :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:arrow-back-up"
-                        class="text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.replies_count) }}</span>
+                        class="text-text-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
+                    <span class="text-text-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.replies_count) }}</span>
                 </button>
                 <button class="group" @click="likeFn" :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!outputtedNote?.favourited"
-                        class="size-5 text-gray-200 group-hover:group-enabled:text-primary-600" aria-hidden="true" />
+                        class="size-5 text-text-200 group-hover:group-enabled:text-primary-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
-                        class="size-5 text-primary-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.favourites_count) }}</span>
+                        class="size-5 text-primary-600 group-hover:group-enabled:text-text-200" aria-hidden="true" />
+                    <span class="text-text-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.favourites_count) }}</span>
                 </button>
                 <button class="group" @click="reblogFn" :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!outputtedNote?.reblogged"
-                        class="size-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
+                        class="size-5 text-text-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-else
-                        class="size-5 text-green-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.reblogs_count) }}</span>
+                        class="size-5 text-green-600 group-hover:group-enabled:text-text-200" aria-hidden="true" />
+                    <span class="text-text-400 mt-0.5 ml-2">{{ numberFormat(outputtedNote?.reblogs_count) }}</span>
                 </button>
                 <button class="group" @click="outputtedNote && useEvent('note:quote', outputtedNote)"
                     :disabled="!identity">
                     <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:quote"
-                        class="size-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
-                    <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
+                        class="size-5 text-text-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
+                    <span class="text-text-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
                 </button>
                 <AdaptiveDropdown>
                     <template #button>
-                        <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:dots" class="size-5 text-gray-200"
+                        <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:dots" class="size-5 text-text-200"
                             aria-hidden="true" />
                         <span class="sr-only">Open menu</span>
                     </template>

@@ -3,7 +3,7 @@
         <input type="file" ref="fileInput" @change="handleFileInput" style="display: none" multiple />
         <div class="flex flex-row gap-2 overflow-x-auto *:shrink-0 p-1 mb-4" v-if="files.length > 0">
             <div v-for="(data) in files" :key="data.id" role="button" tabindex="0"
-                :class="['size-28 bg-dark-800 rounded flex items-center relative justify-center ring-1 ring-white/20 overflow-hidden', data.progress !== 1.0 && 'animate-pulse']"
+                :class="['size-28 bg-background-800 rounded flex items-center relative justify-center ring-1 ring-white/20 overflow-hidden', data.progress !== 1.0 && 'animate-pulse']"
                 @keydown.enter="removeFile(data.id)">
                 <template v-if="data.file.type.startsWith('image/')">
                     <img :src="createObjectURL(data.file)" class="w-full h-full object-cover cursor-default"
@@ -17,15 +17,15 @@
                 </template>
                 <!-- Shadow on media to better see buttons -->
                 <div class="absolute inset-0 bg-black/70"></div>
-                <div class="absolute bottom-1 right-1 p-1 bg-dark-800 text-white text-xs rounded cursor-default flex flex-row items-center gap-x-1"
+                <div class="absolute bottom-1 right-1 p-1 bg-background-800 text-white text-xs rounded cursor-default flex flex-row items-center gap-x-1"
                     aria-label="File size">
                     {{ formatBytes(data.file.size) }}
                     <!-- Loader spinner -->
                     <iconify-icon v-if="data.progress < 1.0" icon="tabler:loader-2" width="none"
                         class="size-4 animate-spin text-primary-500" />
                 </div>
-                <button class="absolute top-1 right-1 p-1 bg-dark-800 text-white text-xs rounded size-6" role="button"
-                    tabindex="0" @pointerup="removeFile(data.id)" @keydown.enter="removeFile(data.id)">
+                <button class="absolute top-1 right-1 p-1 bg-background-800 text-white text-xs rounded size-6"
+                    role="button" tabindex="0" @pointerup="removeFile(data.id)" @keydown.enter="removeFile(data.id)">
                     <iconify-icon icon="tabler:x" width="none" class="size-4" />
                 </button>
                 <!-- Alt text editor -->
@@ -33,15 +33,15 @@
                     strategy: 'fixed',
                 }" v-if="data.api_id" @update:open="o => !o && updateAltText(data.id, data.alt_text)">
                     <Popover.Trigger aria-hidden="true"
-                        class="absolute top-1 left-1 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-6">
+                        class="absolute top-1 left-1 p-1 bg-background-800 ring-1 ring-white/5 text-white text-xs rounded size-6">
                         <iconify-icon icon="tabler:alt" width="none" class="size-4" />
                     </Popover.Trigger>
                     <Popover.Positioner class="!z-[100]">
                         <Popover.Content
-                            class="p-1 bg-dark-400 rounded text-sm ring-1 ring-white/10 shadow-lg text-gray-300 !min-w-72">
+                            class="p-1 bg-background-400 rounded text-sm ring-1 ring-white/10 shadow-lg text-text-300 !min-w-72">
                             <textarea :disabled="data.progress < 1.0" @keydown.enter.stop v-model="data.alt_text"
                                 placeholder="Add alt text"
-                                class="w-full p-2 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
+                                class="w-full p-2 text-sm prose prose-invert bg-background-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
                             <Button theme="secondary" @click="updateAltText(data.id, data.alt_text)" class="w-full"
                                 :loading="data.progress < 1.0">
                                 <span>Edit</span>

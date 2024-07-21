@@ -11,7 +11,7 @@
             implemented
         </p>
         <p v-else :data-disabled="setting.notImplemented ? '' : undefined"
-            class="text-base/6 row-start-2 data-[disabled]:opacity-50 sm:text-sm/6 text-gray-300">{{
+            class="text-base/6 row-start-2 data-[disabled]:opacity-50 sm:text-sm/6 text-text-300">{{
                 setting.description }}
         </p>
         <Switch.Control :data-disabled="setting.notImplemented ? '' : undefined"

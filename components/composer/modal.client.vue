@@ -18,7 +18,7 @@
                         leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                         <Dialog.Content class="overflow-y-auto w-full max-h-full md:py-16">
                             <div
-                                class="relative overflow-hidden max-w-xl mx-auto rounded-lg bg-dark-700 ring-1 ring-dark-800 text-left shadow-xl transition-all w-full">
+                                class="relative overflow-hidden max-w-xl mx-auto rounded-lg bg-background-700 ring-1 ring-background-800 text-left shadow-xl transition-all w-full">
                                 <Composer v-if="instance" :instance="instance as any" />
                             </div>
                         </Dialog.Content>

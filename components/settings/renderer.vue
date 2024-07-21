@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full px-8 py-4 bg-dark-700 hover:bg-dark-500 duration-100 h-full">
+    <div class="w-full px-8 py-4 bg-background-700 hover:bg-background-500 duration-100 h-full">
         <div class="max-w-7xl mx-auto h-full">
             <SettingBoolean v-if="setting.type === SettingType.Boolean" :id="id" />
 

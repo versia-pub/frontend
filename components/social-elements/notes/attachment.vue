@@ -10,12 +10,12 @@
                 controls :alt="attachment.description ?? undefined" :src="attachment.url">
                 Your browser does not support the video tag.
             </video>
-            <a v-else class="bg-dark-800 w-full h-full rounded flex items-center justify-center" :href="attachment.url"
-                target="_blank" download>
+            <a v-else class="bg-background-800 w-full h-full rounded flex items-center justify-center"
+                :href="attachment.url" target="_blank" download>
                 <div class="flex flex-col items-center gap-2 text-center max-w-56 overflow-hidden text-ellipsis">
-                    <iconify-icon icon="tabler:file" width="none" class="size-10 text-gray-300" />
-                    <p class="text-gray-300 text-sm font-mono">{{ getFilename(attachment.url) }}</p>
-                    <p class="text-gray-300 text-xs" v-if="attachment.meta?.length">{{
+                    <iconify-icon icon="tabler:file" width="none" class="size-10 text-text-300" />
+                    <p class="text-text-300 text-sm font-mono">{{ getFilename(attachment.url) }}</p>
+                    <p class="text-text-300 text-xs" v-if="attachment.meta?.length">{{
                         formatBytes(Number(attachment.meta?.length)) }}</p>
                 </div>
             </a>
@@ -25,11 +25,12 @@
             strategy: 'fixed',
         }" v-if="attachment.description">
             <Popover.Trigger aria-hidden="true"
-                class="absolute top-2 right-2 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-8">
+                class="absolute top-2 right-2 p-1 bg-background-800 ring-1 ring-white/5 text-white text-xs rounded size-8">
                 <iconify-icon icon="tabler:alt" width="none" class="size-6" />
             </Popover.Trigger>
             <Popover.Positioner class="!z-10">
-                <Popover.Content class="p-4 bg-dark-400 rounded text-sm ring-1 ring-dark-100 shadow-lg text-gray-300">
+                <Popover.Content
+                    class="p-4 bg-background-400 rounded text-sm ring-1 ring-background-100 shadow-lg text-text-300">
                     <Popover.Description>{{ attachment.description }}</Popover.Description>
                 </Popover.Content>
             </Popover.Positioner>

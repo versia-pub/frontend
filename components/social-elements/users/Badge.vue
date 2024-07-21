@@ -1,7 +1,7 @@
 <template>
     <Tooltip.Root @update:open="(o) => open = o" :open="open" :open-delay="0">
         <Tooltip.Trigger><span
-                class="inline-flex items-center px-2 py-1 gap-x-2 rounded text-sm font-medium bg-dark-300 text-primary-200 ring-white/5 ring-1">
+                class="inline-flex items-center px-2 py-1 gap-x-2 rounded text-sm font-medium bg-background-300 text-primary-200 ring-white/5 ring-1">
                 <svg viewBox="0 0 22 22" v-if="verified" aria-label="Verified account" role="img"
                     class="size-4 fill-primary-500">
                     <g>
@@ -22,7 +22,7 @@
                 leave-active-class="transition ease-out duration-75" leave-from-class="transform opacity-100 scale-100"
                 leave-to-class="transform opacity-0 scale-95">
                 <Tooltip.Content v-if="open"
-                    class="rounded px-4 py-2 text-sm bg-dark-400 text-gray-200 ring-1 ring-white/10 shadow-xl">
+                    class="rounded px-4 py-2 text-sm bg-background-400 text-text-200 ring-1 ring-white/10 shadow-xl">
                     <svg viewBox="0 0 22 22" v-if="verified" aria-label="Verified account" role="img"
                         class="size-4 fill-primary-500 inline mb-0.5">
                         <g>

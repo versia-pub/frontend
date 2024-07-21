@@ -1,25 +1,44 @@
+/*
+ * This file is used to define the theme colors for the application.
+ * Each color is defined in the HSL format, without the hsl() function.
+ * hsl(0deg 0% 0%) should be changed to 0deg 0% 0%.
+ *
+ * This format is due to limited support for Relative Colors in CSS.
+ */
 :root {
-  --theme-dark-50: #4a4a4a;
-  --theme-dark-100: #3c3c3c;
-  --theme-dark-200: #323232;
-  --theme-dark-300: #2d2d2d;
-  --theme-dark-400: #222222;
-  --theme-dark-500: #1f1f1f;
-  --theme-dark-600: #1c1c1e;
-  --theme-dark-700: #1b1b1b;
-  --theme-dark-800: #181818;
-  --theme-dark-900: #0f0f0f;
-  --theme-dark-950: #080808;
+  --theme-background-50: 0deg 0% 29%;
+  --theme-background-100: 0deg 0% 24%;
+  --theme-background-200: 0deg 0% 20%;
+  --theme-background-300: 0deg 0% 18%;
+  --theme-background-400: 0deg 0% 13%;
+  --theme-background-500: 0deg 0% 12%;
+  --theme-background-600: 240deg 3% 11%;
+  --theme-background-700: 0deg 0% 11%;
+  --theme-background-800: 0deg 0% 9%;
+  --theme-background-900: 0deg 0% 6%;
+  --theme-background-950: 0deg 0% 3%;
 
-  --theme-primary-50: #fdf2f8;
-  --theme-primary-100: #fce7f3;
-  --theme-primary-200: #fbcfe8;
-  --theme-primary-300: #f9a8d4;
-  --theme-primary-400: #f472b6;
-  --theme-primary-500: #ec4899;
-  --theme-primary-600: #db2777;
-  --theme-primary-700: #be185d;
-  --theme-primary-800: #9d174d;
-  --theme-primary-900: #831843;
-  --theme-primary-950: #500724;
+  --theme-primary-50: 327deg 73% 97%;
+  --theme-primary-100: 326deg 78% 95%;
+  --theme-primary-200: 326deg 85% 90%;
+  --theme-primary-300: 327deg 87% 82%;
+  --theme-primary-400: 329deg 86% 70%;
+  --theme-primary-500: 330deg 81% 60%;
+  --theme-primary-600: 333deg 71% 51%;
+  --theme-primary-700: 335deg 78% 42%;
+  --theme-primary-800: 336deg 74% 35%;
+  --theme-primary-900: 336deg 69% 30%;
+  --theme-primary-950: 336deg 84% 17%;
+
+  --theme-text-50: 210 20% 98%;
+  --theme-text-100: 220 14% 96%;
+  --theme-text-200: 220 13% 91%;
+  --theme-text-300: 216 12% 84%;
+  --theme-text-400: 218 11% 65%;
+  --theme-text-500: 220 9% 46%;
+  --theme-text-600: 215 14% 34%;
+  --theme-text-700: 217 19% 27%;
+  --theme-text-800: 215 28% 17%;
+  --theme-text-900: 221 39% 11%;
+  --theme-text-950: 224 71% 4%;
 }

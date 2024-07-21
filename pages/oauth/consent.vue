@@ -4,17 +4,17 @@
             <form class="space-y-6" method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')">
                 <input type="hidden" v-for="([key, value]) in url.searchParams" :key="key" :name="key" :value="value" />
                 <div class="flex flex-col items-center gap-y-5">
-                    <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Allow this application to
+                    <h1 class="font-bold text-2xl text-text-50 text-center tracking-tight">Allow this application to
                         access your
                         account?</h1>
                     <div v-if="application" class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full">
-                        <h2 class="font-bold text-gray-200">{{ application }}</h2>
+                        <h2 class="font-bold text-text-200">{{ application }}</h2>
                         <a v-if="website" :href="website" target="_blank" class="underline text-primary-700">{{ website
                             }}</a>
                     </div>
                 </div>
 
-                <h2 class="text-gray-50 tracking-tight text-xl font-semibold">
+                <h2 class="text-text-50 tracking-tight text-xl font-semibold">
                     This application will be able to:
                 </h2>
 
@@ -25,16 +25,16 @@
                             <path
                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
                         </svg>
-                        <h2 class="text-sm text-gray-200">
+                        <h2 class="text-sm text-text-200">
                             <strong class="font-bold">{{ text[0] }}</strong> {{ text[1] }}
                         </h2>
                     </li>
                 </ul>
 
                 <div class="flex-col flex gap-y-1">
-                    <p class="text-sm text-gray-200">You are signing in to <b>{{ application }}</b> with your
+                    <p class="text-sm text-text-200">You are signing in to <b>{{ application }}</b> with your
                         account.</p>
-                    <p class="text-sm text-gray-200">This allows <b>{{ application }}</b> to perform the above
+                    <p class="text-sm text-text-200">This allows <b>{{ application }}</b> to perform the above
                         account
                         actions.</p>
                 </div>
@@ -48,14 +48,14 @@
             </form>
         </div>
         <div v-else class="mx-auto max-w-md mt-10">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
+            <h1 class="text-2xl font-bold tracking-tight text-text-50 sm:text-4xl">Invalid access
                 parameters
             </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300">This page should be accessed
+            <p class="mt-6 text-lg leading-8 text-text-300">This page should be accessed
                 through a valid OAuth2 authorization request. Please use a <strong class="font-bold">Mastodon
                     API</strong> client to access this page.
             </p>
-            <p class="mt-6 text-lg leading-8 text-gray-300">Here are some recommended clients:</p>
+            <p class="mt-6 text-lg leading-8 text-text-300">Here are some recommended clients:</p>
             <ul class="w-full flex flex-col gap-3 mt-4">
                 <li v-for="client of useConfig().RECOMMENDED_CLIENTS" :key="client.name" class="w-full">
                     <a :href="client.link" target="_blank"
@@ -63,18 +63,18 @@
                         <img crossorigin="anonymous" :src="client.icon" :alt="`${client.name}'s logo'`"
                             class="h-10 w-10" />
                         <div class="flex flex-col justify-between items-start">
-                            <h2 class="font-bold text-gray-100">{{ client.name }}</h2>
+                            <h2 class="font-bold text-text-100">{{ client.name }}</h2>
                             <span class="underline text-primary-700">{{ client.link }}</span>
                         </div>
                     </a>
                 </li>
             </ul>
-            <p class="mt-6 text-lg leading-8 text-gray-300">
+            <p class="mt-6 text-lg leading-8 text-text-300">
                 Many other clients exist, but <strong class="font-bold">they have not been tested for
                     compatibility</strong>. Bug reports are nevertheless welcome.
             </p>
 
-            <p class="mt-6 text-lg leading-8 text-gray-300">
+            <p class="mt-6 text-lg leading-8 text-text-300">
                 Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
                     target="_blank" class="underline text-primary-700">the issue tracker</a>.
             </p>

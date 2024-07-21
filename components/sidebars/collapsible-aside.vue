@@ -2,13 +2,13 @@
     <aside v-bind="$props" role="complementary" :aria-expanded="open ? 'true' : 'false'"
         :class="['flex max-h-dvh overflow-hidden duration-200', open ? enterClass : leaveClass, direction === 'left' ? 'flex-row' : 'flex-row-reverse']">
         <OverlayScrollbarsComponent :defer="true"
-            class="bg-dark-700 ring-1 ring-white/10 h-full overflow-y-auto w-full">
+            class="bg-background-700 ring-1 ring-white/10 h-full overflow-y-auto w-full">
             <slot />
         </OverlayScrollbarsComponent>
         <button @click="open = !open" aria-label="Toggle sidebar"
-            class="h-full bg-dark-700 hover:bg-dark-400 hover:cursor-pointer duration-200 py-4 px-0.5 flex items-center justify-center w-4 shrink-0">
+            class="h-full bg-background-700 hover:bg-background-400 hover:cursor-pointer duration-200 py-4 px-0.5 flex items-center justify-center w-4 shrink-0">
             <iconify-icon icon="tabler:chevron-right"
-                :class="['text-gray-200 duration-200', direction === 'left' ? open ? 'rotate-180' : 'rotate-0' : open ? 'rotate-0' : 'rotate-180']"
+                :class="['text-text-200 duration-200', direction === 'left' ? open ? 'rotate-180' : 'rotate-0' : open ? 'rotate-0' : 'rotate-180']"
                 aria-hidden="true" />
         </button>
     </aside>

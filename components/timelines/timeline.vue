@@ -13,13 +13,13 @@
         </div>
 
         <div v-if="hasReachedEnd && items.length > 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
+            class="flex flex-col items-center justify-center gap-2 text-text-200 text-center p-10">
             <span class="text-lg font-semibold">You've scrolled so far, there's nothing left to show.</span>
             <span class="text-sm">You can always go back and see what you missed.</span>
         </div>
 
         <div v-else-if="hasReachedEnd && items.length === 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
+            class="flex flex-col items-center justify-center gap-2 text-text-200 text-center p-10">
             <span class="text-lg font-semibold">There's nothing to show here.</span>
             <span class="text-sm">Either you're all caught up or there's nothing to show.</span>
         </div>

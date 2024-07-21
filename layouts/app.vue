@@ -1,5 +1,5 @@
 <template>
-    <div class="from-dark-600 to-dark-900 bg-gradient-to-tl relative min-h-dvh">
+    <div class="from-background-600 to-background-900 bg-gradient-to-tl relative min-h-dvh">
         <SquarePattern />
         <Navigation />
 
