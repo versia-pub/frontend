@@ -14,7 +14,7 @@
             </Transition>
             <HoverCard.Positioner>
                 <HoverCard.Content
-                    class="bg-dark-700 w-96 z-20 overflow-y-auto rounded overflow-x-hidden ring-1 ring-white/20 shadow-xl max-h-[60vh] text-sm">
+                    class="bg-dark-700 pb-4 w-96 z-20 overflow-y-auto rounded overflow-x-hidden ring-1 ring-white/20 shadow-xl max-h-[60vh] text-sm">
                     <Avatar :src="account.header" :alt="`${account.acct}'s header image'`"
                         class="w-full aspect-[8/3] border-b border-white/10 bg-dark-700 !rounded-none" />
 
@@ -28,7 +28,7 @@
                             class="text-xl font-bold text-gray-100 tracking-tight bg-gradient-to-r from-primary-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
                             <span v-html="display_name"></span>
                             <iconify-icon v-if="account.locked" icon="tabler:lock" width="1.25rem" height="1.25rem"
-                                class="text-gray-400 cursor-pointer align-text-top"
+                                class="text-gray-400 cursor-pointer align-text-top ml-1"
                                 title="This account manually approves its followers" />
                         </h2>
                         <span class="text-gray-300 block mt-2">
@@ -95,7 +95,7 @@ const props = defineProps<{
 }>();
 
 const config = useConfig();
-const isEnabled = useSetting(SettingIds.PopupAvatarHover);
+const isEnabled = ref({ value: false }); // useSetting(SettingIds.PopupAvatarHover);
 const open = ref(false);
 
 const formattedJoin = computed(() =>

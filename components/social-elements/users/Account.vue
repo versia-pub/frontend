@@ -29,7 +29,7 @@
                 <Skeleton :enabled="skeleton" :min-width="200" :max-width="350" class="h-6">
                     <span v-html="display_name"></span>
                     <iconify-icon v-if="account?.locked" icon="tabler:lock" width="1.25rem" height="1.25rem"
-                        class="text-gray-400 cursor-pointer align-text-top"
+                        class="text-gray-400 cursor-pointer align-text-top ml-1"
                         title="This account manually approves its followers" />
                 </Skeleton>
             </h2>
