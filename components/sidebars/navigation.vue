@@ -1,6 +1,6 @@
 <template>
     <aside
-        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-20 hover:max-w-72 w-full duration-200 group ring-1 ring-dark-500"
+        class="fixed h-dvh z-10 md:flex hidden flex-col p-4 bg-dark-800 gap-10 max-w-[80px] hover:max-w-72 w-full duration-200 group ring-1 ring-dark-500"
         aria-label="Navigation" role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
