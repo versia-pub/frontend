@@ -30,7 +30,7 @@
     },
     "dependencies": {
         "@ark-ui/vue": "^3.6.0",
-        "@lysand-org/client": "^0.2.4",
+        "@lysand-org/client": "^0.2.5",
         "@nuxt/fonts": "^0.7.1",
         "@tailwindcss/typography": "^0.5.13",
         "@vee-validate/nuxt": "^4.13.2",

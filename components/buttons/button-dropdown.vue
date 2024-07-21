@@ -1,5 +1,5 @@
 <template>
-    <ButtonBase class="enabled:hover:bg-white/20 !rounded-sm !ring-0 !p-4 sm:!p-2 !justify-start">
+    <ButtonBase class="enabled:hover:bg-white/20 text-sm !rounded-sm !ring-0 !py-3 sm:!py-1.5 sm:!px-2 !justify-start">
         <Icon :icon="icon" />
         <slot />
     </ButtonBase>

@@ -1,5 +1,5 @@
 import type { createToaster } from "@ark-ui/vue";
-import type { Attachment, Status } from "@lysand-org/client/types";
+import type { Account, Attachment, Status } from "@lysand-org/client/types";
 import mitt from "mitt";
 import type { Identity } from "./Identities";
 
@@ -24,6 +24,8 @@ type ApplicationEvents = {
     "composer:send": Status;
     "composer:send-edit": Status;
     "composer:close": undefined;
+    "account:report": Account;
+    "account:update": Account;
     "notification:new": NotificationEvent;
     "attachment:view": Attachment;
     "identity:change": Identity;

@@ -64,23 +64,23 @@
                                 <ButtonDropdown @click="copy(JSON.stringify(props.element, null, 4))" icon="tabler:code"
                                     class="w-full">
                                     Copy API
-                                    Response
+                                    response
                                 </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="">
                                 <ButtonDropdown @click="copy(url)" icon="tabler:link" class="w-full">
-                                    Copy Link
+                                    Copy link
                                 </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
                                 <ButtonDropdown @click="copy(outputtedNote.url)" icon="tabler:link" class="w-full">
-                                    Copy Link (Origin)
+                                    Copy link (origin)
                                 </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="outputtedNote?.url && isRemote">
                                 <ButtonDropdown @click="openBlank(outputtedNote.url)" icon="tabler:external-link"
                                     class="w-full">
-                                    View on Remote
+                                    View on remote
                                 </ButtonDropdown>
                             </Menu.Item>
                             <Menu.Item value="" v-if="isMyAccount">
@@ -134,7 +134,7 @@
                             </Menu.Item>
                             <Menu.Item value="" v-if="permissions.includes(RolePermission.ManageAccounts)">
                                 <ButtonDropdown icon="tabler:shield-bolt" class="w-full">
-                                    Open Moderation Panel
+                                    Open moderation panel
                                 </ButtonDropdown>
                             </Menu.Item>
                         </Menu.ItemGroup>

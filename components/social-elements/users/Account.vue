@@ -7,20 +7,25 @@
             <Avatar :src="account?.avatar" :alt="`${account?.acct}'s avatar'`"
                 class="h-32 w-32 -mt-[4.5rem] z-10 shrink-0 rounded ring-2 ring-dark-800" />
 
-            <Button theme="secondary" v-if="account && account?.id === identity?.account?.id">Edit Profile
-            </Button>
-            <Button theme="secondary" :loading="isLoading" @click="follow()"
-                v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && !relationship.requested">
-                <span>Follow</span>
-            </Button>
-            <Button theme="secondary" :loading="isLoading" @click="unfollow()"
-                v-if="account && account?.id !== identity?.account?.id && relationship && relationship.following">
-                <span>Unfollow</span>
-            </Button>
-            <Button theme="secondary" :loading="isLoading" :disabled="true"
-                v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && relationship.requested">
-                <span>Requested</span>
-            </Button>
+            <div class="flex gap-x-2">
+                <Button theme="secondary" v-if="account && account?.id === identity?.account?.id">Edit Profile
+                </Button>
+                <Button theme="secondary" :loading="isLoading" @click="follow()"
+                    v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && !relationship.requested">
+                    <span>Follow</span>
+                </Button>
+                <Button theme="secondary" :loading="isLoading" @click="unfollow()"
+                    v-if="account && account?.id !== identity?.account?.id && relationship && relationship.following">
+                    <span>Unfollow</span>
+                </Button>
+                <Button theme="secondary" :loading="isLoading" :disabled="true"
+                    v-if="account && account?.id !== identity?.account?.id && relationship && !relationship.following && relationship.requested">
+                    <span>Requested</span>
+                </Button>
+
+                <AccountActionsDropdown v-if="account && relationship" :account="account"
+                    :relationship="relationship" />
+            </div>
         </div>
 
         <div class="mt-2 px-4">
@@ -102,19 +107,26 @@ import type { Account } from "@lysand-org/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";
+import AccountActionsDropdown from "./AccountActionsDropdown.vue";
 import Badge from "./Badge.vue";
 
 const props = defineProps<{
     account?: Account;
 }>();
 
-const skeleton = computed(() => !props.account);
+const account = ref(props.account);
+
+watch(props, () => {
+    account.value = props.account;
+});
+
+const skeleton = computed(() => !account.value);
 const config = useConfig();
-const accountId = computed(() => props.account?.id ?? null);
+const accountId = computed(() => account.value?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
 
 const follow = () => {
-    if (!(identity.value && props.account && relationship.value)) {
+    if (!(identity.value && account.value && relationship.value)) {
         return;
     }
     relationship.value = {
@@ -124,7 +136,7 @@ const follow = () => {
 };
 
 const unfollow = () => {
-    if (!(identity.value && props.account && relationship.value)) {
+    if (!(identity.value && account.value && relationship.value)) {
         return;
     }
     relationship.value = {
@@ -137,24 +149,24 @@ const formattedJoin = computed(() =>
     Intl.DateTimeFormat("en-US", {
         month: "long",
         year: "numeric",
-    }).format(new Date(props.account?.created_at ?? 0)),
+    }).format(new Date(account.value?.created_at ?? 0)),
 );
 
 const handle = computed(() => {
-    if (!props.account?.acct.includes("@")) {
-        return `${props.account?.acct}@${new URL(useBaseUrl().value).host}`;
+    if (!account.value?.acct.includes("@")) {
+        return `${account.value?.acct}@${new URL(useBaseUrl().value).host}`;
     }
-    return props.account?.acct;
+    return account.value?.acct;
 });
 const isDeveloper = computed(() =>
     config.DEVELOPER_HANDLES.includes(handle.value),
 );
 const visibleRoles = computed(
-    () => props.account?.roles.filter((r) => r.visible) ?? [],
+    () => account.value?.roles.filter((r) => r.visible) ?? [],
 );
 
 const { display_name, fields, note } = useParsedAccount(
-    computed(() => props.account),
+    computed(() => account.value),
     settings,
 );
 </script>

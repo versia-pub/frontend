@@ -20,12 +20,15 @@ const {
     updateItem,
 } = useHomeTimeline(client.value);
 
-// Example of how to handle global events
 useListen("note:delete", ({ id }) => {
     removeItem(id);
 });
 
 useListen("note:edit", (updatedNote) => {
     updateItem(updatedNote);
+});
+
+useListen("composer:send", (ee) => {
+    loadPrev();
 });
 </script>
