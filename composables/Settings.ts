@@ -3,7 +3,7 @@ import {
     type Setting,
     type SettingIds,
     type Settings,
-    parseFromJson,
+    mergeSettings,
     settings as settingsJson,
 } from "~/settings";
 
@@ -13,18 +13,17 @@ const useSettings = () => {
             read(raw) {
                 const json = StorageSerializers.object.read(raw);
 
-                return parseFromJson(json);
+                return mergeSettings(json);
             },
             write(value) {
-                // key/value, with key being id and value being the value
-                const json = value.reduce(
-                    (acc, setting) => {
-                        acc[setting.id] = setting.value;
-                        return acc;
-                    },
-                    {} as Record<string, unknown>,
+                const json = Object.fromEntries(
+                    Object.entries(value).map(([key, value]) => [
+                        key,
+                        value.value,
+                    ]),
                 );
 
+                // flatMap object values to .value
                 return StorageSerializers.object.write(json);
             },
         },
@@ -33,24 +32,21 @@ const useSettings = () => {
 
 export const settings = useSettings();
 
-export const useSetting = <T extends Setting = Setting>(id: SettingIds) => {
-    const setting: Ref<T> = ref<T>(
-        settings.value.find((s) => s.id === id) as T,
-    ) as unknown as Ref<T>;
+export const useSetting = <Id extends SettingIds>(
+    id: Id,
+): Ref<Settings[Id]> => {
+    const setting = ref(settings.value[id]) as Ref<Settings[Id]>;
 
     watch(settings, (newSettings) => {
-        setting.value = newSettings.find((s) => s.id === id) as T;
+        setting.value = newSettings[id];
     });
 
     watch(setting, (newSetting) => {
-        settings.value = settings.value.map((s) =>
-            s.id === id ? newSetting : s,
-        ) as Settings;
+        settings.value = {
+            ...settings.value,
+            [id]: newSetting,
+        };
     });
 
     return setting;
-};
-
-export const getSetting = <T extends Setting = Setting>(id: SettingIds) => {
-    return settingsJson.find((s) => s.id === id) as T;
 };

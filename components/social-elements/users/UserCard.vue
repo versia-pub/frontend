@@ -1,6 +1,7 @@
 <template>
     <HoverCard.Root :positioning="{
         placement: 'bottom',
+        strategy: 'fixed',
     }" v-if="isEnabled.value">
         <HoverCard.Trigger :as-child="true">
             <slot />

@@ -36,14 +36,14 @@
 
 <script lang="ts" setup>
 import { Switch } from "@ark-ui/vue";
-import { type Setting, type SettingIds, SettingType } from "~/settings";
+import { type SettingIds, SettingType } from "~/settings";
 
 const props = defineProps<{
-    setting: Setting;
+    id: SettingIds;
 }>();
-const checked = ref(!!props.setting.value);
 
-const setting = useSetting(props.setting.id as SettingIds);
+const setting = useSetting(props.id);
+const checked = ref(setting.value.value as boolean);
 
 watch(checked, (c) => {
     setting.value.value = c;

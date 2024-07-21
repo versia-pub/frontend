@@ -7,27 +7,51 @@ export enum SettingType {
     Code = "code",
 }
 
-export type Setting<T = SettingType> = {
-    id: string;
+export type Setting = {
     title: string;
     description: string;
     notImplemented?: boolean;
-    type: T;
-    value: T extends SettingType.String | SettingType.Code
-        ? string
-        : T extends SettingType.Boolean
-          ? boolean
-          : T extends SettingType.Float | SettingType.Integer
-            ? number
-            : T extends SettingType.Enum
-              ? string
-              : never;
-    min?: T extends SettingType.Float | SettingType.Integer ? number : never;
-    max?: T extends SettingType.Float | SettingType.Integer ? number : never;
-    step?: T extends SettingType.Float | SettingType.Integer ? number : never;
-    options?: T extends SettingType.Enum ? string[] : never;
-    language?: T extends SettingType.Code ? string : never;
-    path: SettingPages;
+    type: SettingType;
+    value: unknown;
+    page: SettingPages;
+};
+
+export type StringSetting = Setting & {
+    type: SettingType.String;
+    value: string;
+};
+
+export type BooleanSetting = Setting & {
+    type: SettingType.Boolean;
+    value: boolean;
+};
+
+export type EnumSetting = Setting & {
+    type: SettingType.Enum;
+    value: string;
+    options: string[];
+};
+
+export type FloatSetting = Setting & {
+    type: SettingType.Float;
+    value: number;
+    min: number;
+    max: number;
+    step: number;
+};
+
+export type IntegerSetting = Setting & {
+    type: SettingType.Integer;
+    value: number;
+    min: number;
+    max: number;
+    step: number;
+};
+
+export type CodeSetting = Setting & {
+    type: SettingType.Code;
+    value: string;
+    language: string;
 };
 
 export enum SettingPages {
@@ -36,27 +60,6 @@ export enum SettingPages {
     Advanced = "advanced",
     Appearance = "appearance",
 }
-
-export const getSettingsForPath = (
-    settingsToFilterIn: Settings,
-    path: SettingPages,
-) => settingsToFilterIn.filter((setting) => setting.path === path);
-
-export const getSettingById = (settingsToFilterIn: Settings, id: SettingIds) =>
-    settingsToFilterIn.find((setting) => setting.id === id);
-
-export const parseFromJson = (json: Record<string, unknown>) => {
-    const finalSettings = structuredClone(settings);
-
-    // Override the default values with the values from the JSON except for the user value
-    for (const setting of finalSettings) {
-        if (setting.id in json) {
-            setting.value = json[setting.id] as (typeof setting)["value"];
-        }
-    }
-
-    return finalSettings;
-};
 
 export enum SettingIds {
     Mfm = "mfm",
@@ -72,103 +75,115 @@ export enum SettingIds {
     ConfirmFavourite = "confirm-favourite",
 }
 
-export const settings = [
-    {
-        id: SettingIds.Mfm,
+export const settings: Record<SettingIds, Setting> = {
+    [SettingIds.Mfm]: {
         title: "Render MFM",
         description: "Render Misskey-Flavoured Markdown",
         type: SettingType.Boolean,
         value: false,
-        path: SettingPages.Behaviour,
+        page: SettingPages.Behaviour,
         notImplemented: true,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.CustomCSS,
+    } as BooleanSetting,
+    [SettingIds.CustomCSS]: {
         title: "Custom CSS",
         description: "Custom CSS for the UI",
         type: SettingType.Code,
         value: "",
         language: "css",
-        path: SettingPages.Appearance,
-    } as Setting<SettingType.Code>,
-    {
-        id: SettingIds.Theme,
+        page: SettingPages.Appearance,
+    } as CodeSetting,
+    [SettingIds.Theme]: {
         title: "Theme",
         description: "UI theme",
         type: SettingType.Enum,
         value: "dark",
         options: ["light", "dark"],
-        path: SettingPages.Appearance,
-    } as Setting<SettingType.Enum>,
-    {
-        id: SettingIds.CustomEmojis,
+        page: SettingPages.Appearance,
+    } as EnumSetting,
+    [SettingIds.CustomEmojis]: {
         title: "Render Custom Emojis",
         description: "Render custom emojis",
         type: SettingType.Boolean,
         value: true,
-        path: SettingPages.Behaviour,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.ShowContentWarning,
+        page: SettingPages.Behaviour,
+    } as BooleanSetting,
+    [SettingIds.ShowContentWarning]: {
         title: "Show Content Warning",
         description: "Show content warnings on notes marked sensitive/spoiler",
         type: SettingType.Boolean,
         value: true,
-        path: SettingPages.Behaviour,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.PopupAvatarHover,
+        page: SettingPages.Behaviour,
+    } as BooleanSetting,
+    [SettingIds.PopupAvatarHover]: {
         title: "Popup Profile Hover",
         description: "Show profile popup when hovering over a user's avatar",
         type: SettingType.Boolean,
         value: true,
-        path: SettingPages.Behaviour,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.InfiniteScroll,
+        page: SettingPages.Behaviour,
+    } as BooleanSetting,
+    [SettingIds.InfiniteScroll]: {
         title: "Infinite Scroll",
         description:
             "Automatically load more notes when reaching the bottom of the page",
         type: SettingType.Boolean,
         value: true,
-        path: SettingPages.Behaviour,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.ConfirmDelete,
+        page: SettingPages.Behaviour,
+    } as BooleanSetting,
+    [SettingIds.ConfirmDelete]: {
         title: "Confirm Delete",
         description: "Confirm before deleting a note",
         type: SettingType.Boolean,
         value: false,
-        path: SettingPages.Behaviour,
+        page: SettingPages.Behaviour,
         notImplemented: true,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.ConfirmFollow,
+    } as BooleanSetting,
+    [SettingIds.ConfirmFollow]: {
         title: "Confirm Follow",
         description: "Confirm before following/unfollowing a user",
         type: SettingType.Boolean,
         value: false,
-        path: SettingPages.Behaviour,
+        page: SettingPages.Behaviour,
         notImplemented: true,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.ConfirmReblog,
+    } as BooleanSetting,
+    [SettingIds.ConfirmReblog]: {
         title: "Confirm Reblog",
         description: "Confirm before reblogging a note",
         type: SettingType.Boolean,
         value: false,
-        path: SettingPages.Behaviour,
+        page: SettingPages.Behaviour,
         notImplemented: true,
-    } as Setting<SettingType.Boolean>,
-    {
-        id: SettingIds.ConfirmFavourite,
+    } as BooleanSetting,
+    [SettingIds.ConfirmFavourite]: {
         title: "Confirm Favourite",
         description: "Confirm before favouriting a note",
         type: SettingType.Boolean,
         value: false,
-        path: SettingPages.Behaviour,
+        page: SettingPages.Behaviour,
         notImplemented: true,
-    } as Setting<SettingType.Boolean>,
-];
+    } as BooleanSetting,
+};
 
+export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {
+    return Object.fromEntries(
+        Object.entries(settings).filter(([, setting]) => setting.page === page),
+    );
+};
+
+/**
+ * Merge a partly defined Settings object with the default settings
+ * Useful when there is an update to the settings in the backend
+ */
+export const mergeSettings = (
+    settingsToMerge: Record<SettingIds, Setting["value"]>,
+): Settings => {
+    const finalSettings = structuredClone(settings);
+
+    for (const [key, value] of Object.entries(settingsToMerge)) {
+        if (key in settings) {
+            finalSettings[key as SettingIds].value = value;
+        }
+    }
+
+    return finalSettings;
+};
 export type Settings = typeof settings;

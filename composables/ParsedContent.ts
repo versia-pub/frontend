@@ -1,6 +1,6 @@
 import type { Account, Emoji } from "@lysand-org/client/types";
 import { renderToString } from "vue/server-renderer";
-import { SettingIds, type Settings, getSettingById } from "~/settings";
+import { SettingIds, type Settings } from "~/settings";
 import MentionComponent from "../components/social-elements/notes/mention.vue";
 
 /**
@@ -13,7 +13,7 @@ export const useParsedContent = (
     content: MaybeRef<string>,
     emojis: MaybeRef<Emoji[]>,
     mentions: MaybeRef<Account[]> = ref([]),
-    settings: MaybeRef<Settings> = ref([]),
+    settings: MaybeRef<Settings | null> = ref(null),
 ): Ref<string | null> => {
     const result = ref(null as string | null);
 
@@ -27,10 +27,8 @@ export const useParsedContent = (
             const contentHtml = document.createElement("div");
             contentHtml.innerHTML = toValue(content);
 
-            const shouldRenderEmoji = getSettingById(
-                toValue(settings),
-                SettingIds.CustomEmojis,
-            )?.value;
+            const shouldRenderEmoji =
+                toValue(settings)?.[SettingIds.CustomEmojis].value;
 
             // Replace emoji shortcodes with images
             if (shouldRenderEmoji) {

@@ -1,22 +1,19 @@
 <template>
     <SettingsSidebar>
         <template #behaviour>
-            <Renderer :setting="setting" v-for="setting of getSettingsForPath(
-                settings,
+            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
                 SettingPages.Behaviour,
-            )" :key="setting.id" />
+            )) as SettingIds[])" :key="id" />
         </template>
         <template #appearance>
-            <Renderer :setting="setting" v-for="setting of getSettingsForPath(
-                settings,
+            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
                 SettingPages.Appearance,
-            )" :key="setting.id" />
+            )) as SettingIds[])" :key="id" />
         </template>
         <template #advanced>
-            <Renderer :setting="setting" v-for="setting of getSettingsForPath(
-                settings,
+            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
                 SettingPages.Advanced,
-            )" :key="setting.id" />
+            )) as SettingIds[])" :key="id" />
         </template>
         <template #account>
             <ProfileEditor />
@@ -28,7 +25,7 @@
 import ProfileEditor from "~/components/settings/profile-editor.vue";
 import Renderer from "~/components/settings/renderer.vue";
 import SettingsSidebar from "~/components/sidebars/settings-sidebar.vue";
-import { SettingPages, getSettingsForPath } from "~/settings";
+import { SettingIds, SettingPages, getSettingsForPage } from "~/settings";
 
 definePageMeta({
     layout: "app",
