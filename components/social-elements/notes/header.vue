@@ -23,9 +23,11 @@
     </div>
     <div v-else class="flex flex-row">
         <NuxtLink :href="accountUrl" class="shrink-0">
-            <Avatar :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
-                class="h-12 w-12 rounded ring-1 ring-white/5" />
-            <span class="sr-only">Account profile</span>
+            <UserCard :account="note?.account">
+                <Avatar :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
+                    class="h-12 w-12 rounded ring-1 ring-white/5" />
+                <span class="sr-only">Account profile</span>
+            </UserCard>
         </NuxtLink>
         <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
@@ -69,6 +71,7 @@
 import type { Status } from "@lysand-org/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
+import UserCard from "~/components/social-elements/users/UserCard.vue";
 
 const props = defineProps<{
     note?: Status;

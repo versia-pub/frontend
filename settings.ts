@@ -123,7 +123,6 @@ export const settings = [
         type: SettingType.Boolean,
         value: true,
         path: SettingPages.Behaviour,
-        notImplemented: true,
     } as Setting<SettingType.Boolean>,
     {
         id: SettingIds.InfiniteScroll,
