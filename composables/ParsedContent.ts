@@ -36,7 +36,7 @@ export const useParsedContent = (
 
                 for (const paragraph of paragraphs) {
                     paragraph.innerHTML = paragraph.innerHTML.replace(
-                        /:([a-z0-9_-]+):/g,
+                        /:([a-zA-Z0-9_-]+):/g,
                         (match, emoji) => {
                             const emojiData = toValue(emojis).find(
                                 (e) => e.shortcode === emoji,
