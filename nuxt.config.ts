@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
+    compatibilityDate: "2024-07-21",
     pwa: {
         manifest: {
             name: "Lysand",
