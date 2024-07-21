@@ -21,7 +21,6 @@
 <script lang="ts" setup>
 import SmallCard from "../users/SmallCard.vue";
 
-const client = useClient();
 const instance = useInstance();
 const description = useExtendedDescription(client);
 </script>

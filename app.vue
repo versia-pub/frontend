@@ -1,6 +1,5 @@
 <template>
     <NuxtPwaAssets />
-    <Loading />
     <ClientOnly>
         <NuxtLayout>
             <NuxtPage />
@@ -13,15 +12,12 @@
 import "~/styles/theme.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
-import Loading from "./components/loading.vue";
 import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
-const identity = useCurrentIdentity();
-const client = useClient();
 const instance = useInstance();
 const description = useExtendedDescription(client);
 

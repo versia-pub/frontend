@@ -76,7 +76,6 @@ import Label from "~/components/inputs/label.vue";
 import PasswordInput from "~/components/inputs/password-input.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";
 
-const identity = useCurrentIdentity();
 identity.value = null;
 
 const schema = toTypedSchema(

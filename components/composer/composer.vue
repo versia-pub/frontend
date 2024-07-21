@@ -60,7 +60,6 @@ const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
 const content = ref("");
 const respondingTo = ref<Status | null>(null);
 const respondingType = ref<"reply" | "quote" | "edit" | null>(null);
-const identity = useCurrentIdentity();
 const cw = ref(false);
 const cwContent = ref("");
 const markdown = ref(true);
@@ -178,7 +177,6 @@ const canSubmit = computed(
         (content.value?.trim().length > 0 || files.value.length > 0) &&
         content.value?.trim().length <= characterLimit.value,
 );
-const client = useClient();
 
 const send = async () => {
     loading.value = true;

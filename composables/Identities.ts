@@ -5,72 +5,99 @@ import type {
     Instance,
     RolePermission,
 } from "@lysand-org/client/types";
-import { StorageSerializers } from "@vueuse/core";
+import { StorageSerializers, useLocalStorage } from "@vueuse/core";
+import { ref, watch } from "vue";
 
-export type Identity = {
+/**
+ * Represents an identity with associated tokens, account, instance, permissions, and emojis.
+ */
+export interface Identity {
     id: string;
     tokens: Token;
     account: Account;
     instance: Instance;
     permissions: RolePermission[];
     emojis: Emoji[];
-};
+}
 
-export const useIdentities = (): Ref<Identity[]> => {
+/**
+ * Composable to manage multiple identities.
+ * @returns A reactive reference to an array of identities.
+ */
+function useIdentities(): Ref<Identity[]> {
     return useLocalStorage<Identity[]>("lysand:identities", [], {
         serializer: StorageSerializers.object,
     });
-};
+}
 
-export const useCurrentIdentity = (): Ref<Identity | null> => {
-    const currentId = useLocalStorage<string | null>(
-        "lysand:identities:current",
-        null,
-    );
+export const identities = useIdentities();
 
-    const identities = useIdentities();
-    const current = ref(
-        identities.value.find((i) => i.id === currentId.value) ?? null,
-    );
+const currentId = useLocalStorage<string | null>(
+    "lysand:identities:current",
+    null,
+);
 
-    watch(identities, (ids) => {
-        if (ids.length === 0) {
-            current.value = null;
-        }
-    });
+const current = ref<Identity | null>(null);
 
+/**
+ * Composable to manage the current identity.
+ * @returns A reactive reference to the current identity or null if not set.
+ */
+function useCurrentIdentity(): Ref<Identity | null> {
+    // Initialize current identity
+    function updateCurrentIdentity() {
+        current.value =
+            identities.value.find((i) => i.id === currentId.value) ?? null;
+    }
+
+    // Watch for changes in identities
     watch(
-        current,
-        (newCurrent) => {
-            if (newCurrent) {
-                currentId.value = newCurrent.id;
-                // If the identity is updated, update the identity in the list
-                if (identities.value.find((i) => i.id === newCurrent.id)) {
-                    identities.value = identities.value.map((i) =>
-                        i.id === newCurrent.id ? newCurrent : i,
-                    );
-                }
-                // If the identity is not in the list, add it
-                else {
-                    identities.value.push(newCurrent);
-                }
-
-                // Force update the identities
-                identities.value = [...identities.value];
+        identities,
+        (ids) => {
+            if (ids.length === 0) {
+                current.value = null;
+                currentId.value = null;
             } else {
-                identities.value = identities.value.filter(
-                    (i) => i.id !== currentId.value,
-                );
-
-                if (identities.value.length > 0) {
-                    currentId.value = identities.value[0]?.id;
-                } else {
-                    currentId.value = null;
-                }
+                updateCurrentIdentity();
             }
         },
         { deep: true },
     );
 
+    // Watch for changes in currentId
+    watch(currentId, updateCurrentIdentity);
+
+    // Watch for changes in current identity
+    watch(
+        current,
+        (newCurrent) => {
+            if (newCurrent) {
+                currentId.value = newCurrent.id;
+                const index = identities.value.findIndex(
+                    (i) => i.id === newCurrent.id,
+                );
+                if (index !== -1) {
+                    // Update existing identity
+                    identities.value[index] = newCurrent;
+                } else {
+                    // Add new identity
+                    identities.value.push(newCurrent);
+                }
+            } else {
+                // Remove current identity
+                identities.value = identities.value.filter(
+                    (i) => i.id !== currentId.value,
+                );
+                currentId.value = identities.value[0]?.id ?? null;
+            }
+        },
+        { deep: true },
+    );
+
+    // Initial setup
+    updateCurrentIdentity();
+
     return current;
-};
+}
+
+export const identity = useCurrentIdentity();

@@ -19,7 +19,6 @@ defineProps<{
     textarea: HTMLTextAreaElement | undefined;
 }>();
 
-const identity = useCurrentIdentity();
 const emojis = computed(
     () =>
         identity.value?.emojis.map((emoji) => ({

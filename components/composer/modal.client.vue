@@ -34,7 +34,6 @@ import { Dialog } from "@ark-ui/vue";
 import Composer from "./composer.vue";
 const open = ref(false);
 
-const identity = useCurrentIdentity();
 useListen("note:reply", async (note) => {
     open.value = true;
     await nextTick();

@@ -52,7 +52,6 @@ import RichTextboxInput from "../inputs/rich-textbox-input.vue";
 import TextInput from "../inputs/text-input.vue";
 import Oidc from "./oidc.vue";
 
-const identity = useCurrentIdentity();
 const account = computed(() => identity.value?.account);
 const note = ref(account.value?.source?.note ?? "");
 const displayName = ref(account.value?.display_name ?? "");
@@ -61,7 +60,6 @@ const bio = computed(
     () => identity.value?.instance.configuration.statuses.max_characters ?? 0,
 );
 
-const client = useClient();
 const loading = ref(false);
 
 const revert = () => {

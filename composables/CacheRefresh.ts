@@ -1,13 +1,10 @@
 import type { LysandClient } from "@lysand-org/client";
 import type { RolePermission } from "@lysand-org/client/types";
-import { useCurrentIdentity } from "./Identities";
 
 export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
     if (import.meta.server) {
         return;
     }
-
-    const identity = useCurrentIdentity();
 
     // Refresh custom emojis and instance data and me on every reload
     watchEffect(async () => {

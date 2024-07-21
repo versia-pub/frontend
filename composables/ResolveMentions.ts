@@ -11,14 +11,18 @@ export const useResolveMentions = (
 
     const output = ref<Account[]>([]);
 
-    watch(mentions, async () => {
-        output.value = await Promise.all(
-            toValue(mentions).map(async (mention) => {
-                const response = await client.getAccount(mention.id);
-                return response.data;
-            }),
-        );
-    });
+    watch(
+        mentions,
+        async () => {
+            output.value = await Promise.all(
+                toValue(mentions).map(async (mention) => {
+                    const response = await client.getAccount(mention.id);
+                    return response.data;
+                }),
+            );
+        },
+        { immediate: true },
+    );
 
     return output;
 };

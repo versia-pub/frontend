@@ -9,8 +9,6 @@ import type { Notification } from "@lysand-org/client/types";
 import { useNotificationTimeline } from "~/composables/NotificationTimeline";
 import Timeline from "./timeline.vue";
 
-const client = useClient();
-
 const {
     error,
     hasReachedEnd,

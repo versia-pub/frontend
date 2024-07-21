@@ -139,9 +139,6 @@ const visibleTimelines = computed(() =>
 const loadingAuth = ref(false);
 
 const appData = useAppData();
-const identity = useCurrentIdentity();
-const identities = useIdentities();
-const client = useClient();
 const instance = useInstance();
 
 const compose = () => {

@@ -2,8 +2,6 @@ import type { LysandClient } from "@lysand-org/client";
 import type { ExtendedDescription, Instance } from "@lysand-org/client/types";
 
 export const useInstance = () => {
-    const identity = useCurrentIdentity();
-
     return computed(() => identity.value?.instance);
 };
 

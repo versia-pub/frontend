@@ -28,5 +28,4 @@ import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 definePageMeta({
     layout: "app",
 });
-const identity = useCurrentIdentity();
 </script>

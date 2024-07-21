@@ -4,11 +4,11 @@ import {
     type SettingIds,
     type Settings,
     parseFromJson,
-    settings,
+    settings as settingsJson,
 } from "~/settings";
 
-export const useSettings = () => {
-    return useLocalStorage<Settings>("lysand:settings", settings, {
+const useSettings = () => {
+    return useLocalStorage<Settings>("lysand:settings", settingsJson, {
         serializer: {
             read(raw) {
                 const json = StorageSerializers.object.read(raw);
@@ -31,9 +31,9 @@ export const useSettings = () => {
     });
 };
 
-export const useSetting = <T extends Setting = Setting>(id: SettingIds) => {
-    const settings = useSettings();
+export const settings = useSettings();
 
+export const useSetting = <T extends Setting = Setting>(id: SettingIds) => {
     const setting: Ref<T> = ref<T>(
         settings.value.find((s) => s.id === id) as T,
     ) as unknown as Ref<T>;
@@ -52,5 +52,5 @@ export const useSetting = <T extends Setting = Setting>(id: SettingIds) => {
 };
 
 export const getSetting = <T extends Setting = Setting>(id: SettingIds) => {
-    return settings.find((s) => s.id === id) as T;
+    return settingsJson.find((s) => s.id === id) as T;
 };

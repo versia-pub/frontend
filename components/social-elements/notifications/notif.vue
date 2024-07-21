@@ -39,7 +39,6 @@ const props = defineProps<{
     element?: Notification;
 }>();
 
-const client = useClient();
 const isWorkingOnFollowRequest = ref(false);
 const { relationship } = useRelationship(
     client,
@@ -70,7 +69,6 @@ const rejectFollowRequest = async () => {
     isWorkingOnFollowRequest.value = false;
 };
 
-const settings = useSettings();
 const { display_name } = useParsedAccount(props.element?.account, settings);
 
 const text = computed(() => {

@@ -8,8 +8,6 @@
 import type { Status } from "@lysand-org/client/types";
 import Timeline from "./timeline.vue";
 
-const client = useClient();
-
 const props = defineProps<{
     id: string;
 }>();

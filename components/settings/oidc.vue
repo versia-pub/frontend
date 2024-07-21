@@ -32,7 +32,6 @@ import type { ResponseError } from "@lysand-org/client";
 import Button from "~/packages/ui/components/buttons/button.vue";
 import Avatar from "../avatars/avatar.vue";
 
-const client = useClient();
 const ssoConfig = useSSOConfig();
 const linkedProviders = useLinkedSSO(client);
 const loading = ref(false);

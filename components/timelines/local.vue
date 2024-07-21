@@ -8,7 +8,6 @@
 import type { Status } from "@lysand-org/client/types";
 import { useLocalTimeline } from "~/composables/LocalTimeline";
 import Timeline from "./timeline.vue";
-const client = useClient();
 
 const {
     error,

@@ -20,7 +20,6 @@ definePageMeta({
 
 const element = ref<HTMLElement | null>(null);
 const route = useRoute();
-const client = useClient();
 const uuid = route.params.uuid as string;
 
 const note = useNote(client, uuid);

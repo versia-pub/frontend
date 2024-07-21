@@ -18,6 +18,5 @@ const props = defineProps<{
     account_id: string | null;
 }>();
 
-const client = useClient();
 const account = useAccount(client, props.account_id);
 </script>

@@ -84,7 +84,8 @@
                     cannot see your password.
                 </p>
 
-                <Button theme="primary" type="submit" class="w-full" :disabled="isLoading">{{ isLoading ? "Registering..." :
+                <Button theme="primary" type="submit" class="w-full" :disabled="isLoading">{{ isLoading ?
+                    "Registering..." :
                     "Register" }}</Button>
             </VeeForm>
         </div>
@@ -140,7 +141,6 @@ const schema = toTypedSchema(
         }),
 );
 
-const client = useClient();
 const tos = useTos(client);
 
 const errors = ref<{

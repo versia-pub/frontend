@@ -74,7 +74,6 @@ const files = defineModel<
     required: true,
 });
 
-const client = useClient();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const openFilePicker = () => {

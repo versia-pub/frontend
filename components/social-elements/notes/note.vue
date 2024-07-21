@@ -176,9 +176,6 @@ useListen("composer:send-edit", (note) => {
     }
 });
 
-const client = useClient();
-const identity = useCurrentIdentity();
-const settings = useSettings();
 const {
     loaded,
     note: outputtedNote,

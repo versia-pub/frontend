@@ -18,7 +18,6 @@ const props = defineProps<{
     textarea: HTMLTextAreaElement | undefined;
 }>();
 
-const client = useClient();
 const mentions = ref<{ key: string; value: Account }[]>([]);
 
 watch(

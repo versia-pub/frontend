@@ -37,7 +37,6 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "INPUT" &&
         activeElement.value?.tagName !== "TEXTAREA",
 );
-const identity = useCurrentIdentity();
 
 watchEffect(async () => {
     if (n?.value && notUsingInput.value) {

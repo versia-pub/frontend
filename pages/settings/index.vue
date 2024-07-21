@@ -33,6 +33,4 @@ import { SettingPages, getSettingsForPath } from "~/settings";
 definePageMeta({
     layout: "app",
 });
-
-const settings = useSettings();
 </script>

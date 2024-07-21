@@ -109,8 +109,6 @@ const props = defineProps<{
 }>();
 
 const skeleton = computed(() => !props.account);
-const identity = useCurrentIdentity();
-const client = useClient();
 const config = useConfig();
 const accountId = computed(() => props.account?.id ?? null);
 const { relationship, isLoading } = useRelationship(client, accountId);
@@ -155,7 +153,6 @@ const visibleRoles = computed(
     () => props.account?.roles.filter((r) => r.visible) ?? [],
 );
 
-const settings = useSettings();
 const { display_name, fields, note } = useParsedAccount(
     computed(() => props.account),
     settings,

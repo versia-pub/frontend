@@ -2,10 +2,6 @@ import type { ApplicationData } from "@lysand-org/client/types";
 import { nanoid } from "nanoid";
 
 export const signInWithCode = (code: string, appData: ApplicationData) => {
-    const identity = useCurrentIdentity();
-    const identities = useIdentities();
-    const client = useClient();
-
     client.value
         ?.fetchAccessToken(
             appData.client_id,

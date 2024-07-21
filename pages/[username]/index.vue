@@ -21,7 +21,6 @@ definePageMeta({
 });
 
 const route = useRoute();
-const client = useClient();
 const username = (route.params.username as string).startsWith("@")
     ? (route.params.username as string).substring(1)
     : (route.params.username as string);

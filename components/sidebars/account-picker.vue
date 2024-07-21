@@ -3,16 +3,16 @@
         <template #button>
             <slot>
                 <div class="rounded text-left flex flex-row gap-x-2 hover:scale-[95%] duration-100"
-                    v-if="currentIdentity">
+                    v-if="identity">
                     <div class="shrink-0">
-                        <Avatar class="size-12 rounded ring-1 ring-white/5" :src="currentIdentity.account.avatar"
-                            :alt="`${currentIdentity.account.acct}'s avatar'`" />
+                        <Avatar class="size-12 rounded ring-1 ring-white/5" :src="identity.account.avatar"
+                            :alt="`${identity.account.acct}'s avatar'`" />
                     </div>
                     <div class="flex flex-col items-start p-1 justify-around grow overflow-hidden">
                         <div class="flex flex-row items-center justify-between w-full">
                             <div class="font-semibold text-gray-200 text-sm line-clamp-1 break-all">
                                 {{
-                                    currentIdentity.account.display_name }}
+                                    identity.account.display_name }}
                             </div>
                         </div>
                         <span class="text-gray-400 text-xs line-clamp-1 break-all w-full">
@@ -59,7 +59,7 @@
                         </button>
                     </div>
                 </Menu.Item>
-                <Menu.Item value="" v-if="currentIdentity">
+                <Menu.Item value="" v-if="identity">
                     <NuxtLink href="/settings" class="w-full">
                         <ButtonBase theme="outline" class="w-full !justify-start">
                             <Icon icon="tabler:adjustments" class="!size-6" />
@@ -73,7 +73,7 @@
                         <span class="shrink-0 line-clamp-1">Add new account</span>
                     </ButtonBase>
                 </Menu.Item>
-                <Menu.Item value="" v-if="!currentIdentity">
+                <Menu.Item value="" v-if="!identity">
                     <NuxtLink href="/register" class="w-full">
                         <ButtonBase theme="outline" class="w-full !justify-start">
                             <Icon icon="tabler:certificate" class="!size-6" />
@@ -92,9 +92,6 @@ import ButtonBase from "~/packages/ui/components/buttons/button.vue";
 import Icon from "~/packages/ui/components/icons/icon.vue";
 import Avatar from "../avatars/avatar.vue";
 import AdaptiveDropdown from "../dropdowns/AdaptiveDropdown.vue";
-const identities = useIdentities();
-
-const currentIdentity = useCurrentIdentity();
 
 defineEmits<{
     signIn: [];

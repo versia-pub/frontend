@@ -18,8 +18,6 @@
 <script lang="ts" setup>
 import Avatar from "../avatars/avatar.vue";
 
-const identity = useCurrentIdentity();
-const settings = useSettings();
 const { display_name } = useParsedAccount(
     computed(() => identity.value?.account),
     settings,

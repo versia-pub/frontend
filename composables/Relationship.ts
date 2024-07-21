@@ -1,6 +1,5 @@
 import type { LysandClient } from "@lysand-org/client";
 import type { Relationship } from "@lysand-org/client/types";
-import { useCurrentIdentity } from "./Identities";
 
 export const useRelationship = (
     client: MaybeRef<LysandClient | null>,
@@ -9,7 +8,7 @@ export const useRelationship = (
     const relationship = ref(null as Relationship | null);
     const isLoading = ref(false);
 
-    if (!useCurrentIdentity().value) {
+    if (!identity.value) {
         return { relationship, isLoading };
     }
 
