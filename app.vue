@@ -9,8 +9,8 @@
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
+        <NotificationsRenderer />
     </ClientOnly>
-    <NotificationsRenderer />
 </template>
 
 <script setup lang="ts">
