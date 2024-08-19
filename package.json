@@ -29,7 +29,7 @@
         "check": "bunx tsc -p ."
     },
     "dependencies": {
-        "@ark-ui/vue": "^3.9.0",
+        "@ark-ui/vue": "3.6.0",
         "@lysand-org/client": "^0.2.5",
         "@nuxt/fonts": "^0.7.2",
         "@tailwindcss/typography": "^0.5.14",
