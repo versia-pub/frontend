@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@lysand-org/client/types";
+import type { Status } from "@versia/client/types";
 import { useLocalTimeline } from "~/composables/LocalTimeline";
 import Timeline from "./timeline.vue";
 

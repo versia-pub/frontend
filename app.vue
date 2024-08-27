@@ -30,7 +30,7 @@ const customCss = useSetting(SettingIds.CustomCSS);
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} · Lysand` : "Lysand";
+        return titleChunk ? `${titleChunk} · Versia` : "Versia";
     },
     title: computed(() => instance.value?.title ?? ""),
     ogImage: computed(() => instance.value?.banner.url),
@@ -41,7 +41,7 @@ useSeoMeta({
     twitterImage: computed(() => instance.value?.banner.url),
     description: computed(() => convert(description.value?.content ?? "")),
     ogDescription: computed(() => convert(description.value?.content ?? "")),
-    ogSiteName: "Lysand",
+    ogSiteName: "Versia",
     colorScheme: "dark",
     themeColor: "#f9a8d4",
 });

@@ -1,4 +1,4 @@
-import type { Instance } from "@lysand-org/client/types";
+import type { Instance } from "@versia/client/types";
 
 export const useSSOConfig = (): Ref<Instance["sso"] | null> => {
     const instance = useInstance();

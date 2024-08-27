@@ -1,7 +1,7 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { RolePermission } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { RolePermission } from "@versia/client/types";
 
-export const useCacheRefresh = (client: MaybeRef<LysandClient | null>) => {
+export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
     if (import.meta.server) {
         return;
     }

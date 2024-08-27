@@ -1,8 +1,8 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Account } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Account } from "@versia/client/types";
 
 export const useAccount = (
-    client: MaybeRef<LysandClient | null>,
+    client: MaybeRef<Client | null>,
     accountId: MaybeRef<string | null>,
 ) => {
     if (!client) {

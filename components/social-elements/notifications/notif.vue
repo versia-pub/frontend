@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from "@lysand-org/client/types";
+import type { Notification } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";

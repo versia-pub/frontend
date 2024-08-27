@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@lysand-org/client/types";
+import type { Status } from "@versia/client/types";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";
 import Attachment from "./attachment.vue";

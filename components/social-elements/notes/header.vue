@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@lysand-org/client/types";
+import type { Status } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import UserCard from "~/components/social-elements/users/UserCard.vue";

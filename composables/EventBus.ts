@@ -1,5 +1,5 @@
 import type { createToaster } from "@ark-ui/vue";
-import type { Account, Attachment, Status } from "@lysand-org/client/types";
+import type { Account, Attachment, Status } from "@versia/client/types";
 import mitt from "mitt";
 import type { Identity } from "./Identities";
 

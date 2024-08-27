@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@lysand-org/client/types";
+import type { Account } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import { NuxtLink } from "#components";

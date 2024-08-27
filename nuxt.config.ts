@@ -24,9 +24,9 @@ export default defineNuxtConfig({
     compatibilityDate: "2024-07-21",
     pwa: {
         manifest: {
-            name: "Lysand",
-            short_name: "Lysand",
-            description: "Frontend for the Lysand social network",
+            name: "Versia",
+            short_name: "Versia",
+            description: "Frontend for the Versia social network",
             theme_color: "#f9a8d4",
             background_color: "#131313",
             display: "standalone",
@@ -270,7 +270,7 @@ export default defineNuxtConfig({
         public: {
             language: "en-US",
             titleSeparator: "·",
-            siteName: "Lysand",
+            siteName: "Versia",
             trailingSlash: true,
             apiHost: "https://social.lysand.org",
             onionApiHost: undefined,

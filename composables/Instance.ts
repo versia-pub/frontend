@@ -1,11 +1,11 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { ExtendedDescription, Instance } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { ExtendedDescription, Instance } from "@versia/client/types";
 
 export const useInstance = () => {
     return computed(() => identity.value?.instance);
 };
 
-export const useInstanceFromClient = (client: MaybeRef<LysandClient>) => {
+export const useInstanceFromClient = (client: MaybeRef<Client>) => {
     if (!client) {
         return ref(null as Instance | null);
     }
@@ -23,7 +23,7 @@ export const useInstanceFromClient = (client: MaybeRef<LysandClient>) => {
     return output;
 };
 
-export const useTos = (client: MaybeRef<LysandClient>) => {
+export const useTos = (client: MaybeRef<Client>) => {
     if (!client) {
         return ref(null as ExtendedDescription | null);
     }

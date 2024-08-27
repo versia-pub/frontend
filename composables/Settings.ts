@@ -1,6 +1,5 @@
 import { StorageSerializers } from "@vueuse/core";
 import {
-    type Setting,
     type SettingIds,
     type Settings,
     mergeSettings,
@@ -8,7 +7,7 @@ import {
 } from "~/settings";
 
 const useSettings = () => {
-    return useLocalStorage<Settings>("lysand:settings", settingsJson, {
+    return useLocalStorage<Settings>("versia:settings", settingsJson, {
         serializer: {
             read(raw) {
                 const json = StorageSerializers.object.read(raw);

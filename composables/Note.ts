@@ -1,10 +1,7 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Status } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Status } from "@versia/client/types";
 
-export const useNote = (
-    client: MaybeRef<LysandClient | null>,
-    noteId: string,
-) => {
+export const useNote = (client: MaybeRef<Client | null>, noteId: string) => {
     if (!ref(client).value) {
         return ref(null as Status | null);
     }

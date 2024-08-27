@@ -1,7 +1,8 @@
 <template>
     <div class="px-4 py-20 prose prose-invert mx-auto max-w-md">
         <h2>Where is the mobile app?</h2>
-        <p>Lysand is compatible with the Mastodon API, meaning it can be used with any Mastodon-compatible client. This
+        <p>Versia Server is compatible with the Mastodon API, meaning it can be used with any Mastodon-compatible
+            client. This
             includes the official Mastodon app, as well as many third-party clients.</p>
         <h2>Recommended Clients</h2>
         <ul class="w-full flex flex-col gap-3 mt-4 not-prose">
@@ -27,7 +28,7 @@
         </ul>
 
         <p>
-            Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
+            Found a problem? Report it on <a href="https://github.com/versia-pub/server/issues/new/choose"
                 target="_blank" class="underline text-primary-700">the issue tracker</a>.
         </p>
     </div>

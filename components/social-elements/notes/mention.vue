@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@lysand-org/client/types";
+import type { Account } from "@versia/client/types";
 
 defineProps<{
     account: Account;

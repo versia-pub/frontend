@@ -15,7 +15,7 @@
             </p>
 
             <p class="mt-6 text-lg leading-8 text-gray-300">
-                Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
+                Found a problem? Report it on <a href="https://github.com/versia-pub/server/issues/new/choose"
                     target="_blank" class="underline text-primary-700">the issue tracker</a>.
             </p>
         </div>

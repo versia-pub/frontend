@@ -44,7 +44,7 @@
             <div class="flex flex-row flex-wrap gap-4 mt-4" v-if="isDeveloper || visibleRoles.length > 0">
                 <Badge v-for="role of visibleRoles" :key="role.id" :name="role.name" :description="role.description"
                     :img="role.icon" />
-                <Badge v-if="isDeveloper" name="Lysand Developer" description="This user is a Lysand developer."
+                <Badge v-if="isDeveloper" name="Versia Developer" description="This user is a Versia developer."
                     :verified="true" />
             </div>
         </div>
@@ -103,7 +103,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@lysand-org/client/types";
+import type { Account } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";

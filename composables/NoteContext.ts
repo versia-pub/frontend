@@ -1,8 +1,8 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Context } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Context } from "@versia/client/types";
 
 export const useNoteContext = (
-    client: MaybeRef<LysandClient | null>,
+    client: MaybeRef<Client | null>,
     noteId: MaybeRef<string | null>,
 ) => {
     if (!ref(client).value) {

@@ -90,7 +90,7 @@ import {
     type Account,
     type Relationship,
     RolePermission,
-} from "@lysand-org/client/types";
+} from "@versia/client/types";
 import ButtonDropdown from "~/components/buttons/button-dropdown.vue";
 import AdaptiveDropdown from "~/components/dropdowns/AdaptiveDropdown.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";

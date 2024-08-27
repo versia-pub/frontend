@@ -1,9 +1,9 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Account, Mention } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Account, Mention } from "@versia/client/types";
 
 export const useResolveMentions = (
     mentions: Ref<Mention[]>,
-    client: LysandClient | null,
+    client: Client | null,
 ): Ref<Account[]> => {
     if (!client) {
         return ref([]);

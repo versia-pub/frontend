@@ -1,13 +1,11 @@
-import type { LysandClient } from "@lysand-org/client";
+import type { Client } from "@versia/client";
 
 type ExtendedDescription = {
     updated_at: string;
     content: string;
 };
 
-export const useExtendedDescription = (
-    client: MaybeRef<LysandClient | null>,
-) => {
+export const useExtendedDescription = (client: MaybeRef<Client | null>) => {
     if (!ref(client).value) {
         return ref(null as ExtendedDescription | null);
     }

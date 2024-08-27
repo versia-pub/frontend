@@ -1,4 +1,4 @@
-import type { LysandClient } from "@lysand-org/client";
+import type { Client } from "@versia/client";
 
 type SSOProvider = {
     id: string;
@@ -6,7 +6,7 @@ type SSOProvider = {
     icon: string;
 };
 
-export const useLinkedSSO = (client: MaybeRef<LysandClient>) => {
+export const useLinkedSSO = (client: MaybeRef<Client>) => {
     if (!client) {
         return ref([] as SSOProvider[]);
     }

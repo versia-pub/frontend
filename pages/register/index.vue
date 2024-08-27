@@ -1,6 +1,6 @@
 <template>
     <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
+        <img crossorigin="anonymous" src="https://cdn.versia.pub/branding/icon.svg" alt="Versia logo"
             class="mx-auto hidden md:inline-block h-20" />
         <div v-if="true" class="mx-auto w-full max-w-md">
             <div v-if="Object.keys(errors).length > 0"
@@ -102,7 +102,7 @@
 
 <script setup lang="ts">
 import { Collapsible } from "@ark-ui/vue";
-import type { ResponseError } from "@lysand-org/client";
+import type { ResponseError } from "@versia/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import CheckboxInput from "~/components/inputs/checkbox-input.vue";

@@ -1,5 +1,5 @@
 {
-    "name": "lysand-fe",
+    "name": "versia-fe",
     "private": true,
     "type": "module",
     "license": "AGPL-3.0",
@@ -17,11 +17,11 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/lysand-org/frontend.git"
+        "url": "git+https://github.com/versia-pub/frontend.git"
     },
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev --https --https.cert config/lysand-fe.localhost.pem --https.key config/lysand-fe.localhost-key.pem --host lysand-fe.localhost",
+        "dev": "nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
@@ -30,11 +30,11 @@
     },
     "dependencies": {
         "@ark-ui/vue": "3.6.0",
-        "@lysand-org/client": "^0.2.5",
         "@nuxt/fonts": "^0.7.2",
         "@tailwindcss/typography": "^0.5.14",
         "@vee-validate/nuxt": "^4.13.2",
         "@vee-validate/zod": "^4.13.2",
+        "@versia/client": "^0.1.0-rc.0",
         "@vite-pwa/nuxt": "^0.10.0",
         "@vueuse/core": "^11.0.1",
         "@vueuse/nuxt": "^11.0.1",

@@ -1,6 +1,6 @@
 <template>
     <div class="flex min-h-screen relative flex-col gap-10 justify-center py-12 px-8">
-        <img crossorigin="anonymous" src="https://cdn.lysand.org/logo.webp" alt="Lysand logo"
+        <img crossorigin="anonymous" src="https://cdn.versia.pub/branding/icon.svg" alt="Versia logo"
             class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
         <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
             <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
@@ -59,7 +59,7 @@
             </p>
 
             <p class="mt-6 text-lg leading-8 text-gray-300">
-                Found a problem? Report it on <a href="https://github.com/lysand-org/lysand/issues/new/choose"
+                Found a problem? Report it on <a href="https://github.com/versia-pub/server/issues/new/choose"
                     target="_blank" class="underline text-primary-700">the issue tracker</a>.
             </p>
         </div>

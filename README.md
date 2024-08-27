@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://lysand.org"><img src="https://cdn.lysand.org/logo-long-dark.webp" alt="Lysand Logo" height="110"></a>
+  <a href="https://versia.pub"><img src="https://cdn.versia.pub/branding/logo-dark.svg" alt="Versia Logo" height="110"></a>
 </p>
 
-<center><h1><code>lysand-fe</code></h1></center>
+<center><h1><code>versia-fe</code></h1></center>
 
-**Lysand-FE** is a beautiful, fast and responsive front-end for the Lysand project.
+**Versia-FE** is a beautiful, fast and responsive front-end for the Versia Server project.
 
 ## Features
 
@@ -18,7 +18,7 @@
 - [x] Following
 - [x] Multiple accounts
 - [x] Custom Emojis
-- [x] Lysand Permissions support
+- [x] Versia Server Permissions support
 - [x] Note editing
 - [x] Alt text support everywhere
 - [x] Media uploads
@@ -55,31 +55,31 @@ Benchmarks are due to be conducted soon™.
 
 ## Installation
 
-Lysand-FE is included in the provided `docker-compose` file during [Lysand Server installation](https://github.com/lysand-org/lysand/blob/main/docs/installation.md).
+Versia-FE is included in the provided `docker-compose` file during [Versia Server installation](https://github.com/versia-pub/server/blob/main/docs/installation.md).
 
-To have Lysand-FE and Lysand Server running on the same domain, edit the Lysand Server configuration to point to the Lysand-FE container's address (`frontend` category inside config).
+To have Versia-FE and Versia Server running on the same domain, edit the Versia Server configuration to point to the Versia-FE container's address (`frontend` category inside config).
 
 ### Manual Installation
 
-Here are the steps to install Lysand-FE manually:
+Here are the steps to install Versia-FE manually:
 
 #### Docker/Podman
 
 ```yaml
 services:
     fe:
-        image: ghcr.io/lysand-org/frontend:main
-        container_name: lysand-fe
+        image: ghcr.io/versia-pub/frontend:main
+        container_name: versia-fe
         restart: unless-stopped
         networks:
-            - lysand-net
+            - versia-net
         environment:
             NUXT_PUBLIC_API_HOST: https://yourserver.com
             # For Tor users, set the following environment variable in addition to the above
             # NUXT_PUBLIC_ONION_API_HOST: http://youronionserver.onion
 ```
 
-Then, the frontend will be available at `http://localhost:3000` inside the container. To link it to a Lysand Server, set the `NUXT_PUBLIC_API_HOST` environment variable to the server's URL.
+Then, the frontend will be available at `http://localhost:3000` inside the container. To link it to a Versia Server, set the `NUXT_PUBLIC_API_HOST` environment variable to the server's URL.
 
 ## License
 
@@ -94,4 +94,4 @@ This project is licensed under the AGPL 3.0 - see the [LICENSE](LICENSE) file fo
 
 ### People
 
-- [**April John**](https://github.com/cutestnekoaqua): Creator and maintainer of the Lysand Server ActivityPub bridge.
+- [**April John**](https://github.com/cutestnekoaqua): Creator and maintainer of the Versia Server ActivityPub bridge.

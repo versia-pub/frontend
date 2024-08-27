@@ -1,11 +1,11 @@
-import { LysandClient, type Token } from "@lysand-org/client";
+import { Client, type Token } from "@versia/client";
 
 export const useClient = (
     customToken: MaybeRef<Token | null> = null,
-): Ref<LysandClient> => {
+): Ref<Client> => {
     return computed(
         () =>
-            new LysandClient(
+            new Client(
                 new URL(useBaseUrl().value),
                 toValue(customToken)?.access_token ??
                     identity.value?.tokens.access_token ??

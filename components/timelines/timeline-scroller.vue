@@ -6,7 +6,7 @@
 const root = useParentElement(useParentElement());
 // Store and keep y to restore it on page change
 const route = useRoute();
-const yStored = useLocalStorage("lysand:scroll", {
+const yStored = useLocalStorage("versia:scroll", {
     [route.fullPath]: 0,
 });
 const { y } = useScroll(root);

@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import { Popover } from "@ark-ui/vue";
-import type { Attachment } from "@lysand-org/client/types";
+import type { Attachment } from "@versia/client/types";
 
 const props = defineProps<{
     attachment: Attachment;

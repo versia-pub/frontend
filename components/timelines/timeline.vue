@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification, Status } from "@lysand-org/client/types";
+import type { Notification, Status } from "@versia/client/types";
 import { useIntersectionObserver } from "@vueuse/core";
 import { onMounted, watch } from "vue";
 import Button from "~/packages/ui/components/buttons/button.vue";

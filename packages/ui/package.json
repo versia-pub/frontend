@@ -10,11 +10,11 @@
     "readme": "README.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/lysand-org/frontend.git",
+        "url": "https://github.com/versia-pub/frontend.git",
         "directory": "packages/ui"
     },
     "bugs": {
-        "url": "https://github.com/lysand-org/frontend/issues"
+        "url": "https://github.com/versia-pub/frontend/issues"
     },
     "license": "MIT",
     "contributors": [

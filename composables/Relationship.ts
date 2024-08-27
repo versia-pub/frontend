@@ -1,8 +1,8 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Relationship } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Relationship } from "@versia/client/types";
 
 export const useRelationship = (
-    client: MaybeRef<LysandClient | null>,
+    client: MaybeRef<Client | null>,
     accountId: MaybeRef<string | null>,
 ) => {
     const relationship = ref(null as Relationship | null);

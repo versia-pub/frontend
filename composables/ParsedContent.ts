@@ -1,4 +1,4 @@
-import type { Account, Emoji } from "@lysand-org/client/types";
+import type { Account, Emoji } from "@versia/client/types";
 import { renderToString } from "vue/server-renderer";
 import { SettingIds, type Settings } from "~/settings";
 import MentionComponent from "../components/social-elements/notes/mention.vue";

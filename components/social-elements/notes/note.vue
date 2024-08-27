@@ -147,7 +147,7 @@
 
 <script lang="ts" setup>
 import { Menu } from "@ark-ui/vue";
-import { RolePermission, type Status } from "@lysand-org/client/types";
+import { RolePermission, type Status } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import ButtonDropdown from "~/components/buttons/button-dropdown.vue";
 import AdaptiveDropdown from "~/components/dropdowns/AdaptiveDropdown.vue";

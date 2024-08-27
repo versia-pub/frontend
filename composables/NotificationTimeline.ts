@@ -1,9 +1,9 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Notification } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Notification } from "@versia/client/types";
 import { type TimelineOptions, useTimeline } from "./Timeline";
 
 export function useNotificationTimeline(
-    client: LysandClient,
+    client: Client,
     options: Partial<TimelineOptions<Notification>> = {},
 ) {
     return useTimeline(client, {

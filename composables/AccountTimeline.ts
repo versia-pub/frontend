@@ -1,9 +1,9 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Status } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Status } from "@versia/client/types";
 import { type TimelineOptions, useTimeline } from "./Timeline";
 
 export function useAccountTimeline(
-    client: LysandClient,
+    client: Client,
     accountId: string,
     options: Partial<TimelineOptions<Status>> = {},
 ) {

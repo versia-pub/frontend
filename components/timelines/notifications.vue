@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from "@lysand-org/client/types";
+import type { Notification } from "@versia/client/types";
 import { useNotificationTimeline } from "~/composables/NotificationTimeline";
 import Timeline from "./timeline.vue";
 

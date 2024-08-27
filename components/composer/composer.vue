@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Instance, Status } from "@lysand-org/client/types";
+import type { Instance, Status } from "@versia/client/types";
 import { nanoid } from "nanoid";
 import ButtonBase from "~/packages/ui/components/buttons/button.vue";
 import { OverlayScrollbarsComponent } from "#imports";

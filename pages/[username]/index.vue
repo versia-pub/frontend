@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from "@lysand-org/client/types";
+import type { Account } from "@versia/client/types";
 import ErrorBoundary from "~/components/errors/ErrorBoundary.vue";
 import AccountProfile from "~/components/social-elements/users/Account.vue";
 import AccountTimeline from "~/components/timelines/account.vue";

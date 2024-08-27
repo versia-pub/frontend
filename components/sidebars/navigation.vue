@@ -4,7 +4,8 @@
         aria-label="Navigation" role="complementary">
         <NuxtLink href="/">
             <img crossorigin="anonymous" class="size-11 rounded ring-1 ring-white/10 hover:scale-105 duration-200"
-                :src="instance?.thumbnail.url ?? '/logo.webp'" alt="Logo of your instance" />
+                :src="instance?.thumbnail.url ?? 'https://cdn.versia.pub/branding/icon.svg'"
+                alt="Logo of your instance" />
         </NuxtLink>
 
         <div class="flex flex-col gap-3">
@@ -148,7 +149,7 @@ const compose = () => {
 const signIn = async () => {
     loadingAuth.value = true;
 
-    const output = await client.value.createApp("Lysand", {
+    const output = await client.value.createApp("Versia", {
         scopes: ["read", "write", "follow", "push"],
         redirect_uris: new URL("/", useRequestURL().origin).toString(),
         website: useBaseUrl().value,
@@ -195,7 +196,7 @@ const signOut = async (id?: string) => {
         return;
     }
 
-    // Don't do anything on error, as Lysand doesn't implement the revoke endpoint yet
+    // Don't do anything on error, as Versia Server doesn't implement the revoke endpoint yet
     await client.value
         ?.revokeToken(
             appData.value.client_id,

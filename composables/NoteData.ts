@@ -1,10 +1,10 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Status } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Status } from "@versia/client/types";
 import { SettingIds, type Settings } from "~/settings";
 
 export const useNoteData = (
     noteProp: MaybeRef<Status | undefined>,
-    client: Ref<LysandClient>,
+    client: Ref<Client>,
     settings: MaybeRef<Settings>,
 ) => {
     const isReply = computed(() => !!toValue(noteProp)?.in_reply_to_id);

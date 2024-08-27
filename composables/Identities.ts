@@ -1,10 +1,10 @@
-import type { Token } from "@lysand-org/client";
+import type { Token } from "@versia/client";
 import type {
     Account,
     Emoji,
     Instance,
     RolePermission,
-} from "@lysand-org/client/types";
+} from "@versia/client/types";
 import { StorageSerializers, useLocalStorage } from "@vueuse/core";
 import { ref, watch } from "vue";
 
@@ -25,7 +25,7 @@ export interface Identity {
  * @returns A reactive reference to an array of identities.
  */
 function useIdentities(): Ref<Identity[]> {
-    return useLocalStorage<Identity[]>("lysand:identities", [], {
+    return useLocalStorage<Identity[]>("versia:identities", [], {
         serializer: StorageSerializers.object,
     });
 }
@@ -33,7 +33,7 @@ function useIdentities(): Ref<Identity[]> {
 export const identities = useIdentities();
 
 const currentId = useLocalStorage<string | null>(
-    "lysand:identities:current",
+    "versia:identities:current",
     null,
 );
 

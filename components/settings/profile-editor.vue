@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ResponseError } from "@lysand-org/client";
+import type { ResponseError } from "@versia/client";
 import Button from "~/packages/ui/components/buttons/button.vue";
 import Avatar from "../avatars/avatar.vue";
 import RichTextboxInput from "../inputs/rich-textbox-input.vue";

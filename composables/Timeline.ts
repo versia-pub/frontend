@@ -1,18 +1,15 @@
-import type { LysandClient, Output } from "@lysand-org/client";
-import type { Notification, Status } from "@lysand-org/client/types";
+import type { Client, Output } from "@versia/client";
+import type { Notification, Status } from "@versia/client/types";
 import { useIntervalFn } from "@vueuse/core";
 
 export interface TimelineOptions<T> {
-    fetchFunction: (
-        client: LysandClient,
-        options: object,
-    ) => Promise<Output<T[]>>;
+    fetchFunction: (client: Client, options: object) => Promise<Output<T[]>>;
     updateInterval?: number;
     limit?: number;
 }
 
 export function useTimeline<T extends Status | Notification>(
-    client: LysandClient,
+    client: Client,
     options: TimelineOptions<T>,
 ) {
     const items = ref<T[]>([]) as Ref<T[]>;

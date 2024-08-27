@@ -7,7 +7,7 @@
                 <p class="mt-6 text-base leading-7 text-gray-400" v-html="error.message"></p>
                 <div class="mt-10 grid grid-cols-2 gap-x-6 mx-auto max-w-md">
                     <Button theme="primary" class="w-full" @click="back">Go back</Button>
-                    <a href="https://github.com/lysand-org/frontend/issues" target="_blank">
+                    <a href="https://github.com/versia-pub/frontend/issues" target="_blank">
                         <Button theme="secondary" class="w-full">Report an issue</Button>
                     </a>
                 </div>

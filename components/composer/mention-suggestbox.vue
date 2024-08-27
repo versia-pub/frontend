@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@lysand-org/client/types";
+import type { Account } from "@versia/client/types";
 import { distance } from "fastest-levenshtein";
 import Avatar from "../avatars/avatar.vue";
 import AutocompleteSuggestbox from "./autocomplete-suggestbox.vue";

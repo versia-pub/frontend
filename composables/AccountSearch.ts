@@ -1,8 +1,8 @@
-import type { LysandClient } from "@lysand-org/client";
-import type { Account } from "@lysand-org/client/types";
+import type { Client } from "@versia/client";
+import type { Account } from "@versia/client/types";
 
 export const useAccountSearch = (
-    client: MaybeRef<LysandClient | null>,
+    client: MaybeRef<Client | null>,
     q: string,
 ): Ref<Account[] | null> => {
     const output = ref(null as Account[] | null);

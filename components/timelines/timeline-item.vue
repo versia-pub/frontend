@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification, Status } from "@lysand-org/client/types";
+import type { Notification, Status } from "@versia/client/types";
 import { computed } from "vue";
 import NoteItem from "../social-elements/notes/note.vue";
 import NotificationItem from "../social-elements/notifications/notif.vue";
