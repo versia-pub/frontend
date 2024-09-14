@@ -35,7 +35,7 @@
     "categories": ["Other"],
     "type": "module",
     "engines": {
-        "bun": ">=1.1.20"
+        "bun": ">=1.1.27"
     },
     "exports": {
         ".": {
@@ -48,5 +48,5 @@
         }
     },
     "keywords": ["typescript", "vue", "tailwindcss"],
-    "packageManager": "bun@1.1.20"
+    "packageManager": "bun@1.1.27"
 }
