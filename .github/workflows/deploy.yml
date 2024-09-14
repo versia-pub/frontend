@@ -16,7 +16,7 @@ jobs:
         run: bun install
 
       - name: Build
-        run: bun nuxt build --preset github_pages
+        run: bun --bun nuxt build --preset github_pages
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
