@@ -21,7 +21,7 @@
     },
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
+        "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun --bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
