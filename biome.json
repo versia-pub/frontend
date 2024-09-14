@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.8.1/schema.json",
+    "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
     "organizeImports": {
         "enabled": true,
         "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
@@ -8,12 +8,17 @@
         "enabled": true,
         "rules": {
             "all": true,
+            "suspicious": {
+                "noConsole": "off"
+            },
             "correctness": {
                 "noNodejsModules": "off",
                 "noUndeclaredVariables": "off",
                 "useHookAtTopLevel": "off",
                 "noUnusedVariables": "off",
-                "noUnusedImports": "off"
+                "noUnusedImports": "off",
+                "noUndeclaredDependencies": "off",
+                "useImportExtensions": "off"
             },
             "complexity": {
                 "noExcessiveCognitiveComplexity": "off"
@@ -57,14 +62,8 @@
                 }
             },
             "nursery": {
-                "noDuplicateElseIf": "warn",
-                "noDuplicateJsonKeys": "warn",
-                "noEvolvingTypes": "warn",
-                "noYodaExpression": "warn",
-                "useConsistentBuiltinInstantiation": "warn",
-                "useErrorMessage": "warn",
-                "useImportExtensions": "off",
-                "useThrowNewError": "warn"
+                "noDuplicateElseIf": "error",
+                "noCommonJs": "error"
             }
         },
         "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]

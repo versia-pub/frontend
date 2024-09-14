@@ -102,8 +102,8 @@
 
 <script setup lang="ts">
 import { Collapsible } from "@ark-ui/vue";
-import type { ResponseError } from "@versia/client";
 import { toTypedSchema } from "@vee-validate/zod";
+import type { ResponseError } from "@versia/client";
 import { z } from "zod";
 import CheckboxInput from "~/components/inputs/checkbox-input.vue";
 import FieldError from "~/components/inputs/field-error.vue";

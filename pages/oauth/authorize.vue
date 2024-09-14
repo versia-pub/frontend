@@ -97,8 +97,8 @@
 </template>
 
 <script setup lang="ts">
-import { Client } from "@versia/client";
 import { toTypedSchema } from "@vee-validate/zod";
+import { Client } from "@versia/client";
 import { z } from "zod";
 import FieldError from "~/components/inputs/field-error.vue";
 import Field from "~/components/inputs/field.vue";
@@ -124,9 +124,7 @@ const validUrlParameters =
     params.client_id &&
     params.scope;
 
-const instance = useInstanceFromClient(
-    new Client(new URL(useBaseUrl().value)),
-);
+const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
 
 const ssoConfig = computed(() => instance.value?.sso);
 

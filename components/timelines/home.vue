@@ -28,7 +28,7 @@ useListen("note:edit", (updatedNote) => {
     updateItem(updatedNote);
 });
 
-useListen("composer:send", (ee) => {
+useListen("composer:send", () => {
     loadPrev();
 });
 </script>

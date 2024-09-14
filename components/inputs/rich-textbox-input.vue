@@ -56,11 +56,11 @@ const remainingCharacters = computed(
 );
 const currentlyBeingTypedEmoji = computed(() => {
     const match = content.value?.match(partiallyTypedEmojiValidator);
-    return match ? match.at(-1)?.replace(":", "") ?? "" : null;
+    return match ? (match.at(-1)?.replace(":", "") ?? "") : null;
 });
 const currentlyBeingTypedMention = computed(() => {
     const match = content.value?.match(partiallyTypedMentionValidator);
-    return match ? match.at(-1)?.replace("@", "") ?? "" : null;
+    return match ? (match.at(-1)?.replace("@", "") ?? "") : null;
 });
 
 const autocompleteEmoji = (emoji: string) => {

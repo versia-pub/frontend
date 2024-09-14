@@ -14,7 +14,7 @@ export const useNoteData = (
     );
     const renderedNote = computed(() =>
         isReblog.value
-            ? toValue(noteProp)?.reblog ?? toValue(noteProp)
+            ? (toValue(noteProp)?.reblog ?? toValue(noteProp))
             : toValue(noteProp),
     );
     const showContentWarning = useSetting(SettingIds.ShowContentWarning);

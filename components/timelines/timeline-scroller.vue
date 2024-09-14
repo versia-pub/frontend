@@ -11,7 +11,7 @@ const yStored = useLocalStorage("versia:scroll", {
 });
 const { y } = useScroll(root);
 
-useEventListener("popstate", async (event) => {
+useEventListener("popstate", async () => {
     if (yStored.value[route.fullPath] !== undefined) {
         // Wait for the Vue component to load
         await new Promise((resolve) => setTimeout(resolve, 100));
