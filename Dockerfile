@@ -14,7 +14,7 @@ COPY . /app
 COPY --from=install /temp/dev/node_modules /app/node_modules
 RUN cd /app && bun run build --preset node-server
 
-FROM oven/bun:1.1.27-alpine AS final
+FROM oven/bun:1.1.30-alpine AS final
 
 COPY --from=builder /app/.output/ /app
 
