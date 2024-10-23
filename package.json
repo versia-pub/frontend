@@ -30,10 +30,10 @@
     },
     "dependencies": {
         "@ark-ui/vue": "^4.1.1",
-        "@nuxt/fonts": "^0.10.0",
+        "@nuxt/fonts": "^0.10.2",
         "@tailwindcss/typography": "^0.5.15",
-        "@vee-validate/nuxt": "^4.13.2",
-        "@vee-validate/zod": "^4.13.2",
+        "@vee-validate/nuxt": "^4.14.3",
+        "@vee-validate/zod": "^4.14.3",
         "@versia/client": "^0.1.0",
         "@vite-pwa/nuxt": "^0.10.5",
         "@vueuse/core": "^11.1.0",
@@ -57,9 +57,9 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.9.3",
+        "@biomejs/biome": "^1.9.4",
         "@nuxtjs/seo": "^2.0.0-rc.23",
-        "@nuxtjs/tailwindcss": "^6.12.1",
+        "@nuxtjs/tailwindcss": "^6.12.2",
         "@tailwindcss/forms": "^0.5.9",
         "@types/html-to-text": "^9.0.4",
         "@vue-email/nuxt": "^0.8.19",
