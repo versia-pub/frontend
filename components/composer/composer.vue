@@ -53,7 +53,7 @@ import RichTextboxInput from "../inputs/rich-textbox-input.vue";
 import Note from "../social-elements/notes/note.vue";
 import Button from "./button.vue";
 // biome-ignore lint/style/useImportType: Biome doesn't see the Vue code
-import FileUploader from "./file-uploader.vue";
+import FileUploader, { type FileData } from "./uploader/uploader.vue";
 
 const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
@@ -71,15 +71,7 @@ const openFilePicker = () => {
     uploader.value?.openFilePicker();
 };
 
-const files = ref<
-    {
-        id: string;
-        file: File;
-        progress: number;
-        api_id?: string;
-        alt_text?: string;
-    }[]
->([]);
+const files = ref<FileData[]>([]);
 
 const handlePaste = (event: ClipboardEvent) => {
     if (event.clipboardData) {
@@ -95,6 +87,7 @@ const handlePaste = (event: ClipboardEvent) => {
                     id: nanoid(),
                     file,
                     progress: 0,
+                    uploading: true,
                 })),
             );
         }
@@ -109,11 +102,7 @@ watch(
     files,
     (newFiles) => {
         // If a file is uploading, set loading to true
-        if (newFiles.some((file) => file.progress < 1)) {
-            loading.value = true;
-        } else {
-            loading.value = false;
-        }
+        loading.value = newFiles.some((file) => file.uploading);
     },
     {
         deep: true,
@@ -143,6 +132,7 @@ onMounted(() => {
             id: nanoid(),
             file: new File([], file.url),
             progress: 1,
+            uploading: false,
             api_id: file.id,
             alt_text: file.description ?? undefined,
         }));
