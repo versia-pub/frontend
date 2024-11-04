@@ -1,7 +1,7 @@
 <template>
     <Popover.Root :positioning="{
         strategy: 'fixed',
-    }" @update:open="o => !o && $emit('update-alt-text', fileData.alt_text)" :close-on-interact-outside="false">
+    }" @update:open="o => !o" :close-on-interact-outside="false">
         <Popover.Trigger aria-hidden="true"
             class="absolute top-1 left-1 p-1 bg-dark-800 ring-1 ring-white/5 text-white text-xs rounded size-6">
             <iconify-icon icon="tabler:alt" width="none" class="size-4" />
@@ -26,10 +26,12 @@
                     placeholder="Describe this image for screen readers"
                     rows="5"
                     class="w-full p-2 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none" />
+                    <Popover.CloseTrigger :as-child="true">
                 <Button theme="secondary" @click="$emit('update-alt-text', fileData.alt_text)" class="w-full"
                     :loading="fileData.uploading">
                     <span>Edit</span>
                 </Button>
+                </Popover.CloseTrigger>
             </Popover.Content>
         </Popover.Positioner>
     </Popover.Root>
