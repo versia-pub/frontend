@@ -1,59 +1,36 @@
 <template>
-    <div v-if="respondingTo" class="mb-4" role="region" aria-label="Responding to">
-        <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
-            <Note :element="respondingTo" :small="true" :disabled="true" class="!rounded-none !bg-primary-500/10" />
-        </OverlayScrollbarsComponent>
-    </div>
+    <RespondingTo v-if="respondingTo" :respondingTo="respondingTo" />
     <div class="px-6 pb-4 pt-5">
-        <RichTextboxInput v-model:model-content="content" @paste="handlePaste" :disabled="loading"
-            :placeholder="chosenSplash" :max-characters="characterLimit" class="focus:!ring-0 max-h-[70dvh]" />
-        <!-- Content warning textbox -->
-        <div v-if="cw" class="mb-4">
-            <input type="text" v-model="cwContent" placeholder="Add a content warning"
-                class="w-full p-2 mt-1 text-sm prose prose-invert bg-dark-900 rounded focus:!ring-0 !ring-none !border-none !outline-none placeholder:text-zinc-500 appearance-none focus:!border-none focus:!outline-none"
-                aria-label="Content warning" />
-        </div>
-        <FileUploader v-model:files="files" ref="uploader" />
-        <div class="flex flex-row gap-1 border-white/20">
-            <Button title="Mention someone" @click="content = content + '@'">
-                <iconify-icon height="1.5rem" width="1.5rem" icon="tabler:at" aria-hidden="true" />
-            </Button>
-            <Button title="Toggle Markdown" @click="markdown = !markdown" :toggled="markdown">
-                <iconify-icon width="1.25rem" height="1.25rem"
-                    :icon="markdown ? 'tabler:markdown' : 'tabler:markdown-off'" aria-hidden="true" />
-            </Button>
-            <Button title="Use a custom emoji">
-                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:mood-smile" aria-hidden="true" />
-            </Button>
-            <Button title="Add media" @click="openFilePicker">
-                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:photo-up" aria-hidden="true" />
-            </Button>
-            <Button title="Add a file" @click="openFilePicker">
-                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:file-upload" aria-hidden="true" />
-            </Button>
-            <Button title="Add content warning" @click="cw = !cw" :toggled="cw">
-                <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:rating-18-plus" aria-hidden="true" />
-            </Button>
-            <ButtonBase theme="primary" :loading="loading" @click="send" class="ml-auto rounded-full"
-                :disabled="!canSubmit || loading">
-                {{
-                    respondingType === "edit" ? "Edit!" : "Send!"
-                }}
-            </ButtonBase>
-        </div>
+        <RichTextbox v-model:content="content" :loading="loading" :chosenSplash="chosenSplash" :characterLimit="characterLimit"
+            :handle-paste="handlePaste" />
+        <ContentWarning v-model:cw="cw" v-model:cwContent="cwContent" />
+        <FileUploader :files="files" ref="uploader" @add-file="(newFile) => {
+            files.push(newFile);
+        }" @change-file="(changedFile) => {
+            const index = files.findIndex((file) => file.id === changedFile.id);
+            if (index !== -1) {
+                files[index] = changedFile;
+            }
+        }" @remove-file="(id) => {
+            files.splice(files.findIndex((file) => file.id === id), 1);
+        }" />
+        <ActionButtons v-model:content="content" v-model:markdown="markdown" v-model:cw="cw" :loading="loading" :canSubmit="canSubmit"
+            :respondingType="respondingType" @send="send" @file-picker-open="openFilePicker" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import type { Instance, Status } from "@versia/client/types";
 import { nanoid } from "nanoid";
-import ButtonBase from "~/packages/ui/components/buttons/button.vue";
-import { OverlayScrollbarsComponent } from "#imports";
-import RichTextboxInput from "../inputs/rich-textbox-input.vue";
-import Note from "../social-elements/notes/note.vue";
-import Button from "./button.vue";
-// biome-ignore lint/style/useImportType: Biome doesn't see the Vue code
-import FileUploader, { type FileData } from "./uploader/uploader.vue";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
+import { useConfig, useEvent, useListen, useMagicKeys } from "#imports";
+import ActionButtons from "./action-buttons.vue";
+import ContentWarning from "./content-warning.vue";
+import RespondingTo from "./responding-to.vue";
+import RichTextbox from "./rich-text-box.vue";
+// biome-ignore lint/style/useImportType: <explanation>
+import FileUploader from "./uploader/uploader.vue";
+import type { FileData } from "./uploader/uploader.vue";
 
 const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
 const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
@@ -65,7 +42,9 @@ const cwContent = ref("");
 const markdown = ref(true);
 
 const splashes = useConfig().COMPOSER_SPLASHES;
-const chosenSplash = ref(splashes[Math.floor(Math.random() * splashes.length)]);
+const chosenSplash = ref(
+    splashes[Math.floor(Math.random() * splashes.length)] as string,
+);
 
 const openFilePicker = () => {
     uploader.value?.openFilePicker();
@@ -95,13 +74,14 @@ const handlePaste = (event: ClipboardEvent) => {
 };
 
 watch(Control_Alt as ComputedRef<boolean>, () => {
-    chosenSplash.value = splashes[Math.floor(Math.random() * splashes.length)];
+    chosenSplash.value = splashes[
+        Math.floor(Math.random() * splashes.length)
+    ] as string;
 });
 
 watch(
     files,
     (newFiles) => {
-        // If a file is uploading, set loading to true
         loading.value = newFiles.some((file) => file.uploading);
     },
     {
@@ -137,7 +117,6 @@ onMounted(() => {
             alt_text: file.description ?? undefined,
         }));
 
-        // Fetch source
         const source = await client.value.getStatusSource(note.id);
 
         if (source?.data) {
@@ -169,61 +148,72 @@ const canSubmit = computed(
 );
 
 const send = async () => {
-    loading.value = true;
     if (!(identity.value && client.value)) {
         throw new Error("Not authenticated");
     }
 
-    if (respondingType.value === "edit" && respondingTo.value) {
-        const response = await client.value.editStatus(respondingTo.value.id, {
-            status: content.value?.trim() ?? "",
-            content_type: markdown.value ? "text/markdown" : "text/plain",
-            spoiler_text: cw.value ? cwContent.value.trim() : undefined,
-            sensitive: cw.value,
-            media_ids: files.value
-                .filter((file) => !!file.api_id)
-                .map((file) => file.api_id) as string[],
-        });
+    try {
+        loading.value = true;
+
+        if (respondingType.value === "edit" && respondingTo.value) {
+            const response = await client.value.editStatus(
+                respondingTo.value.id,
+                {
+                    status: content.value?.trim() ?? "",
+                    content_type: markdown.value
+                        ? "text/markdown"
+                        : "text/plain",
+                    spoiler_text: cw.value ? cwContent.value.trim() : undefined,
+                    sensitive: cw.value,
+                    media_ids: files.value
+                        .filter((file) => !!file.api_id)
+                        .map((file) => file.api_id) as string[],
+                },
+            );
+
+            if (!response.data) {
+                throw new Error("Failed to edit status");
+            }
+
+            content.value = "";
+            loading.value = false;
+            useEvent("composer:send-edit", response.data);
+            useEvent("composer:close");
+            return;
+        }
+
+        const response = await client.value.postStatus(
+            content.value?.trim() ?? "",
+            {
+                content_type: markdown.value ? "text/markdown" : "text/plain",
+                in_reply_to_id:
+                    respondingType.value === "reply"
+                        ? respondingTo.value?.id
+                        : undefined,
+                quote_id:
+                    respondingType.value === "quote"
+                        ? respondingTo.value?.id
+                        : undefined,
+                spoiler_text: cw.value ? cwContent.value.trim() : undefined,
+                sensitive: cw.value,
+                media_ids: files.value
+                    .filter((file) => !!file.api_id)
+                    .map((file) => file.api_id) as string[],
+            },
+        );
 
         if (!response.data) {
-            throw new Error("Failed to edit status");
+            throw new Error("Failed to send status");
         }
 
         content.value = "";
         loading.value = false;
-        useEvent("composer:send-edit", response.data);
+        useEvent("composer:send", response.data as Status);
         useEvent("composer:close");
-        return;
+    } catch (error) {
+        console.error(error);
+        loading.value = false;
     }
-
-    const response = await client.value.postStatus(
-        content.value?.trim() ?? "",
-        {
-            content_type: markdown.value ? "text/markdown" : "text/plain",
-            in_reply_to_id:
-                respondingType.value === "reply"
-                    ? respondingTo.value?.id
-                    : undefined,
-            quote_id:
-                respondingType.value === "quote"
-                    ? respondingTo.value?.id
-                    : undefined,
-            spoiler_text: cw.value ? cwContent.value.trim() : undefined,
-            sensitive: cw.value,
-            media_ids: files.value
-                .filter((file) => !!file.api_id)
-                .map((file) => file.api_id) as string[],
-        },
-    );
-
-    if (!response.data) {
-        throw new Error("Failed to send status");
-    }
-
-    content.value = "";
-    loading.value = false;
-    useEvent("composer:send", response.data as Status);
-    useEvent("composer:close");
 };
 
 const characterLimit = computed(

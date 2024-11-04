@@ -2,7 +2,7 @@
     <div>
         <input type="file" ref="fileInput" @change="handleFileInput" style="display: none" multiple />
         <div class="flex flex-row gap-2 overflow-x-auto *:shrink-0 p-1 mb-4" v-if="files.length > 0">
-            <FilePreview v-for="data in files" :key="data.id" :file-data="data" @remove="removeFile"
+            <FilePreview v-for="data in files" :key="data.id" :file-data="data" @remove="(id: string) => emit('removeFile', id)"
                 @update-alt-text="updateAltText" />
         </div>
     </div>
@@ -35,6 +35,12 @@ defineExpose({
     openFilePicker,
 });
 
+const emit = defineEmits<{
+    changeFile: [changedFile: FileData];
+    addFile: [newFile: FileData];
+    removeFile: [id: string];
+}>();
+
 const handleFileInput = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target.files) {
@@ -64,54 +70,49 @@ watch(
     },
 );
 
-const removeFile = (id: string) => {
-    files.value = files.value.filter((data) => data.id !== id);
-};
-
 const updateAltText = (id: string, altText?: string) => {
-    files.value = files.value.map((data) => {
-        if (data.id === id) {
-            return { ...data, uploading: true };
-        }
-        return data;
+    const foundFile = files.value.find((data) => data.id === id);
+
+    if (!foundFile) {
+        throw new Error("File with ID doesn't exist");
+    }
+
+    emit("changeFile", {
+        ...foundFile,
+        uploading: true,
     });
 
     client.value
-        ?.updateMedia(
-            files.value.find((data) => data.id === id)?.api_id as string,
-            { description: altText },
-        )
+        ?.updateMedia(foundFile.api_id as string, { description: altText })
         .then(() => {
-            files.value = files.value.map((data) => {
-                if (data.id === id) {
-                    return { ...data, uploading: false };
-                }
-                return data;
+            emit("changeFile", {
+                ...foundFile,
+                uploading: false,
             });
         });
 };
 
 const uploadFile = async (file: File) => {
-    files.value = files.value.map((data) => {
-        if (data.file === file) {
-            return { ...data, uploading: true, progress: 0.1 };
-        }
-        return data;
+    const foundFile = files.value.find((data) => data.file === file);
+
+    if (!foundFile) {
+        throw new Error("File doesn't exist");
+    }
+
+    emit("changeFile", {
+        ...foundFile,
+        uploading: true,
+        progress: 0.1,
     });
 
     client.value.uploadMedia(file).then((response) => {
         const attachment = response.data;
 
-        files.value = files.value.map((data) => {
-            if (data.file === file) {
-                return {
-                    ...data,
-                    api_id: attachment.id,
-                    uploading: false,
-                    progress: 1.0,
-                };
-            }
-            return data;
+        emit("changeFile", {
+            ...foundFile,
+            uploading: false,
+            progress: 1.0,
+            api_id: attachment.id,
         });
     });
 };

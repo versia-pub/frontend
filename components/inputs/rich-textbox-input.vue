@@ -25,28 +25,16 @@ defineOptions({
 });
 const props = defineProps<{
     maxCharacters?: number;
-    modelContent: string;
 }>();
 
-const emit = defineEmits<{
-    "update:modelContent": [value: string];
-}>();
+const modelContent = defineModel<string>("modelContent", {
+    required: true,
+});
 
 const textarea = ref<HTMLTextAreaElement | undefined>(undefined);
 const { input: content } = useTextareaAutosize({
     element: textarea,
-    input: props.modelContent,
-});
-
-watch(
-    () => props.modelContent,
-    (value) => {
-        content.value = value;
-    },
-);
-
-watch(content, (newValue) => {
-    emit("update:modelContent", newValue);
+    input: modelContent,
 });
 
 const remainingCharacters = computed(
