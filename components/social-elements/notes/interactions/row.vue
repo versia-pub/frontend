@@ -5,27 +5,26 @@
             :disabled="!identity">
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:arrow-back-up"
                 class="text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
-            <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note.replies_count) }}</span>
+            <span class="text-gray-400 mt-0.5 ml-2" v-if="note.replies_count">{{ numberFormat(note.replies_count) }}</span>
         </InteractionButton>
         <InteractionButton @click="likeFn" :disabled="!identity">
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!note.favourited"
                 class="size-5 text-gray-200 group-hover:group-enabled:text-primary-600" aria-hidden="true" />
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
                 class="size-5 text-primary-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-            <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note.favourites_count) }}</span>
+            <span class="text-gray-400 mt-0.5 ml-2" v-if="note.favourites_count">{{ numberFormat(note.favourites_count) }}</span>
         </InteractionButton>
         <InteractionButton @click="reblogFn" :disabled="!identity">
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-if="!note.reblogged"
                 class="size-5 text-gray-200 group-hover:group-enabled:text-green-600" aria-hidden="true" />
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:repeat" v-else
                 class="size-5 text-green-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
-            <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(note.reblogs_count) }}</span>
+            <span class="text-gray-400 mt-0.5 ml-2" v-if="note.reblogs_count">{{ numberFormat(note.reblogs_count) }}</span>
         </InteractionButton>
         <InteractionButton @click="useEvent('note:quote', note)"
             :disabled="!identity">
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:quote"
                 class="size-5 text-gray-200 group-hover:group-enabled:text-blue-600" aria-hidden="true" />
-            <span class="text-gray-400 mt-0.5 ml-2">{{ numberFormat(0) }}</span>
         </InteractionButton>
         <NoteMenu v-model:note="note" :url="url" :remove="remove" />
     </div>
