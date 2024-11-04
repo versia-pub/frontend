@@ -2,7 +2,7 @@
     <Menu.Root :positioning="{
         strategy: 'fixed',
     }" @update:open="(o) => open = o" :open="open">
-        <Menu.Trigger>
+        <Menu.Trigger :as-child="true">
             <slot name="button"></slot>
         </Menu.Trigger>
 
