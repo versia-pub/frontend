@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div v-else class="flex flex-row">
+    <div v-else class="flex flex-row gap-x-4">
         <UserCard :account="note?.account">
             <NuxtLink :href="accountUrl" class="shrink-0">
                 <Avatar :src="note?.account.avatar" :alt="`${note?.account.acct}'s avatar`"
@@ -28,7 +28,7 @@
                 <span class="sr-only">Account profile</span>
             </NuxtLink>
         </UserCard>
-        <div class="flex flex-col items-start justify-around ml-4 grow overflow-hidden">
+        <div class="flex flex-col items-start justify-around grow overflow-hidden">
             <div class="flex flex-row items-center justify-between w-full">
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
