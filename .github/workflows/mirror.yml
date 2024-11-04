@@ -1,0 +1,7 @@
+on: [push]
+
+jobs:
+  mirror:
+    name: Mirror to Codeberg
+    uses: versia-pub/.github/.github/workflows/mirror.yml@main
+    secrets: inherit
