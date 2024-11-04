@@ -1,79 +1,79 @@
 {
-  "name": "versia-fe",
-  "private": true,
-  "type": "module",
-  "license": "AGPL-3.0",
-  "author": {
-    "email": "contact@cpluspatch.com",
-    "name": "CPlusPatch",
-    "url": "https://cpluspatch.com"
-  },
-  "maintainers": [
-    {
-      "email": "contact@cpluspatch.com",
-      "name": "CPlusPatch",
-      "url": "https://cpluspatch.com"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/versia-pub/frontend.git"
-  },
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun --bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "bunx @biomejs/biome check .",
-    "check": "bunx tsc -p ."
-  },
-  "dependencies": {
-    "@ark-ui/vue": "^4.2.0",
-    "@nuxt/fonts": "^0.10.2",
-    "@tailwindcss/typography": "^0.5.15",
-    "@vee-validate/nuxt": "^4.14.6",
-    "@vee-validate/zod": "^4.14.6",
-    "@versia/client": "^0.1.0",
-    "@vite-pwa/nuxt": "^0.10.6",
-    "@vueuse/core": "^11.2.0",
-    "@vueuse/nuxt": "^11.2.0",
-    "c12": "^2.0.1",
-    "fastest-levenshtein": "^1.0.16",
-    "html-to-text": "^9.0.5",
-    "iconify-icon": "^2.1.0",
-    "magic-regexp": "^0.8.0",
-    "mitt": "^3.0.1",
-    "nanoid": "^5.0.8",
-    "nuxt": "^3.14.0",
-    "nuxt-headlessui": "^1.2.0",
-    "nuxt-security": "^2.0.0",
-    "nuxt-shiki": "^0.3.0",
-    "overlayscrollbars": "^2.10.0",
-    "overlayscrollbars-vue": "^0.5.9",
-    "shiki": "^1.22.2",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.5",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@nuxtjs/seo": "^2.0.0-rc.23",
-    "@nuxtjs/tailwindcss": "^6.12.2",
-    "@tailwindcss/forms": "^0.5.9",
-    "@types/html-to-text": "^9.0.4",
-    "@vue-email/nuxt": "^0.8.19",
-    "typescript": "^5.6.3",
-    "vue-tsc": "^2.1.10"
-  },
-  "trustedDependencies": [
-    "@biomejs/biome",
-    "@fortawesome/fontawesome-common-types",
-    "@fortawesome/free-regular-svg-icons",
-    "@fortawesome/free-solid-svg-icons",
-    "@parcel/watcher",
-    "esbuild",
-    "json-editor-vue",
-    "vue-demi"
-  ]
+    "name": "versia-fe",
+    "private": true,
+    "type": "module",
+    "license": "AGPL-3.0",
+    "author": {
+        "email": "contact@cpluspatch.com",
+        "name": "CPlusPatch",
+        "url": "https://cpluspatch.com"
+    },
+    "maintainers": [
+        {
+            "email": "contact@cpluspatch.com",
+            "name": "CPlusPatch",
+            "url": "https://cpluspatch.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/versia-pub/frontend.git"
+    },
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun --bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "bunx @biomejs/biome check .",
+        "check": "bunx tsc -p ."
+    },
+    "dependencies": {
+        "@ark-ui/vue": "^4.2.0",
+        "@nuxt/fonts": "^0.10.2",
+        "@tailwindcss/typography": "^0.5.15",
+        "@vee-validate/nuxt": "^4.14.6",
+        "@vee-validate/zod": "^4.14.6",
+        "@versia/client": "^0.1.0",
+        "@vite-pwa/nuxt": "^0.10.6",
+        "@vueuse/core": "^11.2.0",
+        "@vueuse/nuxt": "^11.2.0",
+        "c12": "^2.0.1",
+        "fastest-levenshtein": "^1.0.16",
+        "html-to-text": "^9.0.5",
+        "iconify-icon": "^2.1.0",
+        "magic-regexp": "^0.8.0",
+        "mitt": "^3.0.1",
+        "nanoid": "^5.0.8",
+        "nuxt": "^3.14.0",
+        "nuxt-headlessui": "^1.2.0",
+        "nuxt-security": "^2.0.0",
+        "nuxt-shiki": "^0.3.0",
+        "overlayscrollbars": "^2.10.0",
+        "overlayscrollbars-vue": "^0.5.9",
+        "shiki": "^1.22.2",
+        "vue": "^3.5.12",
+        "vue-router": "^4.4.5",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@nuxtjs/seo": "^2.0.0-rc.23",
+        "@nuxtjs/tailwindcss": "^6.12.2",
+        "@tailwindcss/forms": "^0.5.9",
+        "@types/html-to-text": "^9.0.4",
+        "@vue-email/nuxt": "^0.8.19",
+        "typescript": "^5.6.3",
+        "vue-tsc": "^2.1.10"
+    },
+    "trustedDependencies": [
+        "@biomejs/biome",
+        "@fortawesome/fontawesome-common-types",
+        "@fortawesome/free-regular-svg-icons",
+        "@fortawesome/free-solid-svg-icons",
+        "@parcel/watcher",
+        "esbuild",
+        "json-editor-vue",
+        "vue-demi"
+    ]
 }

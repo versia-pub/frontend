@@ -1,7 +1,6 @@
 <template>
     <div role="button" tabindex="0" :class="[
         'size-28 bg-dark-800 rounded flex items-center relative justify-center ring-1 ring-white/20 overflow-hidden',
-        fileData.uploading && 'animate-pulse'
     ]" @keydown.enter="$emit('remove', fileData.id)">
         <PreviewContent :file="fileData.file" />
         <FileShadowOverlay />
