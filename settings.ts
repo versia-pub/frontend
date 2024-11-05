@@ -29,7 +29,11 @@ export type BooleanSetting = Setting & {
 export type EnumSetting = Setting & {
     type: SettingType.Enum;
     value: string;
-    options: string[];
+    options: {
+        value: string;
+        label: string;
+        icon?: string;
+    }[];
 };
 
 export type FloatSetting = Setting & {
@@ -73,6 +77,7 @@ export enum SettingIds {
     ConfirmFollow = "confirm-follow",
     ConfirmReblog = "confirm-reblog",
     ConfirmFavourite = "confirm-favourite",
+    EmojiTheme = "emoji-theme",
 }
 
 export const settings: Record<SettingIds, Setting> = {
@@ -97,8 +102,22 @@ export const settings: Record<SettingIds, Setting> = {
         description: "UI theme",
         type: SettingType.Enum,
         value: "dark",
-        options: ["light", "dark"],
+        options: [
+            {
+                value: "dark",
+                label: "Dark",
+            },
+            {
+                value: "light",
+                label: "Light",
+            },
+            {
+                value: "system",
+                label: "System",
+            },
+        ],
         page: SettingPages.Appearance,
+        notImplemented: true,
     } as EnumSetting,
     [SettingIds.CustomEmojis]: {
         title: "Render Custom Emojis",
@@ -161,6 +180,28 @@ export const settings: Record<SettingIds, Setting> = {
         page: SettingPages.Behaviour,
         notImplemented: true,
     } as BooleanSetting,
+    [SettingIds.EmojiTheme]: {
+        title: "Emoji Theme",
+        description: "Theme used for rendering emojis",
+        type: SettingType.Enum,
+        value: "native",
+        options: [
+            {
+                value: "native",
+                label: "Operating System",
+            },
+            {
+                value: "twemoji",
+                label: "Twitter emoji set",
+            },
+            {
+                value: "noto",
+                label: "Noto Emoji",
+            },
+        ],
+        page: SettingPages.Appearance,
+        notImplemented: true,
+    } as EnumSetting,
 };
 
 export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {
