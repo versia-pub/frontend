@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     future: {
         compatibilityVersion: 4,
     },
-    compatibilityDate: "2024-07-21",
+    compatibilityDate: "2024-11-05",
     pwa: {
         manifest: {
             name: "Versia",
