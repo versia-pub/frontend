@@ -81,6 +81,10 @@ services:
 
 Then, the frontend will be available at `http://localhost:3000` inside the container. To link it to a Versia Server, set the `NUXT_PUBLIC_API_HOST` environment variable to the server's URL.
 
+## Development
+
+Make sure to run `bun run emojis:generate` to generate the emoji list before building or running the project.
+
 ## License
 
 This project is licensed under the AGPL 3.0 - see the [LICENSE](LICENSE) file for details.

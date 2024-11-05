@@ -247,6 +247,13 @@ export default defineNuxtConfig({
             brotli: false,
             gzip: false,
         },
+        routeRules: {
+            "/emojis/**": {
+                headers: {
+                    "Cache-Control": "public, max-age=31536000, immutable",
+                },
+            },
+        },
     },
     schemaOrg: {
         enabled: false,

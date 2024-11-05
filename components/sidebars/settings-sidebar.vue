@@ -1,7 +1,7 @@
 <template>
     <Tabs.Root v-model="tab">
         <Tabs.List class="flex flex-row p-4 gap-4 bg-dark-800 relative ring-1 ring-white/5 overflow-x-auto">
-            <Tabs.Trigger :value="page" v-for="page of SettingPages" :as-child="true">
+            <Tabs.Trigger :value="page" v-for="page of [SettingPages.Account, SettingPages.Behaviour, SettingPages.Appearance]" :as-child="true">
                 <ButtonBase class="capitalize hover:bg-white/5">
                     {{ page }}
                 </ButtonBase>

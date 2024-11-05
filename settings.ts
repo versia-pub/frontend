@@ -83,7 +83,7 @@ export enum SettingIds {
 export const settings: Record<SettingIds, Setting> = {
     [SettingIds.Mfm]: {
         title: "Render MFM",
-        description: "Render Misskey-Flavoured Markdown",
+        description: "Render Misskey-Flavoured Markdown.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
@@ -91,7 +91,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as BooleanSetting,
     [SettingIds.CustomCSS]: {
         title: "Custom CSS",
-        description: "Custom CSS for the UI",
+        description: "Custom CSS for the UI.",
         type: SettingType.Code,
         value: "",
         language: "css",
@@ -99,7 +99,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as CodeSetting,
     [SettingIds.Theme]: {
         title: "Theme",
-        description: "UI theme",
+        description: "UI theme.",
         type: SettingType.Enum,
         value: "dark",
         options: [
@@ -121,21 +121,21 @@ export const settings: Record<SettingIds, Setting> = {
     } as EnumSetting,
     [SettingIds.CustomEmojis]: {
         title: "Render Custom Emojis",
-        description: "Render custom emojis",
+        description: "Render custom emojis.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,
     } as BooleanSetting,
     [SettingIds.ShowContentWarning]: {
         title: "Show Content Warning",
-        description: "Show content warnings on notes marked sensitive/spoiler",
+        description: "Show content warnings on notes marked sensitive/spoiler.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,
     } as BooleanSetting,
     [SettingIds.PopupAvatarHover]: {
         title: "Popup Profile Hover",
-        description: "Show profile popup when hovering over a user's avatar",
+        description: "Show profile popup when hovering over a user's avatar.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,
@@ -143,14 +143,14 @@ export const settings: Record<SettingIds, Setting> = {
     [SettingIds.InfiniteScroll]: {
         title: "Infinite Scroll",
         description:
-            "Automatically load more notes when reaching the bottom of the page",
+            "Automatically load more notes when reaching the bottom of the page.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,
     } as BooleanSetting,
     [SettingIds.ConfirmDelete]: {
         title: "Confirm Delete",
-        description: "Confirm before deleting a note",
+        description: "Confirm before deleting a note.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
@@ -158,7 +158,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as BooleanSetting,
     [SettingIds.ConfirmFollow]: {
         title: "Confirm Follow",
-        description: "Confirm before following/unfollowing a user",
+        description: "Confirm before following/unfollowing a user.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
@@ -166,7 +166,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as BooleanSetting,
     [SettingIds.ConfirmReblog]: {
         title: "Confirm Reblog",
-        description: "Confirm before reblogging a note",
+        description: "Confirm before reblogging a note.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
@@ -174,7 +174,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as BooleanSetting,
     [SettingIds.ConfirmFavourite]: {
         title: "Confirm Favourite",
-        description: "Confirm before favouriting a note",
+        description: "Confirm before favouriting a note.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
@@ -182,7 +182,8 @@ export const settings: Record<SettingIds, Setting> = {
     } as BooleanSetting,
     [SettingIds.EmojiTheme]: {
         title: "Emoji Theme",
-        description: "Theme used for rendering emojis",
+        description:
+            "Theme used for rendering emojis. Requires a page reload to apply.",
         type: SettingType.Enum,
         value: "native",
         options: [
@@ -192,15 +193,22 @@ export const settings: Record<SettingIds, Setting> = {
             },
             {
                 value: "twemoji",
-                label: "Twitter emoji set",
+                label: "Twitter Emojis",
             },
             {
                 value: "noto",
                 label: "Noto Emoji",
             },
+            {
+                value: "fluent",
+                label: "Fluent Emojis",
+            },
+            {
+                value: "fluent-flat",
+                label: "Fluent Emojis (flat version)",
+            },
         ],
         page: SettingPages.Appearance,
-        notImplemented: true,
     } as EnumSetting,
 };
 

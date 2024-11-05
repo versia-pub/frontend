@@ -6,6 +6,7 @@
         <textarea v-model="content"
             class="resize-none min-h-48 mt-1 prose prose-invert max-w-full ring-1 ring-white/20 font-mono placeholder:text-zinc-500 bg-transparent rounded appearance-none disabled:cursor-not-allowed"
             aria-label="Start typing here..."></textarea>
+        <p v-if="setting.description" class="text-xs mt-2 text-gray-400">{{ setting.description }}</p>
     </div>
 </template>
 

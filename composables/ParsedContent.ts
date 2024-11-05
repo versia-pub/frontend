@@ -3,6 +3,10 @@ import { renderToString } from "vue/server-renderer";
 import { SettingIds, type Settings } from "~/settings";
 import MentionComponent from "../components/social-elements/notes/mention.vue";
 
+const emojisRegex =
+    /\p{RI}\p{RI}|\p{Emoji}(\p{EMod}|\uFE0F\u20E3?|[\u{E0020}-\u{E007E}]+\u{E007F})?(\u200D(\p{RI}\p{RI}|\p{Emoji}(\p{EMod}|\uFE0F\u20E3?|[\u{E0020}-\u{E007E}]+\u{E007F})?))*/gu;
+const incorrectEmojisRegex = /^[#*0-9©®]$/;
+
 /**
  * Takes in an HTML string, parses emojis and returns a reactive object with the parsed content.
  * @param content String of HTML content to parse
@@ -29,6 +33,7 @@ export const useParsedContent = (
 
             const shouldRenderEmoji =
                 toValue(settings)?.[SettingIds.CustomEmojis].value;
+            const emojiFont = toValue(settings)?.[SettingIds.EmojiTheme].value;
 
             // Replace emoji shortcodes with images
             if (shouldRenderEmoji) {
@@ -48,6 +53,19 @@ export const useParsedContent = (
                         image.className =
                             "h-[1.6em] mt-[-0.2ex] mx-1 mb-[0.2ex] align-middle inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out";
                         return image.outerHTML;
+                    },
+                );
+            }
+
+            if (emojiFont !== "native") {
+                contentHtml.innerHTML = contentHtml.innerHTML.replace(
+                    emojisRegex,
+                    (match) => {
+                        if (incorrectEmojisRegex.test(match)) {
+                            return match;
+                        }
+
+                        return `<img src="/emojis/${emojiFont}/${match}.svg" alt="${match}" class="h-[1em] inline not-prose hover:scale-110 transi''tion-transform duration-75 ease-in-out">`;
                     },
                 );
             }

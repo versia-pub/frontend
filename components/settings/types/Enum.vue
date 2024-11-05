@@ -9,9 +9,10 @@
                 </Select.Indicator>
             </Select.Trigger>
         </Select.Control>
-        <p v-if="setting.notImplemented" class="text-xs mt-1 row-start-3 text-red-300 font-semibold">Not
+        <p v-if="setting.notImplemented" class="text-xs mt-2 row-start-3 text-red-300 font-semibold">Not
             implemented
         </p>
+        <p v-else-if="setting.description" class="text-xs mt-2 text-gray-400">{{ setting.description }}</p>
         <Teleport to="body">
             <Select.Positioner>
                 <Select.Content

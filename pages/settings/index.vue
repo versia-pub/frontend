@@ -10,11 +10,11 @@
                 SettingPages.Appearance,
             )) as SettingIds[])" :key="id" />
         </template>
-        <template #advanced>
+        <!-- <template #advanced>
             <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
                 SettingPages.Advanced,
             )) as SettingIds[])" :key="id" />
-        </template>
+        </template> -->
         <template #account>
             <ProfileEditor />
         </template>
