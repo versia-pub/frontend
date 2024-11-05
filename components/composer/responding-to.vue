@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import type { Status } from "@versia/client/types";
-import { OverlayScrollbarsComponent } from "#imports";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import Note from "../social-elements/notes/note.vue";
 
 const props = defineProps<{

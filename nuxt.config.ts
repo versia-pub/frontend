@@ -264,14 +264,6 @@ export default defineNuxtConfig({
             onionApiHost: undefined,
         },
     },
-    imports: {
-        presets: [
-            {
-                from: "overlayscrollbars-vue",
-                imports: ["OverlayScrollbarsComponent"],
-            },
-        ],
-    },
     devtools: {
         enabled: false,
 

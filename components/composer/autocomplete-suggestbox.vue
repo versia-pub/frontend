@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { OverlayScrollbarsComponent } from "#imports";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 const props = defineProps<{
     currentlyTyping: string | null;

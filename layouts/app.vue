@@ -27,7 +27,7 @@ import Navigation from "~/components/sidebars/navigation.vue";
 import AttachmentDialog from "~/components/social-elements/notes/attachment-dialog.vue";
 import Notifications from "~/components/timelines/notifications.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
-import { OverlayScrollbarsComponent } from "#imports";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 const { width } = useWindowSize();
 
 const { n } = useMagicKeys();
