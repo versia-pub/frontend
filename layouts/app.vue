@@ -1,6 +1,11 @@
 <template>
-    <div class="from-dark-600 to-dark-900 bg-gradient-to-tl relative min-h-dvh">
-        <SquarePattern />
+    <div class="from-dark-600 to-dark-900 bg-gradient-to-tl relative min-h-dvh" :style="{
+        backgroundImage: canParseURL(backgroundImage.value as string) ? `url(${backgroundImage.value})` : undefined,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+    }">
+        <SquarePattern v-if="!canParseURL(backgroundImage.value as string)" />
         <Navigation />
 
         <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
@@ -20,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import ComposerModal from "~/components/composer/modal.client.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
 import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
@@ -27,7 +33,7 @@ import Navigation from "~/components/sidebars/navigation.vue";
 import AttachmentDialog from "~/components/social-elements/notes/attachment-dialog.vue";
 import Notifications from "~/components/timelines/notifications.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import { SettingIds } from "~/settings";
 const { width } = useWindowSize();
 
 const { n } = useMagicKeys();
@@ -37,6 +43,15 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "INPUT" &&
         activeElement.value?.tagName !== "TEXTAREA",
 );
+const backgroundImage = useSetting(SettingIds.BackgroundURL);
+const canParseURL: (url: string) => boolean = (url) => {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+};
 
 watchEffect(async () => {
     if (n?.value && notUsingInput.value) {

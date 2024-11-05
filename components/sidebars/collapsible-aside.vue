@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts" setup>
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 // slides in and out from the left or right
 import type { HTMLAttributes } from "vue";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
     direction?: "left" | "right";

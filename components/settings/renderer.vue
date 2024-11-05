@@ -5,6 +5,7 @@
 
             <SettingCode v-else-if="setting.type === SettingType.Code" :id="id" />
             <SettingEnum v-else-if="setting.type === SettingType.Enum" :id="id" />
+            <SettingString v-else-if="setting.type === SettingType.String" :id="id" />
             <SettingOther v-else :id="id" />
         </div>
     </div>
@@ -16,6 +17,7 @@ import SettingBoolean from "./types/Boolean.vue";
 import SettingCode from "./types/Code.vue";
 import SettingEnum from "./types/Enum.vue";
 import SettingOther from "./types/Other.vue";
+import SettingString from "./types/String.vue";
 
 const props = defineProps<{
     id: SettingIds;

@@ -78,6 +78,7 @@ export enum SettingIds {
     ConfirmReblog = "confirm-reblog",
     ConfirmFavourite = "confirm-favourite",
     EmojiTheme = "emoji-theme",
+    BackgroundURL = "background-url",
 }
 
 export const settings: Record<SettingIds, Setting> = {
@@ -210,6 +211,13 @@ export const settings: Record<SettingIds, Setting> = {
         ],
         page: SettingPages.Appearance,
     } as EnumSetting,
+    [SettingIds.BackgroundURL]: {
+        title: "Background URL",
+        description: "Change the background image of the site.",
+        type: SettingType.String,
+        value: "",
+        page: SettingPages.Appearance,
+    } as StringSetting,
 };
 
 export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {
