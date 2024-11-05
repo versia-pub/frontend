@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        "@nuxtjs/seo",
         "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
         "nuxt-headlessui",
@@ -255,15 +254,6 @@ export default defineNuxtConfig({
             },
         ],
     },
-    schemaOrg: {
-        enabled: false,
-    },
-    ogImage: {
-        enabled: false,
-    },
-    robots: {
-        blockNonSeoBots: true,
-    },
     veeValidate: {
         autoImports: true,
         componentNames: {
@@ -290,9 +280,6 @@ export default defineNuxtConfig({
                 imports: ["OverlayScrollbarsComponent"],
             },
         ],
-    },
-    site: {
-        url: "https://social.lysand.org",
     },
     devtools: {
         enabled: false,
