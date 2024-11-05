@@ -226,11 +226,6 @@ export default defineNuxtConfig({
                     href: "/favicon.png",
                     type: "image/png",
                 },
-                {
-                    rel: "apple-touch-icon",
-                    href: "/favicon.png",
-                    type: "image/png",
-                },
             ],
             htmlAttrs: { lang: "en-us" },
         },
@@ -265,10 +260,6 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            language: "en-US",
-            titleSeparator: "·",
-            siteName: "Versia",
-            trailingSlash: true,
             apiHost: "https://social.lysand.org",
             onionApiHost: undefined,
         },
