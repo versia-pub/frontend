@@ -79,7 +79,7 @@
                 </Collapsible.Root>
 
                 <p class="text-xs font-semibold text-gray-300">
-                    Passwords are stored securely and hashed. We do not store your password in plain text.
+                    Passwords are stored securely and hashed. Passwords are not stored in plain text.
                     Administrators
                     cannot see your password.
                 </p>
