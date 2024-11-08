@@ -194,10 +194,7 @@ export default defineNuxtConfig({
     security: {
         headers: {
             // Nuxt DevTools
-            crossOriginEmbedderPolicy:
-                process.env.NODE_ENV === "development"
-                    ? "unsafe-none"
-                    : "require-corp",
+            crossOriginEmbedderPolicy: "credentialless",
             contentSecurityPolicy: {
                 "img-src": ["'self'", "data:", "https:", "blob:"],
                 "script-src": ["'nonce-{{nonce}}'", "'strict-dynamic'"],
