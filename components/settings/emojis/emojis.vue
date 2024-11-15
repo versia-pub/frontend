@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto my-12 px-4">
+    <div class="max-w-7xl mx-auto py-12 px-4">
         <div class="md:max-w-sm w-full relative mb-4">
             <TextInput v-model="search" placeholder="Search" class="pl-8" />
             <iconify-icon icon="tabler:search"

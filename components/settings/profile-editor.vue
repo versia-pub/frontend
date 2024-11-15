@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full md:px-8 px-4 py-4 bg-dark-700 grid justify-center lg:grid-cols-[minmax(auto,_36rem)_1fr] grid-cols-1 gap-4">
+        class="w-full md:px-8 px-4 py-4 grid justify-center lg:grid-cols-[minmax(auto,_36rem)_1fr] grid-cols-1 gap-4">
         <form class="w-full ring-1 ring-inset ring-white/5 pb-5 bg-dark-800 rounded overflow-hidden"
             @submit.prevent="save">
             <Avatar :src="account?.header" :alt="`${account?.acct}'s header image'`"
