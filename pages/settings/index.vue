@@ -18,10 +18,14 @@
         <template #account>
             <ProfileEditor />
         </template>
+        <template #emojis>
+            <EmojiEditor />
+        </template>
     </SettingsSidebar>
 </template>
 
 <script setup lang="ts">
+import EmojiEditor from "~/components/settings/emojis/emojis.vue";
 import ProfileEditor from "~/components/settings/profile-editor.vue";
 import Renderer from "~/components/settings/renderer.vue";
 import SettingsSidebar from "~/components/sidebars/settings-sidebar.vue";

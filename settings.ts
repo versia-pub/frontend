@@ -60,6 +60,7 @@ export type CodeSetting = Setting & {
 
 export enum SettingPages {
     Account = "account",
+    Emojis = "emojis",
     Behaviour = "behaviour",
     Advanced = "advanced",
     Appearance = "appearance",
