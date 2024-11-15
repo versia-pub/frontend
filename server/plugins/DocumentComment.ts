@@ -14,7 +14,6 @@ const art = `
 * With ❤️ from us:
 * - @jessew@social.lysand.org
 * - @aprl@social.lysand.org
-* - @graphite@social.lysand.org
 `;
 
 export default defineNitroPlugin((nitroApp) => {

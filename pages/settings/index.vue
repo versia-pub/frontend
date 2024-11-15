@@ -1,20 +1,11 @@
 <template>
     <SettingsSidebar>
         <template #behaviour>
-            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
-                SettingPages.Behaviour,
-            )) as SettingIds[])" :key="id" />
+            <SettingPage :page="SettingPages.Behaviour" />
         </template>
         <template #appearance>
-            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
-                SettingPages.Appearance,
-            )) as SettingIds[])" :key="id" />
+            <SettingPage :page="SettingPages.Appearance" />
         </template>
-        <!-- <template #advanced>
-            <Renderer :id="id" v-for="id of (Object.keys(getSettingsForPage(
-                SettingPages.Advanced,
-            )) as SettingIds[])" :key="id" />
-        </template> -->
         <template #account>
             <ProfileEditor />
         </template>
@@ -26,10 +17,10 @@
 
 <script setup lang="ts">
 import EmojiEditor from "~/components/settings/emojis/emojis.vue";
+import SettingPage from "~/components/settings/page.vue";
 import ProfileEditor from "~/components/settings/profile-editor.vue";
-import Renderer from "~/components/settings/renderer.vue";
 import SettingsSidebar from "~/components/sidebars/settings-sidebar.vue";
-import { SettingIds, SettingPages, getSettingsForPage } from "~/settings";
+import { SettingPages } from "~/settings";
 
 definePageMeta({
     layout: "app",

@@ -2,7 +2,7 @@
     <Tabs.Root v-model="tab" class="bg-dark-700 h-full overflow-auto pb-20">
         <Tabs.List class="flex flex-row p-4 gap-4 bg-dark-800 relative ring-1 ring-white/5 overflow-x-auto">
             <Tabs.Trigger :value="page"
-                v-for="page of [SettingPages.Account, SettingPages.Emojis, SettingPages.Behaviour, SettingPages.Appearance]"
+                v-for="page of SettingPages"
                 :as-child="true">
                 <ButtonBase class="capitalize hover:bg-white/5">
                     {{ page }}
