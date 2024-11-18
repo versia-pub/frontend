@@ -25,7 +25,11 @@ export const useConfig = () => {
         ],
         DEVELOPER_HANDLES: [
             "jessew@social.lysand.org",
+            "jessew@beta.versia.social",
+            "jessew@versia.social",
             "aprl@social.lysand.org",
+            "aprl@beta.versia.social",
+            "aprl@versia.social",
             "graphite@social.lysand.org",
             "jessew@mk.cpluspatch.com",
             "graphite@shonk.phite.ro",
