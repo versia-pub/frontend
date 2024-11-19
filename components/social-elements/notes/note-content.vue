@@ -77,6 +77,17 @@ const collapsed = ref(props.shouldHide);
     content: ""
 }
 
+.content ol li input[type=checkbox],
+.content ul li input[type=checkbox] {
+  border-radius:.25rem;
+  margin-bottom:0.2rem;
+  margin-right:.5rem;
+  margin-top:0;
+  vertical-align: middle;
+  --tw-text-opacity:1;
+  color: var(--theme-primary-400);
+}
+
 .content code:not(pre code) {
     border-radius: .25rem;
     padding: .25rem .5rem;
