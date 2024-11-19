@@ -32,19 +32,15 @@ defineProps<{
 const collapsed = ref(false);
 const container = ref<HTMLDivElement | null>(null);
 
-watch(
-    collapsed,
-    (value) => {
-        // Use requestAnimationFrame to prevent layout thrashing
-        requestAnimationFrame(() => {
-            if (!container.value) {
-                return;
-            }
-            container.value.style.maxHeight = value
-                ? "0px"
-                : `${container.value.scrollHeight}px`;
-        });
-    },
-    { immediate: true },
-);
+watch(collapsed, (value) => {
+    // Use requestAnimationFrame to prevent layout thrashing
+    requestAnimationFrame(() => {
+        if (!container.value) {
+            return;
+        }
+        container.value.style.maxHeight = value
+            ? "0px"
+            : `${container.value.scrollHeight}px`;
+    });
+});
 </script>
