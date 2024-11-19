@@ -101,7 +101,10 @@ export const useParsedAccount = (
     account: MaybeRef<Account | undefined | null>,
     settings: MaybeRef<Settings>,
 ) => {
-    const displayName = computed(() => toValue(account)?.display_name ?? "");
+    const displayName = computed(
+        () =>
+            toValue(account)?.display_name ?? toValue(account)?.username ?? "",
+    );
     const note = computed(() => toValue(account)?.note ?? "");
     const fields = computed(() => toValue(account)?.fields ?? []);
     const emojis = computed(() => toValue(account)?.emojis ?? []);

@@ -9,7 +9,7 @@
             <div class="flex flex-row text-sm items-center justify-between w-full">
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
-                        {{ note?.account.display_name }}
+                        <span v-html="display_name"></span>
                     </Skeleton>
                 </NuxtLink>
                 <NuxtLink :href="noteUrl" class="text-gray-300 ml-2 line-clamp-1 break-all shrink-0">
@@ -32,7 +32,7 @@
             <div class="flex flex-row items-center justify-between w-full">
                 <NuxtLink :href="accountUrl" class="font-semibold text-gray-200 line-clamp-1 break-all">
                     <Skeleton :enabled="!note" :min-width="90" :max-width="170" shape="rect">
-                        {{ note?.account.display_name }}
+                        <span v-html="display_name"></span>
                     </Skeleton>
                 </NuxtLink>
                 <NuxtLink v-if="note" :href="noteUrl" class="text-gray-300 text-sm ml-2 line-clamp-1 break-all shrink-0"
@@ -86,6 +86,7 @@ const props = defineProps<{
 
 const username = props.note?.account.acct.split("@")[0];
 const instance = props.note?.account.acct.split("@")[1];
+const { display_name } = useParsedAccount(props.note?.account, settings);
 
 const noteUrl = props.note && `/@${props.note.account.acct}/${props.note.id}`;
 const accountUrl = props.note && `/@${props.note.account.acct}`;
