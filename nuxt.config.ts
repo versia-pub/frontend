@@ -8,6 +8,8 @@ export default defineNuxtConfig({
         "@vee-validate/nuxt",
         "nuxt-security",
         "@vite-pwa/nuxt",
+        "shadcn-nuxt",
+        "@nuxtjs/color-mode",
     ],
     vue: {
         compilerOptions: {
@@ -19,6 +21,9 @@ export default defineNuxtConfig({
     },
     future: {
         compatibilityVersion: 4,
+    },
+    shadcn: {
+        componentDir: "./components/ui",
     },
     compatibilityDate: "2024-11-05",
     pwa: {

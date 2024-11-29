@@ -18,9 +18,9 @@
 import "~/styles/theme.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
+import ConfirmationModal from "./components/modals/confirmation.vue";
 import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 import { SettingIds } from "./settings";
-import ConfirmationModal from "./components/modals/confirmation.vue";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 

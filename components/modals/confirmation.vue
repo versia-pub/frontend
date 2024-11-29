@@ -48,12 +48,12 @@
 
 <script setup lang="ts">
 import { Dialog } from "@ark-ui/vue";
+import Button from "~/packages/ui/components/buttons/button.vue";
 import {
     confirmModalService,
     confirmModalWithInputService,
 } from "./service.ts";
 import type { ConfirmModalOptions, ConfirmModalResult } from "./types.ts";
-import Button from "~/packages/ui/components/buttons/button.vue";
 
 const isOpen = ref(false);
 const modalOptions = ref<ConfirmModalOptions>({ message: "" });
