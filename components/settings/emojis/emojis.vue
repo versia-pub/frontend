@@ -23,21 +23,14 @@ import TextInput from "~/components/inputs/text-input.vue";
 import Category from "./category.vue";
 
 const emojis = computed(() =>
-    (
-        (identity.value?.emojis as
-            | (Emoji & { id: string; global: boolean })[]
-            | undefined) ?? []
-    ).filter((emoji) =>
+    ((identity.value?.emojis as Emoji[] | undefined) ?? []).filter((emoji) =>
         emoji.shortcode.toLowerCase().includes(search.value.toLowerCase()),
     ),
 );
 const search = ref("");
 
 const categories = computed(() => {
-    const categories = new Map<
-        string,
-        (Emoji & { id: string; global: boolean })[]
-    >();
+    const categories = new Map<string, Emoji[]>();
     for (const emoji of emojis.value) {
         if (!emoji.category) {
             if (!categories.has("Uncategorized")) {

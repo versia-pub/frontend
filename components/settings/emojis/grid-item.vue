@@ -12,6 +12,6 @@ import Avatar from "~/components/avatars/avatar.vue";
 import GridItemMenu from "./grid-item-menu.vue";
 
 defineProps<{
-    emoji: Emoji & { id: string; global: boolean };
+    emoji: Emoji;
 }>();
 </script>

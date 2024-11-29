@@ -25,7 +25,7 @@ import Icon from "~/packages/ui/components/icons/icon.vue";
 import GridItem from "./grid-item.vue";
 
 defineProps<{
-    emojis: (Emoji & { id: string; global: boolean })[];
+    emojis: Emoji[];
     name: string;
 }>();
 

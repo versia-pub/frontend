@@ -28,6 +28,6 @@ import AdaptiveDropdown from "~/components/dropdowns/AdaptiveDropdown.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";
 
 defineProps<{
-    emoji: Emoji & { id: string; global: boolean };
+    emoji: Emoji;
 }>();
 </script>
