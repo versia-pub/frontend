@@ -41,7 +41,7 @@ export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
                 });
 
             toValue(client)
-                ?.getRoles()
+                ?.getAccountRoles(identity.value.account.id)
                 .then((res) => {
                     const roles = res.data;
 
