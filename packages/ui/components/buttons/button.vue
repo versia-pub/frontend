@@ -14,14 +14,15 @@ import type { ButtonHTMLAttributes } from "vue";
 
 const themes = {
     primary:
-        "[--btn-border:theme(colors.primary.950/90%)] [--btn-bg:theme(colors.primary.600)] [--btn-hover-overlay:theme(colors.white/30%)] [--btn-icon:theme(colors.primary.200)] active:[--btn-icon:theme(colors.primary.100)] hover:[--btn-icon:theme(colors.primary.100)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5",
+        "[--btn-bg:theme(colors.primary.600)] [--btn-hover-overlay:theme(colors.white/30%)] [--btn-icon:theme(colors.primary.200)] active:[--btn-icon:theme(colors.primary.100)] hover:[--btn-icon:theme(colors.primary.100)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5",
     secondary:
-        "[--btn-border:theme(colors.zinc.950/90%)] [--btn-bg:theme(colors.zinc.800)] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.zinc.400)] active:[--btn-icon:theme(colors.zinc.300)] hover:[--btn-icon:theme(colors.zinc.300)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5",
+        "[--btn-bg:theme(colors.zinc.800)] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.zinc.400)] active:[--btn-icon:theme(colors.zinc.300)] hover:[--btn-icon:theme(colors.zinc.300)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] border border-white/5",
     // Gradient:  bg-gradient-to-tr from-primary-300 via-purple-300 to-indigo-400
     gradient:
-        "bg-[image:--btn-bg] before:bg-[image:--btn-bg] [--btn-border:theme(colors.primary.950/90%)] [--btn-bg:linear-gradient(to_right,theme(colors.primary.300),theme(colors.purple.300),theme(colors.indigo.400))] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.gray.100)] active:[--btn-icon:theme(colors.gray.50)] hover:[--btn-icon:theme(colors.gray.50)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] [&>[data-spinner]]:bg-[image:--btn-bg]",
+        "bg-[image:--btn-bg] before:bg-[image:--btn-bg]  [--btn-bg:linear-gradient(to_right,theme(colors.primary.300),theme(colors.purple.300),theme(colors.indigo.400))] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.gray.100)] active:[--btn-icon:theme(colors.gray.50)] hover:[--btn-icon:theme(colors.gray.50)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] [&>[data-spinner]]:bg-[image:--btn-bg]",
     outline:
-        "[--btn-border:theme(colors.zinc.950/90%)] [--btn-bg:transparent] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.zinc.200)] active:[--btn-icon:theme(colors.zinc.300)] hover:[--btn-icon:theme(colors.zinc.300)] hover:ring-1 ring-white/5",
+        "[--btn-bg:transparent] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.zinc.200)] active:[--btn-icon:theme(colors.zinc.300)] hover:[--btn-icon:theme(colors.zinc.300)] ring-1 ring-white/5",
+    ghost: "[--btn-bg:transparent] [--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.zinc.200)] active:[--btn-icon:theme(colors.zinc.300)] hover:[--btn-icon:theme(colors.zinc.300)] hover:ring-1 ring-white/5",
 };
 
 interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {}

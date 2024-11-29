@@ -13,7 +13,7 @@
                 Timelines</h3>
 
             <NuxtLink v-for="timeline in visibleTimelines" :key="timeline.href" :to="timeline.href">
-                <ButtonBase theme="outline" class="w-full !justify-start overflow-hidden rounded-sm">
+                <ButtonBase theme="ghost" class="w-full !justify-start overflow-hidden rounded-sm">
                     <Icon :icon="timeline.icon" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">{{ timeline.name }}</span>
                 </ButtonBase>
@@ -28,7 +28,7 @@
             <AccountPicker @sign-in="signIn().finally(() => loadingAuth = false)"
                 @sign-out="id => signOut(id).finally(() => loadingAuth = false)" />
             <NuxtLink href="/register" v-if="!identity">
-                <ButtonBase theme="outline" class="w-full !justify-start overflow-hidden rounded-sm">
+                <ButtonBase theme="ghost" class="w-full !justify-start overflow-hidden rounded-sm">
                     <Icon icon="tabler:certificate" class="!size-6" />
                     <span class="shrink-0 line-clamp-1">Register</span>
                 </ButtonBase>
@@ -102,10 +102,10 @@ import ButtonBase from "~/packages/ui/components/buttons/button.vue";
 import Icon from "~/packages/ui/components/icons/icon.vue";
 import ButtonDropdown from "../buttons/button-dropdown.vue";
 import ButtonMobileNavbar from "../buttons/button-mobile-navbar.vue";
-import Button from "../composer/button.vue";
 import AdaptiveDropdown from "../dropdowns/AdaptiveDropdown.vue";
 import AccountPicker from "./account-picker.vue";
 const { $pwa } = useNuxtApp();
+
 const timelines = ref([
     {
         href: "/home",

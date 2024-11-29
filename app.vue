@@ -10,6 +10,7 @@
             <NuxtPage />
         </NuxtLayout>
         <NotificationsRenderer />
+        <ConfirmationModal />
     </ClientOnly>
 </template>
 
@@ -19,6 +20,7 @@ import { convert } from "html-to-text";
 import "iconify-icon";
 import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 import { SettingIds } from "./settings";
+import ConfirmationModal from "./components/modals/confirmation.vue";
 // Use SSR-safe IDs for Headless UI
 provideHeadlessUseId(() => useId());
 

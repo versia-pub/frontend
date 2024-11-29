@@ -3,6 +3,7 @@
     "extends": "./.nuxt/tsconfig.json",
     "compilerOptions": {
         "target": "esnext",
-        "module": "esnext"
+        "module": "esnext",
+        "allowImportingTsExtensions": true
     }
 }
