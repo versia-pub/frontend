@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     shadcn: {
         componentDir: "./components/ui",
     },
+    colorMode: {
+        classSuffix: "",
+    },
     compatibilityDate: "2024-11-05",
     pwa: {
         manifest: {

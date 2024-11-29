@@ -8,7 +8,7 @@
             <div v-for="(suggestion, index) in topSuggestions" :key="suggestion.key"
                 @click="emit('autocomplete', suggestion.key)"
                 :ref="el => { if (el) suggestionRefs[index] = el as Element }" :title="suggestion.key"
-                :class="['flex justify-center shrink-0 items-center size-12 p-2 hover:bg-dark-900/70', index === selectedSuggestionIndex && 'bg-primary-500']">
+                :class="['flex justify-center shrink-0 items-center size-12 p-2 hover:bg-dark-900/70', index === selectedSuggestionIndex && 'bg-primary2-500']">
                 <slot :suggestion="suggestion"></slot>
             </div>
         </OverlayScrollbarsComponent>

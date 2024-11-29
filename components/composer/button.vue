@@ -1,6 +1,6 @@
 <template>
     <button v-bind="$props"
-        :class="['rounded text-gray-300 hover:bg-dark-900/70 p-2 flex items-center justify-center duration-200', toggled && 'bg-primary-500/70 hover:bg-primary-900/70']">
+        :class="['rounded text-gray-300 hover:bg-dark-900/70 p-2 flex items-center justify-center duration-200', toggled && 'bg-primary2-500/70 hover:bg-primary2-900/70']">
         <slot />
     </button>
 </template>

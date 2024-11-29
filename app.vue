@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import "~/styles/theme.css";
+import "~/styles/index.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
 import ConfirmationModal from "./components/modals/confirmation.vue";

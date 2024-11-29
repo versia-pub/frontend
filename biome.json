@@ -11,6 +11,9 @@
             "suspicious": {
                 "noConsole": "off"
             },
+            "performance": {
+                "noBarrelFile": "off"
+            },
             "correctness": {
                 "noNodejsModules": "off",
                 "noUndeclaredVariables": "off",

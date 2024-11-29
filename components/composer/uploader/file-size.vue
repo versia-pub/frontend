@@ -3,7 +3,7 @@
         aria-label="File size">
         {{ formatBytes(size) }}
         <iconify-icon v-if="uploading" icon="tabler:loader-2" width="none"
-            class="size-4 animate-spin text-primary-500" />
+            class="size-4 animate-spin text-primary2-500" />
     </div>
 </template>
 

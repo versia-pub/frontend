@@ -1,6 +1,6 @@
 <template>
     <TextInput type="checkbox" v-bind="$attrs, $props"
-        class="rounded disabled:hover:cursor-wait text-primary-700 !size-5" />
+        class="rounded disabled:hover:cursor-wait text-primary2-700 !size-5" />
 </template>
 
 <script lang="ts" setup>

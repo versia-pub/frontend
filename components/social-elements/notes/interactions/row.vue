@@ -9,9 +9,9 @@
         </InteractionButton>
         <InteractionButton @click="likeFn" :disabled="!identity">
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart" v-if="!note.favourited"
-                class="size-5 text-gray-200 group-hover:group-enabled:text-primary-600" aria-hidden="true" />
+                class="size-5 text-gray-200 group-hover:group-enabled:text-primary2-600" aria-hidden="true" />
             <iconify-icon width="1.25rem" height="1.25rem" icon="tabler:heart-filled" v-else
-                class="size-5 text-primary-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
+                class="size-5 text-primary2-600 group-hover:group-enabled:text-gray-200" aria-hidden="true" />
             <span class="text-gray-400 mt-0.5 ml-2" v-if="note.favourites_count">{{ numberFormat(note.favourites_count) }}</span>
         </InteractionButton>
         <InteractionButton @click="reblogFn" :disabled="!identity">

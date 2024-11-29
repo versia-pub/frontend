@@ -24,7 +24,7 @@
                                 :class="['group-data-[state=checked]:font-semibold font-normal block truncate']">{{
                                 item.label }}</Select.ItemText>
                             <Select.ItemIndicator
-                                :class="['text-primary-600 hidden group-data-[state=checked]:flex items-center justify-center']">
+                                :class="['text-primary2-600 hidden group-data-[state=checked]:flex items-center justify-center']">
                                 <iconify-icon icon="tabler:check" class="size-4" width="unset" aria-hidden="true" />
                             </Select.ItemIndicator>
                         </Select.Item>

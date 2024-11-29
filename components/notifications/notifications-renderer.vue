@@ -10,7 +10,7 @@
                         <iconify-icon v-else-if="toast.type === 'error'" icon="tabler:alert-triangle" height="none"
                             class="h-6 w-6 text-red-400" aria-hidden="true" />
                         <iconify-icon v-else-if="toast.type === 'loading'" icon="tabler:loader" height="none"
-                            class="h-6 w-6 text-primary-500 animate-spin" aria-hidden="true" />
+                            class="h-6 w-6 text-primary2-500 animate-spin" aria-hidden="true" />
                         <iconify-icon v-else-if="toast.type === 'info'" icon="tabler:info-circle" height="none"
                             class="h-6 w-6 text-blue-500" aria-hidden="true" />
                     </div>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="respondingTo" class="mb-4" role="region" aria-label="Responding to">
         <OverlayScrollbarsComponent :defer="true" class="max-h-72 overflow-y-auto">
-            <Note :element="respondingTo" :small="true" :disabled="true" class="!rounded-none !bg-primary-500/10" />
+            <Note :element="respondingTo" :small="true" :disabled="true" class="!rounded-none !bg-primary2-500/10" />
         </OverlayScrollbarsComponent>
     </div>
 </template>

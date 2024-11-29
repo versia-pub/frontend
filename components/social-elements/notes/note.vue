@@ -15,7 +15,7 @@
                 <!-- Overlay that blocks clicks for disabled notes -->
                 <div v-if="disabled" class="absolute z-10 inset-0 hover:cursor-not-allowed">
                 </div>
-                <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-primary-400">
+                <div v-if="reblog" class="mb-4 flex flex-row gap-2 items-center text-primary2-400">
                     <Skeleton :enabled="!loaded" shape="rect" class="!h-6" :min-width="40" :max-width="100"
                         width-unit="%">
                         <iconify-icon width="1.5rem" height="1.5rem" icon="tabler:repeat" class="size-6"

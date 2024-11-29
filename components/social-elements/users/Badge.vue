@@ -1,7 +1,7 @@
 <template>
     <Tooltip.Root @update:open="(o) => open = o" :open="open" :open-delay="0">
         <Tooltip.Trigger><span
-                class="inline-flex items-center px-2 py-1 gap-x-2 rounded text-sm font-medium bg-dark-300 text-primary-200 ring-white/5 ring-1">
+                class="inline-flex items-center px-2 py-1 gap-x-2 rounded text-sm font-medium bg-dark-300 text-primary2-200 ring-white/5 ring-1">
                 <svg viewBox="0 0 22 22" v-if="verified" aria-label="Verified account" role="img"
                     class="size-4 fill-primary-500">
                     <g>
@@ -11,7 +11,7 @@
                     </g>
                 </svg>
                 <img v-else-if="img" :src="img" alt="" class="size-4 rounded-sm" />
-                <iconify-icon v-else-if="icon" :icon="icon" width="none" class="text-primary-200 size-4"
+                <iconify-icon v-else-if="icon" :icon="icon" width="none" class="text-primary2-200 size-4"
                     aria-hidden="true" />
                 <span>{{ name }}</span>
             </span></Tooltip.Trigger>
