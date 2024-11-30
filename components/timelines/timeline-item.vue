@@ -7,7 +7,6 @@
 import type { Notification, Status } from "@versia/client/types";
 import { computed } from "vue";
 import NewNoteItem from "../notes/note.vue";
-import NoteItem from "../social-elements/notes/note.vue";
 import NotificationItem from "../social-elements/notifications/notif.vue";
 
 const props = defineProps<{

@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded border hover:bg-muted duration-100 text-sm flex flex-row items-center gap-2 px-2 py-1 mb-2">
+    <NuxtLink :href="url" class="rounded border hover:bg-muted duration-100 text-sm flex flex-row items-center gap-2 px-2 py-1 mb-4">
         <Repeat class="size-4 text-primary" />
         <Avatar class="size-6 rounded border">
             <AvatarImage :src="avatar" alt="" />
@@ -7,7 +7,7 @@
         </Avatar>
         <span class="font-semibold">{{ displayName }}</span>
         reblogged
-    </div>
+    </NuxtLink>
 </template>
 
 <script lang="ts" setup>
@@ -17,5 +17,6 @@ import { Repeat } from "lucide-vue-next";
 defineProps<{
     avatar: string;
     displayName: string;
+    url: string;
 }>();
 </script>

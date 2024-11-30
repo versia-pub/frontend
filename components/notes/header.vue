@@ -1,7 +1,7 @@
 <template>
-    <div class="rounded flex flex-row gap-3">
-        <div class="relative">
-            <Avatar class="size-14 rounded-md border border-card">
+    <NuxtLink :href="url" class="rounded flex flex-row items-center gap-3">
+        <div :class="cn('relative size-14', smallLayout && 'size-6')">
+            <Avatar :class="cn('size-14 rounded-md border border-card', smallLayout && 'size-6')">
                 <AvatarImage :src="avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
@@ -10,7 +10,7 @@
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
         </div>
-        <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight">
+        <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'flex-row justify-start items-center gap-2')">
             <span class="truncate font-semibold">{{
                 displayName
                 }}</span>
@@ -26,15 +26,16 @@
                 <span class="text-muted-foreground ml-auto tracking-normal" :title="fullTime">{{ timeAgo }}</span>
             </span>
         </div>
-        <div class="flex flex-col gap-1 justify-center items-end">
+        <div class="flex flex-col gap-1 justify-center items-end" v-if="!smallLayout">
             <span class="text-xs text-muted-foreground" :title="visibilities[visibility].text">
                 <component :is="visibilities[visibility].icon" class="size-5" />
             </span>
         </div>
-    </div>
+    </NuxtLink>
 </template>
 
 <script lang="ts" setup>
+import { cn } from "@/lib/utils";
 import type { StatusVisibility } from "@versia/client/types";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import CopyableText from "./copyable-text.vue";
@@ -47,6 +48,7 @@ const { acct, createdAt } = defineProps<{
     visibility: StatusVisibility;
     url: string;
     createdAt: Date;
+    smallLayout?: boolean;
 }>();
 
 const [username, instance] = acct.split("@");

@@ -1,7 +1,7 @@
 <!-- Timeline.vue -->
 <template>
-    <div class="timeline rounded overflow-hidden ring-1 ring-ring/10">
-        <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:!border-b-[0.5px] *:last:border-0">
+    <div class="timeline rounded overflow-hidden">
+        <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:rounded space-y-4 *:border *:border-border/50">
             <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
                 @delete="removeItem" />
         </TransitionGroup>
