@@ -17,8 +17,8 @@
 
 <script lang="ts" setup>
 import { char, createRegExp, exactly } from "magic-regexp";
-import EmojiSuggestbox from "../composer/emoji-suggestbox.vue";
-import MentionSuggestbox from "../composer/mention-suggestbox.vue";
+import EmojiSuggestbox from "../composer-old/emoji-suggestbox.vue";
+import MentionSuggestbox from "../composer-old/mention-suggestbox.vue";
 
 defineOptions({
     inheritAttrs: false,

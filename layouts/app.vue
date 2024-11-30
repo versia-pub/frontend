@@ -3,12 +3,12 @@
         <SquarePattern />
         <slot />
     </Sidebar>
-    <ComposerModal />
+    <ComposerDialog />
     <AttachmentDialog />
 </template>
 
 <script setup lang="ts">
-import ComposerModal from "~/components/composer/modal.client.vue";
+import ComposerDialog from "~/components/composer/dialog.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
 import Sidebar from "~/components/sidebars/sidebar.vue";
 import AttachmentDialog from "~/components/social-elements/notes/attachment-dialog.vue";

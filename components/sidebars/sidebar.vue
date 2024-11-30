@@ -9,6 +9,7 @@ import {
     House,
     LogOut,
     MapIcon,
+    Pen,
     Settings2,
 } from "lucide-vue-next";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
@@ -53,6 +54,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from "~/components/ui/sidebar";
+import { Button } from "../ui/button";
 import ThemeSwitcher from "./theme-switcher.vue";
 
 const data = {
@@ -236,6 +238,12 @@ const instance = useInstance();
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <Button variant="default" size="lg" class="w-full" @click="useEvent('composer:open')">
+                            <Pen />
+                            Compose
+                        </Button>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
