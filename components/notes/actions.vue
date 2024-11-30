@@ -15,7 +15,7 @@
         <Button variant="ghost">
             <Quote class="size-5 text-primary" />
         </Button>
-        <Menu>
+        <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId">
             <Button variant="ghost">
                 <Ellipsis class="size-5 text-primary" />
             </Button>
@@ -32,6 +32,11 @@ defineProps<{
     replyCount: number;
     likeCount: number;
     reblogCount: number;
+    apiNoteString: string;
+    isRemote: boolean;
+    url: string;
+    remoteUrl: string;
+    authorId: string;
 }>();
 
 const numberFormat = (number = 0) =>

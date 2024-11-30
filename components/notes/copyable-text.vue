@@ -4,36 +4,31 @@
             <slot />
         </span>
         <span class="hidden group-hover:inline">
-            <span @click="copyText" v-if="!hasCopied"
+            <span @click="copyText"
                 class="select-none cursor-pointer space-x-1">
                 <Clipboard class="size-4 -translate-y-0.5 inline" />
                 Click to copy
-            </span>
-            <span v-else class="select-none space-x-1">
-                <Check class="size-4 -translate-y-0.5 inline" />
-                Copied!
             </span>
         </span>
     </span>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { cn } from "@/lib/utils";
 import { Check, Clipboard } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
+import { toast } from "vue-sonner";
 
 const { text } = defineProps<{
     text: string;
     class?: HTMLAttributes["class"];
 }>();
 
-const hasCopied = ref(false);
 const { copy } = useClipboard();
 const copyText = () => {
     copy(text);
-    hasCopied.value = true;
-    setTimeout(() => {
-        hasCopied.value = false;
-    }, 2000);
+    toast("Copied to clipboard", {
+        icon: <Check class="size-5 text-green-500" />,
+    });
 };
 </script>

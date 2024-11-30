@@ -1,6 +1,6 @@
 <template>
-    <NuxtLink :href="url" class="rounded flex flex-row items-center gap-3">
-        <div :class="cn('relative size-14', smallLayout && 'size-6')">
+    <div class="rounded flex flex-row items-center gap-3">
+        <NuxtLink :href="url" :class="cn('relative size-14', smallLayout && 'size-6')">
             <Avatar :class="cn('size-14 rounded-md border border-card', smallLayout && 'size-6')">
                 <AvatarImage :src="avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
@@ -9,7 +9,7 @@
                 <AvatarImage :src="cornerAvatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
-        </div>
+        </NuxtLink>
         <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'flex-row justify-start items-center gap-2')">
             <span class="truncate font-semibold">{{
                 displayName
@@ -31,7 +31,7 @@
                 <component :is="visibilities[visibility].icon" class="size-5" />
             </span>
         </div>
-    </NuxtLink>
+    </div>
 </template>
 
 <script lang="ts" setup>
