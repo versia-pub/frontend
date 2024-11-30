@@ -1,5 +1,5 @@
 <template>
-    <div :class="['prose block relative dark:prose-invert duration-200 !max-w-full break-words', $style.content]" v-html="content">
+    <div :class="['prose block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline', $style.content]" v-html="content">
     </div>
 </template>
 

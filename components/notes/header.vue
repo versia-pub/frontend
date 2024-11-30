@@ -1,23 +1,29 @@
 <template>
-    <div class="rounded flex flex-row gap-4">
-        <Avatar class="size-14 rounded border border-card">
-            <AvatarImage :src="avatar" alt="" />
-            <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-        </Avatar>
+    <div class="rounded flex flex-row gap-3">
+        <div class="relative">
+            <Avatar class="size-14 rounded-md border border-card">
+                <AvatarImage :src="avatar" alt="" />
+                <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
+            </Avatar>
+            <Avatar v-if="cornerAvatar" class="size-6 rounded border absolute -bottom-1 -right-1">
+                <AvatarImage :src="cornerAvatar" alt="" />
+                <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
+            </Avatar>
+        </div>
         <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight">
             <span class="truncate font-semibold">{{
                 displayName
-            }}</span>
-            <span class="truncate text-sm">
+                }}</span>
+            <span class="truncate text-sm tracking-tight">
                 <CopyableText :text="acct">
                     <span
-                        class="font-semibold bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
+                        class="font-semibold bg-gradient-to-tr from-pink-700 dark:from-indigo-400 via-purple-700 dark:via-purple-400 to-indigo-700 dark:to-indigo-400 text-transparent bg-clip-text">
                         @{{ username }}
                     </span>
                     <span class="text-muted-foreground">{{ instance && "@" }}{{ instance }}</span>
                 </CopyableText>
                 &middot;
-                <span class="text-muted-foreground ml-auto" :title="fullTime">{{ timeAgo }}</span>
+                <span class="text-muted-foreground ml-auto tracking-normal" :title="fullTime">{{ timeAgo }}</span>
             </span>
         </div>
         <div class="flex flex-col gap-1 justify-center items-end">
@@ -35,6 +41,7 @@ import CopyableText from "./copyable-text.vue";
 
 const { acct, createdAt } = defineProps<{
     avatar: string;
+    cornerAvatar?: string;
     acct: string;
     displayName: string;
     visibility: StatusVisibility;

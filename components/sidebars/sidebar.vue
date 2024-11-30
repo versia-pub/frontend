@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import {
     BadgeCheck,
+    BedSingle,
     Bell,
     ChevronRight,
     ChevronsUpDown,
+    Globe,
     House,
     LogOut,
-    MoreHorizontal,
+    MapIcon,
     Settings2,
 } from "lucide-vue-next";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
@@ -56,30 +58,6 @@ import ThemeSwitcher from "./theme-switcher.vue";
 const data = {
     navMain: [
         {
-            title: "Timelines",
-            url: "#",
-            icon: House,
-            isActive: true,
-            items: [
-                {
-                    title: "Home",
-                    url: "/home",
-                },
-                {
-                    title: "Public",
-                    url: "/public",
-                },
-                {
-                    title: "Local",
-                    url: "/local",
-                },
-                {
-                    title: "Global",
-                    url: "/global",
-                },
-            ],
-        },
-        {
             title: "Settings",
             url: "#",
             icon: Settings2,
@@ -104,6 +82,26 @@ const data = {
         },
     ],
     other: [
+        {
+            name: "Home",
+            url: "/home",
+            icon: House,
+        },
+        {
+            name: "Public",
+            url: "/public",
+            icon: MapIcon,
+        },
+        {
+            name: "Local",
+            url: "/local",
+            icon: BedSingle,
+        },
+        {
+            name: "Global",
+            url: "/global",
+            icon: Globe,
+        },
         {
             name: "Notifications",
             url: "/notifications",
@@ -140,8 +138,21 @@ const instance = useInstance();
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
+                <SidebarGroup class="group-data-[collapsible=icon]:hidden">
                     <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                    <SidebarMenu>
+                        <SidebarMenuItem v-for="item in data.other" :key="item.name">
+                            <SidebarMenuButton as-child>
+                                <NuxtLink :href="item.url">
+                                    <component :is="item.icon" />
+                                    <span>{{ item.name }}</span>
+                                </NuxtLink>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroup>
+                <SidebarGroup class="mt-auto">
+                    <SidebarGroupLabel>More</SidebarGroupLabel>
                     <SidebarMenu>
                         <Collapsible v-for="item in data.navMain" :key="item.title" as-child
                             :default-open="item.isActive" class="group/collapsible">
@@ -167,19 +178,6 @@ const instance = useInstance();
                                 </CollapsibleContent>
                             </SidebarMenuItem>
                         </Collapsible>
-                    </SidebarMenu>
-                </SidebarGroup>
-                <SidebarGroup class="group-data-[collapsible=icon]:hidden">
-                    <SidebarGroupLabel>Other</SidebarGroupLabel>
-                    <SidebarMenu>
-                        <SidebarMenuItem v-for="item in data.other" :key="item.name">
-                            <SidebarMenuButton as-child>
-                                <NuxtLink :href="item.url">
-                                    <component :is="item.icon" />
-                                    <span>{{ item.name }}</span>
-                                </NuxtLink>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
@@ -264,7 +262,7 @@ const instance = useInstance();
                     </Breadcrumb>
                 </div>
             </header>
-            <div class="flex flex-1 flex-col gap-4 md:p-1 overflow-auto">
+            <div class="flex flex-1 flex-col gap-4 md:p-1 overflow-auto *:z-10">
                 <slot />
             </div>
         </SidebarInset>

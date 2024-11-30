@@ -42,6 +42,7 @@
         "c12": "^2.0.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "embla-carousel-vue": "^8.5.1",
         "fastest-levenshtein": "^1.0.16",
         "html-to-text": "^9.0.5",
         "iconify-icon": "^2.1.0",
