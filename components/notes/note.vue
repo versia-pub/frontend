@@ -1,6 +1,6 @@
 <template>
     <Card as="article" class="rounded-none border-0 duration-200 shadow-none">
-        <CardHeader class="pb-4">
+        <CardHeader class="pb-4" as="header">
             <ReblogHeader v-if="note.reblog" :avatar="note.account.avatar"
                 :display-name="note.account.display_name" :url="reblogAccountUrl" />
             <Header :avatar="noteToUse.account.avatar" :corner-avatar="note.reblog ? note.account.avatar : undefined"
