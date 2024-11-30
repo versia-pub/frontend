@@ -121,7 +121,7 @@ const instance = useInstance();
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <DropdownMenu>
+                        <NuxtLink href="/">
                             <SidebarMenuButton size="lg"
                                 class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                                 <Avatar shape="square" class="size-8">
@@ -135,7 +135,7 @@ const instance = useInstance();
                                 </div>
                                 <!-- <ChevronsUpDown class="ml-auto" /> -->
                             </SidebarMenuButton>
-                        </DropdownMenu>
+                        </NuxtLink>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
@@ -178,12 +178,6 @@ const instance = useInstance();
                                     <component :is="item.icon" />
                                     <span>{{ item.name }}</span>
                                 </NuxtLink>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton class="text-sidebar-foreground/70">
-                                <MoreHorizontal class="text-sidebar-foreground/70" />
-                                <span>More</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -270,7 +264,7 @@ const instance = useInstance();
                     </Breadcrumb>
                 </div>
             </header>
-            <div class="flex flex-1 flex-col gap-4 pt-0 overflow-auto">
+            <div class="flex flex-1 flex-col gap-4 md:p-1 overflow-auto">
                 <slot />
             </div>
         </SidebarInset>

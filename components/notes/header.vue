@@ -1,0 +1,70 @@
+<template>
+    <div class="rounded flex flex-row gap-4">
+        <Avatar class="size-14 rounded border border-card">
+            <AvatarImage :src="avatar" alt="" />
+            <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
+        </Avatar>
+        <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight">
+            <span class="truncate font-semibold">{{
+                displayName
+            }}</span>
+            <span class="truncate text-sm">
+                <CopyableText :text="acct">
+                    <span
+                        class="font-semibold bg-gradient-to-tr from-pink-300 via-purple-300 to-indigo-400 text-transparent bg-clip-text">
+                        @{{ username }}
+                    </span>
+                    <span class="text-muted-foreground">{{ instance && "@" }}{{ instance }}</span>
+                </CopyableText>
+                &middot;
+                <span class="text-muted-foreground ml-auto" :title="fullTime">{{ timeAgo }}</span>
+            </span>
+        </div>
+        <div class="flex flex-col gap-1 justify-center items-end">
+            <span class="text-xs text-muted-foreground" :title="visibilities[visibility].text">
+                <component :is="visibilities[visibility].icon" class="size-5" />
+            </span>
+        </div>
+    </div>
+</template>
+
+<script lang="ts" setup>
+import type { StatusVisibility } from "@versia/client/types";
+import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
+import CopyableText from "./copyable-text.vue";
+
+const { acct, createdAt } = defineProps<{
+    avatar: string;
+    acct: string;
+    displayName: string;
+    visibility: StatusVisibility;
+    url: string;
+    createdAt: Date;
+}>();
+
+const [username, instance] = acct.split("@");
+const timeAgo = useTimeAgo(createdAt);
+const fullTime = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+}).format(createdAt);
+
+const visibilities = {
+    public: {
+        icon: Globe,
+        text: "This note is public: it can be seen by anyone.",
+    },
+    unlisted: {
+        icon: LockOpen,
+        text: "This note is unlisted: it can be seen by anyone with the link.",
+    },
+    private: {
+        icon: Lock,
+        text: "This note is private: it can only be seen by followers.",
+    },
+    direct: {
+        icon: AtSign,
+        text: "This note is direct: it can only be seen by mentioned users.",
+    },
+};
+</script>

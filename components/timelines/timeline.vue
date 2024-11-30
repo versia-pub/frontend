@@ -1,12 +1,12 @@
 <!-- Timeline.vue -->
 <template>
-    <div class="timeline rounded overflow-hidden">
-        <TransitionGroup name="timeline-item" tag="div" class="timeline-items">
+    <div class="timeline rounded overflow-hidden ring-1 ring-ring/15">
+        <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:!border-b *:last:border-0">
             <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
                 @delete="removeItem" />
         </TransitionGroup>
 
-        <TimelineItem v-if="isLoading" :type="type" v-for="_ in 5" />
+        <!-- <TimelineItem v-if="isLoading" :type="type" v-for="_ in 5" /> -->
 
         <div v-if="error" class="timeline-error">
             {{ error.message }}
