@@ -9,7 +9,7 @@
                 :small-layout="smallLayout" />
         </CardHeader>
         <CardContent>
-            <Content :content="noteToUse.content" :quote="note.quote ?? undefined" />
+            <Content :content="noteToUse.content" :quote="note.quote ?? undefined" :attachments="noteToUse.media_attachments"/>
         </CardContent>
         <CardFooter v-if="!hideActions">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"

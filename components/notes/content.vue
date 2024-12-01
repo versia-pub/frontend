@@ -2,18 +2,22 @@
     <div :class="['prose block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline', $style.content]" v-html="content">
     </div>
 
+    <Attachments v-if="attachments.length > 0" :attachments="attachments" />
+
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
         <Note :note="quote" :hide-actions="true" :small-layout="true" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@versia/client/types";
+import type { Attachment, Status } from "@versia/client/types";
+import Attachments from "./attachments.vue";
 import Note from "./note.vue";
 
 const { content } = defineProps<{
     content: string;
     quote?: NonNullable<Status["quote"]>;
+    attachments: Attachment[];
 }>();
 </script>
 
