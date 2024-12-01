@@ -8,6 +8,10 @@ useListen("composer:open", () => {
     }
 });
 
+useListen("composer:close", () => {
+    open.value = false;
+});
+
 const open = ref(false);
 </script>
 

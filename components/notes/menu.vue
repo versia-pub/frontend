@@ -34,17 +34,13 @@ const { copy } = useClipboard();
 
 const copyText = (text: string) => {
     copy(text);
-    toast("Copied to clipboard", {
-        icon: <Check class="size-5 text-green-500" />,
-    });
+    toast.success("Copied to clipboard");
 };
 
 const blockUser = async (id: string) => {
     await client.value.blockAccount(id);
 
-    toast("User blocked", {
-        icon: <Ban class="size-5 text-destructive" />,
-    });
+    toast.success("User blocked");
 };
 </script>
 

@@ -27,8 +27,6 @@ const { text } = defineProps<{
 const { copy } = useClipboard();
 const copyText = () => {
     copy(text);
-    toast("Copied to clipboard", {
-        icon: <Check class="size-5 text-green-500" />,
-    });
+    toast.success("Copied to clipboard");
 };
 </script>
