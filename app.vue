@@ -21,7 +21,7 @@ import "~/styles/theme.css";
 import "~/styles/index.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
-import ConfirmationModal from "./components/modals/confirmation.vue";
+import ConfirmationModal from "./components/modals/confirm.vue";
 import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 import { Toaster } from "./components/ui/sonner";
 import { SettingIds } from "./settings";

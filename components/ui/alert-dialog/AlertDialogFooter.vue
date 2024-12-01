@@ -2,14 +2,16 @@
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "vue";
 
-const props = defineProps<{ class?: HTMLAttributes["class"] }>();
+const props = defineProps<{
+    class?: HTMLAttributes["class"];
+}>();
 </script>
 
 <template>
   <div
     :class="
       cn(
-        'flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-x-2 gap-y-2',
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-x-2',
         props.class,
       )
     "

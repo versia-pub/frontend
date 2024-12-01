@@ -1,4 +1,5 @@
 import { Client, type Token } from "@versia/client";
+import { toast } from "vue-sonner";
 
 export const useClient = (
     customToken: MaybeRef<Token | null> = null,
@@ -11,13 +12,10 @@ export const useClient = (
                     identity.value?.tokens.access_token ??
                     undefined,
                 (error) => {
-                    useEvent("notification:new", {
-                        title: "An error occured",
-                        type: "error",
-                        description:
-                            error.response.data.error ??
+                    toast.error(
+                        error.response.data.error ??
                             "No error message provided",
-                    });
+                    );
                 },
             ),
     );

@@ -6,6 +6,11 @@
         class="!border-none !ring-0 !outline-none rounded-none p-0 max-h-full min-h-48 !ring-offset-0"
         :disabled="sending" />
 
+    <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
+        <input type="file" ref="fileInput" @change="uploadFileFromEvent" class="hidden" multiple />
+        <Files v-model:files="state.files" />
+    </div>
+
     <DialogFooter class="items-center flex-row">
         <TooltipProvider>
             <Tooltip>
@@ -65,7 +70,7 @@
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger as="div">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" @click="fileInput?.click()">
                         <FilePlus2 class="!size-5" />
                     </Button>
                 </TooltipTrigger>
@@ -114,8 +119,10 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Toggle } from "../ui/toggle";
+import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
+const fileInput = ref<HTMLInputElement | null>(null);
 
 watch([Control_Enter, Command_Enter], () => {
     if (sending.value) {
@@ -141,7 +148,7 @@ const state = reactive({
     files: [] as {
         apiId?: string;
         file: File;
-        alt: string;
+        alt?: string;
         uploading: boolean;
         updating: boolean;
     }[],
@@ -188,6 +195,47 @@ const submit = async () => {
         toast.error(e.message);
     } finally {
         sending.value = false;
+    }
+};
+
+const uploadFileFromEvent = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const files = Array.from(target.files ?? []);
+
+    uploadFiles(files);
+
+    target.value = "";
+};
+
+const uploadFiles = (files: File[]) => {
+    for (const file of files) {
+        state.files.push({
+            file,
+            uploading: true,
+            updating: false,
+        });
+
+        client.value
+            .uploadMedia(file)
+            .then((media) => {
+                const index = state.files.findIndex((f) => f.file === file);
+
+                if (!state.files[index]) {
+                    return;
+                }
+
+                state.files[index].apiId = media.data.id;
+                state.files[index].uploading = false;
+            })
+            .catch(() => {
+                const index = state.files.findIndex((f) => f.file === file);
+
+                if (!state.files[index]) {
+                    return;
+                }
+
+                state.files.splice(index, 1);
+            });
     }
 };
 
