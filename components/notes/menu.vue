@@ -20,17 +20,20 @@ import {
     Trash,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import { confirmModalService } from "~/components/modals/composable.ts";
 
-const { authorId } = defineProps<{
+const { authorId, noteId } = defineProps<{
     apiNoteString: string;
     isRemote: boolean;
     url: string;
     remoteUrl: string;
     authorId: string;
+    noteId: string;
 }>();
 
 const emit = defineEmits<{
     edit: [];
+    delete: [];
 }>();
 
 const { copy } = useClipboard();
@@ -42,10 +45,32 @@ const copyText = (text: string) => {
     toast.success("Copied to clipboard");
 };
 
-const blockUser = async (id: string) => {
-    await client.value.blockAccount(id);
+const blockUser = async (userId: string) => {
+    const id = toast.loading("Blocking user...");
+    await client.value.blockAccount(userId);
+    toast.dismiss(id);
 
     toast.success("User blocked");
+};
+
+const _delete = async () => {
+    const confirmation = await confirmModalService.confirm({
+        title: "Delete status",
+        message: "Are you sure you want to delete this status?",
+        confirmText: "Delete",
+        inputType: "none",
+    });
+
+    if (!confirmation.confirmed) {
+        return;
+    }
+
+    const id = toast.loading("Deleting status...");
+    await client.value.deleteStatus(noteId);
+    toast.dismiss(id);
+
+    toast.success("Status deleted");
+    emit("delete");
 };
 </script>
 
@@ -86,11 +111,11 @@ const blockUser = async (id: string) => {
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="authorIsMe" />
             <DropdownMenuGroup v-if="authorIsMe">
-                <DropdownMenuItem as="button">
+                <DropdownMenuItem as="button" :disabled="true">
                     <Delete class="mr-2 size-4" />
                     <span>Delete and redraft</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem as="button">
+                <DropdownMenuItem as="button" @click="_delete">
                     <Trash class="mr-2 size-4" />
                     <span>Delete</span>
                     <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>

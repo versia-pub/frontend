@@ -13,7 +13,7 @@
         </CardContent>
         <CardFooter v-if="!hideActions">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"
-                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)" @quote="useEvent('composer:quote', note)" />
+                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)" @quote="useEvent('composer:quote', note)" @delete="useEvent('note:delete', note)" :note-id="noteToUse.id" :liked="noteToUse.favourited ?? false" :reblogged="noteToUse.reblogged ?? false" />
         </CardFooter>
     </Card>
 </template>
@@ -33,10 +33,10 @@ const { note } = defineProps<{
 }>();
 
 // Notes can be reblogs, in which case the actual thing to render is inside the reblog property
-const noteToUse = note.reblog ? note.reblog : note;
+const noteToUse = computed(() => (note.reblog ? note.reblog : note));
 
-const url = wrapUrl(`/@${noteToUse.account.acct}/${noteToUse.id}`);
-const accountUrl = wrapUrl(`/@${noteToUse.account.acct}`);
+const url = wrapUrl(`/@${noteToUse.value.account.acct}/${noteToUse.value.id}`);
+const accountUrl = wrapUrl(`/@${noteToUse.value.account.acct}`);
 const reblogAccountUrl = wrapUrl(`/@${note.account.acct}`);
-const isRemote = noteToUse.account.acct.includes("@");
+const isRemote = noteToUse.value.account.acct.includes("@");
 </script>
