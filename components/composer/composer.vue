@@ -1,4 +1,8 @@
 <template>
+    <div v-if="relation" class="rounded border overflow-auto max-h-72">
+        <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
+    </div>
+
     <Input v-model:model-value="state.contentWarning" v-if="state.sensitive"
         placeholder="Put your content warning here" />
 
@@ -82,7 +86,7 @@
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger as="div">
-                    <Toggle variant="default" size="sm" @update:pressed="i => state.sensitive = i">
+                    <Toggle variant="default" size="sm" v-model:pressed="state.sensitive">
                         <TriangleAlert class="!size-5" />
                     </Toggle>
                 </TooltipTrigger>
@@ -100,7 +104,7 @@
 
 <script lang="ts" setup>
 import type { ResponseError } from "@versia/client";
-import type { Status } from "@versia/client/types";
+import type { Status, StatusSource } from "@versia/client/types";
 import {
     AtSign,
     FilePlus2,
@@ -114,6 +118,7 @@ import {
 } from "lucide-vue-next";
 import { SelectTrigger } from "radix-vue";
 import { toast } from "vue-sonner";
+import Note from "~/components/notes/note.vue";
 import { Select, SelectContent, SelectItem } from "~/components/ui/select";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -136,16 +141,27 @@ const { relation } = defineProps<{
     relation?: {
         type: "reply" | "quote" | "edit";
         note: Status;
+        source?: StatusSource;
     };
 }>();
 
 const state = reactive({
-    content: "",
-    sensitive: false,
-    contentWarning: "",
+    content: relation?.source?.text || "",
+    sensitive: relation?.type === "edit" ? relation.note.sensitive : false,
+    contentWarning: relation?.type === "edit" ? relation.note.spoiler_text : "",
     contentType: "text/markdown" as "text/markdown" | "text/plain",
-    visibility: "public" as Status["visibility"],
-    files: [] as {
+    visibility: (relation?.type === "edit"
+        ? relation.note.visibility
+        : "public") as Status["visibility"],
+    files: (relation?.type === "edit"
+        ? relation.note.media_attachments.map((m) => ({
+              apiId: m.id,
+              file: new File([], m.url),
+              alt: m.description,
+              uploading: false,
+              updating: false,
+          }))
+        : []) as {
         apiId?: string;
         file: File;
         alt?: string;

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
     Ban,
-    Check,
     Code,
     Delete,
     ExternalLink,
@@ -22,7 +21,7 @@ import {
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 
-defineProps<{
+const { authorId } = defineProps<{
     apiNoteString: string;
     isRemote: boolean;
     url: string;
@@ -30,7 +29,13 @@ defineProps<{
     authorId: string;
 }>();
 
+const emit = defineEmits<{
+    edit: [];
+}>();
+
 const { copy } = useClipboard();
+const loggedIn = !!identity.value;
+const authorIsMe = loggedIn && authorId === identity.value?.account.id;
 
 const copyText = (text: string) => {
     copy(text);
@@ -53,7 +58,7 @@ const blockUser = async (id: string) => {
             <DropdownMenuLabel>Note Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem as="button">
+                <DropdownMenuItem v-if="authorIsMe" as="button" @click="emit('edit')">
                     <Pencil class="mr-2 size-4" />
                     <span>Edit</span>
                     <DropdownMenuShortcut>⇧⌘E</DropdownMenuShortcut>
@@ -79,8 +84,8 @@ const blockUser = async (id: string) => {
                     <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            <DropdownMenuSeparator v-if="authorIsMe" />
+            <DropdownMenuGroup v-if="authorIsMe">
                 <DropdownMenuItem as="button">
                     <Delete class="mr-2 size-4" />
                     <span>Delete and redraft</span>
@@ -91,8 +96,8 @@ const blockUser = async (id: string) => {
                     <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            <DropdownMenuSeparator v-if="loggedIn && !authorIsMe" />
+            <DropdownMenuGroup v-if="loggedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <MessageSquare class="mr-2 size-4" />
                     <span>Report</span>

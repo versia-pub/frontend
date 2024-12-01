@@ -13,7 +13,7 @@
         </CardContent>
         <CardFooter v-if="!hideActions">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"
-                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" />
+                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)" @quote="useEvent('composer:quote', note)" />
         </CardFooter>
     </Card>
 </template>

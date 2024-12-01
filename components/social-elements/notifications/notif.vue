@@ -32,7 +32,7 @@ import type { Notification } from "@versia/client/types";
 import Avatar from "~/components/avatars/avatar.vue";
 import Skeleton from "~/components/skeleton/Skeleton.vue";
 import Button from "~/packages/ui/components/buttons/button.vue";
-import Note from "../notes/note.vue";
+//import Note from "../notes/note.vue";
 import SmallCard from "../users/SmallCard.vue";
 
 const props = defineProps<{
