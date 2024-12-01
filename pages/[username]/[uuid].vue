@@ -1,18 +1,18 @@
 <template>
     <div v-if="loaded" :defer="true" class="mx-auto max-w-2xl w-full pb-72">
-        <Note v-for="note of context?.ancestors" :render-replies="false" :thread-view="true" :borders="false" :element="note" />
+        <Note v-for="note of context?.ancestors" :note="note" />
         <div ref="element" class="first:rounded-t last:rounded-b overflow-hidden">
-            <Note class="!rounded-none border-2 -m-[2px] border-primary-500" v-if="note" :render-replies="false":element="note" />
+            <Note class="!rounded-none border-2 -m-[2px] border-primary-500" v-if="note" :note="note" />
         </div>
-        <Note v-for="note of context?.descendants" :element="note" :render-replies="false" :thread-view="note.id !== context?.descendants.at(-1)?.id" :borders="false" :thread-view-top="true" />
+        <Note v-for="note of context?.descendants" :note="note" />
     </div>
-    <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
+    <!-- <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
         <Note v-for="_ of 5" :skeleton="true" />
-    </div>
+    </div> -->
 </template>
 
 <script setup lang="ts">
-import Note from "~/components/social-elements/notes/note.vue";
+import Note from "~/components/notes/note.vue";
 
 definePageMeta({
     layout: "app",

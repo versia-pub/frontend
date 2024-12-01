@@ -4,14 +4,12 @@
         <slot />
     </Sidebar>
     <ComposerDialog />
-    <AttachmentDialog />
 </template>
 
 <script setup lang="ts">
 import ComposerDialog from "~/components/composer/dialog.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
 import Sidebar from "~/components/sidebars/sidebar.vue";
-import AttachmentDialog from "~/components/social-elements/notes/attachment-dialog.vue";
 
 const { n } = useMagicKeys();
 const activeElement = useActiveElement();

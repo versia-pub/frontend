@@ -1,7 +1,5 @@
 import type { Account, Emoji } from "@versia/client/types";
-import { renderToString } from "vue/server-renderer";
 import { SettingIds, type Settings } from "~/settings";
-import MentionComponent from "../components/social-elements/notes/mention.vue";
 
 const emojisRegex =
     /\p{RI}\p{RI}|\p{Emoji}(\p{EMod}|\uFE0F\u20E3?|[\u{E0020}-\u{E007E}]+\u{E007F})?(\u200D(\p{RI}\p{RI}|\p{Emoji}(\p{EMod}|\uFE0F\u20E3?|[\u{E0020}-\u{E007E}]+\u{E007F})?))*/gu;
@@ -68,25 +66,6 @@ export const useParsedContent = (
                         return `<img src="/emojis/${emojiFont}/${match}.svg" alt="${match}" class="h-[1em] inline not-prose hover:scale-110 transi''tion-transform duration-75 ease-in-out">`;
                     },
                 );
-            }
-
-            // Replace links containing mentions with interactive mentions
-            const links = contentHtml.querySelectorAll("a");
-
-            for (const link of links) {
-                const mention = toValue(mentions).find(
-                    (m) => link.textContent === `@${m.acct}`,
-                );
-                if (!mention) {
-                    continue;
-                }
-
-                const renderedMention = h(MentionComponent);
-                renderedMention.props = {
-                    account: mention,
-                };
-
-                link.outerHTML = await renderToString(renderedMention);
             }
 
             result.value = contentHtml.innerHTML;
