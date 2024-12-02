@@ -55,6 +55,8 @@ import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
+import { SettingIds } from "~/settings";
+import { confirmModalService } from "../modals/composable";
 import ProfileActions from "./profile-actions.vue";
 import ProfileBadge from "./profile-badge.vue";
 import ProfileContent from "./profile-content.vue";
@@ -77,7 +79,22 @@ const handle = account.acct.includes("@")
     : `${account.acct}@${identity.value?.instance.domain ?? window.location.host}`;
 const isDeveloper = config.DEVELOPER_HANDLES.includes(handle);
 
+const confirmFollows = useSetting(SettingIds.ConfirmFollow);
+
 const follow = async () => {
+    if (confirmFollows.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Follow user",
+            message: `Are you sure you want to follow @${account.acct}?`,
+            confirmText: "Follow",
+            cancelText: "Cancel",
+        });
+
+        if (!confirmation) {
+            return;
+        }
+    }
+
     const id = toast.loading("Following user...");
     const { data } = await client.value.followAccount(account.id);
     toast.dismiss(id);
@@ -87,6 +104,19 @@ const follow = async () => {
 };
 
 const unfollow = async () => {
+    if (confirmFollows.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Unfollow user",
+            message: `Are you sure you want to unfollow @${account.acct}?`,
+            confirmText: "Unfollow",
+            cancelText: "Cancel",
+        });
+
+        if (!confirmation) {
+            return;
+        }
+    }
+
     const id = toast.loading("Unfollowing user...");
     const { data } = await client.value.unfollowAccount(account.id);
     toast.dismiss(id);

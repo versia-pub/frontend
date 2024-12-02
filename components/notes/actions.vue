@@ -27,6 +27,8 @@
 import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Button } from "~/components/ui/button";
+import { SettingIds } from "~/settings";
+import { confirmModalService } from "../modals/composable";
 import Menu from "./menu.vue";
 
 const { noteId } = defineProps<{
@@ -50,7 +52,23 @@ const emit = defineEmits<{
     delete: [];
 }>();
 
+const confirmLikes = useSetting(SettingIds.ConfirmLike);
+const confirmReblogs = useSetting(SettingIds.ConfirmReblog);
+
 const like = async () => {
+    if (confirmLikes.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Like status",
+            message: "Are you sure you want to like this status?",
+            confirmText: "Like",
+            inputType: "none",
+        });
+
+        if (!confirmation.confirmed) {
+            return;
+        }
+    }
+
     const id = toast.loading("Liking status...");
     const { data } = await client.value.favouriteStatus(noteId);
     toast.dismiss(id);
@@ -59,6 +77,19 @@ const like = async () => {
 };
 
 const unlike = async () => {
+    if (confirmLikes.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Unlike status",
+            message: "Are you sure you want to unlike this status?",
+            confirmText: "Unlike",
+            inputType: "none",
+        });
+
+        if (!confirmation.confirmed) {
+            return;
+        }
+    }
+
     const id = toast.loading("Unliking status...");
     const { data } = await client.value.unfavouriteStatus(noteId);
     toast.dismiss(id);
@@ -67,6 +98,19 @@ const unlike = async () => {
 };
 
 const reblog = async () => {
+    if (confirmReblogs.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Reblog status",
+            message: "Are you sure you want to reblog this status?",
+            confirmText: "Reblog",
+            inputType: "none",
+        });
+
+        if (!confirmation.confirmed) {
+            return;
+        }
+    }
+
     const id = toast.loading("Reblogging status...");
     const { data } = await client.value.reblogStatus(noteId);
     toast.dismiss(id);
@@ -75,6 +119,19 @@ const reblog = async () => {
 };
 
 const unreblog = async () => {
+    if (confirmReblogs.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Unreblog status",
+            message: "Are you sure you want to unreblog this status?",
+            confirmText: "Unreblog",
+            inputType: "none",
+        });
+
+        if (!confirmation.confirmed) {
+            return;
+        }
+    }
+
     const id = toast.loading("Unreblogging status...");
     const { data } = await client.value.unreblogStatus(noteId);
     toast.dismiss(id);

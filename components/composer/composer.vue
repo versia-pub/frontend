@@ -110,6 +110,7 @@ import { SelectTrigger } from "radix-vue";
 import { toast } from "vue-sonner";
 import Note from "~/components/notes/note.vue";
 import { Select, SelectContent, SelectItem } from "~/components/ui/select";
+import { SettingIds } from "~/settings";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -117,10 +118,11 @@ import { Toggle } from "../ui/toggle";
 import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
+const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
 const fileInput = ref<HTMLInputElement | null>(null);
 
 watch([Control_Enter, Command_Enter], () => {
-    if (sending.value) {
+    if (sending.value || !ctrlEnterSend.value.value) {
         return;
     }
 

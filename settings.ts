@@ -76,7 +76,8 @@ export enum SettingIds {
     ConfirmDelete = "confirm-delete",
     ConfirmFollow = "confirm-follow",
     ConfirmReblog = "confirm-reblog",
-    ConfirmFavourite = "confirm-favourite",
+    ConfirmLike = "confirm-favourite",
+    CtrlEnterToSend = "ctrl-enter-to-send",
     EmojiTheme = "emoji-theme",
     BackgroundURL = "background-url",
 }
@@ -153,9 +154,8 @@ export const settings: Record<SettingIds, Setting> = {
         title: "Confirm Delete",
         description: "Confirm before deleting a note.",
         type: SettingType.Boolean,
-        value: false,
+        value: true,
         page: SettingPages.Behaviour,
-        notImplemented: true,
     } as BooleanSetting,
     [SettingIds.ConfirmFollow]: {
         title: "Confirm Follow",
@@ -163,7 +163,6 @@ export const settings: Record<SettingIds, Setting> = {
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
-        notImplemented: true,
     } as BooleanSetting,
     [SettingIds.ConfirmReblog]: {
         title: "Confirm Reblog",
@@ -171,15 +170,20 @@ export const settings: Record<SettingIds, Setting> = {
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
-        notImplemented: true,
     } as BooleanSetting,
-    [SettingIds.ConfirmFavourite]: {
-        title: "Confirm Favourite",
-        description: "Confirm before favouriting a note.",
+    [SettingIds.ConfirmLike]: {
+        title: "Confirm Like",
+        description: "Confirm before liking a note.",
         type: SettingType.Boolean,
         value: false,
         page: SettingPages.Behaviour,
-        notImplemented: true,
+    } as BooleanSetting,
+    [SettingIds.CtrlEnterToSend]: {
+        title: "Ctrl+Enter to Send",
+        description: "Send a note by pressing ⌘+Enter or Ctrl+Enter.",
+        type: SettingType.Boolean,
+        value: true,
+        page: SettingPages.Behaviour,
     } as BooleanSetting,
     [SettingIds.EmojiTheme]: {
         title: "Emoji Theme",

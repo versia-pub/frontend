@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Status, StatusSource } from "@versia/client/types";
 import { toast } from "vue-sonner";
 import Composer from "./composer.vue";
@@ -58,6 +58,12 @@ const relation = ref(
 <template>
     <Dialog v-model:open="open" @update:open="o => {if (!o) { relation = null}}">
         <DialogContent :hide-close="true" class="sm:max-w-xl max-w-full w-full grid-rows-[minmax(0,1fr)_auto] max-h-[90dvh] p-5 pt-6 top-0 sm:top-1/2 translate-y-0 sm:-translate-y-1/2">
+            <DialogTitle class="sr-only">
+                {{ relation?.type === "reply" ? "Reply" : relation?.type === "quote" ? "Quote" : "Compose" }}
+            </DialogTitle>
+            <DialogDescription class="sr-only">
+                {{ relation?.type === "reply" ? "Reply to this status" : relation?.type === "quote" ? "Quote this status" : "Compose a new status" }}
+            </DialogDescription>
             <Composer :relation="relation ?? undefined" />
         </DialogContent>
     </Dialog>

@@ -21,6 +21,7 @@ import {
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { confirmModalService } from "~/components/modals/composable.ts";
+import { SettingIds } from "~/settings";
 
 const { authorId, noteId } = defineProps<{
     apiNoteString: string;
@@ -40,6 +41,8 @@ const { copy } = useClipboard();
 const loggedIn = !!identity.value;
 const authorIsMe = loggedIn && authorId === identity.value?.account.id;
 
+const confirmDeletes = useSetting(SettingIds.ConfirmDelete);
+
 const copyText = (text: string) => {
     copy(text);
     toast.success("Copied to clipboard");
@@ -54,15 +57,17 @@ const blockUser = async (userId: string) => {
 };
 
 const _delete = async () => {
-    const confirmation = await confirmModalService.confirm({
-        title: "Delete status",
-        message: "Are you sure you want to delete this status?",
-        confirmText: "Delete",
-        inputType: "none",
-    });
+    if (confirmDeletes.value.value) {
+        const confirmation = await confirmModalService.confirm({
+            title: "Delete status",
+            message: "Are you sure you want to delete this status?",
+            confirmText: "Delete",
+            inputType: "none",
+        });
 
-    if (!confirmation.confirmed) {
-        return;
+        if (!confirmation.confirmed) {
+            return;
+        }
     }
 
     const id = toast.loading("Deleting status...");
