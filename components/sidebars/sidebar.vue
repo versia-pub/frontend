@@ -61,25 +61,25 @@ import ThemeSwitcher from "./theme-switcher.vue";
 const data = {
     navMain: [
         {
-            title: "Settings",
-            url: "#",
+            title: "Preferences",
+            url: "/preferences",
             icon: Settings2,
             items: [
                 {
                     title: "Appearance",
-                    url: "#",
+                    url: "/preferences/appearance",
                 },
                 {
                     title: "Behaviour",
-                    url: "#",
+                    url: "/preferences/behaviour",
                 },
                 {
                     title: "Emojis",
-                    url: "#",
+                    url: "/preferences/emojis",
                 },
                 {
                     title: "Roles",
-                    url: "#",
+                    url: "/preferences/roles",
                 },
             ],
         },

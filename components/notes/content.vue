@@ -1,6 +1,7 @@
 <template>
     <div ref="container" :class="['overflow-y-hidden relative duration-200']" :style="{
-        maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px` }">
+        maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`
+    }">
         <div :class="['prose prose-sm block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline', $style.content]"
             v-html="content">
         </div>
