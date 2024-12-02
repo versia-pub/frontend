@@ -5,7 +5,6 @@
 
 <script lang="ts" setup>
 import type { Notification, Status } from "@versia/client/types";
-import { computed } from "vue";
 import Note from "../notes/note.vue";
 import NotificationItem from "../notifications/notification.vue";
 

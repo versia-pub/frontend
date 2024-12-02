@@ -7,7 +7,9 @@
                 @delete="removeItem" />
         </TransitionGroup>
 
-        <!-- <TimelineItem v-if="isLoading" :type="type" v-for="_ in 5" /> -->
+        <div v-if="isLoading" class="p-4 flex items-center justify-center h-48">
+            <Loader class="size-8 animate-spin" />
+        </div>
 
         <div v-if="error" class="timeline-error">
             {{ error.message }}
@@ -46,7 +48,7 @@
 <script lang="ts" setup>
 import type { Notification, Status } from "@versia/client/types";
 import { useIntersectionObserver } from "@vueuse/core";
-import { onMounted, watch } from "vue";
+import { Loader } from "lucide-vue-next";
 import {
     Card,
     CardDescription,
