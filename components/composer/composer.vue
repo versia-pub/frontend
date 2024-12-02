@@ -135,8 +135,27 @@ const { relation } = defineProps<{
     };
 }>();
 
+const getMentions = () => {
+    if (!relation || relation.type !== "reply") {
+        return "";
+    }
+
+    const peopleToMention = relation.note.mentions
+        .concat(relation.note.account)
+        // Deduplicate mentions
+        .filter((m, i, a) => a.indexOf(m) === i)
+        // Remove self
+        .filter((m) => m.id !== identity.value?.account.id);
+
+    const mentions = peopleToMention.map((m) => `@${m.acct}`).join(" ");
+
+    return `${mentions} `;
+};
+
 const state = reactive({
-    content: relation?.source?.text || "",
+    // If editing, use the original content
+    // If sending a reply, prefill with mentions
+    content: relation?.source?.text || getMentions(),
     sensitive: relation?.type === "edit" ? relation.note.sensitive : false,
     contentWarning: relation?.type === "edit" ? relation.note.spoiler_text : "",
     contentType: "text/markdown" as "text/markdown" | "text/plain",
