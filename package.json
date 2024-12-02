@@ -51,7 +51,6 @@
         "mitt": "^3.0.1",
         "nanoid": "^5.0.9",
         "nuxt": "^3.14.1592",
-        "nuxt-headlessui": "^1.2.0",
         "nuxt-security": "^2.1.4",
         "nuxt-shiki": "^0.3.0",
         "overlayscrollbars": "^2.10.1",

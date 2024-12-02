@@ -10,7 +10,6 @@
             <NuxtLayout>
                 <NuxtPage />
             </NuxtLayout>
-            <NotificationsRenderer />
             <ConfirmationModal />
             <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
             <Toaster class="pointer-events-auto" />
@@ -24,11 +23,8 @@ import "~/styles/index.css";
 import { convert } from "html-to-text";
 import "iconify-icon";
 import ConfirmationModal from "./components/modals/confirm.vue";
-import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
 import { Toaster } from "./components/ui/sonner";
 import { SettingIds } from "./settings";
-// Use SSR-safe IDs for Headless UI
-provideHeadlessUseId(() => useId());
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();

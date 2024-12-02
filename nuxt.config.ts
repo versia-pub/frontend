@@ -3,7 +3,6 @@ export default defineNuxtConfig({
     modules: [
         "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
-        "nuxt-headlessui",
         "@nuxt/fonts",
         "@vee-validate/nuxt",
         "nuxt-security",
