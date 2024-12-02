@@ -1,7 +1,7 @@
 <template>
     <div v-if="relationship?.requested_by !== false" class="flex flex-row items-center gap-3 p-4">
         <NuxtLink class="relative size-10">
-            <Avatar class="size-10 rounded border border-border">
+            <Avatar shape="square" class="size-10 border border-border">
                 <AvatarImage :src="follower.avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
@@ -43,6 +43,7 @@
 import type { Account } from "@versia/client/types";
 import { Check, Loader, X } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import CopyableText from "~/components/notes/copyable-text.vue";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 

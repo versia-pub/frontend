@@ -6,7 +6,6 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -14,8 +13,9 @@ import {
     Code,
     Delete,
     ExternalLink,
+    Flag,
+    Hash,
     Link,
-    MessageSquare,
     Pencil,
     Trash,
 } from "lucide-vue-next";
@@ -86,27 +86,29 @@ const _delete = async () => {
                 <DropdownMenuItem v-if="authorIsMe" as="button" @click="emit('edit')">
                     <Pencil class="mr-2 size-4" />
                     <span>Edit</span>
-                    <DropdownMenuShortcut>⇧⌘E</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(apiNoteString)">
                     <Code class="mr-2 size-4" />
                     <span>Copy API data</span>
-                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                 </DropdownMenuItem>
+                <DropdownMenuItem as="button" @click="copyText(noteId)">
+                    <Hash class="mr-2 size-4" />
+                    <span>Copy ID</span>
+                </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
                     <Link class="mr-2 size-4" />
                     <span>Copy link</span>
-                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" v-if="isRemote" @click="copyText(remoteUrl)">
                     <Link class="mr-2 size-4" />
                     <span>Copy link (origin)</span>
-                    <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem as="a" v-if="isRemote" target="_blank" rel="noopener noreferrer" :href="remoteUrl">
                     <ExternalLink class="mr-2 size-4" />
                     <span>Open on remote</span>
-                    <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="authorIsMe" />
@@ -118,13 +120,12 @@ const _delete = async () => {
                 <DropdownMenuItem as="button" @click="_delete">
                     <Trash class="mr-2 size-4" />
                     <span>Delete</span>
-                    <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="loggedIn && !authorIsMe" />
             <DropdownMenuGroup v-if="loggedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <MessageSquare class="mr-2 size-4" />
+                    <Flag class="mr-2 size-4" />
                     <span>Report</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(authorId)">

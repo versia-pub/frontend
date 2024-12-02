@@ -1,14 +1,14 @@
 <template>
     <Card>
-        <Collapsible>
+        <Collapsible :default-open="true">
             <Tooltip>
                 <TooltipTrigger :as-child="true">
                     <CardHeader v-if="notification.account"
                         class="flex-row items-center gap-2 px-4 py-2 border-b border-border">
                         <component :is="icon" class="size-5 shrink-0" />
-                        <Avatar class="size-6 rounded-md border border-card">
+                        <Avatar shape="square" class="size-6 border border-card">
                             <AvatarImage :src="notification.account.avatar" alt="" />
-                            <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
+                            <AvatarFallback> AA </AvatarFallback>
                         </Avatar>
                         <span class="font-semibold">{{
                             notification.account.display_name

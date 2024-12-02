@@ -1,11 +1,11 @@
 <template>
     <div class="rounded flex flex-row items-center gap-3">
         <NuxtLink :href="url" :class="cn('relative size-14', smallLayout && 'size-8')">
-            <Avatar :class="cn('size-14 rounded-md border border-card', smallLayout && 'size-8')">
+            <Avatar shape="square" :class="cn('size-14 border border-card', smallLayout && 'size-8')">
                 <AvatarImage :src="avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
-            <Avatar v-if="cornerAvatar" class="size-6 rounded border absolute -bottom-1 -right-1">
+            <Avatar shape="square" v-if="cornerAvatar" class="size-6 border absolute -bottom-1 -right-1">
                 <AvatarImage :src="cornerAvatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>

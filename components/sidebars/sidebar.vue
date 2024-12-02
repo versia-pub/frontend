@@ -194,7 +194,7 @@ const instance = useInstance();
                             <DropdownMenuTrigger as-child>
                                 <SidebarMenuButton size="lg"
                                     class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                                    <Avatar class="h-8 w-8 rounded-lg">
+                                    <Avatar shape="square" class="size-8">
                                         <AvatarImage :src="identity?.account.avatar" alt="" />
                                         <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
                                     </Avatar>
@@ -211,7 +211,7 @@ const instance = useInstance();
                                 side="bottom" align="end" :side-offset="4">
                                 <DropdownMenuLabel class="p-0 font-normal">
                                     <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                        <Avatar class="h-8 w-8 rounded-lg">
+                                        <Avatar shape="square" class="size-8">
                                             <AvatarImage :src="identity?.account.avatar" alt="" />
                                             <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
                                         </Avatar>
