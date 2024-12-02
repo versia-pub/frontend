@@ -1,5 +1,5 @@
 <template>
-    <Card as="article" class="rounded-none border-0 duration-200 shadow-none max-w-full">
+    <Card as="article" class="rounded-none border-0 duration-200 shadow- max-w-full">
         <CardHeader class="pb-4" as="header">
             <ReblogHeader v-if="note.reblog" :avatar="note.account.avatar" :display-name="note.account.display_name"
                 :url="reblogAccountUrl" />
@@ -11,7 +11,7 @@
         <CardContent>
             <Content :content="noteToUse.content" :quote="note.quote ?? undefined" :attachments="noteToUse.media_attachments"/>
         </CardContent>
-        <CardFooter v-if="!hideActions">
+        <CardFooter v-if="!hideActions" class="p-4 pt-0">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"
                 :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)" @quote="useEvent('composer:quote', note)" @delete="useEvent('note:delete', note)" :note-id="noteToUse.id" :liked="noteToUse.favourited ?? false" :reblogged="noteToUse.reblogged ?? false" />
         </CardFooter>

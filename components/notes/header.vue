@@ -1,7 +1,7 @@
 <template>
     <div class="rounded flex flex-row items-center gap-3">
-        <NuxtLink :href="url" :class="cn('relative size-14', smallLayout && 'size-6')">
-            <Avatar :class="cn('size-14 rounded-md border border-card', smallLayout && 'size-6')">
+        <NuxtLink :href="url" :class="cn('relative size-14', smallLayout && 'size-8')">
+            <Avatar :class="cn('size-14 rounded-md border border-card', smallLayout && 'size-8')">
                 <AvatarImage :src="avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
@@ -10,7 +10,7 @@
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
             </Avatar>
         </NuxtLink>
-        <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'flex-row justify-start items-center gap-2')">
+        <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'text-sm')">
             <span class="truncate font-semibold">{{
                 displayName
                 }}</span>
@@ -37,6 +37,10 @@
 <script lang="ts" setup>
 import { cn } from "@/lib/utils";
 import type { StatusVisibility } from "@versia/client/types";
+import type {
+    UseTimeAgoMessages,
+    UseTimeAgoUnitNamesDefault,
+} from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import CopyableText from "./copyable-text.vue";
 
@@ -52,7 +56,22 @@ const { acct, createdAt } = defineProps<{
 }>();
 
 const [username, instance] = acct.split("@");
-const timeAgo = useTimeAgo(createdAt);
+const digitRegex = /\d/;
+const timeAgo = useTimeAgo(createdAt, {
+    messages: {
+        justNow: "now",
+        past: (n) => (n.match(digitRegex) ? `${n}` : n),
+        future: (n) => (n.match(digitRegex) ? `in ${n}` : n),
+        month: (n) => `${n}mo`,
+        year: (n) => `${n}y`,
+        day: (n) => `${n}d`,
+        week: (n) => `${n}w`,
+        hour: (n) => `${n}h`,
+        minute: (n) => `${n}m`,
+        second: (n) => `${n}s`,
+        invalid: "",
+    } as UseTimeAgoMessages<UseTimeAgoUnitNamesDefault>,
+});
 const fullTime = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
     timeStyle: "short",

@@ -54,6 +54,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from "~/components/ui/sidebar";
+import NotificationsTimeline from "../timelines/notifications.vue";
 import { Button } from "../ui/button";
 import ThemeSwitcher from "./theme-switcher.vue";
 
@@ -140,7 +141,7 @@ const instance = useInstance();
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup class="group-data-[collapsible=icon]:hidden">
+                <SidebarGroup>
                     <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem v-for="item in data.other" :key="item.name">
@@ -184,7 +185,7 @@ const instance = useInstance();
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <SidebarMenu>
+                <SidebarMenu class="gap-3">
                     <SidebarMenuItem>
                         <ThemeSwitcher />
                     </SidebarMenuItem>
@@ -240,9 +241,9 @@ const instance = useInstance();
                         </DropdownMenu>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                        <Button variant="default" size="lg" class="w-full" @click="useEvent('composer:open')">
+                        <Button variant="default" size="lg" class="w-full group-data-[collapsible=icon]:px-4" @click="useEvent('composer:open')">
                             <Pen />
-                            Compose
+                            <span class="group-data-[collapsible=icon]:hidden">Compose</span>
                         </Button>
                     </SidebarMenuItem>
                 </SidebarMenu>
@@ -274,5 +275,11 @@ const instance = useInstance();
                 <slot />
             </div>
         </SidebarInset>
+        <Sidebar variant="inset" collapsible="none" side="right" class="[--sidebar-width:24rem]">
+            <SidebarContent class="p-2 overflow-y-auto">
+                <NotificationsTimeline />
+            </SidebarContent>
+            <SidebarRail />
+        </Sidebar>
     </SidebarProvider>
 </template>
