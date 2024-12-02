@@ -1,17 +1,17 @@
 <template>
-    <div v-if="loaded" :defer="true" class="mx-auto max-w-2xl w-full pb-72">
+    <div v-if="loaded" class="mx-auto max-w-2xl w-full pb-72 *:rounded space-y-4 *:border *:border-border/50">
         <Note v-for="note of context?.ancestors" :note="note" />
-        <div ref="element" class="first:rounded-t last:rounded-b overflow-hidden">
-            <Note class="!rounded-none border-2 -m-[2px] border-primary-500" v-if="note" :note="note" />
-        </div>
+        <Note v-if="note" :note="note" />
         <Note v-for="note of context?.descendants" :note="note" />
     </div>
-    <!-- <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
-        <Note v-for="_ of 5" :skeleton="true" />
-    </div> -->
+
+    <div v-else class="p-4 flex items-center justify-center h-48">
+        <Loader class="size-8 animate-spin" />
+    </div>
 </template>
 
 <script setup lang="ts">
+import { Loader } from "lucide-vue-next";
 import Note from "~/components/notes/note.vue";
 
 definePageMeta({

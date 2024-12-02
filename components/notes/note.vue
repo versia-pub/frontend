@@ -4,16 +4,23 @@
             <ReblogHeader v-if="note.reblog" :avatar="note.account.avatar" :display-name="note.account.display_name"
                 :url="reblogAccountUrl" :emojis="note.account.emojis" />
             <Header :avatar="noteToUse.account.avatar" :corner-avatar="note.reblog ? note.account.avatar : undefined"
-                :acct="noteToUse.account.acct" :display-name="noteToUse.account.display_name"
+                :note-url="url" :acct="noteToUse.account.acct" :display-name="noteToUse.account.display_name"
                 :visibility="noteToUse.visibility" :url="accountUrl" :created-at="new Date(noteToUse.created_at)"
                 :small-layout="smallLayout" :emojis="noteToUse.account.emojis" />
         </CardHeader>
         <CardContent>
-            <Content :content="noteToUse.content" :quote="note.quote ?? undefined" :attachments="noteToUse.media_attachments" :plain-content="noteToUse.plain_content ?? undefined" :emojis="noteToUse.emojis" />
+            <Content :content="noteToUse.content" :quote="note.quote ?? undefined"
+                :attachments="noteToUse.media_attachments" :plain-content="noteToUse.plain_content ?? undefined"
+                :emojis="noteToUse.emojis" />
         </CardContent>
         <CardFooter v-if="!hideActions" class="p-4 pt-0">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"
-                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count" :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id" @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)" @quote="useEvent('composer:quote', note)" @delete="useEvent('note:delete', note)" :note-id="noteToUse.id" :liked="noteToUse.favourited ?? false" :reblogged="noteToUse.reblogged ?? false" />
+                :api-note-string="JSON.stringify(note, null, 4)" :reblog-count="noteToUse.reblogs_count"
+                :remote-url="noteToUse.url" :is-remote="isRemote" :author-id="noteToUse.account.id"
+                @edit="useEvent('composer:edit', note)" @reply="useEvent('composer:reply', note)"
+                @quote="useEvent('composer:quote', note)" @delete="useEvent('note:delete', note)"
+                :note-id="noteToUse.id" :liked="noteToUse.favourited ?? false"
+                :reblogged="noteToUse.reblogged ?? false" />
         </CardFooter>
     </Card>
 </template>

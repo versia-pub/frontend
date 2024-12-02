@@ -27,9 +27,9 @@
             </span>
         </div>
         <div class="flex flex-col gap-1 justify-center items-end" v-if="!smallLayout">
-            <span class="text-xs text-muted-foreground" :title="visibilities[visibility].text">
+            <NuxtLink :href="noteUrlAsPath" class="text-xs text-muted-foreground" :title="visibilities[visibility].text">
                 <component :is="visibilities[visibility].icon" class="size-5" />
-            </span>
+            </NuxtLink>
         </div>
     </div>
 </template>
@@ -44,7 +44,7 @@ import type {
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import CopyableText from "./copyable-text.vue";
 
-const { acct, createdAt, url } = defineProps<{
+const { acct, createdAt, url, noteUrl } = defineProps<{
     avatar: string;
     cornerAvatar?: string;
     acct: string;
@@ -52,6 +52,7 @@ const { acct, createdAt, url } = defineProps<{
     emojis: Emoji[];
     visibility: StatusVisibility;
     url: string;
+    noteUrl: string;
     createdAt: Date;
     smallLayout?: boolean;
 }>();
@@ -59,6 +60,7 @@ const { acct, createdAt, url } = defineProps<{
 const [username, instance] = acct.split("@");
 const digitRegex = /\d/;
 const urlAsPath = new URL(url).pathname;
+const noteUrlAsPath = new URL(noteUrl).pathname;
 const timeAgo = useTimeAgo(createdAt, {
     messages: {
         justNow: "now",
