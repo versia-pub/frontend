@@ -10,7 +10,7 @@
                             <AvatarImage :src="notification.account.avatar" alt="" />
                             <AvatarFallback> AA </AvatarFallback>
                         </Avatar>
-                        <span class="font-semibold">{{
+                        <span class="font-semibold" v-render-emojis="notification.account.emojis">{{
                             notification.account.display_name
                         }}</span>
                         <CollapsibleTrigger :as-child="true">

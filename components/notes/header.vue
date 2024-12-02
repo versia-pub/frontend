@@ -11,7 +11,7 @@
             </Avatar>
         </NuxtLink>
         <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'text-sm')">
-            <span class="truncate font-semibold">{{
+            <span class="truncate font-semibold" v-render-emojis="emojis">{{
                 displayName
                 }}</span>
             <span class="truncate text-sm tracking-tight">
@@ -36,7 +36,7 @@
 
 <script lang="ts" setup>
 import { cn } from "@/lib/utils";
-import type { StatusVisibility } from "@versia/client/types";
+import type { Emoji, StatusVisibility } from "@versia/client/types";
 import type {
     UseTimeAgoMessages,
     UseTimeAgoUnitNamesDefault,
@@ -49,6 +49,7 @@ const { acct, createdAt, url } = defineProps<{
     cornerAvatar?: string;
     acct: string;
     displayName: string;
+    emojis: Emoji[];
     visibility: StatusVisibility;
     url: string;
     createdAt: Date;

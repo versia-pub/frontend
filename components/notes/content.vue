@@ -3,7 +3,7 @@
         maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`
     }">
         <div :class="['prose prose-sm block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline', $style.content]"
-            v-html="content">
+            v-html="content" v-render-emojis="emojis">
         </div>
         <div v-if="isOverflowing && collapsed"
             class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b">
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment, Status } from "@versia/client/types";
+import type { Attachment, Emoji, Status } from "@versia/client/types";
 import { Button } from "~/components/ui/button";
 import Attachments from "./attachments.vue";
 import Note from "./note.vue";
@@ -33,6 +33,7 @@ const { content, plainContent } = defineProps<{
     plainContent?: string;
     content: string;
     quote?: NonNullable<Status["quote"]>;
+    emojis: Emoji[];
     attachments: Attachment[];
 }>();
 const container = ref<HTMLDivElement | null>(null);

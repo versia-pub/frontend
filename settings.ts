@@ -123,7 +123,7 @@ export const settings: Record<SettingIds, Setting> = {
     } as EnumSetting,
     [SettingIds.CustomEmojis]: {
         title: "Render Custom Emojis",
-        description: "Render custom emojis.",
+        description: "Render custom emojis. Requires a page reload to apply.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,

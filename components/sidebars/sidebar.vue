@@ -199,7 +199,7 @@ const instance = useInstance();
                                         <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
                                     </Avatar>
                                     <div class="grid flex-1 text-left text-sm leading-tight">
-                                        <span class="truncate font-semibold">{{
+                                        <span class="truncate font-semibold" v-render-emojis="identity?.account.emojis">{{
                                             identity?.account.display_name
                                             }}</span>
                                         <span class="truncate text-xs">@{{ identity?.account.acct }}</span>
@@ -216,7 +216,7 @@ const instance = useInstance();
                                             <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
                                         </Avatar>
                                         <div class="grid flex-1 text-left text-sm leading-tight">
-                                            <span class="truncate font-semibold">{{
+                                            <span class="truncate font-semibold" v-render-emojis="identity?.account.emojis">{{
                                                 identity?.account.display_name
                                                 }}</span>
                                             <span class="truncate text-xs">@{{

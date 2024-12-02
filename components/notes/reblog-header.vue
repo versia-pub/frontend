@@ -5,18 +5,20 @@
             <AvatarImage :src="avatar" alt="" />
             <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
         </Avatar>
-        <span class="font-semibold">{{ displayName }}</span>
+        <span class="font-semibold" v-render-emojis="emojis">{{ displayName }}</span>
         reblogged
     </NuxtLink>
 </template>
 
 <script lang="ts" setup>
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { Emoji } from "@versia/client/types";
 import { Repeat } from "lucide-vue-next";
 
 const { url } = defineProps<{
     avatar: string;
     displayName: string;
+    emojis: Emoji[];
     url: string;
 }>();
 

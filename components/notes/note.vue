@@ -2,14 +2,14 @@
     <Card as="article" class="rounded-none border-0 duration-200 shadow- max-w-full">
         <CardHeader class="pb-4" as="header">
             <ReblogHeader v-if="note.reblog" :avatar="note.account.avatar" :display-name="note.account.display_name"
-                :url="reblogAccountUrl" />
+                :url="reblogAccountUrl" :emojis="note.account.emojis" />
             <Header :avatar="noteToUse.account.avatar" :corner-avatar="note.reblog ? note.account.avatar : undefined"
                 :acct="noteToUse.account.acct" :display-name="noteToUse.account.display_name"
                 :visibility="noteToUse.visibility" :url="accountUrl" :created-at="new Date(noteToUse.created_at)"
-                :small-layout="smallLayout" />
+                :small-layout="smallLayout" :emojis="noteToUse.account.emojis" />
         </CardHeader>
         <CardContent>
-            <Content :content="noteToUse.content" :quote="note.quote ?? undefined" :attachments="noteToUse.media_attachments" :plain-content="noteToUse.plain_content ?? undefined"/>
+            <Content :content="noteToUse.content" :quote="note.quote ?? undefined" :attachments="noteToUse.media_attachments" :plain-content="noteToUse.plain_content ?? undefined" :emojis="noteToUse.emojis" />
         </CardContent>
         <CardFooter v-if="!hideActions" class="p-4 pt-0">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"

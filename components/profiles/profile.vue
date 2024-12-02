@@ -17,7 +17,7 @@
                 </ProfileActions>
             </div>
             <div class="flex flex-col -mt-1 gap-2 justify-center">
-                <CardTitle class="">
+                <CardTitle class="" v-render-emojis="account.emojis">
                     {{ account.display_name }}
                 </CardTitle>
                 <CopyableText :text="account.acct">
@@ -36,13 +36,13 @@
                 <ProfileBadge v-for="role in roles" :key="role.id" :name="role.name" :description="role.description"
                     :icon="role.icon" />
             </div>
-            <ProfileContent :content="account.note" />
+            <ProfileContent :content="account.note" :emojis="account.emojis" />
         </CardContent>
         <CardFooter class="flex-col items-start gap-4">
             <ProfileStats :creation-date="new Date(account.created_at || 0)" :follower-count="account.followers_count"
                 :following-count="account.following_count" :note-count="account.statuses_count" />
             <Separator v-if="account.fields.length > 0" />
-            <ProfileFields v-if="account.fields.length > 0" :fields="account.fields" />
+            <ProfileFields v-if="account.fields.length > 0" :fields="account.fields" :emojis="account.emojis" />
         </CardFooter>
     </Card>
 </template>

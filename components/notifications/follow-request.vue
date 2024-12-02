@@ -7,7 +7,7 @@
             </Avatar>
         </NuxtLink>
         <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight text-sm">
-            <span class="truncate font-semibold">{{
+            <span class="truncate font-semibold" v-render-emojis="follower.emojis">{{
                 follower.display_name
                 }}</span>
             <span class="truncate tracking-tight">
