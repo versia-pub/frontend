@@ -1,6 +1,6 @@
 <template>
     <div v-if="relationship?.requested_by !== false" class="flex flex-row items-center gap-3 p-4">
-        <NuxtLink class="relative size-10">
+        <NuxtLink :href="followerUrl" class="relative size-10">
             <Avatar shape="square" class="size-10 border border-border">
                 <AvatarImage :src="follower.avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
@@ -52,6 +52,7 @@ const { follower } = defineProps<{
 }>();
 
 const loading = ref(true);
+const followerUrl = `/@${follower.acct}`;
 const [username, instance] = follower.acct.split("@");
 const { relationship } = useRelationship(client, follower.id);
 

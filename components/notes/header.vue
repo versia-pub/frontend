@@ -1,6 +1,6 @@
 <template>
     <div class="rounded flex flex-row items-center gap-3">
-        <NuxtLink :href="url" :class="cn('relative size-14', smallLayout && 'size-8')">
+        <NuxtLink :href="urlAsPath" :class="cn('relative size-14', smallLayout && 'size-8')">
             <Avatar shape="square" :class="cn('size-14 border border-card', smallLayout && 'size-8')">
                 <AvatarImage :src="avatar" alt="" />
                 <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
@@ -44,7 +44,7 @@ import type {
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import CopyableText from "./copyable-text.vue";
 
-const { acct, createdAt } = defineProps<{
+const { acct, createdAt, url } = defineProps<{
     avatar: string;
     cornerAvatar?: string;
     acct: string;
@@ -57,6 +57,7 @@ const { acct, createdAt } = defineProps<{
 
 const [username, instance] = acct.split("@");
 const digitRegex = /\d/;
+const urlAsPath = new URL(url).pathname;
 const timeAgo = useTimeAgo(createdAt, {
     messages: {
         justNow: "now",
