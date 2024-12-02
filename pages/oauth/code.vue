@@ -1,5 +1,7 @@
 <template>
-    <div class="h-svh flex items-center justify-center px-4">
+    <div class="h-svh flex items-center justify-center px-4 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)'
+    }">
         <Card class="w-full max-w-md">
             <CardHeader>
                 <CardTitle>Here's your code</CardTitle>
@@ -7,8 +9,7 @@
                 </CardDescription>
             </CardHeader>
             <CardContent class="grid">
-                <code
-                    class="rounded bg-muted px-4 py-2 border text-center w-full font-mono text-sm font-semibold select-all">{{ code }}</code>
+                <pre class="rounded bg-muted px-4 py-2 border text-center w-full font-mono text-sm font-semibold select-all">{{ code }}</pre>
             </CardContent>
         </Card>
     </div>
@@ -23,7 +24,5 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 
-const params = useUrlSearchParams();
-
-const code = params.code;
+const { code } = useUrlSearchParams();
 </script>

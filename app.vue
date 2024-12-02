@@ -31,6 +31,7 @@ const appData = useAppData();
 const instance = useInstance();
 const description = useExtendedDescription(client);
 const customCss = useSetting(SettingIds.CustomCSS);
+const route = useRoute();
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
@@ -61,7 +62,7 @@ useHead({
     ],
 });
 
-if (code && appData.value) {
+if (code && appData.value && route.path !== "/oauth/code") {
     signInWithCode(code, appData.value);
 }
 

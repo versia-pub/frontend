@@ -14,15 +14,18 @@ const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
 </script>
 
 <template>
-    <div
-        class="container relative flex h-svh flex-col items-center justify-center md:flex-row lg:max-w-none lg:px-0">
+    <div class="container relative flex h-svh flex-col items-center justify-center md:flex-row lg:max-w-none lg:px-0">
         <Button :as="NuxtLink" href="/register" variant="link" class="absolute right-4 top-4 md:right-8 md:top-8">
             Register
         </Button>
-        <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex grow">
-            <div class="absolute inset-0 bg-zinc-900" />
+        <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex grow bg-center bg-no-repeat bg-cover"
+            :style="{
+                backgroundImage: 'url(/images/banner.webp)'
+            }">
+            <div class="absolute top-0 left-0 w-full h-72 bg-gradient-to-t from-transparent to-black/70" />
             <div class="relative z-20 flex items-center text-lg font-medium">
-                <img crossorigin="anonymous" :src="instance?.thumbnail.url || 'https://cdn.versia.pub/branding/icon.svg'" alt="Versia logo"
+                <img crossorigin="anonymous"
+                    :src="instance?.thumbnail.url || 'https://cdn.versia.pub/branding/icon.svg'" alt="Versia logo"
                     class="size-10 mr-4" />
                 {{ instance?.title }}
             </div>
