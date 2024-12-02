@@ -19,6 +19,11 @@ export default defineNuxtConfig({
     components: {
         dirs: [],
     },
+    tailwindcss: {
+        // Don't inject the default @tailwind utilities CSS
+        // To avoid conflicts with our own styles
+        cssPath: false,
+    },
     future: {
         compatibilityVersion: 4,
     },
