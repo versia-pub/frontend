@@ -179,7 +179,7 @@ const submit = async () => {
 
     try {
         if (relation?.type === "edit") {
-            await client.value.editStatus(relation.note.id, {
+            const { data } = await client.value.editStatus(relation.note.id, {
                 status: state.content,
                 content_type: state.contentType,
                 sensitive: state.sensitive,
@@ -190,22 +190,28 @@ const submit = async () => {
                     .map((f) => f.apiId)
                     .filter((f) => f !== undefined),
             });
+
+            useEvent("composer:send-edit", data);
+        } else {
+            const { data } = await client.value.postStatus(state.content, {
+                content_type: state.contentType,
+                sensitive: state.sensitive,
+                spoiler_text: state.sensitive
+                    ? state.contentWarning
+                    : undefined,
+                media_ids: state.files
+                    .map((f) => f.apiId)
+                    .filter((f) => f !== undefined),
+                quote_id:
+                    relation?.type === "quote" ? relation.note.id : undefined,
+                in_reply_to_id:
+                    relation?.type === "reply" ? relation.note.id : undefined,
+                visibility: state.visibility,
+            });
+
+            useEvent("composer:send", data as Status);
+            useEvent("composer:close");
         }
-
-        await client.value.postStatus(state.content, {
-            content_type: state.contentType,
-            sensitive: state.sensitive,
-            spoiler_text: state.sensitive ? state.contentWarning : undefined,
-            media_ids: state.files
-                .map((f) => f.apiId)
-                .filter((f) => f !== undefined),
-            quote_id: relation?.type === "quote" ? relation.note.id : undefined,
-            in_reply_to_id:
-                relation?.type === "reply" ? relation.note.id : undefined,
-            visibility: state.visibility,
-        });
-
-        useEvent("composer:close");
     } catch (_e) {
         const e = _e as ResponseError;
         toast.error(e.message);
