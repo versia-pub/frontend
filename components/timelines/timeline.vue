@@ -1,7 +1,8 @@
 <!-- Timeline.vue -->
 <template>
     <div class="timeline rounded">
-        <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:rounded space-y-4 *:border *:border-border/50">
+        <TransitionGroup name="timeline-item" tag="div"
+            class="timeline-items *:rounded space-y-4 *:border *:border-border/50">
             <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
                 @delete="removeItem" />
         </TransitionGroup>
@@ -12,17 +13,25 @@
             {{ error.message }}
         </div>
 
-        <div v-if="hasReachedEnd && items.length > 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
-            <span class="text-lg font-semibold">You've scrolled so far, there's nothing left to show.</span>
-            <span class="text-sm">You can always go back and see what you missed.</span>
-        </div>
+        <!-- If there are some posts, but the user scrolled to the end -->
+        <Card v-if="hasReachedEnd && items.length > 0" class="shadow-none bg-transparent border-none p-4">
+            <CardHeader class="text-center gap-y-4">
+                <CardTitle class="text-">No more data.</CardTitle>
+                <CardDescription>
+                    You've scrolled so far, there's nothing left to show.
+                </CardDescription>
+            </CardHeader>
+        </Card>
 
-        <div v-else-if="hasReachedEnd && items.length === 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
-            <span class="text-lg font-semibold">There's nothing to show here.</span>
-            <span class="text-sm">Either you're all caught up or there's nothing to show.</span>
-        </div>
+        <!-- If there are no posts at all -->
+        <Card v-else-if="hasReachedEnd && items.length === 0" class="shadow-none bg-transparent border-none p-4">
+            <CardHeader class="text-center gap-y-4">
+                <CardTitle class="text-">There's nothing to show here.</CardTitle>
+                <CardDescription>
+                    Either you're all caught up or there's nothing to show.
+                </CardDescription>
+            </CardHeader>
+        </Card>
 
         <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
             <Button theme="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
@@ -38,6 +47,12 @@
 import type { Notification, Status } from "@versia/client/types";
 import { useIntersectionObserver } from "@vueuse/core";
 import { onMounted, watch } from "vue";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
 import Button from "~/packages/ui/components/buttons/button.vue";
 import { SettingIds } from "~/settings";
 import TimelineItem from "./timeline-item.vue";

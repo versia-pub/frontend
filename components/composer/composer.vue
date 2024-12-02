@@ -16,31 +16,27 @@
     </div>
 
     <DialogFooter class="items-center flex-row">
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger as="div">
-                    <Button variant="ghost" size="icon">
-                        <AtSign class="!size-5" />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Mention someone</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger as="div">
-                    <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/markdown'"
-                        @update:pressed="i => state.contentType = i ? 'text/plain' : 'text/markdown'">
-                        <LetterText class="!size-5" />
-                    </Toggle>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Enable Markdown</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon">
+                    <AtSign class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Mention someone</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/markdown'"
+                    @update:pressed="i => state.contentType = i ? 'text/plain' : 'text/markdown'">
+                    <LetterText class="!size-5" />
+                </Toggle>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Enable Markdown</p>
+            </TooltipContent>
+        </Tooltip>
         <Select v-model:model-value="state.visibility">
             <SelectTrigger :as-child="true" :disabled="relation?.type === 'edit'">
                 <Button variant="ghost" size="icon">
@@ -59,42 +55,36 @@
                 </SelectItem>
             </SelectContent>
         </Select>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger as="div">
-                    <Button variant="ghost" size="icon">
-                        <Smile class="!size-5" />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Insert emoji</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger as="div">
-                    <Button variant="ghost" size="icon" @click="fileInput?.click()">
-                        <FilePlus2 class="!size-5" />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Attach a file</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger as="div">
-                    <Toggle variant="default" size="sm" v-model:pressed="state.sensitive">
-                        <TriangleAlert class="!size-5" />
-                    </Toggle>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Mark as sensitive</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon">
+                    <Smile class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Insert emoji</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon" @click="fileInput?.click()">
+                    <FilePlus2 class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Attach a file</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Toggle variant="default" size="sm" v-model:pressed="state.sensitive">
+                    <TriangleAlert class="!size-5" />
+                </Toggle>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Mark as sensitive</p>
+            </TooltipContent>
+        </Tooltip>
         <Button type="submit" size="lg" class="ml-auto" :disabled="sending" @click="submit">
             <Loader v-if="sending" class="!size-5 animate-spin" />
             {{ relation?.type === "edit" ? "Save" : "Send" }}

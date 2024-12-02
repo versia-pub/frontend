@@ -275,7 +275,7 @@ const instance = useInstance();
                 <slot />
             </div>
         </SidebarInset>
-        <Sidebar variant="inset" collapsible="none" side="right" class="[--sidebar-width:24rem]">
+        <Sidebar variant="inset" collapsible="none" side="right" class="[--sidebar-width:24rem] hidden lg:flex">
             <SidebarContent class="p-2 overflow-y-auto">
                 <NotificationsTimeline />
             </SidebarContent>
