@@ -15,7 +15,7 @@ COPY --from=install /temp/dev/node_modules /app/node_modules
 RUN cd /app && bun run emojis:generate
 RUN cd /app && bun run build --preset node-server
 
-FROM oven/bun:1.1.34-alpine AS final
+FROM oven/bun:1.1.38-alpine AS final
 
 COPY --from=builder /app/.output/ /app
 
