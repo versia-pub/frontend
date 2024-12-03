@@ -1,14 +1,8 @@
 <template>
     <div class="rounded flex flex-row items-center gap-3">
         <NuxtLink :href="urlAsPath" :class="cn('relative size-14', smallLayout && 'size-8')">
-            <Avatar shape="square" :class="cn('size-14 border border-card', smallLayout && 'size-8')">
-                <AvatarImage :src="avatar" alt="" />
-                <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-            </Avatar>
-            <Avatar shape="square" v-if="cornerAvatar" class="size-6 border absolute -bottom-1 -right-1">
-                <AvatarImage :src="cornerAvatar" alt="" />
-                <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-            </Avatar>
+            <Avatar :class="cn('size-14 border border-card', smallLayout && 'size-8')" :src="avatar" :name="displayName" />
+            <Avatar v-if="cornerAvatar" class="size-6 border absolute -bottom-1 -right-1" :src="cornerAvatar" />
         </NuxtLink>
         <div :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'text-sm')">
             <span class="truncate font-semibold" v-render-emojis="emojis">{{
@@ -43,6 +37,7 @@ import type {
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import CopyableText from "./copyable-text.vue";
+import Avatar from "../profiles/avatar.vue";
 
 const { acct, createdAt, url, noteUrl } = defineProps<{
     avatar: string;

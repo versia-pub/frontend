@@ -3,13 +3,8 @@
         <DropdownMenuTrigger as-child>
             <SidebarMenuButton size="lg"
                 class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                <Avatar v-if="identity" shape="square" class="size-8">
-                    <AvatarImage :src="identity?.account.avatar" alt="" />
-                    <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-                </Avatar>
-                <Avatar v-else shape="square" class="size-8">
-                    <AvatarFallback class="rounded-lg"> AB </AvatarFallback>
-                </Avatar>
+                <Avatar v-if="identity" class="size-8" :src="identity.account.avatar" :name="identity.account.display_name" />
+                <Avatar v-else class="size-8" name="AB" />
                 <div class="grid flex-1 text-left text-sm leading-tight">
                     <span class="truncate font-semibold" v-render-emojis="identity?.account.emojis">{{
                         identity?.account.display_name ?? "Not signed in"
@@ -23,10 +18,7 @@
             align="end" :side-offset="4">
             <DropdownMenuLabel class="p-0 font-normal">
                 <div v-for="identity of identities" class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <Avatar shape="square" class="size-8">
-                        <AvatarImage :src="identity.account.avatar" alt="" />
-                        <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-                    </Avatar>
+                    <Avatar class="size-8" :src="identity.account.avatar" :name="identity.account.display_name" />
                     <div class="grid flex-1 text-left text-sm leading-tight">
                         <span class="truncate font-semibold" v-render-emojis="identity.account.emojis">{{
                             identity.account.display_name
@@ -70,7 +62,6 @@ import {
     LogIn,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -82,6 +73,7 @@ import {
 } from "../ui/dropdown-menu";
 import { SidebarMenuButton } from "../ui/sidebar";
 import { NuxtLink } from "#components";
+import Avatar from "../profiles/avatar.vue";
 
 const appData = useAppData();
 

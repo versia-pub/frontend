@@ -1,10 +1,7 @@
 <template>
     <div v-if="relationship?.requested_by !== false" class="flex flex-row items-center gap-3 p-4">
         <NuxtLink :href="followerUrl" class="relative size-10">
-            <Avatar shape="square" class="size-10 border border-border">
-                <AvatarImage :src="follower.avatar" alt="" />
-                <AvatarFallback class="rounded-lg"> AA </AvatarFallback>
-            </Avatar>
+            <Avatar class="size-10 border border-border" :src="follower.avatar" :name="follower.display_name" />
         </NuxtLink>
         <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight text-sm">
             <span class="truncate font-semibold" v-render-emojis="follower.emojis">{{
@@ -44,8 +41,8 @@ import type { Account } from "@versia/client/types";
 import { Check, Loader, X } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import CopyableText from "~/components/notes/copyable-text.vue";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
+import Avatar from "../profiles/avatar.vue";
 
 const { follower } = defineProps<{
     follower: Account;

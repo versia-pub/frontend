@@ -6,11 +6,9 @@
                     <NuxtLink href="/">
                         <SidebarMenuButton size="lg"
                             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                            <Avatar shape="square" class="size-8">
-                                <AvatarImage :src="instance?.thumbnail.url ??
-                                    'https://cdn.versia.pub/branding/icon.svg'
-                                    " alt="" />
-                            </Avatar>
+                            <Avatar class="size-8" :src="instance?.thumbnail.url ??
+                                'https://cdn.versia.pub/branding/icon.svg'
+                                " :name="instance?.title" />
                             <div class="grid flex-1 text-left text-sm leading-tight">
                                 <span class="truncate font-semibold">{{ instance?.title ?? 'Versia Server' }}</span>
                                 <span class="truncate text-xs">{{ "A Versia Server instance" }}</span>
@@ -104,7 +102,6 @@ import {
     Pen,
     Settings2,
 } from "lucide-vue-next";
-import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import {
     Collapsible,
     CollapsibleContent,
@@ -128,6 +125,7 @@ import {
 import { Button } from "../ui/button";
 import AccountSwitcher from "./account-switcher.vue";
 import ThemeSwitcher from "./theme-switcher.vue";
+import Avatar from "../profiles/avatar.vue";
 
 const data = {
     navMain: [

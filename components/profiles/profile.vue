@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <ProfileHeader :header="account.header" :avatar="account.avatar" />
+        <ProfileHeader :header="account.header" :avatar="account.avatar" :display-name="account.display_name" />
         <CardContent class="pt-3 gap-4 flex flex-col">
             <div class="flex flex-row justify-end gap-2">
                 <Button variant="secondary" :disabled="isLoading || relationship?.requested" v-if="!isMe"

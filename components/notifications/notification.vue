@@ -6,10 +6,7 @@
                     <CardHeader v-if="notification.account"
                         class="flex-row items-center gap-2 px-4 py-2 border-b border-border">
                         <component :is="icon" class="size-5 shrink-0" />
-                        <Avatar shape="square" class="size-6 border border-card">
-                            <AvatarImage :src="notification.account.avatar" alt="" />
-                            <AvatarFallback> AA </AvatarFallback>
-                        </Avatar>
+                        <Avatar class="size-6 border border-card" :src="notification.account.avatar" :name="notification.account.display_name" />
                         <span class="font-semibold" v-render-emojis="notification.account.emojis">{{
                             notification.account.display_name
                         }}</span>
@@ -46,7 +43,7 @@ import {
     UserCheck,
     UserPlus,
 } from "lucide-vue-next";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import Avatar from "../profiles/avatar.vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import {
