@@ -122,10 +122,10 @@ import {
     SidebarMenuSubItem,
     SidebarRail,
 } from "~/components/ui/sidebar";
+import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
 import AccountSwitcher from "./account-switcher.vue";
 import ThemeSwitcher from "./theme-switcher.vue";
-import Avatar from "../profiles/avatar.vue";
 
 const data = {
     navMain: [

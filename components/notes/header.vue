@@ -36,8 +36,8 @@ import type {
     UseTimeAgoUnitNamesDefault,
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
-import CopyableText from "./copyable-text.vue";
 import Avatar from "../profiles/avatar.vue";
+import CopyableText from "./copyable-text.vue";
 
 const { acct, createdAt, url, noteUrl } = defineProps<{
     avatar: string;

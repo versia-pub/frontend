@@ -43,7 +43,6 @@ import {
     UserCheck,
     UserPlus,
 } from "lucide-vue-next";
-import Avatar from "../profiles/avatar.vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import {
@@ -57,6 +56,7 @@ import {
     TooltipTrigger,
 } from "~/components/ui/tooltip";
 import Note from "../notes/note.vue";
+import Avatar from "../profiles/avatar.vue";
 import FollowRequest from "./follow-request.vue";
 
 const { notification } = defineProps<{

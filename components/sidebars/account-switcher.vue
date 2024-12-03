@@ -57,11 +57,13 @@
 import {
     BadgeCheck,
     ChevronsUpDown,
+    LogIn,
     LogOut,
     UserPlus,
-    LogIn,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import { NuxtLink } from "#components";
+import Avatar from "../profiles/avatar.vue";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -72,8 +74,6 @@ import {
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { SidebarMenuButton } from "../ui/sidebar";
-import { NuxtLink } from "#components";
-import Avatar from "../profiles/avatar.vue";
 
 const appData = useAppData();
 
