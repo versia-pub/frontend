@@ -13,7 +13,7 @@ FROM base AS builder
 COPY . /app
 COPY --from=install /temp/dev/node_modules /app/node_modules
 RUN cd /app && bun run emojis:generate
-RUN cd /app && bun run build --preset node-server
+RUN cd /app && bun run build --preset bun
 
 FROM oven/bun:1.1.38-alpine AS final
 
