@@ -1,88 +1,129 @@
 <template>
-    <div class="flex min-h-screen relative flex-col gap-10 justify-center py-12 px-8">
-        <img crossorigin="anonymous" src="https://cdn.versia.pub/branding/icon.svg" alt="Versia logo"
-            class="mx-auto hidden md:inline-block h-20 ring-1 ring-white/20 rounded" />
-        <div v-if="validUrlParameters" class="mx-auto w-full max-w-md">
-            <VeeForm class="flex flex-col gap-y-6" method="POST" :validation-schema="schema" action="/api/auth/reset">
-                <input type="hidden" name="token" :value="params.token" />
-
-                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Reset your password</h1>
-
-                <div v-if="error" class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white">
-                    <h2 class="font-bold text-lg">An error occured</h2>
-                    <span class="text-sm">{{ params.error_description }}</span>
-                </div>
-
-                <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="password">New password</Label>
-                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                        </LabelAndError>
-                        <PasswordInput id="password" placeholder="hunter2" autocomplete="new-password" required
-                            v-bind="field" :is-invalid="!!errorMessage" :show-strength="true" />
-                    </Field>
-                </VeeField>
-
-                <VeeField name="password-confirm" as="div" v-slot="{ errors, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="password-confirm">Confirm password</Label>
-                            <FieldError v-if="errors.length > 0">{{ errors[0] }}</FieldError>
-                        </LabelAndError>
-                        <PasswordInput id="password-confirm" placeholder="hunter2" autocomplete="new-password" required
-                            v-bind="field" :is-invalid="errors.length > 0" />
-                    </Field>
-                </VeeField>
-
-                <p class="text-xs font-semibold text-red-300">This will reset your
-                    password. Make sure to put it in a password manager.
-                </p>
-
-                <Button theme="primary" type="submit" class="w-full">Reset</Button>
-            </VeeForm>
-        </div>
-        <div v-else-if="params.success">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Password reset
-                successful!
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300 text-center">
-                You can now login to your account with your new password.
-            </p>
-        </div>
-        <div v-else class="mx-auto max-w-md">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
-                parameters
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300">This page should be accessed
-                through a valid password reset request. Please ask your admin to reset your password.
-            </p>
-
-            <p class="mt-6 text-lg leading-8 text-gray-300">
-                Found a problem? Report it on <a href="https://github.com/versia-pub/server/issues/new/choose"
-                    target="_blank" class="underline text-primary2-700">the issue tracker</a>.
-            </p>
-        </div>
+    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)'
+    }">
+        <Card v-if="params.success" class="w-full max-w-md">
+            <CardHeader>
+                <CardTitle>Success</CardTitle>
+                <CardDescription>
+                    Your password has been reset. You can now log in with your new password.
+                </CardDescription>
+            </CardHeader>
+            <CardFooter class="grid">
+                <Button :as="NuxtLink" href="/" variant="default">
+                    Back to front page
+                </Button>
+            </CardFooter>
+        </Card>
+        <Card v-else class="w-full max-w-md">
+            <form method="POST" action="/api/auth/reset" @submit="form.submitForm">
+                <CardHeader>
+                    <Alert v-if="params.login_reset" variant="default" class="mb-4">
+                        <AlertCircle class="w-4 h-4" />
+                        <AlertTitle>Info</AlertTitle>
+                        <AlertDescription>
+                            Your password has been reset by an administrator. Please change it here.
+                        </AlertDescription>
+                    </Alert>
+                    <Alert v-if="params.error" variant="destructive" class="mb-4">
+                        <AlertCircle class="w-4 h-4" />
+                        <AlertTitle>{{ params.error }}</AlertTitle>
+                        <AlertDescription>
+                            {{ params.error_description }}
+                        </AlertDescription>
+                    </Alert>
+                    <CardTitle as="h1">Reset your password</CardTitle>
+                    <CardDescription>
+                        Enter your new password below. Make sure to put it in a password manager.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent class="grid gap-6">
+                    <FormField v-slot="{ componentField }" name="token">
+                        <FormItem>
+                            <FormControl>
+                                <input type="hidden" v-bind="componentField" />
+                            </FormControl>
+                        </FormItem>
+                    </FormField>
+                    <FormField v-slot="{ componentField }" name="password">
+                        <FormItem>
+                            <FormLabel>
+                                New password
+                            </FormLabel>
+                            <FormControl>
+                                <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
+                                    v-bind="componentField" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    </FormField>
+                    <FormField v-slot="{ componentField }" name="password-confirm">
+                        <FormItem>
+                            <FormLabel>
+                                Confirm password
+                            </FormLabel>
+                            <FormControl>
+                                <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
+                                    v-bind="componentField" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    </FormField>
+                </CardContent>
+                <CardFooter class="grid gap-2">
+                    <Button variant="default" type="submit">Reset</Button>
+                </CardFooter>
+            </form>
+        </Card>
     </div>
 </template>
 
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import { AlertCircle } from "lucide-vue-next";
+import { useForm } from "vee-validate";
 import { z } from "zod";
-import FieldError from "~/components/inputs/field-error.vue";
-import Field from "~/components/inputs/field.vue";
-import LabelAndError from "~/components/inputs/label-and-error.vue";
-import Label from "~/components/inputs/label.vue";
-import PasswordInput from "~/components/inputs/password-input.vue";
-import Button from "~/packages/ui/components/buttons/button.vue";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { NuxtLink } from "#components";
 
 identity.value = null;
 
-const schema = toTypedSchema(
+const formSchema = toTypedSchema(
     z
         .object({
-            password: z.string().min(3).max(100),
-            "password-confirm": z.string().min(3).max(100),
+            token: z.string(),
+            password: z
+                .string()
+                .min(3, {
+                    message: "Must be at least 3 characters long",
+                })
+                .max(100, {
+                    message: "Must be at most 100 characters long",
+                }),
+            "password-confirm": z
+                .string()
+                .min(3, {
+                    message: "Must be at least 3 characters long",
+                })
+                .max(100, {
+                    message: "Must be at most 100 characters long",
+                }),
         })
         .superRefine((data, ctx) => {
             if (data.password !== data["password-confirm"]) {
@@ -97,14 +138,11 @@ const schema = toTypedSchema(
 );
 
 const params = useUrlSearchParams();
-let error = params.error;
-let errorDescription = params.error_description;
 
-if (params.login_reset) {
-    error = "Login reset";
-    errorDescription =
-        "Your password has been reset by an administrator. Please change it here.";
-}
-
-const validUrlParameters = !!params.token;
+const form = useForm({
+    validationSchema: formSchema,
+    initialValues: {
+        token: (params.token as string) ?? undefined,
+    },
+});
 </script>

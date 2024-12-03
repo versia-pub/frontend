@@ -4,7 +4,6 @@ export default defineNuxtConfig({
         "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
         "@nuxt/fonts",
-        "@vee-validate/nuxt",
         "nuxt-security",
         "@vite-pwa/nuxt",
         "shadcn-nuxt",
@@ -257,15 +256,6 @@ export default defineNuxtConfig({
                 maxAge: 31536000,
             },
         ],
-    },
-    veeValidate: {
-        autoImports: true,
-        componentNames: {
-            Form: "VeeForm",
-            Field: "VeeField",
-            FieldArray: "VeeFieldArray",
-            ErrorMessage: "VeeErrorMessage",
-        },
     },
     runtimeConfig: {
         public: {

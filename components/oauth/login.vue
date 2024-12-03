@@ -43,10 +43,6 @@ const form = useForm({
     validationSchema: formSchema,
 });
 
-const onSubmit = form.handleSubmit((values) => {
-    console.info("Form submitted!", values);
-});
-
 const redirectUrl = new URL("/api/auth/login", `https://${instance.domain}`);
 
 const params = useUrlSearchParams();
@@ -85,7 +81,7 @@ const issuerRedirectUrl = (issuerId: string) => {
 
 <template>
     <div class="grid gap-6">
-        <form @submit="onSubmit" method="post" :action="redirectUrl.toString()">
+        <form @submit="form.submitForm" method="post" :action="redirectUrl.toString()">
             <div class="grid gap-6">
                 <FormField v-slot="{ componentField }" name="identifier">
                     <FormItem>
@@ -93,7 +89,7 @@ const issuerRedirectUrl = (issuerId: string) => {
                             Email (or username)
                         </FormLabel>
                         <FormControl>
-                            <Input placeholder="petergriffin" type="email" auto-capitalize="none"
+                            <Input placeholder="petergriffin" type="text" auto-capitalize="none"
                             auto-complete="idenfifier" auto-correct="off" :disabled="isLoading"
                             v-bind="componentField" />
                         </FormControl>

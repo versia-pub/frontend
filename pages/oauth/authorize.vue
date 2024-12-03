@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Client } from "@versia/client";
-import { Loader } from "lucide-vue-next";
+import { AlertCircle, Loader } from "lucide-vue-next";
 import UserAuthForm from "~/components/oauth/login.vue";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import { NuxtLink } from "#components";
 
@@ -11,6 +12,7 @@ const {
 
 const host = new URL(apiHost).host;
 const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
+const { error, error_description } = useUrlSearchParams();
 </script>
 
 <template>
@@ -44,6 +46,13 @@ const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
         </div>
         <div class="lg:p-8 w-full max-w-xl">
             <div class="mx-auto flex w-full flex-col justify-center space-y-10 sm:w-[350px]">
+                <Alert v-if="error" variant="destructive" class="mb-4">
+                        <AlertCircle class="w-4 h-4" />
+                        <AlertTitle>{{ error }}</AlertTitle>
+                        <AlertDescription>
+                            {{ error_description }}
+                        </AlertDescription>
+                    </Alert>
                 <div class="flex flex-col space-y-2 text-center">
                     <h1 class="text-2xl font-semibold tracking-tight">
                         Log in to your account.
