@@ -25,7 +25,9 @@
             <SidebarGroup>
                 <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                 <SidebarMenu>
-                    <SidebarMenuItem v-for="item in data.other" :key="item.name">
+                    <SidebarMenuItem v-for="item in data.other.filter(
+                        i => i.requiresLogin ? !!identity : true,
+                    )" :key="item.name">
                         <SidebarMenuButton as-child>
                             <NuxtLink :href="item.url">
                                 <component :is="item.icon" />
@@ -35,11 +37,10 @@
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarGroup>
-            <SidebarGroup class="mt-auto">
+            <SidebarGroup v-if="identity" class="mt-auto">
                 <SidebarGroupLabel>More</SidebarGroupLabel>
                 <SidebarMenu>
-                    <Collapsible v-for="item in data.navMain" :key="item.title" as-child
-                        class="group/collapsible">
+                    <Collapsible v-for="item in data.navMain" :key="item.title" as-child class="group/collapsible">
                         <SidebarMenuItem>
                             <CollapsibleTrigger as-child>
                                 <SidebarMenuButton :tooltip="item.title">
@@ -75,12 +76,12 @@
                 </SidebarMenuItem>
                 <SidebarMenuItem class="flex flex-col gap-2">
                     <Button variant="default" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
-                        v-if="identity"
-                        @click="useEvent('composer:open')">
+                        v-if="identity" @click="useEvent('composer:open')">
                         <Pen />
                         <span class="group-data-[collapsible=icon]:hidden">Compose</span>
                     </Button>
-                    <Button variant="destructive" size="lg" class="w-full group-data-[collapsible=icon]:px-4" v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)">
+                    <Button variant="destructive" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
+                        v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)">
                         <DownloadCloud />
                         <span class="group-data-[collapsible=icon]:hidden">Update</span>
                     </Button>
@@ -93,36 +94,22 @@
 
 <script lang="ts" setup>
 import {
-    BadgeCheck,
     BedSingle,
     Bell,
     ChevronRight,
-    ChevronsUpDown,
     DownloadCloud,
     Globe,
     House,
-    LogOut,
     MapIcon,
     Pen,
-    RefreshCcw,
     Settings2,
 } from "lucide-vue-next";
-import { toast } from "vue-sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
 } from "~/components/ui/collapsible";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 import {
     Sidebar,
     SidebarContent,
@@ -173,26 +160,31 @@ const data = {
             name: "Home",
             url: "/home",
             icon: House,
+            requiresLogin: true,
         },
         {
             name: "Public",
             url: "/public",
             icon: MapIcon,
+            requiresLogin: false,
         },
         {
             name: "Local",
             url: "/local",
             icon: BedSingle,
+            requiresLogin: false,
         },
         {
             name: "Global",
             url: "/global",
             icon: Globe,
+            requiresLogin: false,
         },
         {
             name: "Notifications",
             url: "/notifications",
             icon: Bell,
+            requiresLogin: true,
         },
     ],
 };

@@ -49,16 +49,26 @@
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem @click="signOut()">
+            <DropdownMenuItem @click="signOut()" v-if="identity">
                 <LogOut />
                 Log out
+            </DropdownMenuItem>
+            <DropdownMenuItem :as="NuxtLink" href="/register" v-else>
+                <LogIn />
+                Register
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
 </template>
 
 <script lang="ts" setup>
-import { BadgeCheck, ChevronsUpDown, LogOut, UserPlus } from "lucide-vue-next";
+import {
+    BadgeCheck,
+    ChevronsUpDown,
+    LogOut,
+    UserPlus,
+    LogIn,
+} from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -71,6 +81,7 @@ import {
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { SidebarMenuButton } from "../ui/sidebar";
+import { NuxtLink } from "#components";
 
 const appData = useAppData();
 

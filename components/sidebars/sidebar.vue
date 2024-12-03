@@ -45,6 +45,6 @@ import RightSidebar from "./right-sidebar.vue";
                 <slot />
             </div>
         </SidebarInset>
-        <RightSidebar />
+        <RightSidebar v-if="identity" />
     </SidebarProvider>
 </template>
