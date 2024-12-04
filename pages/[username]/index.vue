@@ -24,14 +24,19 @@ import AccountProfile from "~/components/profiles/profile.vue";
 import AccountTimeline from "~/components/timelines/account.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
-definePageMeta({
-    layout: "app",
-});
-
 const route = useRoute();
 const username = (route.params.username as string).startsWith("@")
     ? (route.params.username as string).substring(1)
     : (route.params.username as string);
+
+definePageMeta({
+    layout: "app",
+    breadcrumbs: [
+        {
+            text: "Profile",
+        },
+    ],
+});
 
 const { account, isLoading } = useAccountFromAcct(client, username);
 const accountId = computed(() => account.value?.id ?? undefined);

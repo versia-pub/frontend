@@ -18,6 +18,8 @@ import LeftSidebar from "./left-sidebar.vue";
 import RightSidebar from "./right-sidebar.vue";
 
 const showRightSidebar = useSetting(SettingIds.NotificationsSidebar);
+
+const route = useRoute();
 </script>
 
 <template>
@@ -29,17 +31,17 @@ const showRightSidebar = useSetting(SettingIds.NotificationsSidebar);
                 <div class="flex items-center gap-2 px-4">
                     <SidebarTrigger class="-ml-1" />
                     <Separator orientation="vertical" class="mr-2 h-4" />
-                    <Breadcrumb>
+                    <Breadcrumb v-if="route.meta.breadcrumbs">
                         <BreadcrumbList>
-                            <BreadcrumbItem class="hidden md:block">
-                                <BreadcrumbLink href="#">
-                                    Timelines
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator class="hidden md:block" />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>Home</BreadcrumbPage>
-                            </BreadcrumbItem>
+                            <template v-for="(breadcrumb, index) of route.meta.breadcrumbs">
+                                <BreadcrumbItem class="hidden md:block">
+                                    <component :is="breadcrumb.href ? BreadcrumbLink : BreadcrumbPage" :href="breadcrumb.href">
+                                        {{ breadcrumb.text }}
+                                    </component>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator v-if="index !== (route.meta.breadcrumbs.length - 1)"
+                                    class="hidden md:block" />
+                            </template>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>

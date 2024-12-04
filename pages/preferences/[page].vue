@@ -26,6 +26,12 @@ import {
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: [
+        {
+            text: "Preferences",
+        },
+    ],
+    requiresAuth: true,
 });
 
 const route = useRoute();

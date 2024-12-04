@@ -12,5 +12,14 @@ import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: [
+        {
+            text: "Timelines",
+        },
+        {
+            text: "Global",
+            href: "/global",
+        },
+    ],
 });
 </script>

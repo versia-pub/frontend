@@ -28,6 +28,12 @@ import { Input } from "~/components/ui/input";
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: [
+        {
+            text: "Preferences",
+        },
+    ],
+    requiresAuth: true,
 });
 
 const emojis = computed(

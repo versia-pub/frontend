@@ -2,11 +2,12 @@
 import { cn } from "@/lib/utils";
 import { Primitive, type PrimitiveProps } from "radix-vue";
 import type { HTMLAttributes } from "vue";
+import { NuxtLink } from "#components";
 
 const props = withDefaults(
     defineProps<PrimitiveProps & { class?: HTMLAttributes["class"] }>(),
     {
-        as: "a",
+        as: NuxtLink,
     },
 );
 </script>

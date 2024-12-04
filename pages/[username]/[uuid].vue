@@ -16,6 +16,11 @@ import Note from "~/components/notes/note.vue";
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: [
+        {
+            text: "Note",
+        },
+    ],
 });
 
 const element = ref<HTMLElement | null>(null);

@@ -25,5 +25,12 @@ import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: [
+        {
+            text: "Notifications",
+            href: "/notifications",
+        },
+    ],
+    requiresAuth: true,
 });
 </script>
