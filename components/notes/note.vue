@@ -3,10 +3,10 @@
         <CardHeader class="pb-4" as="header">
             <ReblogHeader v-if="note.reblog" :avatar="note.account.avatar" :display-name="note.account.display_name"
                 :url="reblogAccountUrl" :emojis="note.account.emojis" />
-            <Header :avatar="noteToUse.account.avatar" :corner-avatar="note.reblog ? note.account.avatar : undefined"
-                :note-url="url" :acct="noteToUse.account.acct" :display-name="noteToUse.account.display_name"
-                :visibility="noteToUse.visibility" :url="accountUrl" :created-at="new Date(noteToUse.created_at)"
-                :small-layout="smallLayout" :emojis="noteToUse.account.emojis" />
+            <Header :author="noteToUse.account" :author-url="accountUrl"
+                :corner-avatar="note.reblog ? note.account.avatar : undefined" :note-url="url"
+                :visibility="noteToUse.visibility" :created-at="new Date(noteToUse.created_at)"
+                :small-layout="smallLayout" />
         </CardHeader>
         <CardContent>
             <Content :content="noteToUse.content" :quote="note.quote ?? undefined"
