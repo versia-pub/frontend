@@ -21,6 +21,8 @@ import "iconify-icon";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
 import { SettingIds } from "./settings";
+// Sin
+//import "~/styles/mcdonalds.css";
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();

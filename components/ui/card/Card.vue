@@ -21,6 +21,7 @@ const props = withDefaults(
         props.class,
       )
     "
+    data-component="card"
   >
     <slot />
   </Primitive>

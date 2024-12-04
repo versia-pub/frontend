@@ -31,6 +31,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
     v-if="collapsible === 'none'"
     :class="cn('flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground', props.class)"
     v-bind="$attrs"
+    data-component="sidebar"
   >
     <slot />
   </div>
@@ -57,6 +58,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
     :data-collapsible="state === 'collapsed' ? collapsible : ''"
     :data-variant="variant"
     :data-side="side"
+    data-component="sidebar"
   >
     <!-- This is what handles the sidebar gap on desktop  -->
     <div
