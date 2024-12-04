@@ -2,10 +2,6 @@ import type { Client } from "@versia/client";
 import type { RolePermission } from "@versia/client/types";
 
 export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
-    if (import.meta.server) {
-        return;
-    }
-
     // Refresh custom emojis and instance data and me on every reload
     watch(
         [identity, client],
@@ -67,6 +63,6 @@ export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
                     }
                 });
         },
-        { flush: "sync" },
+        { flush: "sync", immediate: true },
     );
 };
