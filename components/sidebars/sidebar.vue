@@ -13,8 +13,11 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "~/components/ui/sidebar";
+import { SettingIds } from "~/settings";
 import LeftSidebar from "./left-sidebar.vue";
 import RightSidebar from "./right-sidebar.vue";
+
+const showRightSidebar = useSetting(SettingIds.NotificationsSidebar);
 </script>
 
 <template>
@@ -45,6 +48,6 @@ import RightSidebar from "./right-sidebar.vue";
                 <slot />
             </div>
         </SidebarInset>
-        <RightSidebar v-if="identity" />
+        <RightSidebar v-if="identity" v-show="showRightSidebar.value" />
     </SidebarProvider>
 </template>

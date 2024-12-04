@@ -6,15 +6,18 @@
         <div class="grid grid-cols-1 2xl:grid-cols-2 gap-4 mt-6">
             <template v-for="[id, setting] of settingEntries">
                 <SwitchPreference v-if="setting.type === SettingType.Boolean" :setting="(setting as BooleanSetting)" @update:setting="updateSetting(id, setting)" />
+                <SelectPreference v-else-if="setting.type === SettingType.Enum" :setting="(setting as EnumSetting)" @update:setting="updateSetting(id, setting)" />
             </template>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import SelectPreference from "~/components/preferences/select.vue";
 import SwitchPreference from "~/components/preferences/switch.vue";
 import {
     type BooleanSetting,
+    type EnumSetting,
     type Setting,
     type SettingIds,
     type SettingPages,

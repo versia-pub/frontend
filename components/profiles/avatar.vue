@@ -1,5 +1,5 @@
 <template>
-    <Avatar shape="square">
+    <Avatar :shape="(shape.value as 'circle' | 'square')">
         <AvatarFallback v-if="name">
             {{ getInitials(name) }}
         </AvatarFallback>
@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts" setup>
+import { SettingIds } from "~/settings";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const { name } = defineProps<{
@@ -28,4 +29,6 @@ const getInitials = (name: string): string => {
 
     return `${firstLetter}${secondLetter}`.toUpperCase();
 };
+
+const shape = useSetting(SettingIds.AvatarShape);
 </script>

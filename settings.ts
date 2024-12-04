@@ -80,6 +80,8 @@ export enum SettingIds {
     CtrlEnterToSend = "ctrl-enter-to-send",
     EmojiTheme = "emoji-theme",
     BackgroundURL = "background-url",
+    NotificationsSidebar = "notifications-sidebar",
+    AvatarShape = "avatar-shape",
 }
 
 export const settings: Record<SettingIds, Setting> = {
@@ -91,6 +93,23 @@ export const settings: Record<SettingIds, Setting> = {
         page: SettingPages.Behaviour,
         notImplemented: true,
     } as BooleanSetting,
+    [SettingIds.AvatarShape]: {
+        title: "Avatar Shape",
+        description: "Shape of all user avatars.",
+        type: SettingType.Enum,
+        value: "square",
+        options: [
+            {
+                value: "circle",
+                label: "Round",
+            },
+            {
+                value: "square",
+                label: "Square",
+            },
+        ],
+        page: SettingPages.Appearance,
+    } as EnumSetting,
     [SettingIds.CustomCSS]: {
         title: "Custom CSS",
         description: "Custom CSS for the UI.",
@@ -222,6 +241,13 @@ export const settings: Record<SettingIds, Setting> = {
         value: "",
         page: SettingPages.Appearance,
     } as StringSetting,
+    [SettingIds.NotificationsSidebar]: {
+        title: "Notifications Sidebar",
+        description: "Display a sidebar with notifications on desktop.",
+        type: SettingType.Boolean,
+        value: true,
+        page: SettingPages.Appearance,
+    } as BooleanSetting,
 };
 
 export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {

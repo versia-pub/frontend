@@ -2,7 +2,7 @@
 <template>
     <div class="timeline rounded">
         <TransitionGroup name="timeline-item" tag="div"
-            class="timeline-items *:rounded space-y-4 *:border *:border-border/50">
+            class="timeline-items *:rounded space-y-4 *:border">
             <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
                 @delete="removeItem" />
         </TransitionGroup>
