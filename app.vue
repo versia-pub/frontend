@@ -1,19 +1,15 @@
 <template>
     <TooltipProvider>
-        <ClientOnly>
-            <Component is="style">
-                {{ customCss.value }}
-            </Component>
-        </ClientOnly>
+        <Component is="style">
+            {{ customCss.value }}
+        </Component>
         <NuxtPwaAssets />
-        <ClientOnly>
-            <NuxtLayout>
-                <NuxtPage />
-            </NuxtLayout>
-            <ConfirmationModal />
-            <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
-            <Toaster class="pointer-events-auto" />
-        </ClientOnly>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+        <ConfirmationModal />
+        <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
+        <Toaster class="pointer-events-auto" />
     </TooltipProvider>
 </template>
 

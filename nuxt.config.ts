@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         "shadcn-nuxt",
         "@nuxtjs/color-mode",
     ],
+    ssr: false,
     vue: {
         compilerOptions: {
             isCustomElement: (tag) => tag === "iconify-icon",
@@ -240,7 +241,7 @@ export default defineNuxtConfig({
         keepalive: true,
     },
     nitro: {
-        preset: "bun",
+        preset: "static",
         minify: true,
         prerender: {
             failOnError: true,

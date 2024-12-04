@@ -6,11 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import { NuxtLink } from "#components";
 
-const {
-    public: { apiHost },
-} = useRuntimeConfig();
-
-const host = new URL(apiHost).host;
+const host = new URL(useBaseUrl().value).host;
 const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
 const { error, error_description } = useUrlSearchParams();
 </script>
