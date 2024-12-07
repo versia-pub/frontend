@@ -10,7 +10,7 @@
                 </Button>
             </CollapsibleTrigger>
         </div>
-        <CollapsibleContent class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4">
+        <CollapsibleContent class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-3 mt-4">
             <Emoji v-for="emoji in emojis" :key="emoji.id" :emoji="emoji" />
         </CollapsibleContent>
     </Collapsible>

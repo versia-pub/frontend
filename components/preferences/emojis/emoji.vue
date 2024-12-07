@@ -1,25 +1,109 @@
 <template>
-    <Card class="grid grid-cols-[auto,1fr] gap-4 items-center p-4">
-        <Avatar shape="square">
-            <AvatarImage :src="emoji.url" />
-        </Avatar>
-        <CardHeader class="p-0 gap-0 overflow-hidden">
-            <CardTitle as="span" class="text-sm font-mono truncate">
-                {{ emoji.shortcode }}
-            </CardTitle>
-            <CardDescription>
-                {{ emoji.global ? "Global" : "Uploaded by you" }}
-            </CardDescription>
-        </CardHeader>
-    </Card>
+    <DropdownMenu>
+        <Card
+            :class="cn('grid hover:cursor-pointer gap-4 items-center p-4', canEdit ? 'grid-cols-[auto,1fr,auto]' : 'grid-cols-[auto,1fr]')">
+            <Avatar shape="square">
+                <AvatarImage :src="emoji.url" />
+            </Avatar>
+            <CardHeader class="p-0 gap-0 overflow-hidden">
+                <CardTitle as="span" class="text-sm font-mono truncate">
+                    {{ emoji.shortcode }}
+                </CardTitle>
+                <CardDescription>
+                    {{ emoji.global ? "Global" : "Uploaded by you" }}
+                </CardDescription>
+            </CardHeader>
+            <CardFooter class="p-0" v-if="canEdit">
+                <DropdownMenuTrigger :as-child="true">
+                    <Button variant="ghost" size="icon">
+                        <Ellipsis />
+                    </Button>
+                </DropdownMenuTrigger>
+            </CardFooter>
+        </Card>
+        <DropdownMenuContent class="min-w-48">
+            <DropdownMenuLabel class="font-mono">{{ emoji.shortcode }}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem @click="editName">
+                <TextCursorInput class="mr-2 h-4 w-4" />
+                <span>Rename</span>
+            </DropdownMenuItem>
+            <!-- <DropdownMenuItem @click="editCaption">
+                <Captions class="mr-2 h-4 w-4" />
+                <span>Add caption</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator /> -->
+            <DropdownMenuItem @click="_delete">
+                <Delete class="mr-2 h-4 w-4" />
+                <span>Delete</span>
+            </DropdownMenuItem>
+        </DropdownMenuContent>
+    </DropdownMenu>
 </template>
 
 <script lang="ts" setup>
-import type { Emoji } from "@versia/client/types";
+import { cn } from "@/lib/utils";
+import { type Emoji, RolePermission } from "@versia/client/types";
+import { Delete, Ellipsis, TextCursorInput } from "lucide-vue-next";
+import { toast } from "vue-sonner";
+import { confirmModalService } from "~/components/modals/composable";
 import { Avatar } from "~/components/ui/avatar";
-import { Card, CardDescription, CardTitle } from "~/components/ui/card";
+import { Button } from "~/components/ui/button";
+import {
+    Card,
+    CardDescription,
+    CardFooter,
+    CardTitle,
+} from "~/components/ui/card";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
-defineProps<{
+const { emoji } = defineProps<{
     emoji: Emoji;
 }>();
+
+const permissions = usePermissions();
+const canEdit =
+    !emoji.global || permissions.value.includes(RolePermission.ManageEmojis);
+
+const editName = async () => {
+    const result = await confirmModalService.confirm({
+        title: "Enter a new shortcode",
+        defaultValue: emoji.shortcode,
+        confirmText: "Edit",
+        inputType: "text",
+    });
+
+    if (result.confirmed) {
+        const id = toast.loading("Updating shortcode...");
+        try {
+            await client.value.updateEmoji(emoji.id, {
+                shortcode: result.value,
+            });
+
+            toast.dismiss(id);
+            toast.success("Shortcode updated.");
+        } catch {
+            toast.dismiss(id);
+        }
+    }
+};
+
+const _delete = async () => {
+    const id = toast.loading("Deleting emoji...");
+    try {
+        await client.value.deleteEmoji(emoji.id);
+        toast.dismiss(id);
+        toast.success("Emoji deleted.");
+    } catch {
+        toast.dismiss(id);
+    }
+};
 </script>

@@ -4,7 +4,7 @@
             if (!enableHoverCard.value) {
                 popupOpen = false;
             }
-        }">
+        }" :open-delay="2000">
             <HoverCardTrigger :as-child="true">
                 <NuxtLink :href="urlAsPath" :class="cn('relative size-14', smallLayout && 'size-8')">
                     <Avatar :class="cn('size-14 border border-card', smallLayout && 'size-8')" :src="author.avatar"
