@@ -36,7 +36,7 @@
         </Card>
 
         <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
-            <Button theme="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
+            <Button variant="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
                 Load More
             </Button>
         </div>
@@ -55,8 +55,8 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import Button from "~/packages/ui/components/buttons/button.vue";
 import { SettingIds } from "~/settings";
+import { Button } from "../ui/button";
 import TimelineItem from "./timeline-item.vue";
 
 const props = defineProps<{

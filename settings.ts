@@ -138,7 +138,6 @@ export const settings: Record<SettingIds, Setting> = {
             },
         ],
         page: SettingPages.Appearance,
-        notImplemented: true,
     } as EnumSetting,
     [SettingIds.CustomEmojis]: {
         title: "Render Custom Emojis",

@@ -67,9 +67,6 @@
         <SidebarFooter>
             <SidebarMenu class="gap-3">
                 <SidebarMenuItem>
-                    <ThemeSwitcher />
-                </SidebarMenuItem>
-                <SidebarMenuItem>
                     <AccountSwitcher />
                 </SidebarMenuItem>
                 <SidebarMenuItem class="flex flex-col gap-2">
@@ -125,7 +122,6 @@ import {
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
 import AccountSwitcher from "./account-switcher.vue";
-import ThemeSwitcher from "./theme-switcher.vue";
 
 const data = {
     navMain: [

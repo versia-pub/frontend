@@ -19,14 +19,14 @@
             <form method="POST" action="/api/auth/reset" @submit="form.submitForm">
                 <CardHeader>
                     <Alert v-if="params.login_reset" variant="default" class="mb-4">
-                        <AlertCircle class="w-4 h-4" />
+                        <AlertCircle class="size-4" />
                         <AlertTitle>Info</AlertTitle>
                         <AlertDescription>
                             Your password has been reset by an administrator. Please change it here.
                         </AlertDescription>
                     </Alert>
                     <Alert v-if="params.error" variant="destructive" class="mb-4">
-                        <AlertCircle class="w-4 h-4" />
+                        <AlertCircle class="size-4" />
                         <AlertTitle>{{ params.error }}</AlertTitle>
                         <AlertDescription>
                             {{ params.error_description }}

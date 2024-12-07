@@ -20,7 +20,7 @@ import { convert } from "html-to-text";
 import "iconify-icon";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
-import { SettingIds } from "./settings";
+import { type EnumSetting, SettingIds } from "./settings";
 // Sin
 //import "~/styles/mcdonalds.css";
 
@@ -30,6 +30,14 @@ const instance = useInstance();
 const description = useExtendedDescription(client);
 const customCss = useSetting(SettingIds.CustomCSS);
 const route = useRoute();
+
+// Theme switcher
+const theme = useSetting(SettingIds.Theme) as Ref<EnumSetting>;
+const colorMode = useColorMode();
+
+watch(theme.value, () => {
+    colorMode.preference = theme.value.value;
+});
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
