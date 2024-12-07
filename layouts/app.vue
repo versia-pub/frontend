@@ -1,7 +1,20 @@
 <template>
     <Sidebar>
         <SquarePattern />
-        <slot />
+        <slot v-if="!route.meta.requiresAuth || identity" />
+        <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
+            <CardHeader class="text-center gap-y-4">
+                <CardTitle class="text-">Not signed in</CardTitle>
+                <CardDescription>
+                    This page requires you to be authenticated. Please sign in to continue.
+                </CardDescription>
+            </CardHeader>
+            <CardFooter>
+                <Button variant="secondary" class="w-full" @click="signInAction">
+                    Sign in
+                </Button>
+            </CardFooter>
+        </Card>
     </Sidebar>
     <ComposerDialog />
 </template>
@@ -10,7 +23,17 @@
 import ComposerDialog from "~/components/composer/dialog.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
 import Sidebar from "~/components/sidebars/sidebar.vue";
+import { Button } from "~/components/ui/button";
+import {
+    Card,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
 
+const appData = useAppData();
+const signInAction = () => signIn(appData);
 const { n } = useMagicKeys();
 const activeElement = useActiveElement();
 const notUsingInput = computed(
@@ -18,6 +41,8 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "INPUT" &&
         activeElement.value?.tagName !== "TEXTAREA",
 );
+
+const route = useRoute();
 
 watchEffect(async () => {
     if (n?.value && notUsingInput.value) {

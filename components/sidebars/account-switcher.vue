@@ -28,7 +28,7 @@
                         }}</span>
                     </div>
                 </Button>
-                <DropdownMenuItem @click="signIn()">
+                <DropdownMenuItem @click="signInAction">
                     <UserPlus />
                     Add account
                 </DropdownMenuItem>
@@ -78,40 +78,7 @@ import { SidebarMenuButton } from "../ui/sidebar";
 
 const appData = useAppData();
 
-const signIn = async () => {
-    const id = toast.loading("Signing in...");
-
-    const output = await client.value.createApp("Versia", {
-        scopes: ["read", "write", "follow", "push"],
-        redirect_uris: new URL("/", useRequestURL().origin).toString(),
-        website: useBaseUrl().value,
-    });
-
-    if (!output?.data) {
-        toast.dismiss(id);
-        toast.error("Failed to create app");
-        return;
-    }
-
-    appData.value = output.data;
-
-    const url = await client.value.generateAuthUrl(
-        output.data.client_id,
-        output.data.client_secret,
-        {
-            scopes: ["read", "write", "follow", "push"],
-            redirect_uri: new URL("/", useRequestURL().origin).toString(),
-        },
-    );
-
-    if (!url) {
-        toast.dismiss(id);
-        toast.error("Failed to generate auth URL");
-        return;
-    }
-
-    window.location.href = url;
-};
+const signInAction = () => signIn(appData);
 
 const signOut = async (userId?: string) => {
     const id = toast.loading("Signing out...");
