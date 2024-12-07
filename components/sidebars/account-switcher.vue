@@ -37,7 +37,7 @@
             <DropdownMenuGroup v-if="identity">
                 <DropdownMenuItem :as="NuxtLink" :href="`/@${identity.account.username}`">
                     <BadgeCheck />
-                    {{ m.factual_awful_hare_drip() }}
+                    {{ m.factual_arable_jurgen_endure() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

@@ -125,6 +125,10 @@ export const settings = (): Record<SettingIds, Setting> => {
                             },
                         ),
                 },
+                {
+                    value: "en-rot",
+                    label: () => "Brainrot",
+                },
             ],
             page: SettingPages.Behaviour,
         } as EnumSetting,

@@ -25,7 +25,6 @@
 <script lang="ts" setup>
 import { CalendarDays } from "lucide-vue-next";
 import * as m from "~/paraglide/messages.js";
-import { languageTag } from "~/paraglide/runtime";
 
 const { creationDate } = defineProps<{
     creationDate: Date;
@@ -34,7 +33,7 @@ const { creationDate } = defineProps<{
     followingCount: number;
 }>();
 
-const formattedCreationDate = new Intl.DateTimeFormat(languageTag(), {
+const formattedCreationDate = new Intl.DateTimeFormat(getLanguageTag(), {
     month: "long",
     year: "numeric",
 }).format(creationDate);

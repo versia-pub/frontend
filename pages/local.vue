@@ -18,7 +18,7 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.steep_aqua_fox_harbor(),
         },

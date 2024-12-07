@@ -25,7 +25,7 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.broad_whole_herring_reside(),
         },

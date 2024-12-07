@@ -9,7 +9,7 @@ import * as m from "~/paraglide/messages.js";
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.broad_whole_herring_reside(),
         },

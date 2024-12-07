@@ -32,7 +32,7 @@ const username = (route.params.username as string).startsWith("@")
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.tough_nice_ox_drum(),
         },

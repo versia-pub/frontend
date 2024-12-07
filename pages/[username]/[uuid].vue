@@ -17,7 +17,7 @@ import * as m from "~/paraglide/messages.js";
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.chunky_awake_mallard_grow(),
         },

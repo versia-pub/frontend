@@ -1,6 +1,6 @@
 declare module "#app" {
     interface PageMeta {
-        breadcrumbs?: {
+        breadcrumbs?: () => {
             text: string;
             href?: string;
         }[];

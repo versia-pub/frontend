@@ -33,13 +33,13 @@ const route = useRoute();
                     <Separator orientation="vertical" class="mr-2 h-4" />
                     <Breadcrumb v-if="route.meta.breadcrumbs">
                         <BreadcrumbList>
-                            <template v-for="(breadcrumb, index) of route.meta.breadcrumbs">
+                            <template v-for="(breadcrumb, index) of route.meta.breadcrumbs()">
                                 <BreadcrumbItem class="hidden md:block">
                                     <component :is="breadcrumb.href ? BreadcrumbLink : BreadcrumbPage" :href="breadcrumb.href">
                                         {{ breadcrumb.text }}
                                     </component>
                                 </BreadcrumbItem>
-                                <BreadcrumbSeparator v-if="index !== (route.meta.breadcrumbs.length - 1)"
+                                <BreadcrumbSeparator v-if="index !== (route.meta.breadcrumbs().length - 1)"
                                     class="hidden md:block" />
                             </template>
                         </BreadcrumbList>

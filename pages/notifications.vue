@@ -30,7 +30,7 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: [
+    breadcrumbs: () => [
         {
             text: m.that_patchy_mare_snip(),
             href: "/notifications",
