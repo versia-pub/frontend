@@ -23,7 +23,7 @@
 - [x] Alt text support everywhere
 - [x] Media uploads
 - [x] WCAG 2.2 AAA compliance
-  - Testing is automated and may not catch all issues, please report any accessibility issues you find.
+  - Testing is automated and will not catch all issues, please report any accessibility issues you find.
 - [x] Settings
 - [x] Profile editing
 
@@ -45,13 +45,13 @@ Other browsers may work, but are not guaranteed to.
 
 ## Performance
 
-### JavaScript Bloat
+### JavaScript
 
-The **total** JavaScript bundle size is less than `900 kB`, but this is made even smaller by the fact that the bundle is split into multiple files, and only the necessary files are loaded on each page.
+The **total** JavaScript bundle size is less than `1000 kB`, but this is made even smaller by the fact that the bundle is split into multiple files, and only the necessary files are loaded on each page.
 
 ### Benchmarks
 
-Benchmarks are due to be conducted soon™.
+Soon™.
 
 ## Installation
 
