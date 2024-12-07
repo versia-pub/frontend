@@ -11,7 +11,7 @@
         <CardContent>
             <Content :content="noteToUse.content" :quote="note.quote ?? undefined"
                 :attachments="noteToUse.media_attachments" :plain-content="noteToUse.plain_content ?? undefined"
-                :emojis="noteToUse.emojis" />
+                :emojis="noteToUse.emojis" :sensitive="noteToUse.sensitive" :content-warning="noteToUse.spoiler_text" />
         </CardContent>
         <CardFooter v-if="!hideActions" class="p-4 pt-0">
             <Actions :reply-count="noteToUse.replies_count" :like-count="noteToUse.favourites_count" :url="url"

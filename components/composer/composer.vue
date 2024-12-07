@@ -203,6 +203,7 @@ const submit = async () => {
             });
 
             useEvent("composer:send-edit", data);
+            useEvent("composer:close");
         } else {
             const { data } = await client.value.postStatus(state.content, {
                 content_type: state.contentType,
