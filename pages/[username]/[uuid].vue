@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTitle } from "@vueuse/core";
 import { Loader } from "lucide-vue-next";
 import Note from "~/components/notes/note.vue";
 
@@ -54,10 +55,14 @@ watch(
     },
 );
 
-useServerSeoMeta({
-    title: note.value?.account.display_name,
-    description: note.value?.content,
-    ogImage: note.value?.media_attachments[0]?.preview_url,
+useSeoMeta({
+    title: computed(() =>
+        note.value ? note.value.account.display_name : "Loading",
+    ),
+    description: computed(() => (note.value ? note.value.content : undefined)),
+    ogImage: computed(() =>
+        note.value ? note.value.media_attachments[0]?.preview_url : undefined,
+    ),
     robots: computed(() => ({
         noindex: !!note.value?.account.noindex,
         nofollow: !!note.value?.account.noindex,

@@ -10,6 +10,10 @@
 import Global from "~/components/timelines/global.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
+useHead({
+    title: "Global",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [

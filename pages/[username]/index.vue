@@ -41,7 +41,7 @@ definePageMeta({
 const { account, isLoading } = useAccountFromAcct(client, username);
 const accountId = computed(() => account.value?.id ?? undefined);
 
-useServerSeoMeta({
+useSeoMeta({
     title: computed(() =>
         account.value ? account.value.display_name : "Loading",
     ),

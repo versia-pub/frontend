@@ -24,5 +24,9 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 
+useHead({
+    title: "Authorization Code",
+});
+
 const { code } = useUrlSearchParams();
 </script>

@@ -13,6 +13,10 @@ import Home from "~/components/timelines/home.vue";
 import Public from "~/components/timelines/public.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
+useHead({
+    title: identity.value ? "Home" : "Public",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [

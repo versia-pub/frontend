@@ -23,6 +23,10 @@
 import Notifications from "~/components/timelines/notifications.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
+useHead({
+    title: "Notifications",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [

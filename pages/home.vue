@@ -10,6 +10,10 @@
 import Home from "~/components/timelines/home.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 
+useHead({
+    title: "Home",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [

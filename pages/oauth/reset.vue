@@ -102,6 +102,10 @@ import {
 import { Input } from "~/components/ui/input";
 import { NuxtLink } from "#components";
 
+useHead({
+    title: "Reset Password",
+});
+
 identity.value = null;
 
 const formSchema = toTypedSchema(

@@ -24,6 +24,10 @@ import {
     SettingType,
 } from "~/settings.ts";
 
+useHead({
+    title: "Preferences",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [

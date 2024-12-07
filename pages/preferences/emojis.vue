@@ -26,6 +26,10 @@ import { Search } from "lucide-vue-next";
 import Category from "~/components/preferences/emojis/category.vue";
 import { Input } from "~/components/ui/input";
 
+useHead({
+    title: "Emoji Preferences",
+});
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [
