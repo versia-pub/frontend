@@ -73,17 +73,19 @@ services:
         restart: unless-stopped
         networks:
             - versia-net
-        environment:
-            NUXT_PUBLIC_API_HOST: https://yourserver.com
-            # For Tor users, set the following environment variable in addition to the above
-            # NUXT_PUBLIC_ONION_API_HOST: http://youronionserver.onion
 ```
 
-Then, the frontend will be available at `http://localhost:3000` inside the container. To link it to a Versia Server, set the `NUXT_PUBLIC_API_HOST` environment variable to the server's URL.
+Then, the frontend will be available at `http://localhost:3000` inside the container.
+
+> [!TIP]
+>
+> By default, Versia-FE will connect to any Versia Server instance running on the same domain.
+>
+> You can set the `NUXT_PUBLIC_API_HOST` environment variable to point to a different Versia Server instance.
 
 ## Development
 
-Make sure to run `bun run emojis:generate` to generate the emoji list before building or running the project.
+Run `bun run emojis:generate` to generate the emoji list before building or running the project.
 
 ## License
 
