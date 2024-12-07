@@ -21,6 +21,7 @@ import {
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { confirmModalService } from "~/components/modals/composable.ts";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 
 const { authorId, noteId } = defineProps<{
@@ -45,23 +46,23 @@ const confirmDeletes = useSetting(SettingIds.ConfirmDelete);
 
 const copyText = (text: string) => {
     copy(text);
-    toast.success("Copied to clipboard");
+    toast.success(m.flat_nice_worm_dream());
 };
 
 const blockUser = async (userId: string) => {
-    const id = toast.loading("Blocking user...");
+    const id = toast.loading(m.top_cute_bison_nudge());
     await client.value.blockAccount(userId);
     toast.dismiss(id);
 
-    toast.success("User blocked");
+    toast.success(m.main_weary_racoon_peek());
 };
 
 const _delete = async () => {
     if (confirmDeletes.value.value) {
         const confirmation = await confirmModalService.confirm({
-            title: "Delete status",
-            message: "Are you sure you want to delete this status?",
-            confirmText: "Delete",
+            title: m.calm_icy_weasel_twirl(),
+            message: m.gray_fun_toucan_slide(),
+            confirmText: m.royal_best_tern_transform(),
             inputType: "none",
         });
 
@@ -70,11 +71,11 @@ const _delete = async () => {
         }
     }
 
-    const id = toast.loading("Deleting status...");
+    const id = toast.loading(m.new_funny_fox_boil());
     await client.value.deleteStatus(noteId);
     toast.dismiss(id);
 
-    toast.success("Status deleted");
+    toast.success(m.green_tasty_bumblebee_beam());
     emit("delete");
 };
 </script>
@@ -85,57 +86,57 @@ const _delete = async () => {
             <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-56">
-            <DropdownMenuLabel>Note Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>{{ m.many_misty_parakeet_fall() }}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem v-if="authorIsMe" as="button" @click="emit('edit')">
                     <Pencil class="mr-2 size-4" />
-                    <span>Edit</span>
+                    {{ m.front_lime_grizzly_persist() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(apiNoteString)">
                     <Code class="mr-2 size-4" />
-                    <span>Copy API data</span>
+                    {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(noteId)">
                     <Hash class="mr-2 size-4" />
-                    <span>Copy ID</span>
+                    {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
                     <Link class="mr-2 size-4" />
-                    <span>Copy link</span>
+                    {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" v-if="isRemote" @click="copyText(remoteUrl)">
                     <Link class="mr-2 size-4" />
-                    <span>Copy link (origin)</span>
+                    {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="a" v-if="isRemote" target="_blank" rel="noopener noreferrer" :href="remoteUrl">
                     <ExternalLink class="mr-2 size-4" />
-                    <span>Open on remote</span>
+                    {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="authorIsMe" />
             <DropdownMenuGroup v-if="authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Delete class="mr-2 size-4" />
-                    <span>Delete and redraft</span>
+                    {{ m.real_green_clownfish_pet() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="_delete">
                     <Trash class="mr-2 size-4" />
-                    <span>Delete</span>
+                    {{ m.tense_quick_cod_favor() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="loggedIn && !authorIsMe" />
             <DropdownMenuGroup v-if="loggedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag class="mr-2 size-4" />
-                    <span>Report</span>
+                    {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(authorId)">
                     <Ban class="mr-2 size-4" />
-                    <span>Block user</span>
+                    {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
         </DropdownMenuContent>

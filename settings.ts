@@ -1,3 +1,6 @@
+import * as m from "~/paraglide/messages.js";
+import { setLanguageTag } from "./paraglide/runtime";
+
 export enum SettingType {
     String = "string",
     Boolean = "boolean",
@@ -8,8 +11,8 @@ export enum SettingType {
 }
 
 export type Setting = {
-    title: string;
-    description: string;
+    title: () => string;
+    description: () => string;
     notImplemented?: boolean;
     type: SettingType;
     value: unknown;
@@ -31,7 +34,7 @@ export type EnumSetting = Setting & {
     value: string;
     options: {
         value: string;
-        label: string;
+        label: () => string;
         icon?: string;
     }[];
 };
@@ -66,6 +69,7 @@ export enum SettingPages {
 }
 
 export enum SettingIds {
+    Language = "language",
     Mfm = "mfm",
     CustomCSS = "custom-css",
     Theme = "theme",
@@ -85,195 +89,226 @@ export enum SettingIds {
     SidebarStyle = "sidebar-style",
 }
 
-export const settings: Record<SettingIds, Setting> = {
-    [SettingIds.Mfm]: {
-        title: "Render MFM",
-        description: "Render Misskey-Flavoured Markdown.",
-        type: SettingType.Boolean,
-        value: false,
-        page: SettingPages.Behaviour,
-        notImplemented: true,
-    } as BooleanSetting,
-    [SettingIds.SidebarStyle]: {
-        title: "Sidebar Style",
-        description: "Style of the left sidebar.",
-        type: SettingType.Enum,
-        value: "inset",
-        options: [
-            {
-                value: "inset",
-                label: "Inset",
-            },
-            {
-                value: "sidebar",
-                label: "Sidebar",
-            },
-            {
-                value: "floating",
-                label: "Floating",
-            },
-        ],
-        page: SettingPages.Appearance,
-    } as EnumSetting,
-    [SettingIds.AvatarShape]: {
-        title: "Avatar Shape",
-        description: "Shape of all user avatars.",
-        type: SettingType.Enum,
-        value: "square",
-        options: [
-            {
-                value: "circle",
-                label: "Round",
-            },
-            {
-                value: "square",
-                label: "Square",
-            },
-        ],
-        page: SettingPages.Appearance,
-    } as EnumSetting,
-    [SettingIds.CustomCSS]: {
-        title: "Custom CSS",
-        description: "Custom CSS for the UI.",
-        type: SettingType.Code,
-        value: "",
-        language: "css",
-        page: SettingPages.Appearance,
-    } as CodeSetting,
-    [SettingIds.Theme]: {
-        title: "Theme",
-        description: "UI theme.",
-        type: SettingType.Enum,
-        value: "dark",
-        options: [
-            {
-                value: "dark",
-                label: "Dark",
-            },
-            {
-                value: "light",
-                label: "Light",
-            },
-            {
-                value: "system",
-                label: "System",
-            },
-        ],
-        page: SettingPages.Appearance,
-    } as EnumSetting,
-    [SettingIds.CustomEmojis]: {
-        title: "Render Custom Emojis",
-        description: "Render custom emojis. Requires a page reload to apply.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.ShowContentWarning]: {
-        title: "Blur Sensitive Content",
-        description: "Blur notes marked sensitive/spoiler.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.PopupAvatarHover]: {
-        title: "Popup Profile Hover",
-        description: "Show profile popup when hovering over a user's avatar.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.InfiniteScroll]: {
-        title: "Infinite Scroll",
-        description:
-            "Automatically load more notes when reaching the bottom of the page.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.ConfirmDelete]: {
-        title: "Confirm Delete",
-        description: "Confirm before deleting a note.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.ConfirmFollow]: {
-        title: "Confirm Follow",
-        description: "Confirm before following/unfollowing a user.",
-        type: SettingType.Boolean,
-        value: false,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.ConfirmReblog]: {
-        title: "Confirm Reblog",
-        description: "Confirm before reblogging a note.",
-        type: SettingType.Boolean,
-        value: false,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.ConfirmLike]: {
-        title: "Confirm Like",
-        description: "Confirm before liking a note.",
-        type: SettingType.Boolean,
-        value: false,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.CtrlEnterToSend]: {
-        title: "Ctrl+Enter to Send",
-        description: "Send a note by pressing ⌘+Enter or Ctrl+Enter.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Behaviour,
-    } as BooleanSetting,
-    [SettingIds.EmojiTheme]: {
-        title: "Emoji Theme",
-        description:
-            "Theme used for rendering emojis. Requires a page reload to apply.",
-        type: SettingType.Enum,
-        value: "native",
-        options: [
-            {
-                value: "native",
-                label: "Operating System",
-            },
-            {
-                value: "twemoji",
-                label: "Twitter Emojis",
-            },
-            {
-                value: "noto",
-                label: "Noto Emoji",
-            },
-            {
-                value: "fluent",
-                label: "Fluent Emojis",
-            },
-            {
-                value: "fluent-flat",
-                label: "Fluent Emojis (flat version)",
-            },
-        ],
-        page: SettingPages.Appearance,
-    } as EnumSetting,
-    [SettingIds.BackgroundURL]: {
-        title: "Background URL",
-        description: "Change the background image of the site.",
-        type: SettingType.String,
-        value: "",
-        page: SettingPages.Appearance,
-    } as StringSetting,
-    [SettingIds.NotificationsSidebar]: {
-        title: "Notifications Sidebar",
-        description: "Display a sidebar with notifications on desktop.",
-        type: SettingType.Boolean,
-        value: true,
-        page: SettingPages.Appearance,
-    } as BooleanSetting,
+export const settings = (): Record<SettingIds, Setting> => {
+    return {
+        [SettingIds.Mfm]: {
+            title: m.quaint_clear_boar_attend,
+            description: m.aloof_helpful_larva_spur,
+            type: SettingType.Boolean,
+            value: false,
+            page: SettingPages.Behaviour,
+            notImplemented: true,
+        } as BooleanSetting,
+        [SettingIds.Language]: {
+            title: m.pretty_born_jackal_dial,
+            description: m.tired_happy_lobster_pet,
+            type: SettingType.Enum,
+            value: "en",
+            options: [
+                {
+                    value: "en",
+                    label: () =>
+                        m.keen_aware_goldfish_thrive(
+                            {},
+                            {
+                                languageTag: "en",
+                            },
+                        ),
+                },
+                {
+                    value: "fr",
+                    label: () =>
+                        m.vivid_mellow_sawfish_approve(
+                            {},
+                            {
+                                languageTag: "fr",
+                            },
+                        ),
+                },
+            ],
+            page: SettingPages.Behaviour,
+        } as EnumSetting,
+        [SettingIds.SidebarStyle]: {
+            title: m.deft_seemly_donkey_slide,
+            description: m.wide_least_samuel_conquer,
+            type: SettingType.Enum,
+            value: "inset",
+            options: [
+                {
+                    value: "inset",
+                    label: m.fluffy_north_crow_blink,
+                },
+                {
+                    value: "sidebar",
+                    label: m.day_polite_newt_loop,
+                },
+                {
+                    value: "floating",
+                    label: m.jolly_mad_jackdaw_assure,
+                },
+            ],
+            page: SettingPages.Appearance,
+        } as EnumSetting,
+        [SettingIds.AvatarShape]: {
+            title: m.fit_cool_bulldog_dine,
+            description: m.agent_misty_firefox_arise,
+            type: SettingType.Enum,
+            value: "square",
+            options: [
+                {
+                    value: "circle",
+                    label: m.polite_awful_ladybug_greet,
+                },
+                {
+                    value: "square",
+                    label: m.sad_each_cowfish_lock,
+                },
+            ],
+            page: SettingPages.Appearance,
+        } as EnumSetting,
+        [SettingIds.CustomCSS]: {
+            title: m.smart_awake_dachshund_view,
+            description: m.loved_topical_rat_coax,
+            type: SettingType.Code,
+            value: "",
+            language: "css",
+            page: SettingPages.Appearance,
+        } as CodeSetting,
+        [SettingIds.Theme]: {
+            title: m.hour_elegant_mink_grip,
+            description: m.male_stout_florian_feast,
+            type: SettingType.Enum,
+            value: "dark",
+            options: [
+                {
+                    value: "dark",
+                    label: m.wise_neat_ox_buzz,
+                },
+                {
+                    value: "light",
+                    label: m.each_strong_snail_aid,
+                },
+                {
+                    value: "system",
+                    label: m.helpful_raw_seal_nurture,
+                },
+            ],
+            page: SettingPages.Appearance,
+        } as EnumSetting,
+        [SettingIds.CustomEmojis]: {
+            title: m.loud_raw_sheep_imagine,
+            description: m.inclusive_pink_tuna_enjoy,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.ShowContentWarning]: {
+            title: m.fair_swift_elephant_hunt,
+            description: m.gray_minor_bee_endure,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.PopupAvatarHover]: {
+            title: m.north_nimble_turkey_transform,
+            description: m.bold_moving_fly_savor,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.InfiniteScroll]: {
+            title: m.sleek_this_earthworm_hug,
+            description: m.plane_dark_salmon_pout,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.ConfirmDelete]: {
+            title: m.trite_salty_eel_race,
+            description: m.helpful_early_worm_laugh,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.ConfirmFollow]: {
+            title: m.jolly_empty_bullock_mend,
+            description: m.calm_male_wombat_relish,
+            type: SettingType.Boolean,
+            value: false,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.ConfirmReblog]: {
+            title: m.honest_great_rooster_taste,
+            description: m.wacky_inner_osprey_intend,
+            type: SettingType.Boolean,
+            value: false,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.ConfirmLike]: {
+            title: m.patchy_basic_alligator_inspire,
+            description: m.antsy_weak_raven_treat,
+            type: SettingType.Boolean,
+            value: false,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.CtrlEnterToSend]: {
+            title: m.equal_blue_zebra_launch,
+            description: m.heavy_pink_meerkat_affirm,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Behaviour,
+        } as BooleanSetting,
+        [SettingIds.EmojiTheme]: {
+            title: m.weak_bad_martin_glow,
+            description: m.warm_round_dove_skip,
+            type: SettingType.Enum,
+            value: "native",
+            options: [
+                {
+                    value: "native",
+                    label: m.slimy_sound_termite_hug,
+                },
+                {
+                    value: "twemoji",
+                    label: m.new_brave_maggot_relish,
+                },
+                {
+                    value: "noto",
+                    label: m.shy_clear_spider_cook,
+                },
+                {
+                    value: "fluent",
+                    label: m.many_tasty_midge_zoom,
+                },
+                {
+                    value: "fluent-flat",
+                    label: m.less_early_lionfish_honor,
+                },
+            ],
+            page: SettingPages.Appearance,
+        } as EnumSetting,
+        [SettingIds.BackgroundURL]: {
+            title: m.stock_large_marten_comfort,
+            description: m.mean_weird_donkey_stab,
+            type: SettingType.String,
+            value: "",
+            page: SettingPages.Appearance,
+        } as StringSetting,
+        [SettingIds.NotificationsSidebar]: {
+            title: m.tired_jumpy_rook_slurp,
+            description: m.wide_new_robin_empower,
+            type: SettingType.Boolean,
+            value: true,
+            page: SettingPages.Appearance,
+        } as BooleanSetting,
+    };
 };
 
 export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {
     return Object.fromEntries(
-        Object.entries(settings).filter(([, setting]) => setting.page === page),
+        Object.entries(settings()).filter(
+            ([, setting]) => setting.page === page,
+        ),
     );
 };
 
@@ -284,14 +319,14 @@ export const getSettingsForPage = (page: SettingPages): Partial<Settings> => {
 export const mergeSettings = (
     settingsToMerge: Record<SettingIds, Setting["value"]>,
 ): Settings => {
-    const finalSettings = structuredClone(settings);
+    const finalSettings = settings();
 
     for (const [key, value] of Object.entries(settingsToMerge)) {
-        if (key in settings) {
+        if (key in settings()) {
             finalSettings[key as SettingIds].value = value;
         }
     }
 
     return finalSettings;
 };
-export type Settings = typeof settings;
+export type Settings = ReturnType<typeof settings>;

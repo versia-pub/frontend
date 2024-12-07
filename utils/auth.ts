@@ -1,9 +1,10 @@
 import type { ApplicationData } from "@versia/client/types";
 import { nanoid } from "nanoid";
 import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 
 export const signIn = async (appData: Ref<ApplicationData | null>) => {
-    const id = toast.loading("Signing in...");
+    const id = toast.loading(m.level_due_ox_greet());
 
     const output = await client.value.createApp("Versia", {
         scopes: ["read", "write", "follow", "push"],
@@ -13,7 +14,7 @@ export const signIn = async (appData: Ref<ApplicationData | null>) => {
 
     if (!output?.data) {
         toast.dismiss(id);
-        toast.error("Failed to create app");
+        toast.error(m.silly_sour_fireant_fear());
         return;
     }
 
@@ -30,7 +31,7 @@ export const signIn = async (appData: Ref<ApplicationData | null>) => {
 
     if (!url) {
         toast.dismiss(id);
-        toast.error("Failed to generate auth URL");
+        toast.error(m.candid_frail_lion_value());
         return;
     }
 

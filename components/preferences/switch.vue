@@ -2,10 +2,10 @@
     <Card class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
         <CardHeader class="space-y-0.5 p-0">
             <CardTitle class="text-base">
-                {{ setting.title }}
+                {{ setting.title() }}
             </CardTitle>
             <CardDescription>
-                {{ setting.description }}
+                {{ setting.description() }}
             </CardDescription>
         </CardHeader>
         <CardFooter class="p-0">

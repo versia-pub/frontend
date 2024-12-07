@@ -5,11 +5,13 @@
 </template>
 
 <script lang="ts" setup>
+import * as m from "~/paraglide/messages.js";
+
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Preferences",
+            text: m.broad_whole_herring_reside(),
         },
     ],
     requiresAuth: true,

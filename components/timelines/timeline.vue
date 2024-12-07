@@ -18,9 +18,9 @@
         <!-- If there are some posts, but the user scrolled to the end -->
         <Card v-if="hasReachedEnd && items.length > 0" class="shadow-none bg-transparent border-none p-4">
             <CardHeader class="text-center gap-y-4">
-                <CardTitle class="text-">No more data.</CardTitle>
+                <CardTitle>{{ m.steep_suave_fish_snap() }}</CardTitle>
                 <CardDescription>
-                    You've scrolled so far, there's nothing left to show.
+                    {{ m.muddy_bland_shark_accept() }}
                 </CardDescription>
             </CardHeader>
         </Card>
@@ -28,16 +28,16 @@
         <!-- If there are no posts at all -->
         <Card v-else-if="hasReachedEnd && items.length === 0" class="shadow-none bg-transparent border-none p-4">
             <CardHeader class="text-center gap-y-4">
-                <CardTitle class="text-">There's nothing to show here.</CardTitle>
+                <CardTitle>{{ m.fine_arable_lemming_fold() }}</CardTitle>
                 <CardDescription>
-                    Either you're all caught up or there's nothing to show.
+                    {{ m.petty_honest_fish_stir() }}
                 </CardDescription>
             </CardHeader>
         </Card>
 
         <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
             <Button variant="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
-                Load More
+                {{ m.gaudy_bland_gorilla_talk() }}
             </Button>
         </div>
 
@@ -55,6 +55,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 import { Button } from "../ui/button";
 import TimelineItem from "./timeline-item.vue";

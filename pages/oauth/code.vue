@@ -4,8 +4,8 @@
     }">
         <Card class="w-full max-w-md">
             <CardHeader>
-                <CardTitle>Here's your code</CardTitle>
-                <CardDescription>You have signed in successfully.<br />Paste the following code into your app:
+                <CardTitle>{{ m.aware_awful_crow_spur() }}</CardTitle>
+                <CardDescription>{{ m.mushy_soft_lizard_propel() }}<br />{{ m.short_arable_leopard_zap() }}
                 </CardDescription>
             </CardHeader>
             <CardContent class="grid">
@@ -23,9 +23,10 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: "Authorization Code",
+    title: m.spare_aqua_warthog_mend(),
 });
 
 const { code } = useUrlSearchParams();

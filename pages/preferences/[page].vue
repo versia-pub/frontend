@@ -15,6 +15,7 @@
 <script lang="ts" setup>
 import SelectPreference from "~/components/preferences/select.vue";
 import SwitchPreference from "~/components/preferences/switch.vue";
+import * as m from "~/paraglide/messages.js";
 import {
     type BooleanSetting,
     type EnumSetting,
@@ -25,14 +26,14 @@ import {
 } from "~/settings.ts";
 
 useHead({
-    title: "Preferences",
+    title: m.broad_whole_herring_reside(),
 });
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Preferences",
+            text: m.broad_whole_herring_reside(),
         },
     ],
     requiresAuth: true,

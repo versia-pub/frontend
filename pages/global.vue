@@ -9,19 +9,20 @@
 <script setup lang="ts">
 import Global from "~/components/timelines/global.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: "Global",
+    title: m.real_tame_moose_greet(),
 });
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Timelines",
+            text: m.steep_aqua_fox_harbor(),
         },
         {
-            text: "Global",
+            text: m.real_tame_moose_greet(),
             href: "/global",
         },
     ],

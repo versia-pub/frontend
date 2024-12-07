@@ -7,7 +7,7 @@
             <span @click="copyText"
                 class="select-none cursor-pointer space-x-1">
                 <Clipboard class="size-4 -translate-y-0.5 inline" />
-                Click to copy
+                {{ m.clean_yummy_owl_reside() }}
             </span>
         </span>
     </span>
@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { Check, Clipboard } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
 import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 
 const { text } = defineProps<{
     text: string;

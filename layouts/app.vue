@@ -4,14 +4,14 @@
         <slot v-if="!route.meta.requiresAuth || identity" />
         <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
             <CardHeader class="text-center gap-y-4">
-                <CardTitle class="text-">Not signed in</CardTitle>
+                <CardTitle>{{ m.sunny_quick_lionfish_flip() }}</CardTitle>
                 <CardDescription>
-                    This page requires you to be authenticated. Please sign in to continue.
+                    {{ m.brave_known_pelican_drip() }}
                 </CardDescription>
             </CardHeader>
             <CardFooter>
                 <Button variant="secondary" class="w-full" @click="signInAction">
-                    Sign in
+                    {{ m.fuzzy_sea_moth_absorb() }}
                 </Button>
             </CardFooter>
         </Card>
@@ -31,6 +31,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
 
 const appData = useAppData();
 const signInAction = () => signIn(appData);

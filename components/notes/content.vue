@@ -1,14 +1,14 @@
 <template>
     <Alert variant="warning" v-if="(sensitive || contentWarning) && showCw.value"
         class="mb-4 py-2 px-4 grid grid-cols-[auto,1fr,auto] gap-2 items-center [&>svg~*]:pl-0 [&>svg+div]:translate-y-0 [&>svg]:static">
-        <AlertTitle class="sr-only">Sensitive content</AlertTitle>
+        <AlertTitle class="sr-only">{{ m.livid_tangy_lionfish_clasp() }}</AlertTitle>
         <div>
             <TriangleAlert class="size-4" />
         </div>
         <AlertDescription>
-            {{ contentWarning || "This content is sensitive" }}
+            {{ contentWarning || m.sour_seemly_bird_hike() }}
         </AlertDescription>
-        <Button @click="blurred = !blurred" variant="outline" size="sm">{{ blurred ? "Show" : "Hide" }}</Button>
+        <Button @click="blurred = !blurred" variant="outline" size="sm">{{ blurred ? m.bald_direct_turtle_win() : m.known_flaky_cockroach_dash() }}</Button>
     </Alert>
 
     <div ref="container" :class="cn('overflow-y-hidden relative duration-200', (blurred && showCw.value) && 'blur-md')" :style="{
@@ -23,9 +23,10 @@
         <Button v-if="isOverflowing" @click="collapsed = !collapsed"
             class="absolute bottom-2 right-1/2 translate-x-1/2">{{
                 collapsed
-                    ? `Show more${plainContent ? ` • ${formattedCharacterCount} characters` : ""
-                    }`
-                    : "Show less"
+                    ? `${m.lazy_honest_mammoth_bump()}${plainContent ? ` • ${m.dark_spare_goldfish_charm({
+                        count: formattedCharacterCount ?? '0',
+                    })}` : ""                    }`
+                    : m.that_misty_mule_arrive()
             }}</Button>
     </div>
 
@@ -41,6 +42,7 @@ import { cn } from "@/lib/utils";
 import type { Attachment, Emoji, Status } from "@versia/client/types";
 import { TriangleAlert } from "lucide-vue-next";
 import { Button } from "~/components/ui/button";
+import * as m from "~/paraglide/messages.js";
 import { languageTag } from "~/paraglide/runtime";
 import { type BooleanSetting, SettingIds } from "~/settings";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";

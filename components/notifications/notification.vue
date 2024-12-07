@@ -55,6 +55,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "~/components/ui/tooltip";
+import * as m from "~/paraglide/messages.js";
 import Note from "../notes/note.vue";
 import Avatar from "../profiles/avatar.vue";
 import FollowRequest from "./follow-request.vue";
@@ -85,17 +86,17 @@ const icon = computed(() => {
 const text = computed(() => {
     switch (notification.type) {
         case "mention":
-            return "Mentioned you";
+            return m.fuzzy_orange_tuna_succeed();
         case "reblog":
-            return "Reblogged your note";
+            return m.grand_proof_quail_read();
         case "follow":
-            return "Followed you";
+            return m.top_steep_scallop_care();
         case "favourite":
-            return "Liked your note";
+            return m.swift_just_beetle_devour();
         case "follow_request":
-            return "Requested to follow you";
+            return m.seemly_short_thrush_bloom();
         case "follow_accept":
-            return "Accepted your follow request";
+            return m.weird_seemly_termite_scold();
         default:
             return "";
     }

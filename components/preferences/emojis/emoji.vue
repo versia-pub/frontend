@@ -10,7 +10,7 @@
                     {{ emoji.shortcode }}
                 </CardTitle>
                 <CardDescription>
-                    {{ emoji.global ? m.lime_day_squid_pout() : m.witty_heroic_trout_cry() }}
+                    {{ emoji.global ? m.real_tame_moose_greet() : m.witty_heroic_trout_cry() }}
                 </CardDescription>
             </CardHeader>
             <CardFooter class="p-0" v-if="canEdit">

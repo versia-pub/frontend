@@ -6,18 +6,18 @@
             <CardHeader>
                 <Alert v-if="errors.error" variant="destructive" class="mb-4">
                     <AlertCircle class="size-4" />
-                    <AlertTitle>Error</AlertTitle>
+                    <AlertTitle>{{ m.vexed_each_falcon_enjoy() }}</AlertTitle>
                     <AlertDescription>
                         {{ errors.error }}
                     </AlertDescription>
                 </Alert>
-                <CardTitle as="h1" class="text-2xl break-words">Create an account</CardTitle>
+                <CardTitle as="h1" class="text-2xl break-words">{{ m.wide_topical_vole_walk() }}</CardTitle>
             </CardHeader>
             <CardContent v-if="instance && tos" class="grid gap-6">
                 <FormField v-slot="{ componentField }" name="username">
                     <FormItem>
                         <FormLabel>
-                            Username
+                            {{ m.keen_clean_nils_slurp() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="petergriffin" type="text" auto-capitalize="none"
@@ -30,7 +30,7 @@
                 <FormField v-slot="{ componentField }" name="email">
                     <FormItem>
                         <FormLabel>
-                            Email address
+                            {{ m.top_inclusive_wallaby_hack() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="peter.griffin@fox.com" type="email" auto-capitalize="none"
@@ -43,7 +43,7 @@
                 <FormField v-slot="{ componentField }" name="password">
                     <FormItem>
                         <FormLabel>
-                            Password
+                            {{ m.livid_bright_wallaby_quiz() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
@@ -55,7 +55,7 @@
                 <FormField v-slot="{ componentField }" name="password-confirm">
                     <FormItem>
                         <FormLabel>
-                            Confirm password
+                            {{ m.awful_cozy_jannes_rise() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
@@ -72,8 +72,8 @@
                             </FormControl>
                             <FormLabel>
                                 <Dialog>
-                                    I agree to the <DialogTrigger :as-child="true"><Button variant="link"
-                                            class="px-0 underline">Terms of Service</Button>.</DialogTrigger>
+                                    {{ m.plane_quick_chipmunk_rush() }} <DialogTrigger :as-child="true"><Button variant="link"
+                                            class="px-0 underline">{{ m.glad_last_crow_dine() }}</Button>.</DialogTrigger>
                                     <DialogContent class="!max-h-[90vh] overflow-auto">
                                         <DialogHeader>
                                             <DialogTitle>{{ instance.title }}
@@ -88,11 +88,11 @@
                     </FormItem>
                 </FormField>
                 <div class="flex-col flex gap-y-1 text-sm text-muted-foreground">
-                    <p>Passwords are never stored in plain text.</p>
+                    <p>{{ m.happy_house_dragonfly_clap() }}</p>
                 </div>
             </CardContent>
             <CardFooter v-if="instance && tos" class="grid gap-2">
-                <Button variant="default" type="submit">Register</Button>
+                <Button variant="default" type="submit">{{ m.early_last_ocelot_praise() }}</Button>
             </CardFooter>
             <div v-else class="p-4 flex items-center justify-center h-48">
                 <Loader class="size-8 animate-spin" />
@@ -100,14 +100,14 @@
         </Card>
         <Card v-else class="w-full max-w-md">
             <CardHeader>
-                <CardTitle>Sorry :c</CardTitle>
+                <CardTitle>{{ m.wide_away_cat_taste() }}</CardTitle>
                 <CardDescription>
-                    Registrations are disabled on this instance.
+                    {{ m.safe_candid_horse_jump() }}
                 </CardDescription>
             </CardHeader>
             <CardFooter class="grid">
                 <Button :as="NuxtLink" href="/" variant="default">
-                    Back to front page
+                    {{ m.every_tangy_koala_persist() }}}
                 </Button>
             </CardFooter>
         </Card>
@@ -117,7 +117,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { Client, type ResponseError } from "@versia/client";
-import { AlertCircle, Check, Loader } from "lucide-vue-next";
+import { AlertCircle, Loader } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
@@ -126,10 +126,11 @@ import { Checkbox } from "~/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader } from "~/components/ui/dialog";
 import { FormItem } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
 
 useHead({
-    title: "Register",
+    title: m.early_last_ocelot_praise(),
 });
 
 const schema = toTypedSchema(
@@ -141,13 +142,10 @@ const schema = toTypedSchema(
             username: z
                 .string()
                 .min(3)
-                .regex(
-                    /^[a-z0-9_]+$/,
-                    "Must be lowercase letters, numbers, or underscores",
-                ),
+                .regex(/^[a-z0-9_-]+$/, m.sea_maroon_peacock_yell()),
             reason: z.string().optional(),
             tos: z.boolean().refine((value) => value, {
-                message: "You must agree to the Terms of Service",
+                message: m.civil_loose_coyote_jump(),
             }),
         })
         .superRefine((data, ctx) => {
@@ -155,7 +153,7 @@ const schema = toTypedSchema(
                 ctx.addIssue({
                     path: [...ctx.path, "password-confirm"],
                     code: "custom",
-                    message: "Passwords do not match",
+                    message: m.candid_fancy_leopard_prosper(),
                 });
             }
             return {};

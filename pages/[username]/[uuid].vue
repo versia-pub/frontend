@@ -11,15 +11,15 @@
 </template>
 
 <script setup lang="ts">
-import { useTitle } from "@vueuse/core";
 import { Loader } from "lucide-vue-next";
 import Note from "~/components/notes/note.vue";
+import * as m from "~/paraglide/messages.js";
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Note",
+            text: m.chunky_awake_mallard_grow(),
         },
     ],
 });
@@ -57,7 +57,9 @@ watch(
 
 useSeoMeta({
     title: computed(() =>
-        note.value ? note.value.account.display_name : "Loading",
+        note.value
+            ? note.value.account.display_name
+            : m.steep_sour_warthog_aim(),
     ),
     description: computed(() => (note.value ? note.value.content : undefined)),
     ogImage: computed(() =>

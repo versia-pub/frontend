@@ -7,7 +7,7 @@ import {
 } from "~/settings";
 
 const useSettings = () => {
-    return useLocalStorage<Settings>("versia:settings", settingsJson, {
+    return useLocalStorage<Settings>("versia:settings", settingsJson(), {
         serializer: {
             read(raw) {
                 const json = StorageSerializers.object.read(raw);

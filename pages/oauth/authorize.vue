@@ -4,10 +4,11 @@ import { AlertCircle, Loader } from "lucide-vue-next";
 import UserAuthForm from "~/components/oauth/login.vue";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
+import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
 
 useHead({
-    title: "Sign In",
+    title: m.fuzzy_sea_moth_absorb(),
 });
 
 const host = new URL(useBaseUrl().value).host;
@@ -18,7 +19,7 @@ const { error, error_description } = useUrlSearchParams();
 <template>
     <div class="container relative flex h-svh flex-col items-center justify-center md:flex-row lg:max-w-none lg:px-0">
         <Button :as="NuxtLink" href="/register" variant="link" class="absolute right-4 top-4 md:right-8 md:top-8">
-            Register
+            {{ m.noble_cute_ocelot_aim() }}
         </Button>
         <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex grow bg-center bg-no-repeat bg-cover"
             :style="{
@@ -55,10 +56,11 @@ const { error, error_description } = useUrlSearchParams();
                 </Alert>
                 <div class="flex flex-col space-y-2 text-center">
                     <h1 class="text-2xl font-semibold tracking-tight">
-                        Log in to your account.
+                        {{ m.novel_fine_stork_snap() }}
                     </h1>
-                    <p class="text-sm text-muted-foreground">
-                        Enter your credentials for <code>{{ host }}</code>.
+                    <p class="text-sm text-muted-foreground" v-html="m.smug_main_whale_snip({
+                        host,
+                    })">
                     </p>
                 </div>
                 <UserAuthForm v-if="instance" :instance="instance" />

@@ -12,24 +12,27 @@
 import Home from "~/components/timelines/home.vue";
 import Public from "~/components/timelines/public.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: identity.value ? "Home" : "Public",
+    title: identity.value
+        ? m.bland_chunky_sparrow_propel()
+        : m.lost_trick_dog_grace(),
 });
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Timelines",
+            text: m.steep_aqua_fox_harbor(),
         },
         identity.value
             ? {
-                  text: "Home",
+                  text: m.bland_chunky_sparrow_propel(),
                   href: "/home",
               }
             : {
-                  text: "Public",
+                  text: m.lost_trick_dog_grace(),
                   href: "/public",
               },
     ],

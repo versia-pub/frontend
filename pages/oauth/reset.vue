@@ -4,14 +4,14 @@
     }">
         <Card v-if="params.success" class="w-full max-w-md">
             <CardHeader>
-                <CardTitle>Success</CardTitle>
+                <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>
                 <CardDescription>
-                    Your password has been reset. You can now log in with your new password.
+                    {{ m.brave_acidic_lobster_fetch() }}
                 </CardDescription>
             </CardHeader>
             <CardFooter class="grid">
                 <Button :as="NuxtLink" href="/" variant="default">
-                    Back to front page
+                    {{ m.every_tangy_koala_persist() }}
                 </Button>
             </CardFooter>
         </Card>
@@ -20,9 +20,9 @@
                 <CardHeader>
                     <Alert v-if="params.login_reset" variant="default" class="mb-4">
                         <AlertCircle class="size-4" />
-                        <AlertTitle>Info</AlertTitle>
+                        <AlertTitle>{{ m.east_loud_lobster_explore() }}</AlertTitle>
                         <AlertDescription>
-                            Your password has been reset by an administrator. Please change it here.
+                            {{ m.good_plane_gazelle_glow() }}
                         </AlertDescription>
                     </Alert>
                     <Alert v-if="params.error" variant="destructive" class="mb-4">
@@ -32,9 +32,9 @@
                             {{ params.error_description }}
                         </AlertDescription>
                     </Alert>
-                    <CardTitle as="h1">Reset your password</CardTitle>
+                    <CardTitle as="h1">{{ m.tired_green_sloth_evoke() }}</CardTitle>
                     <CardDescription>
-                        Enter your new password below. Make sure to put it in a password manager.
+                        {{ m.solid_slow_platypus_talk() }}
                     </CardDescription>
                 </CardHeader>
                 <CardContent class="grid gap-6">
@@ -48,7 +48,7 @@
                     <FormField v-slot="{ componentField }" name="password">
                         <FormItem>
                             <FormLabel>
-                                New password
+                                {{ m.true_male_gadfly_stab() }}
                             </FormLabel>
                             <FormControl>
                                 <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
@@ -60,7 +60,7 @@
                     <FormField v-slot="{ componentField }" name="password-confirm">
                         <FormItem>
                             <FormLabel>
-                                Confirm password
+                                {{ m.awful_cozy_jannes_rise() }}
                             </FormLabel>
                             <FormControl>
                                 <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
@@ -71,7 +71,7 @@
                     </FormField>
                 </CardContent>
                 <CardFooter class="grid gap-2">
-                    <Button variant="default" type="submit">Reset</Button>
+                    <Button variant="default" type="submit">{{ m.noisy_round_skate_yell() }}</Button>
                 </CardFooter>
             </form>
         </Card>
@@ -100,10 +100,11 @@ import {
     FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
 
 useHead({
-    title: "Reset Password",
+    title: m.arable_arable_herring_lead(),
 });
 
 identity.value = null;
@@ -115,18 +116,26 @@ const formSchema = toTypedSchema(
             password: z
                 .string()
                 .min(3, {
-                    message: "Must be at least 3 characters long",
+                    message: m.smart_bold_macaw_aid({
+                        count: 3,
+                    }),
                 })
                 .max(100, {
-                    message: "Must be at most 100 characters long",
+                    message: m.dry_smug_goldfish_promise({
+                        count: 100,
+                    }),
                 }),
             "password-confirm": z
                 .string()
                 .min(3, {
-                    message: "Must be at least 3 characters long",
+                    message: m.smart_bold_macaw_aid({
+                        count: 3,
+                    }),
                 })
                 .max(100, {
-                    message: "Must be at most 100 characters long",
+                    message: m.dry_smug_goldfish_promise({
+                        count: 100,
+                    }),
                 }),
         })
         .superRefine((data, ctx) => {
@@ -134,7 +143,7 @@ const formSchema = toTypedSchema(
                 ctx.addIssue({
                     path: [...ctx.path, "password-confirm"],
                     code: "custom",
-                    message: "Passwords do not match",
+                    message: m.candid_fancy_leopard_prosper(),
                 });
             }
             return {};

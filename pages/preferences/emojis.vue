@@ -1,7 +1,7 @@
 <template>
     <div class="md:px-8 px-4 py-2 max-w-7xl mx-auto w-full space-y-6">
         <h1 class="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl capitalize">
-            Emojis
+            {{ m.suave_smart_mantis_climb() }}
         </h1>
         <div v-if="emojis.length > 0" class="max-w-sm w-full relative">
             <Input v-model="search" placeholder="Search" class="pl-8" />
@@ -11,9 +11,9 @@
             :name="name" />
         <Card v-else class="shadow-none bg-transparent border-none p-4">
             <CardHeader class="text-center gap-y-4">
-                <CardTitle class="text-">No emojis found.</CardTitle>
+                <CardTitle>{{ m.actual_steep_llama_rest() }}</CardTitle>
                 <CardDescription>
-                    Ask your administrator to add some emojis.
+                    {{ m.lucky_suave_myna_adore() }}
                 </CardDescription>
             </CardHeader>
         </Card>
@@ -24,17 +24,24 @@
 import type { Emoji } from "@versia/client/types";
 import { Search } from "lucide-vue-next";
 import Category from "~/components/preferences/emojis/category.vue";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: "Emoji Preferences",
+    title: m.mild_many_dolphin_mend(),
 });
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Preferences",
+            text: m.broad_whole_herring_reside(),
         },
     ],
     requiresAuth: true,
@@ -56,11 +63,11 @@ const categories = computed(() => {
     const categories = new Map<string, Emoji[]>();
     for (const emoji of emojis.value) {
         if (!emoji.category) {
-            if (!categories.has("Uncategorized")) {
-                categories.set("Uncategorized", []);
+            if (!categories.has(m.lucky_ago_rat_pinch())) {
+                categories.set(m.lucky_ago_rat_pinch(), []);
             }
 
-            categories.get("Uncategorized")?.push(emoji);
+            categories.get(m.lucky_ago_rat_pinch())?.push(emoji);
             continue;
         }
 

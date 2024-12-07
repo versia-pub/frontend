@@ -10,19 +10,20 @@
 <script lang="ts" setup>
 import Local from "~/components/timelines/local.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: "Local",
+    title: m.crazy_game_parrot_pave(),
 });
 
 definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Timelines",
+            text: m.steep_aqua_fox_harbor(),
         },
         {
-            text: "Local",
+            text: m.crazy_game_parrot_pave(),
             href: "/local",
         },
     ],

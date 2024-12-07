@@ -23,7 +23,7 @@
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <p>Mention someone</p>
+                <p>{{ m.game_tough_seal_adore() }}</p>
             </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -34,7 +34,7 @@
                 </Toggle>
             </TooltipTrigger>
             <TooltipContent>
-                <p>Enable Markdown</p>
+                <p>{{ m.plane_born_koala_hope() }}</p>
             </TooltipContent>
         </Tooltip>
         <Select v-model:model-value="state.visibility">
@@ -62,7 +62,7 @@
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <p>Insert emoji</p>
+                <p>{{ m.blue_ornate_coyote_tickle() }}</p>
             </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -72,7 +72,7 @@
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <p>Attach a file</p>
+                <p>{{ m.top_patchy_earthworm_vent() }}</p>
             </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -82,12 +82,12 @@
                 </Toggle>
             </TooltipTrigger>
             <TooltipContent>
-                <p>Mark as sensitive</p>
+                <p>{{ m.frail_broad_mallard_dart() }}</p>
             </TooltipContent>
         </Tooltip>
         <Button type="submit" size="lg" class="ml-auto" :disabled="sending" @click="submit">
             <Loader v-if="sending" class="!size-5 animate-spin" />
-            {{ relation?.type === "edit" ? "Save" : "Send" }}
+            {{ relation?.type === "edit" ? m.gaudy_strong_puma_slide() : m.free_teal_bulldog_learn() }}
         </Button>
     </DialogFooter>
 </template>
@@ -110,6 +110,7 @@ import { SelectTrigger } from "radix-vue";
 import { toast } from "vue-sonner";
 import Note from "~/components/notes/note.vue";
 import { Select, SelectContent, SelectItem } from "~/components/ui/select";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -145,11 +146,11 @@ const getMentions = () => {
     const peopleToMention = relation.note.mentions
         .concat(relation.note.account)
         // Deduplicate mentions
-        .filter((m, i, a) => a.indexOf(m) === i)
+        .filter((men, i, a) => a.indexOf(men) === i)
         // Remove self
-        .filter((m) => m.id !== identity.value?.account.id);
+        .filter((men) => men.id !== identity.value?.account.id);
 
-    const mentions = peopleToMention.map((m) => `@${m.acct}`).join(" ");
+    const mentions = peopleToMention.map((me) => `@${me.acct}`).join(" ");
 
     return `${mentions} `;
 };
@@ -165,10 +166,10 @@ const state = reactive({
         ? relation.note.visibility
         : "public") as Status["visibility"],
     files: (relation?.type === "edit"
-        ? relation.note.media_attachments.map((m) => ({
-              apiId: m.id,
-              file: new File([], m.url),
-              alt: m.description,
+        ? relation.note.media_attachments.map((a) => ({
+              apiId: a.id,
+              file: new File([], a.url),
+              alt: a.description,
               uploading: false,
               updating: false,
           }))
@@ -276,23 +277,23 @@ const uploadFiles = (files: File[]) => {
 const visibilities = {
     public: {
         icon: Globe,
-        name: "Public",
-        text: "Can be seen by anyone.",
+        name: m.lost_trick_dog_grace(),
+        text: m.last_mean_peacock_zip(),
     },
     unlisted: {
         icon: LockOpen,
-        name: "Unlisted",
-        text: "Can be seen by anyone with the link.",
+        name: m.funny_slow_jannes_walk(),
+        text: m.grand_strong_gibbon_race(),
     },
     private: {
         icon: Lock,
-        name: "Private",
-        text: "Can only be seen by your followers.",
+        name: m.grassy_empty_raven_startle(),
+        text: m.white_teal_ostrich_yell(),
     },
     direct: {
         icon: AtSign,
-        name: "Direct",
-        text: "Can only be seen by mentioned users.",
+        name: m.pretty_bold_baboon_wave(),
+        text: m.lucky_mean_robin_link(),
     },
 };
 </script>

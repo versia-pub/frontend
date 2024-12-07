@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import * as m from "~/paraglide/messages.js";
 import {
     type ConfirmModalOptions,
     type ConfirmModalResult,
@@ -20,11 +21,11 @@ import {
 
 const isOpen = ref(false);
 const modalOptions = ref<ConfirmModalOptions>({
-    title: "Confirm",
+    title: m.antsy_whole_alligator_blink(),
     message: "",
     inputType: "none",
-    confirmText: "Confirm",
-    cancelText: "Cancel",
+    confirmText: m.antsy_whole_alligator_blink(),
+    cancelText: m.soft_bold_ant_attend(),
 });
 const inputValue = ref("");
 const resolvePromise = ref<((result: ConfirmModalResult) => void) | null>(null);
@@ -32,11 +33,11 @@ const resolvePromise = ref<((result: ConfirmModalResult) => void) | null>(null);
 function open(options: ConfirmModalOptions): Promise<ConfirmModalResult> {
     isOpen.value = true;
     modalOptions.value = {
-        title: options.title || "Confirm",
+        title: options.title || m.antsy_whole_alligator_blink(),
         message: options.message,
         inputType: options.inputType || "none",
-        confirmText: options.confirmText || "Confirm",
-        cancelText: options.cancelText || "Cancel",
+        confirmText: options.confirmText || m.antsy_whole_alligator_blink(),
+        cancelText: options.cancelText || m.soft_bold_ant_attend(),
     };
     inputValue.value = options.defaultValue || "";
 

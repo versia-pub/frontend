@@ -9,9 +9,9 @@
         </TimelineScroller>
         <Card v-else class="shadow-none bg-transparent border-none p-4">
             <CardHeader class="text-center gap-y-4">
-                <CardTitle class="text-">Account not found.</CardTitle>
+                <CardTitle>{{ m.empty_awful_lark_dart() }}</CardTitle>
                 <CardDescription>
-                    Check for typos or try again later.
+                    {{ m.clean_even_mayfly_tap() }}
                 </CardDescription>
             </CardHeader>
         </Card>
@@ -23,6 +23,7 @@ import { Loader } from "lucide-vue-next";
 import AccountProfile from "~/components/profiles/profile.vue";
 import AccountTimeline from "~/components/timelines/account.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import * as m from "~/paraglide/messages.js";
 
 const route = useRoute();
 const username = (route.params.username as string).startsWith("@")
@@ -33,7 +34,7 @@ definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Profile",
+            text: m.tough_nice_ox_drum(),
         },
     ],
 });
@@ -43,10 +44,10 @@ const accountId = computed(() => account.value?.id ?? undefined);
 
 useSeoMeta({
     title: computed(() =>
-        account.value ? account.value.display_name : "Loading",
+        account.value ? account.value.display_name : m.steep_sour_warthog_aim(),
     ),
     ogTitle: computed(() =>
-        account.value ? account.value.display_name : "Loading",
+        account.value ? account.value.display_name : m.steep_sour_warthog_aim(),
     ),
     ogImage: computed(() => (account.value ? account.value.avatar : undefined)),
     ogType: "profile",

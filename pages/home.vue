@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import Home from "~/components/timelines/home.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import * as m from "~/paraglide/messages.js";
 
 useHead({
     title: "Home",
@@ -18,10 +19,10 @@ definePageMeta({
     layout: "app",
     breadcrumbs: [
         {
-            text: "Timelines",
+            text: m.steep_aqua_fox_harbor(),
         },
         {
-            text: "Home",
+            text: m.bland_chunky_sparrow_propel(),
             href: "/home",
         },
     ],

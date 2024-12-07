@@ -2,6 +2,7 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Status, StatusSource } from "@versia/client/types";
 import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 import Composer from "./composer.vue";
 
 useListen("composer:open", () => {
@@ -11,7 +12,7 @@ useListen("composer:open", () => {
 });
 
 useListen("composer:edit", async (note) => {
-    const id = toast.loading("Loading note data...", {
+    const id = toast.loading(m.wise_late_fireant_walk(), {
         duration: 0,
     });
     const { data: source } = await client.value.getStatusSource(note.id);
@@ -56,13 +57,16 @@ const relation = ref(
 </script>
 
 <template>
-    <Dialog v-model:open="open" @update:open="o => {if (!o) { relation = null}}">
-        <DialogContent :hide-close="true" class="sm:max-w-xl max-w-full w-full grid-rows-[minmax(0,1fr)_auto] max-h-[90dvh] p-5 pt-6 top-0 sm:top-1/2 translate-y-0 sm:-translate-y-1/2">
+    <Dialog v-model:open="open" @update:open="o => { if (!o) { relation = null } }">
+        <DialogContent :hide-close="true"
+            class="sm:max-w-xl max-w-full w-full grid-rows-[minmax(0,1fr)_auto] max-h-[90dvh] p-5 pt-6 top-0 sm:top-1/2 translate-y-0 sm:-translate-y-1/2">
             <DialogTitle class="sr-only">
-                {{ relation?.type === "reply" ? "Reply" : relation?.type === "quote" ? "Quote" : "Compose" }}
+                {{ relation?.type === "reply" ? m.loved_busy_mantis_slide() : relation?.type === "quote" ? "Quote" :
+                    m.chunky_dull_marlin_trip() }}
             </DialogTitle>
             <DialogDescription class="sr-only">
-                {{ relation?.type === "reply" ? "Reply to this status" : relation?.type === "quote" ? "Quote this status" : "Compose a new status" }}
+                {{ relation?.type === "reply" ? m.tired_grassy_vulture_forgive() : relation?.type === "quote" ?
+                    m.livid_livid_nils_snip() : m.brief_cool_capybara_fear() }}
             </DialogDescription>
             <Composer :relation="relation ?? undefined" />
         </DialogContent>

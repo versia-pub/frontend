@@ -120,15 +120,12 @@ import {
     SidebarRail,
 } from "~/components/ui/sidebar";
 import * as m from "~/paraglide/messages.js";
-import { setLanguageTag } from "~/paraglide/runtime";
 import { type EnumSetting, SettingIds } from "~/settings";
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
 import AccountSwitcher from "./account-switcher.vue";
 
 const sidebarStyle = useSetting(SettingIds.SidebarStyle) as Ref<EnumSetting>;
-
-setLanguageTag("fr");
 
 const data = {
     navMain: [

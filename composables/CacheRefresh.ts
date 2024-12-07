@@ -1,5 +1,7 @@
 import type { Client } from "@versia/client";
 import type { RolePermission } from "@versia/client/types";
+import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 
 export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
     // Refresh custom emojis and instance data and me on every reload
@@ -21,11 +23,8 @@ export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
                         if (code === 401) {
                             // Reset tokenData
                             identity.value = null;
-                            useEvent("notification:new", {
-                                type: "error",
-                                title: "Your session has expired",
-                                description:
-                                    "You have been logged out. Please log in again.",
+                            toast.error(m.fancy_this_wasp_renew(), {
+                                description: m.real_weird_deer_stop(),
                             });
                         }
                     });
