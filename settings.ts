@@ -147,8 +147,8 @@ export const settings: Record<SettingIds, Setting> = {
         page: SettingPages.Behaviour,
     } as BooleanSetting,
     [SettingIds.ShowContentWarning]: {
-        title: "Show Content Warning",
-        description: "Show content warnings on notes marked sensitive/spoiler.",
+        title: "Blur Sensitive Content",
+        description: "Blur notes marked sensitive/spoiler.",
         type: SettingType.Boolean,
         value: true,
         page: SettingPages.Behaviour,

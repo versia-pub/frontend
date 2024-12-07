@@ -1,5 +1,5 @@
 <template>
-    <Alert variant="warning" v-if="sensitive || contentWarning"
+    <Alert variant="warning" v-if="(sensitive || contentWarning) && showCw.value"
         class="mb-4 py-2 px-4 grid grid-cols-[auto,1fr,auto] gap-2 items-center [&>svg~*]:pl-0 [&>svg+div]:translate-y-0 [&>svg]:static">
         <AlertTitle class="sr-only">Sensitive content</AlertTitle>
         <div>
@@ -11,7 +11,7 @@
         <Button @click="blurred = !blurred" variant="outline" size="sm">{{ blurred ? "Show" : "Hide" }}</Button>
     </Alert>
 
-    <div ref="container" :class="cn('overflow-y-hidden relative duration-200', blurred && 'blur-md')" :style="{
+    <div ref="container" :class="cn('overflow-y-hidden relative duration-200', (blurred && showCw.value) && 'blur-md')" :style="{
         maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`,
     }">
         <div :class="[
@@ -29,7 +29,7 @@
             }}</Button>
     </div>
 
-    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="blurred && 'blur-xl'" />
+    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(blurred && showCw.value) && 'blur-xl'" />
 
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
         <Note :note="quote" :hide-actions="true" :small-layout="true" />
@@ -40,9 +40,9 @@
 import { cn } from "@/lib/utils";
 import type { Attachment, Emoji, Status } from "@versia/client/types";
 import { TriangleAlert } from "lucide-vue-next";
-import { Button, buttonVariants } from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
+import { type BooleanSetting, SettingIds } from "~/settings";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Card, CardHeader } from "../ui/card";
 import Attachments from "./attachments.vue";
 import Note from "./note.vue";
 
@@ -58,6 +58,7 @@ const { content, plainContent, sensitive, contentWarning } = defineProps<{
 const container = ref<HTMLDivElement | null>(null);
 const collapsed = ref(true);
 const blurred = ref(sensitive || !!contentWarning);
+const showCw = useSetting(SettingIds.ShowContentWarning) as Ref<BooleanSetting>;
 
 // max-h-72 is 18rem
 const remToPx = (rem: number) =>
