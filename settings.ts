@@ -82,6 +82,7 @@ export enum SettingIds {
     BackgroundURL = "background-url",
     NotificationsSidebar = "notifications-sidebar",
     AvatarShape = "avatar-shape",
+    SidebarStyle = "sidebar-style",
 }
 
 export const settings: Record<SettingIds, Setting> = {
@@ -93,6 +94,27 @@ export const settings: Record<SettingIds, Setting> = {
         page: SettingPages.Behaviour,
         notImplemented: true,
     } as BooleanSetting,
+    [SettingIds.SidebarStyle]: {
+        title: "Sidebar Style",
+        description: "Style of the left sidebar.",
+        type: SettingType.Enum,
+        value: "inset",
+        options: [
+            {
+                value: "inset",
+                label: "Inset",
+            },
+            {
+                value: "sidebar",
+                label: "Sidebar",
+            },
+            {
+                value: "floating",
+                label: "Floating",
+            },
+        ],
+        page: SettingPages.Appearance,
+    } as EnumSetting,
     [SettingIds.AvatarShape]: {
         title: "Avatar Shape",
         description: "Shape of all user avatars.",
