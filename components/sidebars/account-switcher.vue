@@ -17,7 +17,7 @@
         <DropdownMenuContent class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side="bottom"
             align="end" :side-offset="4">
             <DropdownMenuLabel class="p-0 font-normal">
-                <div v-for="identity of identities" class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <Button @click="switchAccount(identity.account.id)" variant="ghost" size="lg" :href="`/@${identity.account.username}`" v-for="identity of identities" class="flex w-full items-center gap-2 px-1 text-left text-sm">
                     <Avatar class="size-8" :src="identity.account.avatar" :name="identity.account.display_name" />
                     <div class="grid flex-1 text-left text-sm leading-tight">
                         <span class="truncate font-semibold" v-render-emojis="identity.account.emojis">{{
@@ -27,7 +27,7 @@
                             identity.account.acct
                         }}</span>
                     </div>
-                </div>
+                </Button>
                 <DropdownMenuItem @click="signIn()">
                     <UserPlus />
                     Add account
@@ -64,6 +64,7 @@ import {
 import { toast } from "vue-sonner";
 import { NuxtLink } from "#components";
 import Avatar from "../profiles/avatar.vue";
+import { Button } from "../ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -151,5 +152,29 @@ const signOut = async (userId?: string) => {
     identities.value = identities.value.filter((i) => i.id !== userId);
     toast.dismiss(id);
     toast.success("Signed out");
+};
+
+const switchAccount = async (userId: string) => {
+    if (userId === identity.value?.account.id) {
+        return await navigateTo(`/@${identity.value.account.username}`);
+    }
+
+    const id = toast.loading("Switching account...");
+
+    const identityToSwitch = identities.value.find(
+        (i) => i.account.id === userId,
+    );
+
+    if (!identityToSwitch) {
+        toast.dismiss(id);
+        toast.error("No identity to switch to");
+        return;
+    }
+
+    identity.value = identityToSwitch;
+    toast.dismiss(id);
+    toast.success("Switched account");
+
+    window.location.href = "/";
 };
 </script>
