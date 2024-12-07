@@ -1,18 +1,18 @@
 <template>
     <div class="flex flex-row w-full items-stretch justify-around text-sm *:max-w-28 *:w-full *:text-muted-foreground">
-        <Button variant="ghost" @click="emit('reply')" title="Reply">
+        <Button variant="ghost" @click="emit('reply')" title="Reply" :disabled="!identity">
             <Reply class="size-5 text-primary" />
             {{ numberFormat(replyCount) }}
         </Button>
-        <Button variant="ghost" @click="liked ? unlike() : like()" :title="liked ? 'Unlike' : 'Like'">
+        <Button variant="ghost" @click="liked ? unlike() : like()" :title="liked ? 'Unlike' : 'Like'" :disabled="!identity">
             <Heart class="size-5 text-primary" />
             {{ numberFormat(likeCount) }}
         </Button>
-        <Button variant="ghost" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? 'Unreblog' : 'Reblog'">
+        <Button variant="ghost" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? 'Unreblog' : 'Reblog'" :disabled="!identity">
             <Repeat class="size-5 text-primary" />
             {{ numberFormat(reblogCount) }}
         </Button>
-        <Button variant="ghost" @click="emit('quote')" title="Quote">
+        <Button variant="ghost" @click="emit('quote')" title="Quote" :disabled="!identity">
             <Quote class="size-5 text-primary" />
         </Button>
         <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId" @edit="emit('edit')" :note-id="noteId" @delete="emit('delete')">
