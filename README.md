@@ -83,6 +83,25 @@ Then, the frontend will be available at `http://localhost:3000` inside the conta
 >
 > You can set the `NUXT_PUBLIC_API_HOST` environment variable to point to a different Versia Server instance.
 
+#### Manual
+
+1. Clone the repository.
+```bash
+git clone https://github.com/versia-pub/frontend.git
+```
+2. Install dependencies.
+```bash
+bun install
+```
+3. Build the project.
+```bash
+bun run build
+```
+4. Serve the static files in the `.output/public` directory.
+> [!WARNING]
+> 
+> `.output/public/200.html` should be configured as a fallback for all 404 errors.
+
 ## Development
 
 Run `bun run emojis:generate` to generate the emoji list before building or running the project.

@@ -1,0 +1,23 @@
+[general]
+
+#### Address & Root dir
+host = "::"
+port = 3000
+root = "/app/public"
+
+#### Logging
+log-level = "error"
+
+#### Cache Control headers
+cache-control-headers = true
+
+#### Auto Compression
+compression = true
+compression-level = "default"
+
+#### Error pages
+# Note: If a relative path is used then it will be resolved under the root directory.
+page404 = "./404.html"
+
+#### Page fallback for 404s
+page-fallback = "./200.html"
