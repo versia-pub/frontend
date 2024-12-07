@@ -10,7 +10,7 @@
                     {{ emoji.shortcode }}
                 </CardTitle>
                 <CardDescription>
-                    {{ emoji.global ? "Global" : "Uploaded by you" }}
+                    {{ emoji.global ? m.lime_day_squid_pout() : m.witty_heroic_trout_cry() }}
                 </CardDescription>
             </CardHeader>
             <CardFooter class="p-0" v-if="canEdit">
@@ -27,7 +27,7 @@
 
             <DropdownMenuItem @click="editName">
                 <TextCursorInput class="mr-2 h-4 w-4" />
-                <span>Rename</span>
+                {{ m.cuddly_such_swallow_hush() }}
             </DropdownMenuItem>
             <!-- <DropdownMenuItem @click="editCaption">
                 <Captions class="mr-2 h-4 w-4" />
@@ -36,7 +36,7 @@
             <DropdownMenuSeparator /> -->
             <DropdownMenuItem @click="_delete">
                 <Delete class="mr-2 h-4 w-4" />
-                <span>Delete</span>
+                {{ m.tense_quick_cod_favor() }}
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
@@ -64,6 +64,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import * as m from "~/paraglide/messages.js";
 
 const { emoji } = defineProps<{
     emoji: Emoji;
@@ -75,21 +76,21 @@ const canEdit =
 
 const editName = async () => {
     const result = await confirmModalService.confirm({
-        title: "Enter a new shortcode",
+        title: m.slimy_awful_florian_sail(),
         defaultValue: emoji.shortcode,
-        confirmText: "Edit",
+        confirmText: m.teary_antsy_panda_aid(),
         inputType: "text",
     });
 
     if (result.confirmed) {
-        const id = toast.loading("Updating shortcode...");
+        const id = toast.loading(m.teary_tame_gull_bless());
         try {
             await client.value.updateEmoji(emoji.id, {
                 shortcode: result.value,
             });
 
             toast.dismiss(id);
-            toast.success("Shortcode updated.");
+            toast.success(m.gaudy_lime_bison_adore());
         } catch {
             toast.dismiss(id);
         }
@@ -97,11 +98,11 @@ const editName = async () => {
 };
 
 const _delete = async () => {
-    const id = toast.loading("Deleting emoji...");
+    const id = toast.loading(m.weary_away_liger_zip());
     try {
         await client.value.deleteEmoji(emoji.id);
         toast.dismiss(id);
-        toast.success("Emoji deleted.");
+        toast.success(m.crisp_whole_canary_tear());
     } catch {
         toast.dismiss(id);
     }

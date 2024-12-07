@@ -13,6 +13,7 @@ import { useForm } from "vee-validate";
 import * as z from "zod";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import * as m from "~/paraglide/messages.js";
 
 const { instance } = defineProps<{
     instance: Instance;
@@ -26,15 +27,15 @@ const formSchema = toTypedSchema(
         identifier: z
             .string()
             .min(3, {
-                message: "Must be at least 3 characters long",
+                message: m.aware_house_dolphin_win(),
             })
             .or(
                 z.string().email({
-                    message: "Must be a valid email address",
+                    message: m.weary_fresh_dragonfly_bless(),
                 }),
             ),
         password: z.string().min(3, {
-            message: "Must be at least 3 characters long",
+            message: m.aware_house_dolphin_win(),
         }),
     }),
 );
@@ -86,7 +87,7 @@ const issuerRedirectUrl = (issuerId: string) => {
                 <FormField v-slot="{ componentField }" name="identifier">
                     <FormItem>
                         <FormLabel>
-                            Email (or username)
+                            {{ m.fluffy_soft_wolf_cook() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="petergriffin" type="text" auto-capitalize="none"
@@ -99,7 +100,7 @@ const issuerRedirectUrl = (issuerId: string) => {
                 <FormField v-slot="{ componentField }" name="password">
                     <FormItem>
                         <FormLabel>
-                            Password
+                            {{ m.livid_bright_wallaby_quiz() }}
                         </FormLabel>
                         <FormControl>
                             <Input placeholder="hunter2" type="password" auto-capitalize="none"
@@ -111,7 +112,7 @@ const issuerRedirectUrl = (issuerId: string) => {
                 </FormField>
                 <Button :disabled="isLoading" type="submit">
                     <Loader v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
-                    Sign In
+                    {{ m.fuzzy_sea_moth_absorb() }}
                 </Button>
             </div>
         </form>
@@ -121,7 +122,7 @@ const issuerRedirectUrl = (issuerId: string) => {
             </div>
             <div class="relative flex justify-center text-xs uppercase">
                 <span class="bg-background px-2 text-muted-foreground">
-                    Or continue with
+                    {{ m.tidy_tidy_cow_cut() }}
                 </span>
             </div>
         </div>

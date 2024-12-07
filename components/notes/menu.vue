@@ -84,7 +84,7 @@ const _delete = async () => {
         <DropdownMenuTrigger as-child>
             <slot />
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="w-56">
+        <DropdownMenuContent class="min-w-56">
             <DropdownMenuLabel>Note Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>

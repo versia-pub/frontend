@@ -3,13 +3,14 @@
         <Repeat class="size-4 text-primary" />
         <Avatar class="size-6 border" :src="avatar" :name="displayName" />
         <span class="font-semibold" v-render-emojis="emojis">{{ displayName }}</span>
-        reblogged
+        {{ m.large_vivid_horse_catch() }}
     </NuxtLink>
 </template>
 
 <script lang="ts" setup>
 import type { Emoji } from "@versia/client/types";
 import { Repeat } from "lucide-vue-next";
+import * as m from "~/paraglide/messages.js";
 import Avatar from "../profiles/avatar.vue";
 
 const { url } = defineProps<{

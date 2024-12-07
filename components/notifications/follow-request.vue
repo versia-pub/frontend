@@ -27,11 +27,11 @@
     <div v-else class="grid grid-cols-2 p-2 gap-2">
         <Button variant="outline" size="sm" @click="accept">
             <Check />
-            Accept
+            {{ m.slow_these_kestrel_sail() }}
         </Button>
         <Button variant="ghost" size="sm" @click="reject">
             <X />
-            Reject
+            {{ m.weary_steep_yak_embrace() }}
         </Button>
     </div>
 </template>
@@ -42,6 +42,7 @@ import { Check, Loader, X } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
+import * as m from "~/paraglide/messages.js";
 import Avatar from "../profiles/avatar.vue";
 
 const { follower } = defineProps<{
@@ -61,25 +62,25 @@ watch(relationship, () => {
 });
 
 const accept = async () => {
-    const id = toast.loading("Accepting follow request...");
+    const id = toast.loading(m.cool_slimy_coyote_affirm());
     loading.value = true;
 
     const { data } = await client.value.acceptFollowRequest(follower.id);
 
     toast.dismiss(id);
-    toast.success("Follow request accepted.");
+    toast.success(m.busy_awful_mouse_jump());
     relationship.value = data;
     loading.value = false;
 };
 
 const reject = async () => {
-    const id = toast.loading("Rejecting follow request...");
+    const id = toast.loading(m.front_sunny_penguin_flip());
     loading.value = true;
 
     const { data } = await client.value.rejectFollowRequest(follower.id);
 
     toast.dismiss(id);
-    toast.success("Follow request rejected.");
+    toast.success(m.green_flat_mayfly_trust());
     relationship.value = data;
     loading.value = false;
 };

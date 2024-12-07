@@ -10,8 +10,8 @@
                                 'https://cdn.versia.pub/branding/icon.svg'
                                 " :name="instance?.title" />
                             <div class="grid flex-1 text-left text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ instance?.title ?? 'Versia Server' }}</span>
-                                <span class="truncate text-xs">{{ "A Versia Server instance" }}</span>
+                                <span class="truncate font-semibold">{{ instance?.title ?? m.short_zippy_felix_kick() }}</span>
+                                <span class="truncate text-xs">{{ m.top_active_ocelot_cure() }}</span>
                             </div>
                             <!-- <ChevronsUpDown class="ml-auto" /> -->
                         </SidebarMenuButton>
@@ -21,7 +21,7 @@
         </SidebarHeader>
         <SidebarContent>
             <SidebarGroup>
-                <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                <SidebarGroupLabel>{{ m.trite_real_sawfish_drum() }}</SidebarGroupLabel>
                 <SidebarMenu>
                     <SidebarMenuItem v-for="item in data.other.filter(
                         i => i.requiresLogin ? !!identity : true,
@@ -36,7 +36,7 @@
                 </SidebarMenu>
             </SidebarGroup>
             <SidebarGroup v-if="identity" class="mt-auto">
-                <SidebarGroupLabel>More</SidebarGroupLabel>
+                <SidebarGroupLabel>{{ m.close_short_kitten_coax() }}</SidebarGroupLabel>
                 <SidebarMenu>
                     <Collapsible v-for="item in data.navMain" :key="item.title" as-child class="group/collapsible">
                         <SidebarMenuItem>
@@ -73,12 +73,12 @@
                     <Button variant="default" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
                         v-if="identity" @click="useEvent('composer:open')">
                         <Pen />
-                        <span class="group-data-[collapsible=icon]:hidden">Compose</span>
+                        <span class="group-data-[collapsible=icon]:hidden">{{ m.salty_aloof_turkey_nudge() }}</span>
                     </Button>
                     <Button variant="destructive" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
                         v-if="$pwa?.needRefresh" @click="$pwa?.updateServiceWorker(true)">
                         <DownloadCloud />
-                        <span class="group-data-[collapsible=icon]:hidden">Update</span>
+                        <span class="group-data-[collapsible=icon]:hidden">{{ m.quaint_low_felix_pave() }}</span>
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>
@@ -119,6 +119,8 @@ import {
     SidebarMenuSubItem,
     SidebarRail,
 } from "~/components/ui/sidebar";
+import * as m from "~/paraglide/messages.js";
+import { setLanguageTag } from "~/paraglide/runtime";
 import { type EnumSetting, SettingIds } from "~/settings";
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
@@ -126,31 +128,33 @@ import AccountSwitcher from "./account-switcher.vue";
 
 const sidebarStyle = useSetting(SettingIds.SidebarStyle) as Ref<EnumSetting>;
 
+setLanguageTag("fr");
+
 const data = {
     navMain: [
         {
-            title: "Preferences",
+            title: m.patchy_seemly_hound_grace(),
             url: "/preferences",
             icon: Settings2,
             items: [
                 {
-                    title: "Account",
+                    title: m.factual_arable_jurgen_endure(),
                     url: "/preferences/account",
                 },
                 {
-                    title: "Appearance",
+                    title: m.tough_clean_wolf_gleam(),
                     url: "/preferences/appearance",
                 },
                 {
-                    title: "Behaviour",
+                    title: m.legal_best_tadpole_rise(),
                     url: "/preferences/behaviour",
                 },
                 {
-                    title: "Emojis",
+                    title: m.novel_trite_sloth_adapt(),
                     url: "/preferences/emojis",
                 },
                 {
-                    title: "Roles",
+                    title: m.safe_green_mink_cook(),
                     url: "/preferences/roles",
                 },
             ],
@@ -158,31 +162,31 @@ const data = {
     ],
     other: [
         {
-            name: "Home",
+            name: m.bland_chunky_sparrow_propel(),
             url: "/home",
             icon: House,
             requiresLogin: true,
         },
         {
-            name: "Public",
+            name: m.lost_trick_dog_grace(),
             url: "/public",
             icon: MapIcon,
             requiresLogin: false,
         },
         {
-            name: "Local",
+            name: m.crazy_game_parrot_pave(),
             url: "/local",
             icon: BedSingle,
             requiresLogin: false,
         },
         {
-            name: "Global",
+            name: m.real_tame_moose_greet(),
             url: "/global",
             icon: Globe,
             requiresLogin: false,
         },
         {
-            name: "Notifications",
+            name: m.that_patchy_mare_snip(),
             url: "/notifications",
             icon: Bell,
             requiresLogin: true,

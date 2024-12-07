@@ -7,7 +7,7 @@
                     @click="relationship?.following ? unfollow() : follow()">
                     <Loader v-if="isLoading" class="animate-spin" />
                     <span v-else>
-                        {{ relationship?.following ? "Unfollow" : relationship?.requested ? "Requested" : "Follow" }}
+                        {{ relationship?.following ? m.brief_upper_otter_cuddle() : relationship?.requested ? m.weak_bright_larva_grasp() : m.lazy_major_loris_grasp() }}
                     </span>
                 </Button>
                 <ProfileActions :account="account">
@@ -29,10 +29,10 @@
                 </CopyableText>
             </div>
             <div class="flex flex-row flex-wrap gap-2 -mx-2" v-if="isDeveloper || account.bot || roles.length > 0">
-                <ProfileBadge v-if="isDeveloper" name="Versia Developer" description="This user is a Versia developer."
+                <ProfileBadge v-if="isDeveloper" :name="m.nice_bad_grizzly_coax()" :description="m.honest_jolly_shell_blend()"
                     :verified="true" />
-                <ProfileBadge v-if="account.bot" name="Automated"
-                    description="This account is not operated as living entity." />
+                <ProfileBadge v-if="account.bot" :name="m.merry_red_shrimp_bump()"
+                    :description="m.sweet_mad_jannes_create()" />
                 <ProfileBadge v-for="role in roles" :key="role.id" :name="role.name" :description="role.description"
                     :icon="role.icon" />
             </div>
@@ -55,6 +55,7 @@ import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 import { confirmModalService } from "../modals/composable";
 import ProfileActions from "./profile-actions.vue";
@@ -84,44 +85,48 @@ const confirmFollows = useSetting(SettingIds.ConfirmFollow);
 const follow = async () => {
     if (confirmFollows.value.value) {
         const confirmation = await confirmModalService.confirm({
-            title: "Follow user",
-            message: `Are you sure you want to follow @${account.acct}?`,
-            confirmText: "Follow",
-            cancelText: "Cancel",
+            title: m.many_fair_capybara_imagine(),
+            message: m.mellow_yummy_jannes_cuddle({
+                acct: `@${account.acct}`,
+            }),
+            confirmText: m.cuddly_even_tern_loop(),
+            cancelText: m.soft_bold_ant_attend(),
         });
 
-        if (!confirmation) {
+        if (!confirmation.confirmed) {
             return;
         }
     }
 
-    const id = toast.loading("Following user...");
+    const id = toast.loading(m.quick_basic_peacock_bubble());
     const { data } = await client.value.followAccount(account.id);
     toast.dismiss(id);
 
     relationship.value = data;
-    toast.success("User followed");
+    toast.success(m.awake_quick_cuckoo_smile());
 };
 
 const unfollow = async () => {
     if (confirmFollows.value.value) {
         const confirmation = await confirmModalService.confirm({
-            title: "Unfollow user",
-            message: `Are you sure you want to unfollow @${account.acct}?`,
-            confirmText: "Unfollow",
-            cancelText: "Cancel",
+            title: m.funny_aloof_swan_loop(),
+            message: m.white_best_dolphin_catch({
+                acct: `@${account.acct}`,
+            }),
+            confirmText: m.cute_polite_oryx_blend(),
+            cancelText: m.soft_bold_ant_attend(),
         });
 
-        if (!confirmation) {
+        if (!confirmation.confirmed) {
             return;
         }
     }
 
-    const id = toast.loading("Unfollowing user...");
+    const id = toast.loading(m.big_safe_guppy_mix());
     const { data } = await client.value.unfollowAccount(account.id);
     toast.dismiss(id);
 
     relationship.value = data;
-    toast.success("User unfollowed");
+    toast.success(m.misty_level_stingray_expand());
 };
 </script>

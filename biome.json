@@ -75,6 +75,12 @@
         "indentWidth": 4
     },
     "files": {
-        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+        "ignore": [
+            "node_modules/**/*",
+            "dist/**/*",
+            ".output",
+            ".nuxt",
+            "paraglide"
+        ]
     }
 }

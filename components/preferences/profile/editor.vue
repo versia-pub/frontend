@@ -4,13 +4,13 @@
             <FormField v-slot="{ handleChange, handleBlur }" name="banner">
                 <FormItem>
                     <FormLabel>
-                        Banner
+                        {{ m.bright_late_osprey_renew() }}
                     </FormLabel>
                     <FormControl>
                         <Input type="file" accept="image/*" @change="handleChange" @blur="handleBlur" />
                     </FormControl>
                     <FormDescription>
-                        Recommended size: over 1500x500px
+                        {{ m.great_level_lamb_sway() }}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
@@ -19,13 +19,13 @@
             <FormField v-slot="{ handleChange, handleBlur }" name="avatar">
                 <FormItem>
                     <FormLabel>
-                        Avatar
+                        {{ m.safe_icy_bulldog_quell() }}
                     </FormLabel>
                     <FormControl>
                         <Input type="file" accept="image/*" @change="handleChange" @blur="handleBlur" />
                     </FormControl>
                     <FormDescription>
-                        Recommended size: 400x400px
+                        {{ m.aware_quiet_opossum_catch() }}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
@@ -34,13 +34,13 @@
             <FormField v-slot="{ componentField }" name="name">
                 <FormItem>
                     <FormLabel>
-                        Display Name
+                        {{ m.mild_known_mallard_jolt() }}
                     </FormLabel>
                     <FormControl>
                         <Input v-bind="componentField" />
                     </FormControl>
                     <FormDescription>
-                        Custom emojis can be used here.
+                        {{ m.lime_dry_skunk_loop() }}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
@@ -49,13 +49,13 @@
             <FormField v-slot="{ componentField }" name="username">
                 <FormItem>
                     <FormLabel>
-                        Username
+                        {{ m.neat_silly_dog_prosper() }}
                     </FormLabel>
                     <FormControl>
                         <Input v-bind="componentField" />
                     </FormControl>
                     <FormDescription>
-                        Changing this will break all links to your profile.
+                        {{ m.petty_plane_tadpole_earn() }}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
@@ -64,13 +64,13 @@
             <FormField v-slot="{ componentField }" name="bio">
                 <FormItem>
                     <FormLabel>
-                        Bio
+                        {{ m.next_caring_ladybug_hack() }}
                     </FormLabel>
                     <FormControl>
                         <Textarea rows="10" v-bind="componentField" />
                     </FormControl>
                     <FormDescription>
-                        Markdown and custom emojis are supported.
+                        {{ m.stale_just_anaconda_earn() }}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
@@ -79,12 +79,14 @@
             <FormField v-slot="{ value, handleChange }" name="fields">
                 <FormItem>
                     <FormLabel>
-                        Custom Fields
+                        {{ m.aqua_mealy_toucan_pride() }}
                     </FormLabel>
                     <FormControl>
                         <div class="grid gap-4">
-                            <div v-for="(field, index) in value" :key="index" class="grid items-center grid-cols-[auto,repeat(3,minmax(0,1fr))] gap-2">
-                                <Button variant="destructive" size="icon" @click="handleChange([...value.slice(0, index), ...value.slice(index + 1)])">
+                            <div v-for="(field, index) in value" :key="index"
+                                class="grid items-center grid-cols-[auto,repeat(3,minmax(0,1fr))] gap-2">
+                                <Button variant="destructive" size="icon"
+                                    @click="handleChange([...value.slice(0, index), ...value.slice(index + 1)])">
                                     <Trash />
                                 </Button>
                                 <Input v-model="field.name" placeholder="Name" @update:model-value="e => {
@@ -94,8 +96,9 @@
                                     handleChange([...value.slice(0, index), { name: field.name, value: e }, ...value.slice(index + 1)]);
                                 }" />
                             </div>
-                            <Button type="button" variant="secondary" @click="handleChange([...value, { name: '', value: '' }])">
-                                Add Field
+                            <Button type="button" variant="secondary"
+                                @click="handleChange([...value, { name: '', value: '' }])">
+                                {{ m.front_north_eel_gulp() }}
                             </Button>
                         </div>
                     </FormControl>
@@ -107,10 +110,10 @@
                 <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
-                            Mark account as bot
+                            {{ m.gaudy_each_opossum_play() }}
                         </FormLabel>
                         <CardDescription>
-                            Is this account sending automated messages?
+                            {{ m.grassy_acidic_gadfly_cure() }}
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
@@ -124,10 +127,10 @@
                 <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
-                            Enable follow requests
+                            {{ m.dirty_moving_shark_emerge() }}
                         </FormLabel>
                         <CardDescription>
-                            Will require approval for new followers.
+                            {{ m.bright_fun_mouse_boil() }}
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
@@ -141,10 +144,10 @@
                 <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
-                            Allow account discovery
+                            {{ m.red_vivid_cuckoo_spark() }}
                         </FormLabel>
                         <CardDescription>
-                            Allow your account to be found in search results.
+                            {{ m.plain_zany_donkey_dart() }}
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
@@ -179,6 +182,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Switch } from "~/components/ui/switch";
 import { Textarea } from "~/components/ui/textarea";
+import * as m from "~/paraglide/messages.js";
 
 if (!identity.value) {
     throw new Error("Identity not found.");
@@ -195,7 +199,10 @@ const formSchema = toTypedSchema(
                     v.size <=
                     (identity.value?.instance.configuration.accounts
                         .header_size_limit ?? 0),
-                `Banner must be less than ${identity.value?.instance.configuration.accounts.header_size_limit} bytes`,
+                m.civil_icy_ant_mend({
+                    size: identity.value?.instance.configuration.accounts
+                        .header_size_limit,
+                }),
             )
             .optional(),
         avatar: z
@@ -205,7 +212,10 @@ const formSchema = toTypedSchema(
                     v.size <=
                     (identity.value?.instance.configuration.accounts
                         .avatar_size_limit ?? 0),
-                `Avatar must be less than ${identity.value?.instance.configuration.accounts.avatar_size_limit} bytes`,
+                m.zippy_caring_raven_edit({
+                    size: identity.value?.instance.configuration.accounts
+                        .avatar_size_limit,
+                }),
             )
             .optional(),
         name: z
@@ -216,10 +226,7 @@ const formSchema = toTypedSchema(
             ),
         username: z
             .string()
-            .regex(
-                /^[a-z0-9_-]+$/,
-                "Username can only contain lowercase letters, numbers, underscores and hyphens",
-            )
+            .regex(/^[a-z0-9_-]+$/, m.still_upper_otter_dine())
             .max(
                 identity.value.instance.configuration.accounts
                     .max_username_characters,
@@ -251,7 +258,7 @@ const form = useForm({
 });
 
 const handleSubmit = form.handleSubmit(async (values) => {
-    const id = toast.loading("Updating profile...");
+    const id = toast.loading(m.jolly_noble_sloth_breathe());
 
     const changedData = {
         display_name:
@@ -287,7 +294,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
         Object.values(changedData).filter((v) => v !== undefined).length === 0
     ) {
         toast.dismiss(id);
-        toast.error("No changes");
+        toast.error(m.tough_alive_niklas_promise());
         return;
     }
 
@@ -299,7 +306,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
         );
 
         toast.dismiss(id);
-        toast.success("Profile updated");
+        toast.success(m.spry_honest_kestrel_arrive());
 
         if (identity.value) {
             identity.value.account = data;

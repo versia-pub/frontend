@@ -3,61 +3,61 @@
         <DropdownMenuTrigger as-child>
             <slot />
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="w-56">
-            <DropdownMenuLabel>Profile Actions</DropdownMenuLabel>
+        <DropdownMenuContent class="min-w-56">
+            <DropdownMenuLabel>{{ m.spicy_loved_giraffe_empower() }}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(account.username)">
                     <AtSign class="mr-2 size-4" />
-                    <span>Copy username</span>
+                    {{ m.cool_dark_tapir_belong() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(JSON.stringify(account, null, 4))">
                     <Code class="mr-2 size-4" />
-                    <span>Copy API data</span>
+                    {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.id)">
                     <Hash class="mr-2 size-4" />
-                    <span>Copy ID</span>
+                    {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
                     <Link class="mr-2 size-4" />
-                    <span>Copy link</span>
+                    {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.url)">
                     <Link class="mr-2 size-4" />
-                    <span>Copy link (origin)</span>
+                    {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="a" v-if="isRemote" target="_blank" rel="noopener noreferrer" :href="account.url">
                     <ExternalLink class="mr-2 size-4" />
-                    <span>Open on remote</span>
+                    {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
             <DropdownMenuGroup v-if="isLoggedIn && !isMe">
                 <DropdownMenuItem as="button" @click="muteUser(account.id)">
                     <VolumeX class="mr-2 size-4" />
-                    <span>Mute</span>
+                    {{ m.spare_wild_mole_intend() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(account.id)">
                     <Ban class="mr-2 size-4" />
-                    <span>Block</span>
+                    {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isRemote" />
             <DropdownMenuGroup v-if="isRemote">
                 <DropdownMenuItem as="button" @click="refresh">
                     <RefreshCw class="mr-2 size-4" />
-                    <span>Refresh</span>
+                    {{ m.slow_chunky_chipmunk_hush() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
             <DropdownMenuGroup v-if="isLoggedIn && !isMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag class="mr-2 size-4" />
-                    <span>Report</span>
+                    {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
         </DropdownMenuContent>
@@ -87,6 +87,7 @@ import {
     VolumeX,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 
 const { account } = defineProps<{
     account: Account;
@@ -98,14 +99,14 @@ const isLoggedIn = !!identity.value;
 const { copy } = useClipboard();
 const copyText = (text: string) => {
     copy(text);
-    toast.success("Copied to clipboard");
+    toast.success(m.flat_nice_worm_dream());
 };
 
 const url = wrapUrl(`/@${account.acct}`);
 const isRemote = account.acct.includes("@");
 
 const muteUser = async (userId: string) => {
-    const id = toast.loading("Muting user...");
+    const id = toast.loading(m.ornate_tidy_coyote_grow());
     await client.value.muteAccount(userId);
     toast.dismiss(id);
 
@@ -113,7 +114,7 @@ const muteUser = async (userId: string) => {
 };
 
 const blockUser = async (userId: string) => {
-    const id = toast.loading("Blocking user...");
+    const id = toast.loading(m.empty_smug_raven_bloom());
     await client.value.blockAccount(userId);
     toast.dismiss(id);
 
@@ -121,10 +122,10 @@ const blockUser = async (userId: string) => {
 };
 
 const refresh = async () => {
-    const id = toast.loading("Requesting refresh...");
+    const id = toast.loading(m.real_every_macaw_wish());
     await client.value.refetchAccount(account.id);
     toast.dismiss(id);
 
-    toast.success("Account refreshed");
+    toast.success(m.many_cool_fox_love());
 };
 </script>

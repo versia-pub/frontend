@@ -50,6 +50,7 @@ import type {
     UseTimeAgoUnitNamesDefault,
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
+import { languageTag } from "~/paraglide/runtime";
 import { SettingIds } from "~/settings";
 import Avatar from "../profiles/avatar.vue";
 import SmallCard from "../profiles/small-card.vue";
@@ -89,7 +90,7 @@ const timeAgo = useTimeAgo(createdAt, {
         invalid: "",
     } as UseTimeAgoMessages<UseTimeAgoUnitNamesDefault>,
 });
-const fullTime = new Intl.DateTimeFormat("en-US", {
+const fullTime = new Intl.DateTimeFormat(languageTag(), {
     dateStyle: "medium",
     timeStyle: "short",
 }).format(createdAt);

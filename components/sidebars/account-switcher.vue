@@ -30,24 +30,24 @@
                 </Button>
                 <DropdownMenuItem @click="signInAction">
                     <UserPlus />
-                    Add account
+                    {{ m.sunny_pink_hyena_walk() }}
                 </DropdownMenuItem>
             </DropdownMenuLabel>
             <DropdownMenuSeparator v-if="identity" />
             <DropdownMenuGroup v-if="identity">
-                <DropdownMenuItem>
+                <DropdownMenuItem :as="NuxtLink" :href="`/@${identity.account.username}`">
                     <BadgeCheck />
-                    Account
+                    {{ m.factual_awful_hare_drip() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem @click="signOut()" v-if="identity">
                 <LogOut />
-                Log out
+                {{ m.sharp_big_mallard_reap() }}
             </DropdownMenuItem>
             <DropdownMenuItem :as="NuxtLink" href="/register" v-else>
                 <LogIn />
-                Register
+                {{ m.honest_few_baboon_pop() }}
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
@@ -62,6 +62,7 @@ import {
     UserPlus,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";

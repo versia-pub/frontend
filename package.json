@@ -20,11 +20,12 @@
         "url": "git+https://github.com/versia-pub/frontend.git"
     },
     "scripts": {
-        "build": "nuxt build",
+        "build": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt build",
         "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun --bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
         "generate": "nuxt generate",
         "emojis:generate": "bun run utils/emojis.ts",
-        "postinstall": "nuxt prepare",
+        "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt prepare",
+        "rebuild-i18n": "paraglide-js compile --project ./project.inlang --outdir ./paraglide",
         "lint": "bunx @biomejs/biome check .",
         "check": "bunx tsc -p ."
     },
@@ -69,7 +70,8 @@
         "@tailwindcss/forms": "^0.5.9",
         "@types/html-to-text": "^9.0.4",
         "typescript": "^5.7.2",
-        "vue-tsc": "^2.1.10"
+        "vue-tsc": "^2.1.10",
+        "@inlang/paraglide-js": "1.11.3"
     },
     "trustedDependencies": [
         "@biomejs/biome",

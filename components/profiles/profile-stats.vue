@@ -3,20 +3,20 @@
         <div class="flex flex-row flex-wrap gap-2 *:flex *:items-center *:gap-1 *:text-muted-foreground">
             <div>
                 <CalendarDays class="size-4" />
-                Joined <span class="text-primary font-semibold">{{ formattedCreationDate }}</span>
+                {{ m.gross_fancy_platypus_seek() }} <span class="text-primary font-semibold">{{ formattedCreationDate }}</span>
             </div>
         </div>
         <div class="flex flex-row flex-wrap gap-2 *:flex *:items-center *:gap-1 *:text-muted-foreground">
             <div>
-                <span class="text-primary font-semibold">{{ noteCount }}</span> Notes
+                <span class="text-primary font-semibold">{{ noteCount }}</span> {{ m.real_gray_stork_seek() }}
             </div>
             &middot;
             <div>
-                <span class="text-primary font-semibold">{{ followerCount }}</span> Followers
+                <span class="text-primary font-semibold">{{ followerCount }}</span> {{ m.teal_helpful_parakeet_hike() }}
             </div>
             &middot;
             <div>
-                <span class="text-primary font-semibold">{{ followingCount }}</span> Following
+                <span class="text-primary font-semibold">{{ followingCount }}</span> {{ m.aloof_royal_samuel_startle() }}
             </div>
         </div>
     </div>
@@ -24,6 +24,8 @@
 
 <script lang="ts" setup>
 import { CalendarDays } from "lucide-vue-next";
+import * as m from "~/paraglide/messages.js";
+import { languageTag } from "~/paraglide/runtime";
 
 const { creationDate } = defineProps<{
     creationDate: Date;
@@ -32,7 +34,7 @@ const { creationDate } = defineProps<{
     followingCount: number;
 }>();
 
-const formattedCreationDate = new Intl.DateTimeFormat("en-US", {
+const formattedCreationDate = new Intl.DateTimeFormat(languageTag(), {
     month: "long",
     year: "numeric",
 }).format(creationDate);
