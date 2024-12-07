@@ -19,7 +19,7 @@
             <Popover v-if="attachment.description">
                 <div class="absolute top-0 right-0 p-2">
                     <PopoverTrigger :as-child="true">
-                        <Button variant="outline" size="icon" class="[&_svg]:size-6">
+                        <Button variant="outline" size="icon" class="[&_svg]:size-6" title="View alt text">
                             <Captions />
                         </Button>
                     </PopoverTrigger>

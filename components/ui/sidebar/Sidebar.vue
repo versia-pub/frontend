@@ -27,14 +27,14 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 </script>
 
 <template>
-  <div
+  <aside
     v-if="collapsible === 'none'"
     :class="cn('flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground', props.class)"
     v-bind="$attrs"
     data-component="sidebar"
   >
     <slot />
-  </div>
+  </aside>
 
   <Sheet v-else-if="isMobile" :open="openMobile" v-bind="$attrs" @update:open="setOpenMobile">
     <SheetContent
@@ -45,6 +45,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
       }"
+      as="aside"
     >
       <div class="flex h-full w-full flex-col">
         <slot />
@@ -52,7 +53,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
     </SheetContent>
   </Sheet>
 
-  <div
+  <aside
     v-else class="group peer hidden md:block"
     :data-state="state"
     :data-collapsible="state === 'collapsed' ? collapsible : ''"
@@ -92,5 +93,5 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
         <slot />
       </div>
     </div>
-  </div>
+  </aside>
 </template>

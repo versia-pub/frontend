@@ -3,7 +3,7 @@
         <AvatarFallback v-if="name">
             {{ getInitials(name) }}
         </AvatarFallback>
-        <AvatarImage v-if="src" :src="src" />
+        <AvatarImage v-if="src" :src="src" :alt="`${name}'s avatar`" />
     </Avatar>
 </template>
 

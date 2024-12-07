@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <Collapsible :default-open="true">
+        <Collapsible :default-open="true" v-slot="{ open }">
             <Tooltip>
                 <TooltipTrigger :as-child="true">
                     <CardHeader v-if="notification.account"
@@ -11,7 +11,7 @@
                             notification.account.display_name
                         }}</span>
                         <CollapsibleTrigger :as-child="true">
-                            <Button variant="ghost" size="icon" class="ml-auto [&_svg]:data-[state=open]:-rotate-180">
+                            <Button variant="ghost" size="icon" class="ml-auto [&_svg]:data-[state=open]:-rotate-180" :title="open ? 'Collapse' : 'Expand'">
                                 <ChevronDown class="duration-200" />
                             </Button>
                         </CollapsibleTrigger>
