@@ -134,6 +134,10 @@ const data = {
             icon: Settings2,
             items: [
                 {
+                    title: "Account",
+                    url: "/preferences/account",
+                },
+                {
                     title: "Appearance",
                     url: "/preferences/appearance",
                 },
