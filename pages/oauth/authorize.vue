@@ -13,7 +13,17 @@ useHead({
 
 const host = new URL(useBaseUrl().value).host;
 const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
-const { error, error_description } = useUrlSearchParams();
+const {
+    error,
+    error_description,
+    redirect_uri,
+    response_type,
+    client_id,
+    scope,
+    state,
+} = useUrlSearchParams();
+const hasValidUrlSearchParams =
+    redirect_uri && response_type && client_id && scope;
 </script>
 
 <template>
@@ -63,10 +73,23 @@ const { error, error_description } = useUrlSearchParams();
                     })">
                     </p>
                 </div>
-                <UserAuthForm v-if="instance" :instance="instance" />
-                <div v-else class="p-4 flex items-center justify-center h-48">
+                <UserAuthForm v-if="instance && hasValidUrlSearchParams" :instance="instance" />
+                <div v-else-if="hasValidUrlSearchParams" class="p-4 flex items-center justify-center h-48">
                     <Loader class="size-8 animate-spin" />
                 </div>
+                <Alert v-else variant="destructive" class="mb-4">
+                    <AlertCircle class="size-4" />
+                    <AlertTitle>{{ m.grand_spry_goldfish_embrace() }}</AlertTitle>
+                    <AlertDescription>
+                        <p>{{ m.gray_clean_shark_comfort() }}</p>
+                        <ul class="list-disc list-inside mt-2 font-mono">
+                            <li>redirect_uri</li>
+                            <li>response_type</li>
+                            <li>client_id</li>
+                            <li>scope</li>
+                        </ul>
+                    </AlertDescription>
+                </Alert>
             </div>
         </div>
     </div>
