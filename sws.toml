@@ -21,3 +21,6 @@ page404 = "./404.html"
 
 #### Page fallback for 404s
 page-fallback = "./200.html"
+
+# Disable because it strips URI parameters
+redirect-trailing-slash = false
