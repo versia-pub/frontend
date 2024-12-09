@@ -16,12 +16,14 @@
             </CardFooter>
         </Card>
     </Sidebar>
+    <MobileNavbar />
     <ComposerDialog />
 </template>
 
 <script setup lang="ts">
 import ComposerDialog from "~/components/composer/dialog.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
+import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
 import Sidebar from "~/components/sidebars/sidebar.vue";
 import { Button } from "~/components/ui/button";
 import {

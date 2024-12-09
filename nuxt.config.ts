@@ -238,6 +238,9 @@ export default defineNuxtConfig({
             ],
             htmlAttrs: { lang: "en-us" },
         },
+        rootAttrs: {
+            "vaul-drawer-wrapper": true,
+        },
         keepalive: true,
     },
     nitro: {

@@ -1,31 +1,54 @@
 <template>
-    <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-            <SidebarMenuButton size="lg"
-                class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                <Avatar v-if="identity" class="size-8" :src="identity.account.avatar" :name="identity.account.display_name" />
-                <Avatar v-else class="size-8" name="AB" />
-                <div class="grid flex-1 text-left text-sm leading-tight">
-                    <span class="truncate font-semibold" v-render-emojis="identity?.account.emojis">{{
-                        identity?.account.display_name ?? "Not signed in"
+    <Drawer v-if="isMobile">
+        <DrawerTrigger :as-child="true">
+            <slot />
+        </DrawerTrigger>
+        <DrawerContent>
+            <Button @click="switchAccount(identity.account.id)" variant="outline" size="lg"
+                :href="`/@${identity.account.username}`" v-for="identity of identities"
+                class="flex w-full items-center gap-2 px-4 text-left h-20">
+                <Avatar class="size-12" :src="identity.account.avatar" :name="identity.account.display_name" />
+                <div class="grid flex-1 text-left leading-tight">
+                    <span class="truncate font-semibold" v-render-emojis="identity.account.emojis">{{
+                        identity.account.display_name
                     }}</span>
-                    <span class="truncate text-xs" v-if="identity">@{{ identity?.account.acct }}</span>
+                    <span class="truncate text-sm">@{{
+                        identity.account.acct
+                    }}</span>
                 </div>
-                <ChevronsUpDown class="ml-auto size-4" />
-            </SidebarMenuButton>
+            </Button>
+            <Button variant="secondary" size="lg" class="w-full" @click="signInAction">
+                <UserPlus />
+                {{ m.sunny_pink_hyena_walk() }}
+            </Button>
+            <Button variant="secondary" size="lg" @click="signOut()" v-if="identity">
+                <LogOut />
+                {{ m.sharp_big_mallard_reap() }}
+            </Button>
+            <Button variant="secondary" size="lg" :as="NuxtLink" href="/register" v-else>
+                <LogIn />
+                {{ m.honest_few_baboon_pop() }}
+            </Button>
+        </DrawerContent>
+    </Drawer>
+    <DropdownMenu v-else>
+        <DropdownMenuTrigger :as-child="true">
+            <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side="bottom"
             align="end" :side-offset="4">
             <DropdownMenuLabel class="p-0 font-normal">
-                <Button @click="switchAccount(identity.account.id)" variant="ghost" size="lg" :href="`/@${identity.account.username}`" v-for="identity of identities" class="flex w-full items-center gap-2 px-1 text-left text-sm">
+                <Button @click="switchAccount(identity.account.id)" variant="ghost" size="lg"
+                    :href="`/@${identity.account.username}`" v-for="identity of identities"
+                    class="flex w-full items-center gap-2 px-1 text-left text-sm">
                     <Avatar class="size-8" :src="identity.account.avatar" :name="identity.account.display_name" />
                     <div class="grid flex-1 text-left text-sm leading-tight">
                         <span class="truncate font-semibold" v-render-emojis="identity.account.emojis">{{
                             identity.account.display_name
-                        }}</span>
+                            }}</span>
                         <span class="truncate text-xs">@{{
                             identity.account.acct
-                        }}</span>
+                            }}</span>
                     </div>
                 </Button>
                 <DropdownMenuItem @click="signInAction">
@@ -54,18 +77,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    BadgeCheck,
-    ChevronsUpDown,
-    LogIn,
-    LogOut,
-    UserPlus,
-} from "lucide-vue-next";
+import { BadgeCheck, LogIn, LogOut, UserPlus } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
+import DrawerContent from "../modals/drawer-content.vue";
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
+import { Drawer, DrawerTrigger } from "../ui/drawer";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -75,9 +94,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { SidebarMenuButton } from "../ui/sidebar";
 
 const appData = useAppData();
+const isMobile = useMediaQuery("(max-width: 768px)");
 
 const signInAction = () => signIn(appData);
 

@@ -10,7 +10,8 @@
                                 'https://cdn.versia.pub/branding/icon.svg'
                                 " :name="instance?.title" />
                             <div class="grid flex-1 text-left text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ instance?.title ?? m.short_zippy_felix_kick() }}</span>
+                                <span class="truncate font-semibold">{{ instance?.title ?? m.short_zippy_felix_kick()
+                                    }}</span>
                                 <span class="truncate text-xs">{{ m.top_active_ocelot_cure() }}</span>
                             </div>
                             <!-- <ChevronsUpDown class="ml-auto" /> -->
@@ -67,7 +68,21 @@
         <SidebarFooter>
             <SidebarMenu class="gap-3">
                 <SidebarMenuItem>
-                    <AccountSwitcher />
+                    <AccountSwitcher>
+                        <SidebarMenuButton size="lg"
+                            class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+                            <Avatar v-if="identity" class="size-8" :src="identity.account.avatar"
+                                :name="identity.account.display_name" />
+                            <Avatar v-else class="size-8" name="AB" />
+                            <div class="grid flex-1 text-left text-sm leading-tight">
+                                <span class="truncate font-semibold" v-render-emojis="identity?.account.emojis">{{
+                                    identity?.account.display_name ?? "Not signed in"
+                                    }}</span>
+                                <span class="truncate text-xs" v-if="identity">@{{ identity?.account.acct }}</span>
+                            </div>
+                            <ChevronsUpDown class="ml-auto size-4" />
+                        </SidebarMenuButton>
+                    </AccountSwitcher>
                 </SidebarMenuItem>
                 <SidebarMenuItem class="flex flex-col gap-2">
                     <Button variant="default" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
@@ -92,6 +107,7 @@ import {
     BedSingle,
     Bell,
     ChevronRight,
+    ChevronsUpDown,
     DownloadCloud,
     Globe,
     House,
