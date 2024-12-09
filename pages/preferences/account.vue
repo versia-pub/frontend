@@ -4,7 +4,7 @@
             <h1 class="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl capitalize">
                 {{ m.tasty_late_termite_sew() }}
             </h1>
-            <Button class="ml-auto" v-if="profileEditor?.dirty" @click="profileEditor.submitForm">Save</Button>
+            <Button v-if="profileEditor?.dirty" @click="profileEditor.submitForm">Save</Button>
         </div>
         <div class="grid xl:grid-cols-[1fr,auto] gap-4 *:max-h-[80vh]">
             <ProfileEditor ref="profileEditor" />

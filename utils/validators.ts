@@ -1,6 +1,7 @@
 import {
     caseInsensitive,
     char,
+    charIn,
     createRegExp,
     digit,
     exactly,
@@ -12,7 +13,7 @@ import {
 
 export const emojiValidator = createRegExp(
     // A-Z a-z 0-9 _ -
-    oneOrMore(letter.or(digit).or(exactly("_")).or(exactly("-"))),
+    oneOrMore(letter.or(digit).or(charIn("_-"))),
     [caseInsensitive, global],
 );
 
