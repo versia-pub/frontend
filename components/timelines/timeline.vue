@@ -1,48 +1,45 @@
 <!-- Timeline.vue -->
 <template>
-    <div class="timeline rounded">
-        <TransitionGroup name="timeline-item" tag="div"
-            class="timeline-items *:rounded space-y-4 *:border">
-            <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
-                @delete="removeItem" />
-        </TransitionGroup>
+    <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:rounded space-y-4 *:border">
+        <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
+            @delete="removeItem" />
+    </TransitionGroup>
 
-        <div v-if="isLoading" class="p-4 flex items-center justify-center h-48">
-            <Loader class="size-8 animate-spin" />
-        </div>
-
-        <div v-if="error" class="timeline-error">
-            {{ error.message }}
-        </div>
-
-        <!-- If there are some posts, but the user scrolled to the end -->
-        <Card v-if="hasReachedEnd && items.length > 0" class="shadow-none bg-transparent border-none p-4">
-            <CardHeader class="text-center gap-y-4">
-                <CardTitle>{{ m.steep_suave_fish_snap() }}</CardTitle>
-                <CardDescription>
-                    {{ m.muddy_bland_shark_accept() }}
-                </CardDescription>
-            </CardHeader>
-        </Card>
-
-        <!-- If there are no posts at all -->
-        <Card v-else-if="hasReachedEnd && items.length === 0" class="shadow-none bg-transparent border-none p-4">
-            <CardHeader class="text-center gap-y-4">
-                <CardTitle>{{ m.fine_arable_lemming_fold() }}</CardTitle>
-                <CardDescription>
-                    {{ m.petty_honest_fish_stir() }}
-                </CardDescription>
-            </CardHeader>
-        </Card>
-
-        <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
-            <Button variant="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
-                {{ m.gaudy_bland_gorilla_talk() }}
-            </Button>
-        </div>
-
-        <div v-else ref="loadMoreTrigger" class="h-20"></div>
+    <div v-if="isLoading" class="p-4 flex items-center justify-center h-48">
+        <Loader class="size-8 animate-spin" />
     </div>
+
+    <div v-if="error" class="timeline-error">
+        {{ error.message }}
+    </div>
+
+    <!-- If there are some posts, but the user scrolled to the end -->
+    <Card v-if="hasReachedEnd && items.length > 0" class="shadow-none bg-transparent border-none p-4">
+        <CardHeader class="text-center gap-y-4">
+            <CardTitle>{{ m.steep_suave_fish_snap() }}</CardTitle>
+            <CardDescription>
+                {{ m.muddy_bland_shark_accept() }}
+            </CardDescription>
+        </CardHeader>
+    </Card>
+
+    <!-- If there are no posts at all -->
+    <Card v-else-if="hasReachedEnd && items.length === 0" class="shadow-none bg-transparent border-none p-4">
+        <CardHeader class="text-center gap-y-4">
+            <CardTitle>{{ m.fine_arable_lemming_fold() }}</CardTitle>
+            <CardDescription>
+                {{ m.petty_honest_fish_stir() }}
+            </CardDescription>
+        </CardHeader>
+    </Card>
+
+    <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
+        <Button variant="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
+            {{ m.gaudy_bland_gorilla_talk() }}
+        </Button>
+    </div>
+
+    <div v-else ref="loadMoreTrigger" class="h-20"></div>
 </template>
 
 <script lang="ts" setup>
