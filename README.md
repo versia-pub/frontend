@@ -110,6 +110,8 @@ Run `bun run emojis:generate` to generate the emoji list before building or runn
 
 This project is licensed under the AGPL 3.0 - see the [LICENSE](LICENSE) file for details.
 
+All Versia assets (icon, logo, banners, etc) are licensed under [CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0).
+
 ## Acknowledgments
 
 ### Projects
