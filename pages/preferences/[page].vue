@@ -8,6 +8,7 @@
                 <SwitchPreference v-if="setting.type === SettingType.Boolean" :setting="(setting as BooleanSetting)" @update:setting="updateSetting(id, setting)" />
                 <SelectPreference v-else-if="setting.type === SettingType.Enum" :setting="(setting as EnumSetting)" @update:setting="updateSetting(id, setting)" />
                 <CodePreference v-else-if="setting.type === SettingType.Code" :setting="(setting as CodeSetting)" @update:setting="updateSetting(id, setting)" />
+                <StringPreference v-else-if="setting.type === SettingType.String" :setting="(setting as StringSetting)" @update:setting="updateSetting(id, setting)" />
             </template>
         </div>
     </div>
@@ -16,6 +17,7 @@
 <script lang="ts" setup>
 import CodePreference from "~/components/preferences/code.vue";
 import SelectPreference from "~/components/preferences/select.vue";
+import StringPreference from "~/components/preferences/string.vue";
 import SwitchPreference from "~/components/preferences/switch.vue";
 import * as m from "~/paraglide/messages.js";
 import {
@@ -26,6 +28,7 @@ import {
     type SettingIds,
     type SettingPages,
     SettingType,
+    type StringSetting,
 } from "~/settings.ts";
 
 useHead({

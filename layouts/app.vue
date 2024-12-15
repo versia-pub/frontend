@@ -1,6 +1,6 @@
 <template>
     <Sidebar>
-        <SquarePattern />
+        <SquarePattern v-if="!canParseUrl(backgroundImage.value as string)" />
         <slot v-if="!route.meta.requiresAuth || identity" />
         <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
             <CardHeader class="text-center gap-y-4">
@@ -34,6 +34,7 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 import * as m from "~/paraglide/messages.js";
+import { SettingIds } from "~/settings";
 
 const appData = useAppData();
 const signInAction = () => signIn(appData);
@@ -44,6 +45,9 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "INPUT" &&
         activeElement.value?.tagName !== "TEXTAREA",
 );
+
+const backgroundImage = useSetting(SettingIds.BackgroundURL);
+const canParseUrl = URL.canParse;
 
 const route = useRoute();
 
