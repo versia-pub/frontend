@@ -4,7 +4,7 @@
             <Button v-bind="$attrs" variant="ghost" class="h-fit w-fit p-0 m-0 relative group border overflow-hidden">
                 <Avatar size="lg" :src="image" :name="displayName" />
                 <div
-                    class="absolute inset-0 bg-black/80 flex group-hover:opacity-100 opacity-0 duration-200 items-center justify-center">
+                    class="absolute inset-0 bg-background/80 flex group-hover:opacity-100 opacity-0 duration-200 items-center justify-center">
                     <Upload />
                 </div>
             </Button>
