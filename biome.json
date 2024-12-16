@@ -1,8 +1,7 @@
 {
     "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
     "organizeImports": {
-        "enabled": true,
-        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+        "enabled": true
     },
     "linter": {
         "enabled": true,
@@ -10,6 +9,9 @@
             "all": true,
             "suspicious": {
                 "noConsole": "off"
+            },
+            "performance": {
+                "noBarrelFile": "off"
             },
             "correctness": {
                 "noNodejsModules": "off",
@@ -65,13 +67,20 @@
                 "noDuplicateElseIf": "error",
                 "noCommonJs": "error"
             }
-        },
-        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+        }
     },
     "formatter": {
         "enabled": true,
         "indentStyle": "space",
-        "indentWidth": 4,
-        "ignore": ["node_modules/**/*", "dist/**/*", ".output", ".nuxt"]
+        "indentWidth": 4
+    },
+    "files": {
+        "ignore": [
+            "node_modules/**/*",
+            "dist/**/*",
+            ".output",
+            ".nuxt",
+            "paraglide"
+        ]
     }
 }

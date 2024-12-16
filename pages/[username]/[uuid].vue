@@ -1,21 +1,27 @@
 <template>
-    <div v-if="loaded" :defer="true" class="mx-auto max-w-2xl w-full pb-72">
-        <Note v-for="note of context?.ancestors" :render-replies="false" :thread-view="true" :borders="false" :element="note" />
-        <div ref="element" class="first:rounded-t last:rounded-b overflow-hidden">
-            <Note class="!rounded-none border-2 -m-[2px] border-primary-500" v-if="note" :render-replies="false":element="note" />
-        </div>
-        <Note v-for="note of context?.descendants" :element="note" :render-replies="false" :thread-view="note.id !== context?.descendants.at(-1)?.id" :borders="false" :thread-view-top="true" />
+    <div v-if="loaded" class="mx-auto max-w-2xl w-full pb-72 *:rounded space-y-4 *:border *:border-border/50">
+        <Note v-for="note of context?.ancestors" :note="note" />
+        <Note v-if="note" :note="note" />
+        <Note v-for="note of context?.descendants" :note="note" />
     </div>
-    <div v-else class="mx-auto max-w-2xl w-full overflow-y-auto">
-        <Note v-for="_ of 5" :skeleton="true" />
+
+    <div v-else class="p-4 flex items-center justify-center h-48">
+        <Loader class="size-8 animate-spin" />
     </div>
 </template>
 
 <script setup lang="ts">
-import Note from "~/components/social-elements/notes/note.vue";
+import { Loader } from "lucide-vue-next";
+import Note from "~/components/notes/note.vue";
+import * as m from "~/paraglide/messages.js";
 
 definePageMeta({
     layout: "app",
+    breadcrumbs: () => [
+        {
+            text: m.chunky_awake_mallard_grow(),
+        },
+    ],
 });
 
 const element = ref<HTMLElement | null>(null);
@@ -49,10 +55,16 @@ watch(
     },
 );
 
-useServerSeoMeta({
-    title: note.value?.account.display_name,
-    description: note.value?.content,
-    ogImage: note.value?.media_attachments[0]?.preview_url,
+useSeoMeta({
+    title: computed(() =>
+        note.value
+            ? note.value.account.display_name
+            : m.steep_sour_warthog_aim(),
+    ),
+    description: computed(() => (note.value ? note.value.content : undefined)),
+    ogImage: computed(() =>
+        note.value ? note.value.media_attachments[0]?.preview_url : undefined,
+    ),
     robots: computed(() => ({
         noindex: !!note.value?.account.noindex,
         nofollow: !!note.value?.account.noindex,

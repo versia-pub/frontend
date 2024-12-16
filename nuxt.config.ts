@@ -3,12 +3,13 @@ export default defineNuxtConfig({
     modules: [
         "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
-        "nuxt-headlessui",
         "@nuxt/fonts",
-        "@vee-validate/nuxt",
         "nuxt-security",
         "@vite-pwa/nuxt",
+        "shadcn-nuxt",
+        "@nuxtjs/color-mode",
     ],
+    ssr: false,
     vue: {
         compilerOptions: {
             isCustomElement: (tag) => tag === "iconify-icon",
@@ -17,8 +18,19 @@ export default defineNuxtConfig({
     components: {
         dirs: [],
     },
+    tailwindcss: {
+        // Don't inject the default @tailwind utilities CSS
+        // To avoid conflicts with our own styles
+        cssPath: false,
+    },
     future: {
         compatibilityVersion: 4,
+    },
+    shadcn: {
+        componentDir: "./components/ui",
+    },
+    colorMode: {
+        classSuffix: "",
     },
     compatibilityDate: "2024-11-05",
     pwa: {
@@ -226,10 +238,13 @@ export default defineNuxtConfig({
             ],
             htmlAttrs: { lang: "en-us" },
         },
+        rootAttrs: {
+            "vaul-drawer-wrapper": true,
+        },
         keepalive: true,
     },
     nitro: {
-        preset: "bun",
+        preset: "static",
         minify: true,
         prerender: {
             failOnError: true,
@@ -245,15 +260,6 @@ export default defineNuxtConfig({
                 maxAge: 31536000,
             },
         ],
-    },
-    veeValidate: {
-        autoImports: true,
-        componentNames: {
-            Form: "VeeForm",
-            Field: "VeeField",
-            FieldArray: "VeeFieldArray",
-            ErrorMessage: "VeeErrorMessage",
-        },
     },
     runtimeConfig: {
         public: {

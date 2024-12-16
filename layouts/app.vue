@@ -1,41 +1,43 @@
 <template>
-    <div class="from-dark-600 to-dark-900 bg-gradient-to-tl relative min-h-dvh" :style="{
-        backgroundImage: canParseURL(backgroundImage.value as string) ? `url(${backgroundImage.value})` : undefined,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-    }">
-        <SquarePattern v-if="!canParseURL(backgroundImage.value as string)" />
-        <Navigation />
-
-        <div class="relative md:pl-20 min-h-dvh flex flex-row overflow-hidden justify-center xl:justify-between">
-            <OverlayScrollbarsComponent :defer="true" class="w-full max-h-dvh overflow-y-auto" :element="'main'">
-                <slot />
-            </OverlayScrollbarsComponent>
-            <CollapsibleAside v-if="width > 1280 && identity" direction="right"
-                class="max-w-md max-h-dvh overflow-y-auto w-full hidden absolute inset-y-0 xl:flex">
-                <TimelineScroller>
-                    <Notifications />
-                </TimelineScroller>
-            </CollapsibleAside>
-        </div>
-    </div>
-    <ComposerModal />
-    <AttachmentDialog />
+    <Sidebar>
+        <SquarePattern v-if="!canParseUrl(backgroundImage.value as string)" />
+        <slot v-if="!route.meta.requiresAuth || identity" />
+        <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
+            <CardHeader class="text-center gap-y-4">
+                <CardTitle>{{ m.sunny_quick_lionfish_flip() }}</CardTitle>
+                <CardDescription>
+                    {{ m.brave_known_pelican_drip() }}
+                </CardDescription>
+            </CardHeader>
+            <CardFooter>
+                <Button variant="secondary" class="w-full" @click="signInAction">
+                    {{ m.fuzzy_sea_moth_absorb() }}
+                </Button>
+            </CardFooter>
+        </Card>
+    </Sidebar>
+    <MobileNavbar />
+    <ComposerDialog />
 </template>
 
 <script setup lang="ts">
-import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
-import ComposerModal from "~/components/composer/modal.client.vue";
+import ComposerDialog from "~/components/composer/dialog.vue";
 import SquarePattern from "~/components/graphics/square-pattern.vue";
-import CollapsibleAside from "~/components/sidebars/collapsible-aside.vue";
-import Navigation from "~/components/sidebars/navigation.vue";
-import AttachmentDialog from "~/components/social-elements/notes/attachment-dialog.vue";
-import Notifications from "~/components/timelines/notifications.vue";
-import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
+import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
+import Sidebar from "~/components/sidebars/sidebar.vue";
+import { Button } from "~/components/ui/button";
+import {
+    Card,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
-const { width } = useWindowSize();
 
+const appData = useAppData();
+const signInAction = () => signIn(appData);
 const { n } = useMagicKeys();
 const activeElement = useActiveElement();
 const notUsingInput = computed(
@@ -43,15 +45,11 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "INPUT" &&
         activeElement.value?.tagName !== "TEXTAREA",
 );
+
 const backgroundImage = useSetting(SettingIds.BackgroundURL);
-const canParseURL: (url: string) => boolean = (url) => {
-    try {
-        new URL(url);
-        return true;
-    } catch {
-        return false;
-    }
-};
+const canParseUrl = URL.canParse;
+
+const route = useRoute();
 
 watchEffect(async () => {
     if (n?.value && notUsingInput.value) {

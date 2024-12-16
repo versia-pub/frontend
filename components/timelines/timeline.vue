@@ -1,45 +1,60 @@
 <!-- Timeline.vue -->
 <template>
-    <div class="timeline rounded overflow-hidden">
-        <TransitionGroup name="timeline-item" tag="div" class="timeline-items">
-            <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
-                @delete="removeItem" />
-        </TransitionGroup>
+    <TransitionGroup name="timeline-item" tag="div" class="timeline-items *:rounded space-y-4 *:border">
+        <TimelineItem :type="type" v-for="item in items" :key="item.id" :item="item" @update="updateItem"
+            @delete="removeItem" />
+    </TransitionGroup>
 
-        <TimelineItem v-if="isLoading" :type="type" v-for="_ in 5" />
-
-        <div v-if="error" class="timeline-error">
-            {{ error.message }}
-        </div>
-
-        <div v-if="hasReachedEnd && items.length > 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
-            <span class="text-lg font-semibold">You've scrolled so far, there's nothing left to show.</span>
-            <span class="text-sm">You can always go back and see what you missed.</span>
-        </div>
-
-        <div v-else-if="hasReachedEnd && items.length === 0"
-            class="flex flex-col items-center justify-center gap-2 text-gray-200 text-center p-10">
-            <span class="text-lg font-semibold">There's nothing to show here.</span>
-            <span class="text-sm">Either you're all caught up or there's nothing to show.</span>
-        </div>
-
-        <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
-            <Button theme="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
-                Load More
-            </Button>
-        </div>
-
-        <div v-else ref="loadMoreTrigger" class="h-20"></div>
+    <div v-if="isLoading" class="p-4 flex items-center justify-center h-48">
+        <Loader class="size-8 animate-spin" />
     </div>
+
+    <div v-if="error" class="timeline-error">
+        {{ error.message }}
+    </div>
+
+    <!-- If there are some posts, but the user scrolled to the end -->
+    <Card v-if="hasReachedEnd && items.length > 0" class="shadow-none bg-transparent border-none p-4">
+        <CardHeader class="text-center gap-y-4">
+            <CardTitle>{{ m.steep_suave_fish_snap() }}</CardTitle>
+            <CardDescription>
+                {{ m.muddy_bland_shark_accept() }}
+            </CardDescription>
+        </CardHeader>
+    </Card>
+
+    <!-- If there are no posts at all -->
+    <Card v-else-if="hasReachedEnd && items.length === 0" class="shadow-none bg-transparent border-none p-4">
+        <CardHeader class="text-center gap-y-4">
+            <CardTitle>{{ m.fine_arable_lemming_fold() }}</CardTitle>
+            <CardDescription>
+                {{ m.petty_honest_fish_stir() }}
+            </CardDescription>
+        </CardHeader>
+    </Card>
+
+    <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
+        <Button variant="secondary" @click="loadNext" :disabled="isLoading" class="w-full">
+            {{ m.gaudy_bland_gorilla_talk() }}
+        </Button>
+    </div>
+
+    <div v-else ref="loadMoreTrigger" class="h-20"></div>
 </template>
 
 <script lang="ts" setup>
 import type { Notification, Status } from "@versia/client/types";
 import { useIntersectionObserver } from "@vueuse/core";
-import { onMounted, watch } from "vue";
-import Button from "~/packages/ui/components/buttons/button.vue";
+import { Loader } from "lucide-vue-next";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
+import { Button } from "../ui/button";
 import TimelineItem from "./timeline-item.vue";
 
 const props = defineProps<{

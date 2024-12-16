@@ -1,34 +1,46 @@
 <template>
-    <ClientOnly>
+    <TooltipProvider>
         <Component is="style">
             {{ customCss.value }}
         </Component>
-    </ClientOnly>
-    <NuxtPwaAssets />
-    <ClientOnly>
+        <NuxtPwaAssets />
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
-        <NotificationsRenderer />
         <ConfirmationModal />
-    </ClientOnly>
+        <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
+        <Toaster class="pointer-events-auto" />
+    </TooltipProvider>
 </template>
 
 <script setup lang="ts">
 import "~/styles/theme.css";
+import "~/styles/index.css";
 import { convert } from "html-to-text";
-import "iconify-icon";
-import NotificationsRenderer from "./components/notifications/notifications-renderer.vue";
-import { SettingIds } from "./settings";
-import ConfirmationModal from "./components/modals/confirmation.vue";
-// Use SSR-safe IDs for Headless UI
-provideHeadlessUseId(() => useId());
+import ConfirmationModal from "./components/modals/confirm.vue";
+import { Toaster } from "./components/ui/sonner";
+import { setLanguageTag } from "./paraglide/runtime";
+import { type EnumSetting, SettingIds } from "./settings";
+// Sin
+//import "~/styles/mcdonalds.css";
+
+const lang = useLanguage();
+setLanguageTag(lang.value);
 
 const code = useRequestURL().searchParams.get("code");
 const appData = useAppData();
 const instance = useInstance();
 const description = useExtendedDescription(client);
 const customCss = useSetting(SettingIds.CustomCSS);
+const route = useRoute();
+
+// Theme switcher
+const theme = useSetting(SettingIds.Theme) as Ref<EnumSetting>;
+const colorMode = useColorMode();
+
+watch(theme.value, () => {
+    colorMode.preference = theme.value.value;
+});
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {
@@ -59,7 +71,7 @@ useHead({
     ],
 });
 
-if (code && appData.value) {
+if (code && appData.value && route.path !== "/oauth/code") {
     signInWithCode(code, appData.value);
 }
 
@@ -72,17 +84,7 @@ useCacheRefresh(client);
 </script>
 
 <style>
-@import url("overlayscrollbars/overlayscrollbars.css");
-
 body {
     font-family: Inter, sans-serif;
-}
-
-.os-scrollbar .os-scrollbar-handle {
-    background: #9999;
-}
-
-.os-scrollbar .os-scrollbar-handle:hover {
-    background: #6666;
 }
 </style>

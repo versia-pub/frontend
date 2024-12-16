@@ -1,118 +1,137 @@
 <template>
-    <div class="flex min-h-screen flex-col justify-center px-6 py-12 gap-10 lg:px-8 relative">
-        <img crossorigin="anonymous" src="https://cdn.versia.pub/branding/icon.svg" alt="Versia logo"
-            class="mx-auto hidden md:inline-block h-20" />
-        <div v-if="true" class="mx-auto w-full max-w-md">
-            <div v-if="Object.keys(errors).length > 0"
-                class="ring-1 ring-white/10 rounded p-4 bg-red-500 text-white mb-10">
-                <h2 class="font-bold text-lg">Error</h2>
-                <span class="text-sm">{{ errors.error }}</span>
-            </div>
-            <VeeForm class="flex flex-col gap-y-6" @submit="s => register((s as any))" :validation-schema="schema">
-                <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Account details</h1>
-
-                <VeeField name="username" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="username">Username</Label>
-                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                        </LabelAndError>
-                        <TextInput id="username" type="text" placeholder="thespeedy" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="username"
-                            :spellcheck="false" />
-                    </Field>
-                </VeeField>
-
-                <VeeField name="email" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="email">Email address</Label>
-                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                        </LabelAndError>
-                        <TextInput id="email" type="email" placeholder="joseph.jones@gmail.com" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="email" />
-                    </Field>
-                </VeeField>
-
-                <VeeField name="password" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="password">Password</Label>
-                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                        </LabelAndError>
-                        <PasswordInput id="password" placeholder="hunter2" required v-bind="field" :disabled="isLoading"
-                            :is-invalid="!!errorMessage" :show-strength="true" autocomplete="new-password" />
-                    </Field>
-                </VeeField>
-
-                <VeeField name="password-confirm" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <LabelAndError>
-                            <Label for="password-confirm">Confirm password</Label>
-                            <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                        </LabelAndError>
-                        <PasswordInput id="password-confirm" placeholder="hunter2" required v-bind="field"
-                            :disabled="isLoading" :is-invalid="!!errorMessage" autocomplete="new-password" />
-                    </Field>
-                </VeeField>
-
-                <VeeField name="tos" v-slot="{ errorMessage, field }" validate-on-change>
-                    <Field>
-                        <div class="flex flex-row gap-x-2 items-center">
-                            <CheckboxInput :checked="true" id="tos" required :disabled="true" v-bind="field" />
-                            <Label for="tos" class="!text-gray-200">
-                                I agree to the Terms of Service
-                            </Label>
+    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)'
+    }">
+        <Card v-if="instance?.registrations.enabled ?? true" class="w-full max-w-md" as="form" @submit="handleSubmit">
+            <CardHeader>
+                <Alert v-if="errors.error" variant="destructive" class="mb-4">
+                    <AlertCircle class="size-4" />
+                    <AlertTitle>{{ m.vexed_each_falcon_enjoy() }}</AlertTitle>
+                    <AlertDescription>
+                        {{ errors.error }}
+                    </AlertDescription>
+                </Alert>
+                <CardTitle as="h1" class="text-2xl break-words">{{ m.wide_topical_vole_walk() }}</CardTitle>
+            </CardHeader>
+            <CardContent v-if="instance && tos" class="grid gap-6">
+                <FormField v-slot="{ componentField }" name="username">
+                    <FormItem>
+                        <FormLabel>
+                            {{ m.keen_clean_nils_slurp() }}
+                        </FormLabel>
+                        <FormControl>
+                            <Input placeholder="petergriffin" type="text" auto-capitalize="none"
+                                auto-complete="idenfifier" auto-correct="off" :disabled="isLoading"
+                                v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <FormField v-slot="{ componentField }" name="email">
+                    <FormItem>
+                        <FormLabel>
+                            {{ m.top_inclusive_wallaby_hack() }}
+                        </FormLabel>
+                        <FormControl>
+                            <Input placeholder="peter.griffin@fox.com" type="email" auto-capitalize="none"
+                                auto-complete="email" auto-correct="off" :disabled="isLoading"
+                                v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <FormField v-slot="{ componentField }" name="password">
+                    <FormItem>
+                        <FormLabel>
+                            {{ m.livid_bright_wallaby_quiz() }}
+                        </FormLabel>
+                        <FormControl>
+                            <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
+                                auto-correct="off" :disabled="isLoading" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <FormField v-slot="{ componentField }" name="password-confirm">
+                    <FormItem>
+                        <FormLabel>
+                            {{ m.awful_cozy_jannes_rise() }}
+                        </FormLabel>
+                        <FormControl>
+                            <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
+                                auto-correct="off" :disabled="isLoading" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <FormField v-slot="{ componentField, value, handleChange }" name="tos">
+                    <FormItem class="space-y-0">
+                        <div class="flex flex-row gap-x-2 items-center ">
+                            <FormControl>
+                                <Checkbox v-bind="componentField" :checked="value" @update:checked="handleChange" />
+                            </FormControl>
+                            <FormLabel>
+                                <Dialog>
+                                    {{ m.plane_quick_chipmunk_rush() }} <DialogTrigger :as-child="true"><Button variant="link"
+                                            class="px-0 underline">{{ m.glad_last_crow_dine() }}</Button>.</DialogTrigger>
+                                    <DialogContent class="!max-h-[90vh] overflow-auto">
+                                        <DialogHeader>
+                                            <DialogTitle>{{ instance.title }}
+                                            </DialogTitle>
+                                        </DialogHeader>
+                                        <div v-html="tos.content" class="prose prose-sm dark:prose-invert"></div>
+                                    </DialogContent>
+                                </Dialog>
+                            </FormLabel>
                         </div>
-                        <FieldError v-if="errorMessage">{{ errorMessage }}</FieldError>
-                    </Field>
-                </VeeField>
-
-                <Collapsible.Root>
-                    <Collapsible.Trigger class="w-full">
-                        <Button theme="secondary" class="w-full">View Terms of Service</Button>
-                    </Collapsible.Trigger>
-                    <Collapsible.Content
-                        class="prose prose-invert prose-sm p-4 ring-1 ring-white/10 bg-dark-700 rounded mt-3">
-                        <div v-html="tos?.content"></div>
-                    </Collapsible.Content>
-                </Collapsible.Root>
-
-                <p class="text-xs font-semibold text-gray-300">
-                    Passwords are stored securely and hashed. Passwords are not stored in plain text.
-                    Administrators
-                    cannot see your password.
-                </p>
-
-                <Button theme="primary" type="submit" class="w-full" :disabled="isLoading">{{ isLoading ?
-                    "Registering..." :
-                    "Register" }}</Button>
-            </VeeForm>
-        </div>
-        <div v-else>
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Registrations are
-                disabled
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-200 text-center">Ask this instance's admin to enable them in
-                config!
-            </p>
-        </div>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <div class="flex-col flex gap-y-1 text-sm text-muted-foreground">
+                    <p>{{ m.happy_house_dragonfly_clap() }}</p>
+                </div>
+            </CardContent>
+            <CardFooter v-if="instance && tos" class="grid gap-2">
+                <Button variant="default" type="submit">{{ m.early_last_ocelot_praise() }}</Button>
+            </CardFooter>
+            <div v-else class="p-4 flex items-center justify-center h-48">
+                <Loader class="size-8 animate-spin" />
+            </div>
+        </Card>
+        <Card v-else class="w-full max-w-md">
+            <CardHeader>
+                <CardTitle>{{ m.wide_away_cat_taste() }}</CardTitle>
+                <CardDescription>
+                    {{ m.safe_candid_horse_jump() }}
+                </CardDescription>
+            </CardHeader>
+            <CardFooter class="grid">
+                <Button :as="NuxtLink" href="/" variant="default">
+                    {{ m.every_tangy_koala_persist() }}}
+                </Button>
+            </CardFooter>
+        </Card>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Collapsible } from "@ark-ui/vue";
 import { toTypedSchema } from "@vee-validate/zod";
-import type { ResponseError } from "@versia/client";
+import { Client, type ResponseError } from "@versia/client";
+import { AlertCircle, Loader } from "lucide-vue-next";
+import { useForm } from "vee-validate";
 import { z } from "zod";
-import CheckboxInput from "~/components/inputs/checkbox-input.vue";
-import FieldError from "~/components/inputs/field-error.vue";
-import Field from "~/components/inputs/field.vue";
-import LabelAndError from "~/components/inputs/label-and-error.vue";
-import Label from "~/components/inputs/label.vue";
-import PasswordInput from "~/components/inputs/password-input.vue";
-import TextInput from "~/components/inputs/text-input.vue";
-import Button from "~/packages/ui/components/buttons/button.vue";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { Checkbox } from "~/components/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader } from "~/components/ui/dialog";
+import { FormItem } from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import * as m from "~/paraglide/messages.js";
+import { NuxtLink } from "#components";
+
+useHead({
+    title: m.early_last_ocelot_praise(),
+});
 
 const schema = toTypedSchema(
     z
@@ -123,47 +142,39 @@ const schema = toTypedSchema(
             username: z
                 .string()
                 .min(3)
-                .regex(
-                    /^[a-z0-9_]+$/,
-                    "Must be lowercase letters, numbers, or underscores",
-                ),
+                .regex(/^[a-z0-9_-]+$/, m.sea_maroon_peacock_yell()),
             reason: z.string().optional(),
+            tos: z.boolean().refine((value) => value, {
+                message: m.civil_loose_coyote_jump(),
+            }),
         })
         .superRefine((data, ctx) => {
             if (data.password !== data["password-confirm"]) {
                 ctx.addIssue({
                     path: [...ctx.path, "password-confirm"],
                     code: "custom",
-                    message: "Passwords do not match",
+                    message: m.candid_fancy_leopard_prosper(),
                 });
             }
             return {};
         }),
 );
 
-const tos = useTos(client);
+const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
+const form = useForm({
+    validationSchema: schema,
+});
 
-const errors = ref<{
-    error?: string;
-}>({});
-
-const isLoading = ref(false);
-
-const register = (result: {
-    username: string;
-    email: string;
-    password: string;
-    reason: string;
-}) => {
+const handleSubmit = form.handleSubmit((values) => {
     isLoading.value = true;
     ref(client)
         .value?.registerAccount(
-            result.username,
-            result.email,
-            result.password,
+            values.username,
+            values.email,
+            values.password,
             true,
             "en",
-            result.reason || "Empty reason",
+            values.reason || "Empty reason",
         )
         .then(() => {
             navigateTo("/register/success");
@@ -172,41 +183,18 @@ const register = (result: {
             const error = e as ResponseError<{
                 error: string;
             }>;
-            // @ts-ignore
             errors.value = error.response.data || {};
         })
         .finally(() => {
             isLoading.value = false;
         });
-};
+});
+
+const tos = useTos(client);
+
+const errors = ref<{
+    error?: string;
+}>({});
+
+const isLoading = ref(false);
 </script>
-
-<style>
-@keyframes slideDown {
-    from {
-        height: 0;
-    }
-
-    to {
-        height: var(--height);
-    }
-}
-
-@keyframes slideUp {
-    from {
-        height: var(--height);
-    }
-
-    to {
-        height: 0;
-    }
-}
-
-[data-scope='collapsible'][data-part='content'][data-state='open'] {
-    animation: slideDown 250ms;
-}
-
-[data-scope='collapsible'][data-part='content'][data-state='closed'] {
-    animation: slideUp 200ms;
-}
-</style>

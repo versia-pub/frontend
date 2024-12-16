@@ -1,12 +1,30 @@
 <template>
-    <div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 relative">
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl text-center">Registration was a
-                success!
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300 text-center"> You can now login to your account in any
-                Mastodon
-                client </p>
-        </div>
+    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)'
+    }">
+        <Card class="w-full max-w-md">
+            <CardHeader>
+                <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>
+                <CardDescription>
+                    {{ m.left_maroon_myna_drip() }}
+                </CardDescription>
+            </CardHeader>
+            <CardFooter class="grid">
+                <Button :as="NuxtLink" href="/" variant="default">
+                    {{ m.every_tangy_koala_persist() }}
+                </Button>
+            </CardFooter>
+        </Card>
     </div>
 </template>
+
+<script setup lang="ts">
+import { Button } from "~/components/ui/button";
+import { Card, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
+import { NuxtLink } from "#components";
+
+useHead({
+    title: "Success!",
+});
+</script>

@@ -1,222 +1,299 @@
 <template>
-    <RespondingTo v-if="respondingTo" :respondingTo="respondingTo" />
-    <div class="px-6 pb-4 pt-5">
-        <RichTextbox v-model:content="content" :loading="loading" :chosenSplash="chosenSplash" :characterLimit="characterLimit"
-            :handle-paste="handlePaste" />
-        <ContentWarning v-model:cw="cw" v-model:cwContent="cwContent" />
-        <FileUploader :files="files" ref="uploader" @add-file="(newFile) => {
-            files.push(newFile);
-        }" @change-file="(changedFile) => {
-            const index = files.findIndex((file) => file.id === changedFile.id);
-            if (index !== -1) {
-                files[index] = changedFile;
-            }
-        }" @remove-file="(id) => {
-            files.splice(files.findIndex((file) => file.id === id), 1);
-        }" />
-        <ActionButtons v-model:content="content" v-model:markdown="markdown" v-model:cw="cw" :loading="loading" :canSubmit="canSubmit"
-            :respondingType="respondingType" @send="send" @file-picker-open="openFilePicker" />
+    <div v-if="relation" class="rounded border overflow-auto max-h-72">
+        <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
     </div>
+
+    <Input v-model:model-value="state.contentWarning" v-if="state.sensitive"
+        placeholder="Put your content warning here" />
+
+    <Textarea :placeholder="chosenSplash" v-model:model-value="state.content"
+        class="!border-none !ring-0 !outline-none rounded-none p-0 max-h-full min-h-48 !ring-offset-0"
+        :disabled="sending" />
+
+    <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
+        <input type="file" ref="fileInput" @change="uploadFileFromEvent" class="hidden" multiple />
+        <Files v-model:files="state.files" />
+    </div>
+
+    <DialogFooter class="items-center flex-row">
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon">
+                    <AtSign class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{{ m.game_tough_seal_adore() }}</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/markdown'"
+                    @update:pressed="i => state.contentType = i ? 'text/plain' : 'text/markdown'">
+                    <LetterText class="!size-5" />
+                </Toggle>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{{ m.plane_born_koala_hope() }}</p>
+            </TooltipContent>
+        </Tooltip>
+        <Select v-model:model-value="state.visibility">
+            <SelectTrigger :as-child="true" :disabled="relation?.type === 'edit'">
+                <Button variant="ghost" size="icon">
+                    <component :is="visibilities[state.visibility].icon" class="!size-5" />
+                </Button>
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem v-for="(v, k) in visibilities" :key="k" @click="state.visibility = k" :value="k">
+                    <div class="flex flex-row gap-4 items-center w-full justify-between">
+                        <div class="flex flex-col gap-1">
+                            <span class="font-semibold">{{ v.name }}</span>
+                            <span>{{ v.text }}</span>
+                        </div>
+                        <component :is="v.icon" class="!size-5" />
+                    </div>
+                </SelectItem>
+            </SelectContent>
+        </Select>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon">
+                    <Smile class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{{ m.blue_ornate_coyote_tickle() }}</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Button variant="ghost" size="icon" @click="fileInput?.click()">
+                    <FilePlus2 class="!size-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{{ m.top_patchy_earthworm_vent() }}</p>
+            </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+            <TooltipTrigger as="div">
+                <Toggle variant="default" size="sm" v-model:pressed="state.sensitive">
+                    <TriangleAlert class="!size-5" />
+                </Toggle>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{{ m.frail_broad_mallard_dart() }}</p>
+            </TooltipContent>
+        </Tooltip>
+        <Button type="submit" size="lg" class="ml-auto" :disabled="sending" @click="submit">
+            <Loader v-if="sending" class="!size-5 animate-spin" />
+            {{ relation?.type === "edit" ? m.gaudy_strong_puma_slide() : m.free_teal_bulldog_learn() }}
+        </Button>
+    </DialogFooter>
 </template>
 
 <script lang="ts" setup>
-import type { Instance, Status } from "@versia/client/types";
-import { nanoid } from "nanoid";
-import { computed, onMounted, ref, watch, watchEffect } from "vue";
-import { useConfig, useEvent, useListen, useMagicKeys } from "#imports";
-import ActionButtons from "./action-buttons.vue";
-import ContentWarning from "./content-warning.vue";
-import RespondingTo from "./responding-to.vue";
-import RichTextbox from "./rich-text-box.vue";
-// biome-ignore lint/style/useImportType: <explanation>
-import FileUploader from "./uploader/uploader.vue";
-import type { FileData } from "./uploader/uploader.vue";
+import type { ResponseError } from "@versia/client";
+import type { Status, StatusSource } from "@versia/client/types";
+import {
+    AtSign,
+    FilePlus2,
+    Globe,
+    LetterText,
+    Loader,
+    Lock,
+    LockOpen,
+    Smile,
+    TriangleAlert,
+} from "lucide-vue-next";
+import { SelectTrigger } from "radix-vue";
+import { toast } from "vue-sonner";
+import Note from "~/components/notes/note.vue";
+import { Select, SelectContent, SelectItem } from "~/components/ui/select";
+import * as m from "~/paraglide/messages.js";
+import { SettingIds } from "~/settings";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Toggle } from "../ui/toggle";
+import Files from "./files.vue";
 
-const uploader = ref<InstanceType<typeof FileUploader> | undefined>(undefined);
-const { Control_Enter, Command_Enter, Control_Alt } = useMagicKeys();
-const content = ref("");
-const respondingTo = ref<Status | null>(null);
-const respondingType = ref<"reply" | "quote" | "edit" | null>(null);
-const cw = ref(false);
-const cwContent = ref("");
-const markdown = ref(true);
+const { Control_Enter, Command_Enter } = useMagicKeys();
+const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
+const fileInput = ref<HTMLInputElement | null>(null);
 
-const splashes = useConfig().COMPOSER_SPLASHES;
-const chosenSplash = ref(
-    splashes[Math.floor(Math.random() * splashes.length)] as string,
-);
-
-const openFilePicker = () => {
-    uploader.value?.openFilePicker();
-};
-
-const files = ref<FileData[]>([]);
-
-const handlePaste = (event: ClipboardEvent) => {
-    if (event.clipboardData) {
-        const items = Array.from(event.clipboardData.items);
-        const newFiles = items
-            .filter((item) => item.kind === "file")
-            .map((item) => item.getAsFile())
-            .filter((file): file is File => file !== null);
-        if (newFiles.length > 0) {
-            event.preventDefault();
-            files.value.push(
-                ...newFiles.map((file) => ({
-                    id: nanoid(),
-                    file,
-                    progress: 0,
-                    uploading: true,
-                })),
-            );
-        }
+watch([Control_Enter, Command_Enter], () => {
+    if (sending.value || !ctrlEnterSend.value.value) {
+        return;
     }
-};
 
-watch(Control_Alt as ComputedRef<boolean>, () => {
-    chosenSplash.value = splashes[
-        Math.floor(Math.random() * splashes.length)
-    ] as string;
+    submit();
 });
 
-watch(
-    files,
-    (newFiles) => {
-        loading.value = newFiles.some((file) => file.uploading);
-    },
-    {
-        deep: true,
-    },
-);
-
-onMounted(() => {
-    useListen("composer:reply", (note: Status) => {
-        respondingTo.value = note;
-        respondingType.value = "reply";
-        if (note.account.id !== identity.value?.account.id) {
-            content.value = `@${note.account.acct} `;
-        }
-    });
-
-    useListen("composer:quote", (note: Status) => {
-        respondingTo.value = note;
-        respondingType.value = "quote";
-        if (note.account.id !== identity.value?.account.id) {
-            content.value = `@${note.account.acct} `;
-        }
-    });
-
-    useListen("composer:edit", async (note: Status) => {
-        loading.value = true;
-        files.value = note.media_attachments.map((file) => ({
-            id: nanoid(),
-            file: new File([], file.url),
-            progress: 1,
-            uploading: false,
-            api_id: file.id,
-            alt_text: file.description ?? undefined,
-        }));
-
-        const source = await client.value.getStatusSource(note.id);
-
-        if (source?.data) {
-            respondingTo.value = note;
-            respondingType.value = "edit";
-            content.value = source.data.text;
-            cwContent.value = source.data.spoiler_text;
-        }
-
-        loading.value = false;
-    });
-});
-
-watchEffect(() => {
-    if (Control_Enter?.value || Command_Enter?.value) {
-        send();
-    }
-});
-
-const props = defineProps<{
-    instance: Instance;
+const { relation } = defineProps<{
+    relation?: {
+        type: "reply" | "quote" | "edit";
+        note: Status;
+        source?: StatusSource;
+    };
 }>();
 
-const loading = ref(false);
-const canSubmit = computed(
-    () =>
-        (content.value?.trim().length > 0 || files.value.length > 0) &&
-        content.value?.trim().length <= characterLimit.value,
-);
-
-const send = async () => {
-    if (!(identity.value && client.value)) {
-        throw new Error("Not authenticated");
+const getMentions = () => {
+    if (!relation || relation.type !== "reply") {
+        return "";
     }
 
+    const peopleToMention = relation.note.mentions
+        .concat(relation.note.account)
+        // Deduplicate mentions
+        .filter((men, i, a) => a.indexOf(men) === i)
+        // Remove self
+        .filter((men) => men.id !== identity.value?.account.id);
+
+    const mentions = peopleToMention.map((me) => `@${me.acct}`).join(" ");
+
+    return `${mentions} `;
+};
+
+const state = reactive({
+    // If editing, use the original content
+    // If sending a reply, prefill with mentions
+    content: relation?.source?.text || getMentions(),
+    sensitive: relation?.type === "edit" ? relation.note.sensitive : false,
+    contentWarning: relation?.type === "edit" ? relation.note.spoiler_text : "",
+    contentType: "text/markdown" as "text/markdown" | "text/plain",
+    visibility: (relation?.type === "edit"
+        ? relation.note.visibility
+        : "public") as Status["visibility"],
+    files: (relation?.type === "edit"
+        ? relation.note.media_attachments.map((a) => ({
+              apiId: a.id,
+              file: new File([], a.url),
+              alt: a.description,
+              uploading: false,
+              updating: false,
+          }))
+        : []) as {
+        apiId?: string;
+        file: File;
+        alt?: string;
+        uploading: boolean;
+        updating: boolean;
+    }[],
+});
+const sending = ref(false);
+
+const splashes = useConfig().COMPOSER_SPLASHES;
+const chosenSplash = splashes[Math.floor(Math.random() * splashes.length)];
+
+const submit = async () => {
+    sending.value = true;
+
     try {
-        loading.value = true;
+        if (relation?.type === "edit") {
+            const { data } = await client.value.editStatus(relation.note.id, {
+                status: state.content,
+                content_type: state.contentType,
+                sensitive: state.sensitive,
+                spoiler_text: state.sensitive
+                    ? state.contentWarning
+                    : undefined,
+                media_ids: state.files
+                    .map((f) => f.apiId)
+                    .filter((f) => f !== undefined),
+            });
 
-        if (respondingType.value === "edit" && respondingTo.value) {
-            const response = await client.value.editStatus(
-                respondingTo.value.id,
-                {
-                    status: content.value?.trim() ?? "",
-                    content_type: markdown.value
-                        ? "text/markdown"
-                        : "text/plain",
-                    spoiler_text: cw.value ? cwContent.value.trim() : undefined,
-                    sensitive: cw.value,
-                    media_ids: files.value
-                        .filter((file) => !!file.api_id)
-                        .map((file) => file.api_id) as string[],
-                },
-            );
-
-            if (!response.data) {
-                throw new Error("Failed to edit status");
-            }
-
-            content.value = "";
-            loading.value = false;
-            useEvent("composer:send-edit", response.data);
+            useEvent("composer:send-edit", data);
             useEvent("composer:close");
-            return;
-        }
-
-        const response = await client.value.postStatus(
-            content.value?.trim() ?? "",
-            {
-                content_type: markdown.value ? "text/markdown" : "text/plain",
-                in_reply_to_id:
-                    respondingType.value === "reply"
-                        ? respondingTo.value?.id
-                        : undefined,
+        } else {
+            const { data } = await client.value.postStatus(state.content, {
+                content_type: state.contentType,
+                sensitive: state.sensitive,
+                spoiler_text: state.sensitive
+                    ? state.contentWarning
+                    : undefined,
+                media_ids: state.files
+                    .map((f) => f.apiId)
+                    .filter((f) => f !== undefined),
                 quote_id:
-                    respondingType.value === "quote"
-                        ? respondingTo.value?.id
-                        : undefined,
-                spoiler_text: cw.value ? cwContent.value.trim() : undefined,
-                sensitive: cw.value,
-                media_ids: files.value
-                    .filter((file) => !!file.api_id)
-                    .map((file) => file.api_id) as string[],
-            },
-        );
+                    relation?.type === "quote" ? relation.note.id : undefined,
+                in_reply_to_id:
+                    relation?.type === "reply" ? relation.note.id : undefined,
+                visibility: state.visibility,
+            });
 
-        if (!response.data) {
-            throw new Error("Failed to send status");
+            useEvent("composer:send", data as Status);
+            useEvent("composer:close");
         }
-
-        content.value = "";
-        loading.value = false;
-        useEvent("composer:send", response.data as Status);
-        useEvent("composer:close");
-    } catch (error) {
-        console.error(error);
-        loading.value = false;
+    } catch (_e) {
+        const e = _e as ResponseError;
+        toast.error(e.message);
+    } finally {
+        sending.value = false;
     }
 };
 
-const characterLimit = computed(
-    () => props.instance?.configuration.statuses.max_characters ?? 0,
-);
+const uploadFileFromEvent = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const files = Array.from(target.files ?? []);
+
+    uploadFiles(files);
+
+    target.value = "";
+};
+
+const uploadFiles = (files: File[]) => {
+    for (const file of files) {
+        state.files.push({
+            file,
+            uploading: true,
+            updating: false,
+        });
+
+        client.value
+            .uploadMedia(file)
+            .then((media) => {
+                const index = state.files.findIndex((f) => f.file === file);
+
+                if (!state.files[index]) {
+                    return;
+                }
+
+                state.files[index].apiId = media.data.id;
+                state.files[index].uploading = false;
+            })
+            .catch(() => {
+                const index = state.files.findIndex((f) => f.file === file);
+
+                if (!state.files[index]) {
+                    return;
+                }
+
+                state.files.splice(index, 1);
+            });
+    }
+};
+
+const visibilities = {
+    public: {
+        icon: Globe,
+        name: m.lost_trick_dog_grace(),
+        text: m.last_mean_peacock_zip(),
+    },
+    unlisted: {
+        icon: LockOpen,
+        name: m.funny_slow_jannes_walk(),
+        text: m.grand_strong_gibbon_race(),
+    },
+    private: {
+        icon: Lock,
+        name: m.grassy_empty_raven_startle(),
+        text: m.white_teal_ostrich_yell(),
+    },
+    direct: {
+        icon: AtSign,
+        name: m.pretty_bold_baboon_wave(),
+        text: m.lucky_mean_robin_link(),
+    },
+};
 </script>

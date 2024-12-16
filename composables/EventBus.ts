@@ -1,11 +1,6 @@
-import type { createToaster } from "@ark-ui/vue";
 import type { Account, Attachment, Status } from "@versia/client/types";
 import mitt from "mitt";
 import type { Identity } from "./Identities";
-
-export type NotificationEvent = Parameters<
-    ReturnType<typeof createToaster>["create"]
->[0];
 
 type ApplicationEvents = {
     "note:reply": Status;
@@ -26,7 +21,6 @@ type ApplicationEvents = {
     "composer:close": undefined;
     "account:report": Account;
     "account:update": Account;
-    "notification:new": NotificationEvent;
     "attachment:view": Attachment;
     "identity:change": Identity;
     error: {

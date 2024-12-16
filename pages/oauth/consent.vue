@@ -1,89 +1,56 @@
 <template>
-    <div class="flex min-h-screen relative flex-col justify-center px-6 py-12 lg:px-8">
-        <div v-if="validUrlParameters" class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')">
-                <input type="hidden" v-for="([key, value]) in url.searchParams" :key="key" :name="key" :value="value" />
-                <div class="flex flex-col items-center gap-y-5">
-                    <h1 class="font-bold text-2xl text-gray-50 text-center tracking-tight">Allow this application to
-                        access your
-                        account?</h1>
-                    <div v-if="application" class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full">
-                        <h2 class="font-bold text-gray-200">{{ application }}</h2>
-                        <a v-if="website" :href="website" target="_blank" class="underline text-primary-700">{{ website
-                            }}</a>
-                    </div>
-                </div>
-
-                <h2 class="text-gray-50 tracking-tight text-xl font-semibold">
-                    This application will be able to:
-                </h2>
-
-                <ul class="flex flex-col gap-y-1.5">
-                    <li v-for="text in getScopeText(scopes)" :key="text[1]" class="flex flex-row gap-1">
-                        <svg class="fill-primary-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
-                        </svg>
-                        <h2 class="text-sm text-gray-200">
+    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)'
+    }">
+        <Card class="w-full max-w-md" as="form"  method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')">
+            <input type="hidden" v-for="([key, value]) in url.searchParams" :key="key" :name="key" :value="value" />
+            <CardHeader>
+                <CardTitle as="h1" class="text-2xl break-words">{{ m.fresh_broad_cockroach_radiate({
+                    application: application ?? "",
+                }) }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <Card>
+                    <CardContent class="flex flex-col px-4 py-2">
+                        <CardTitle as="h2" class="text-lg">{{ application }}</CardTitle>
+                        <a v-if="website" :href="website" target="_blank" rel="noopener noreferrer" class="underline">{{ website }}</a>
+                    </CardContent>
+                </Card>
+                <ul class="list-none my-6 [&>li]:mt-2">
+                    <li v-for="text in getScopeText(scopes)" :key="text[1]" class="flex flex-row gap-1 items-center">
+                        <Check class="size-4" />
+                        <h2 class="text-sm">
                             <strong class="font-bold">{{ text[0] }}</strong> {{ text[1] }}
                         </h2>
                     </li>
                 </ul>
-
-                <div class="flex-col flex gap-y-1">
-                    <p class="text-sm text-gray-200">You are signing in to <b>{{ application }}</b> with your
-                        account.</p>
-                    <p class="text-sm text-gray-200">This allows <b>{{ application }}</b> to perform the above
-                        account
-                        actions.</p>
+                <div class="flex-col flex gap-y-1 text-sm">
+                    <p v-html="m.gross_antsy_kangaroo_succeed({
+                        application: application ?? '',
+                    })"></p>
+                    <p v-html="m.hour_close_giraffe_mop({
+                        application: application ?? '',
+                    })"></p>
                 </div>
-
-                <div class="flex flex-col gap-3">
-                    <Button theme="primary" type="submit">Authorize</Button>
-                    <NuxtLink href="/" class="w-full">
-                        <Button theme="secondary" class="w-full">Cancel</Button>
-                    </NuxtLink>
-                </div>
-            </form>
-        </div>
-        <div v-else class="mx-auto max-w-md mt-10">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-50 sm:text-4xl">Invalid access
-                parameters
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-300">This page should be accessed
-                through a valid OAuth2 authorization request. Please use a <strong class="font-bold">Mastodon
-                    API</strong> client to access this page.
-            </p>
-            <p class="mt-6 text-lg leading-8 text-gray-300">Here are some recommended clients:</p>
-            <ul class="w-full flex flex-col gap-3 mt-4">
-                <li v-for="client of useConfig().RECOMMENDED_CLIENTS" :key="client.name" class="w-full">
-                    <a :href="client.link" target="_blank"
-                        class="rounded-sm ring-2 ring-white/10 px-4 py-2 w-full flex flex-row gap-3 items-center">
-                        <img crossorigin="anonymous" :src="client.icon" :alt="`${client.name}'s logo'`"
-                            class="h-10 w-10" />
-                        <div class="flex flex-col justify-between items-start">
-                            <h2 class="font-bold text-gray-100">{{ client.name }}</h2>
-                            <span class="underline text-primary-700">{{ client.link }}</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <p class="mt-6 text-lg leading-8 text-gray-300">
-                Many other clients exist, but <strong class="font-bold">they have not been tested for
-                    compatibility</strong>. Bug reports are nevertheless welcome.
-            </p>
-
-            <p class="mt-6 text-lg leading-8 text-gray-300">
-                Found a problem? Report it on <a href="https://github.com/versia-pub/server/issues/new/choose"
-                    target="_blank" class="underline text-primary-700">the issue tracker</a>.
-            </p>
-        </div>
+            </CardContent>
+            <CardFooter class="grid gap-2">
+                <Button variant="default" type="submit">{{ m.last_spare_polecat_reside() }}</Button>
+                <Button :as="NuxtLink" href="/" variant="secondary">{{ m.soft_bold_ant_attend() }}</Button>
+            </CardFooter>
+        </Card>
     </div>
 </template>
 
 <script setup lang="ts">
-import Button from "~/packages/ui/components/buttons/button.vue";
+import { Check } from "lucide-vue-next";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import * as m from "~/paraglide/messages.js";
+import { NuxtLink } from "#components";
+
+useHead({
+    title: m.lower_factual_frog_evoke(),
+});
 
 const url = useRequestURL();
 const params = useUrlSearchParams();
@@ -99,20 +66,20 @@ const scope = params.scope ? decodeURIComponent(params.scope as string) : "";
 const validUrlParameters = application && redirectUri && clientId && scope;
 
 const oauthScopeText: Record<string, string> = {
-    "rw:accounts": "$VERB your account information",
-    "rw:blocks": "$VERB your block list",
-    "rw:bookmarks": "$VERB your bookmarks",
-    "rw:favourites": "$VERB your favourites",
-    "rw:filters": "$VERB your filters",
-    "rw:follows": "$VERB your follows",
-    "rw:lists": "$VERB your lists",
-    "rw:mutes": "$VERB your mutes",
-    "rw:notifications": "$VERB your notifications",
-    "r:search": "Perform searches",
-    "rw:statuses": "$VERB your statuses",
-    "w:conversations": "Edit your conversations",
-    "w:media": "Upload media",
-    "w:reports": "Report users",
+    "rw:accounts": m.awake_ago_capybara_kick(),
+    "rw:blocks": m.teary_zesty_racoon_transform(),
+    "rw:bookmarks": m.whole_flaky_nuthatch_rush(),
+    "rw:favourites": m.still_spicy_lionfish_quell(),
+    "rw:filters": m.away_mean_dolphin_empower(),
+    "rw:follows": m.sleek_empty_penguin_radiate(),
+    "rw:lists": m.every_silly_racoon_lift(),
+    "rw:mutes": m.top_careful_scallop_clip(),
+    "rw:notifications": m.this_short_bulldog_walk(),
+    "r:search": m.fresh_odd_rook_forgive(),
+    "rw:statuses": m.witty_whole_capybara_pull(),
+    "w:conversations": m.agent_warm_javelina_blink(),
+    "w:media": m.dirty_red_jellyfish_ascend(),
+    "w:reports": m.crisp_vivid_seahorse_tend(),
 };
 
 const scopes = scope.split(" ");
@@ -140,7 +107,7 @@ const getScopeText = (fullScopes: string[]) => {
         ) {
             if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
-                    "Read and write",
+                    m.teary_such_jay_fade(),
                     oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
             } else {
@@ -156,7 +123,7 @@ const getScopeText = (fullScopes: string[]) => {
         ) {
             if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
-                    "Read",
+                    m.smug_safe_warthog_dare(),
                     oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
             } else {
@@ -171,7 +138,7 @@ const getScopeText = (fullScopes: string[]) => {
         ) {
             if (oauthScopeText[possibleScope]?.includes("$VERB")) {
                 scopeTexts.push([
-                    "Write",
+                    m.loose_large_blackbird_peek(),
                     oauthScopeText[possibleScope]?.replace("$VERB", "") ?? "",
                 ]);
             } else {

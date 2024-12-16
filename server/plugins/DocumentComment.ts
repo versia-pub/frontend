@@ -12,8 +12,7 @@ const art = `
 * Join development at https://github.com/versia-pub
 * 
 * With ❤️ from us:
-* - @jessew@social.lysand.org
-* - @aprl@social.lysand.org
+* - @jessew@beta.versia.social
 `;
 
 export default defineNitroPlugin((nitroApp) => {

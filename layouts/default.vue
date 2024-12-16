@@ -1,10 +1,8 @@
 <template>
-    <main class="from-dark-600 to-dark-900 bg-gradient-to-tl min-h-dvh pb-20 md:pb-0">
-        <Navigation />
-        <slot />
-    </main>
+    <slot />
+    <ComposerDialog />
 </template>
 
 <script lang="ts" setup>
-import Navigation from "~/components/sidebars/navigation.vue";
+import ComposerDialog from "~/components/composer/dialog.vue";
 </script>

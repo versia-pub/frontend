@@ -1,25 +1,34 @@
-import {
-    confirmModalService,
-    confirmModalWithInputService,
-} from "./service.ts";
-import type { ConfirmModalOptions, ConfirmModalResult } from "./types.ts";
+export type ConfirmModalOptions = {
+    title?: string;
+    message?: string;
+    confirmText?: string;
+    cancelText?: string;
+    inputType?: "none" | "text" | "textarea";
+    defaultValue?: string;
+};
 
-export function useConfirmModal() {
-    const confirm = (
-        options: ConfirmModalOptions,
-    ): Promise<ConfirmModalResult> => {
-        return confirmModalService.confirm(options);
-    };
+export type ConfirmModalResult = {
+    confirmed: boolean;
+    value?: string;
+};
 
-    const confirmWithInput = (
-        options: ConfirmModalOptions,
-        placeholder?: string,
-    ): Promise<ConfirmModalResult> => {
-        return confirmModalWithInputService.confirm(options, placeholder);
-    };
+class ConfirmModalService {
+    private modalRef = ref<{
+        open: (options: ConfirmModalOptions) => Promise<ConfirmModalResult>;
+    } | null>(null);
 
-    return {
-        confirm,
-        confirmWithInput,
-    };
+    register(modal: {
+        open: (options: ConfirmModalOptions) => Promise<ConfirmModalResult>;
+    }) {
+        this.modalRef.value = modal;
+    }
+
+    confirm(options: ConfirmModalOptions): Promise<ConfirmModalResult> {
+        if (!this.modalRef.value) {
+            throw new Error("Confirmation modal not initialized");
+        }
+        return this.modalRef.value.open(options);
+    }
 }
+
+export const confirmModalService = new ConfirmModalService();

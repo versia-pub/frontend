@@ -1,0 +1,22 @@
+[general]
+
+#### Address & Root dir
+host = "::"
+port = 3000
+root = "/app/public"
+
+#### Logging
+log-level = "error"
+
+#### Cache Control headers
+cache-control-headers = true
+
+#### Auto Compression
+compression = true
+compression-level = "default"
+
+#### Page fallback for 404s
+page-fallback = "/app/public/200.html"
+
+# Disable because it strips URI parameters
+redirect-trailing-slash = false
