@@ -11,29 +11,29 @@
         </DialogTrigger>
         <DialogContent>
             <DialogTitle>
-                Change image
+                {{ m.due_hour_husky_prosper() }}
             </DialogTitle>
             <DialogDescription class="sr-only">
-                Upload an image, add a Gravatar email or use a URL.
+                {{ m.suave_broad_albatross_drop() }}
             </DialogDescription>
             <form class="p-4 grid gap-6" @submit="submit">
                 <Tabs default-value="upload" class="mt-2 data-[component=tabpanel]:*:mt-6">
                     <TabsList class="w-full *:w-full">
                         <TabsTrigger value="upload">
-                            Upload
+                            {{ m.flat_safe_haddock_gaze() }}
                         </TabsTrigger>
                         <TabsTrigger value="gravatar">
-                            Gravatar
+                            {{ m.inclusive_long_lizard_boost() }}
                         </TabsTrigger>
                         <TabsTrigger value="url">
-                            URL
+                            {{ m.proud_next_elk_beam() }}
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="upload">
                         <FormField v-slot="{ handleChange, handleBlur }" name="image">
                             <FormItem>
                                 <FormLabel class="sr-only">
-                                    Upload
+                                    {{ m.flat_safe_haddock_gaze() }}
                                 </FormLabel>
                                 <FormControl>
                                     <Input type="file" accept="image/*" @change="handleChange" @blur="handleBlur"
@@ -52,7 +52,7 @@
                         }">
                             <FormItem>
                                 <FormLabel>
-                                    Gravatar email
+                                    {{ m.lower_formal_kudu_lift() }}
                                 </FormLabel>
                                 <FormControl>
                                     <Input v-bind="componentField" :disabled="isSubmitting"
@@ -60,7 +60,7 @@
                                 </FormControl>
                                 <FormMessage />
                                 <div v-if="value" class="grid gap-4 !mt-4">
-                                    <Label>Preview</Label>
+                                    <Label>{{ m.witty_honest_wallaby_support() }}</Label>
                                     <Avatar size="lg" :src="gravatarUrl" />
                                 </div>
                             </FormItem>
@@ -70,15 +70,15 @@
                         <FormField v-slot="{ componentField, errors, value }" name="url">
                             <FormItem>
                                 <FormLabel>
-                                    URL
+                                    {{ m.proud_next_elk_beam() }}
                                 </FormLabel>
                                 <FormControl>
                                     <Input v-bind="componentField" :disabled="isSubmitting"
-                                        placeholder="https://mysite.com/avar.webp" />
+                                        placeholder="https://mysite.com/avatar.webp" />
                                 </FormControl>
                                 <FormMessage />
                                 <div v-if="value" class="grid gap-4 !mt-4">
-                                    <Label>Preview</Label>
+                                    <Label>{{ m.witty_honest_wallaby_support() }}</Label>
                                     <Avatar size="lg" :src="value" />
                                 </div>
                             </FormItem>
