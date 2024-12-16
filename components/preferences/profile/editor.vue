@@ -16,18 +16,14 @@
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ handleChange, handleBlur }" name="avatar">
-                <FormItem>
+            <FormField v-slot="{ setValue }" name="avatar">
+                <FormItem class="grid gap-1">
                     <FormLabel>
                         {{ m.safe_icy_bulldog_quell() }}
                     </FormLabel>
                     <FormControl>
-                        <Input type="file" accept="image/*" @change="handleChange" @blur="handleBlur" />
+                        <ImageUploader v-model:image="identity.account.avatar" @submit-file="file => setValue(file)" @submit-url="url => setValue(url)" />
                     </FormControl>
-                    <FormDescription>
-                        {{ m.aware_quiet_opossum_catch() }}
-                    </FormDescription>
-                    <FormMessage />
                 </FormItem>
             </FormField>
 
@@ -183,6 +179,7 @@ import { Input } from "~/components/ui/input";
 import { Switch } from "~/components/ui/switch";
 import { Textarea } from "~/components/ui/textarea";
 import * as m from "~/paraglide/messages.js";
+import ImageUploader from "./image-uploader.vue";
 
 if (!identity.value) {
     throw new Error("Identity not found.");
@@ -217,6 +214,7 @@ const formSchema = toTypedSchema(
                         .avatar_size_limit,
                 }),
             )
+            .or(z.string().url())
             .optional(),
         name: z
             .string()
