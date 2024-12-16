@@ -10,11 +10,6 @@ export default defineNuxtConfig({
         "@nuxtjs/color-mode",
     ],
     ssr: false,
-    vue: {
-        compilerOptions: {
-            isCustomElement: (tag) => tag === "iconify-icon",
-        },
-    },
     components: {
         dirs: [],
     },
