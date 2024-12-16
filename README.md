@@ -1,4 +1,4 @@
-<center>
+<div align="center">
     <a href="https://versia.pub">
         <picture>
             <source media="(prefers-color-scheme: dark)" srcset="https://cdn.versia.pub/branding/logo-dark.svg">
@@ -6,7 +6,7 @@
             <img src="https://cdn.versia.pub/branding/logo-dark.svg" alt="Versia Logo" height="110" />
         </picture>
     </a>
-</center>
+</div>
 
 
 <h2 align="center">
@@ -28,13 +28,13 @@
 
 <br/>
 
-<center>
+<div align="center">
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="assets/ipad-dark.webp">
         <source media="(prefers-color-scheme: light)" srcset="assets/ipad-light.webp">
         <img alt="Versia-FE screenshot on an iPad Pro" src="assets/ipad-dark.webp" height="400" />
     </picture>
-</center>
+</div>
 
 # Features
 
