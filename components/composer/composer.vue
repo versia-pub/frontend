@@ -6,7 +6,7 @@
     <Input v-model:model-value="state.contentWarning" v-if="state.sensitive"
         placeholder="Put your content warning here" />
 
-    <Textarea :placeholder="chosenSplash" v-model:model-value="state.content"
+    <Textarea id="text-input" :placeholder="chosenSplash" v-model:model-value="state.content"
         class="!border-none !ring-0 !outline-none rounded-none p-0 max-h-full min-h-48 !ring-offset-0"
         :disabled="sending" />
 
@@ -121,6 +121,13 @@ import Files from "./files.vue";
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
 const fileInput = ref<HTMLInputElement | null>(null);
+
+onMounted(() => {
+    // Wait 0.3s for the dialog to open
+    setTimeout(() => {
+        document.getElementById("text-input")?.focus();
+    }, 300);
+});
 
 watch([Control_Enter, Command_Enter], () => {
     if (sending.value || !ctrlEnterSend.value.value) {

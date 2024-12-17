@@ -44,8 +44,11 @@ useListen("composer:quote", (note) => {
 useListen("composer:close", () => {
     open.value = false;
     relation.value = null;
+    // Unfocus the active element
+    activeElement.value?.blur();
 });
 
+const activeElement = useActiveElement();
 const open = ref(false);
 const relation = ref(
     null as {
@@ -57,7 +60,12 @@ const relation = ref(
 </script>
 
 <template>
-    <Dialog v-model:open="open" @update:open="o => { if (!o) { relation = null } }">
+    <Dialog v-model:open="open" @update:open="o => {
+        if (!o) {
+            relation = null; // Unfocus the active element
+            activeElement?.blur();
+        }
+    }">
         <DialogContent :hide-close="true"
             class="sm:max-w-xl max-w-full w-full grid-rows-[minmax(0,1fr)_auto] max-h-[90dvh] p-5 pt-6 top-0 sm:top-1/2 translate-y-0 sm:-translate-y-1/2">
             <DialogTitle class="sr-only">
