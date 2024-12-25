@@ -4,11 +4,11 @@
             <Reply class="size-5 text-primary" />
             {{ numberFormat(replyCount) }}
         </Button>
-        <Button variant="ghost" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!identity">
+        <Button variant="ghost" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!identity" :class="liked && '*:fill-red-600 *:text-red-600'">
             <Heart class="size-5 text-primary" />
             {{ numberFormat(likeCount) }}
         </Button>
-        <Button variant="ghost" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!identity">
+        <Button variant="ghost" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!identity" :class="reblogged && '*:text-green-600'">
             <Repeat class="size-5 text-primary" />
             {{ numberFormat(reblogCount) }}
         </Button>
