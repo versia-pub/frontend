@@ -120,6 +120,7 @@ import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
+const defaultVisibility = useSetting(SettingIds.DefaultVisibility);
 const { play } = useAudio();
 const fileInput = ref<HTMLInputElement | null>(null);
 
@@ -178,7 +179,7 @@ const state = reactive({
     contentType: "text/markdown" as "text/markdown" | "text/plain",
     visibility: (relation?.type === "edit"
         ? relation.note.visibility
-        : "public") as Status["visibility"],
+        : (defaultVisibility.value.value ?? "public")) as Status["visibility"],
     files: (relation?.type === "edit"
         ? relation.note.media_attachments.map((a) => ({
               apiId: a.id,

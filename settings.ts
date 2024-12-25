@@ -87,6 +87,7 @@ export enum SettingIds {
     NotificationsSidebar = "notifications-sidebar",
     AvatarShape = "avatar-shape",
     SidebarStyle = "sidebar-style",
+    DefaultVisibility = "default-visibility",
 }
 
 export const settings = (): Record<SettingIds, Setting> => {
@@ -99,6 +100,31 @@ export const settings = (): Record<SettingIds, Setting> => {
             page: SettingPages.Behaviour,
             notImplemented: true,
         } as BooleanSetting,
+        [SettingIds.DefaultVisibility]: {
+            title: m.loud_tense_kitten_exhale,
+            description: m.vivid_last_crocodile_offer,
+            type: SettingType.Enum,
+            value: "public",
+            options: [
+                {
+                    value: "public",
+                    label: m.lost_trick_dog_grace,
+                },
+                {
+                    value: "unlisted",
+                    label: m.funny_slow_jannes_walk,
+                },
+                {
+                    value: "private",
+                    label: m.grassy_empty_raven_startle,
+                },
+                {
+                    value: "direct",
+                    label: m.pretty_bold_baboon_wave,
+                },
+            ],
+            page: SettingPages.Behaviour,
+        } as EnumSetting,
         [SettingIds.Language]: {
             title: m.pretty_born_jackal_dial,
             description: m.tired_happy_lobster_pet,
