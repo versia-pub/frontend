@@ -6,9 +6,9 @@
     <Input v-model:model-value="state.contentWarning" v-if="state.sensitive"
         placeholder="Put your content warning here" />
 
-    <Textarea id="text-input" :placeholder="chosenSplash" v-model:model-value="state.content"
-        class="!border-none !ring-0 !outline-none rounded-none p-0 max-h-full min-h-48 !ring-offset-0"
-        :disabled="sending" />
+    <EditorContent v-model:content="state.content" :placeholder="chosenSplash"
+        class="*:!border-none *:!ring-0 *:!outline-none *:rounded-none p-0 max-h-[50dvh] overflow-y-auto min-h-48 *:!ring-offset-0 *:h-full"
+        :disabled="sending" :mode="state.contentType === 'text/html' ? 'rich' : 'plain'" />
 
     <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
         <input type="file" ref="fileInput" @change="uploadFileFromEvent" class="hidden" multiple />
@@ -28,8 +28,11 @@
         </Tooltip>
         <Tooltip>
             <TooltipTrigger as="div">
-                <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/markdown'"
-                    @update:pressed="i => state.contentType = i ? 'text/plain' : 'text/markdown'">
+                <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/html'" @update:pressed="(i) =>
+                    (state.contentType = i
+                        ? 'text/html'
+                        : 'text/plain')
+                    ">
                     <LetterText class="!size-5" />
                 </Toggle>
             </TooltipTrigger>
@@ -87,7 +90,11 @@
         </Tooltip>
         <Button type="submit" size="lg" class="ml-auto" :disabled="sending" @click="submit">
             <Loader v-if="sending" class="!size-5 animate-spin" />
-            {{ relation?.type === "edit" ? m.gaudy_strong_puma_slide() : m.free_teal_bulldog_learn() }}
+            {{
+                relation?.type === "edit"
+                    ? m.gaudy_strong_puma_slide()
+                    : m.free_teal_bulldog_learn()
+            }}
         </Button>
     </DialogFooter>
 </template>
@@ -112,9 +119,9 @@ import Note from "~/components/notes/note.vue";
 import { Select, SelectContent, SelectItem } from "~/components/ui/select";
 import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
+import EditorContent from "../editor/content.vue";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { Toggle } from "../ui/toggle";
 import Files from "./files.vue";
 
@@ -123,13 +130,6 @@ const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
 const defaultVisibility = useSetting(SettingIds.DefaultVisibility);
 const { play } = useAudio();
 const fileInput = ref<HTMLInputElement | null>(null);
-
-onMounted(() => {
-    // Wait 0.3s for the dialog to open
-    setTimeout(() => {
-        document.getElementById("text-input")?.focus();
-    }, 300);
-});
 
 watch([Control_Enter, Command_Enter], () => {
     if (sending.value || !ctrlEnterSend.value.value) {
@@ -176,7 +176,7 @@ const state = reactive({
     content: relation?.source?.text || getMentions(),
     sensitive: relation?.type === "edit" ? relation.note.sensitive : false,
     contentWarning: relation?.type === "edit" ? relation.note.spoiler_text : "",
-    contentType: "text/markdown" as "text/markdown" | "text/plain",
+    contentType: "text/html" as "text/html" | "text/plain",
     visibility: (relation?.type === "edit"
         ? relation.note.visibility
         : (defaultVisibility.value.value ?? "public")) as Status["visibility"],

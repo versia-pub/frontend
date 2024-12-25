@@ -25,3 +25,5 @@ logs
 config
 
 public/emojis
+
+.npmrc

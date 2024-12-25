@@ -1,0 +1,15 @@
+.content code:not(pre code)::after,
+.content code:not(pre code)::before {
+    content: "";
+}
+
+.content ol li input[type="checkbox"],
+.content ul li input[type="checkbox"] {
+    border-radius: 0.25rem;
+    margin-bottom: 0.2rem;
+    margin-right: 0.5rem;
+    margin-top: 0;
+    vertical-align: middle;
+    --tw-text-opacity: 1;
+    color: var(--theme-primary-400);
+}
