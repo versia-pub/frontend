@@ -38,7 +38,9 @@ import { SettingIds } from "~/settings";
 
 const appData = useAppData();
 const signInAction = () => signIn(appData);
-const { n } = useMagicKeys();
+const colorMode = useColorMode();
+const themeSetting = useSetting(SettingIds.Theme);
+const { n, d } = useMagicKeys();
 const activeElement = useActiveElement();
 const notUsingInput = computed(
     () =>
@@ -56,6 +58,17 @@ watchEffect(async () => {
         // Wait 50ms
         await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
+    }
+
+    if (d?.value && !colorMode.forced) {
+        // Swap theme from dark to light or vice versa
+        if (colorMode.value === "dark") {
+            colorMode.preference = "light";
+            themeSetting.value.value = "light";
+        } else {
+            colorMode.preference = "dark";
+            themeSetting.value.value = "dark";
+        }
     }
 });
 </script>
