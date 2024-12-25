@@ -150,12 +150,18 @@ const getMentions = () => {
         return "";
     }
 
-    const peopleToMention = relation.note.mentions
-        .concat(relation.note.account)
+    const note = relation.note.reblog || relation.note;
+
+    const peopleToMention = note.mentions
+        .concat(note.account)
         // Deduplicate mentions
         .filter((men, i, a) => a.indexOf(men) === i)
         // Remove self
         .filter((men) => men.id !== identity.value?.account.id);
+
+    if (peopleToMention.length === 0) {
+        return "";
+    }
 
     const mentions = peopleToMention.map((me) => `@${me.acct}`).join(" ");
 
