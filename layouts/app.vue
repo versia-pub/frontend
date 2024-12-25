@@ -45,7 +45,8 @@ const activeElement = useActiveElement();
 const notUsingInput = computed(
     () =>
         activeElement.value?.tagName !== "INPUT" &&
-        activeElement.value?.tagName !== "TEXTAREA",
+        activeElement.value?.tagName !== "TEXTAREA" &&
+        activeElement.value?.contentEditable !== "true",
 );
 
 const backgroundImage = useSetting(SettingIds.BackgroundURL);
@@ -53,14 +54,14 @@ const canParseUrl = URL.canParse;
 
 const route = useRoute();
 
-watchEffect(async () => {
+watch([n, notUsingInput, d], async () => {
     if (n?.value && notUsingInput.value) {
         // Wait 50ms
         await new Promise((resolve) => setTimeout(resolve, 50));
         useEvent("composer:open");
     }
 
-    if (d?.value && !colorMode.forced) {
+    if (d?.value && notUsingInput.value && !colorMode.forced) {
         // Swap theme from dark to light or vice versa
         if (colorMode.value === "dark") {
             colorMode.preference = "light";
