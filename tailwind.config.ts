@@ -30,8 +30,6 @@ export default (<Config>{
         },
         extend: {
             colors: {
-                dark: themeVariables("dark"),
-                primary2: themeVariables("primary"),
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
