@@ -39,7 +39,14 @@ const theme = useSetting(SettingIds.Theme) as Ref<EnumSetting>;
 const colorMode = useColorMode();
 
 watch(theme.value, () => {
+    // Add theme-changing class to html to trigger transition
+    document.documentElement.classList.add("theme-changing");
     colorMode.preference = theme.value.value;
+
+    setTimeout(() => {
+        // Remove theme-changing class after transition
+        document.documentElement.classList.remove("theme-changing");
+    }, 1000);
 });
 
 useSeoMeta({
@@ -86,5 +93,10 @@ useCacheRefresh(client);
 <style>
 body {
     font-family: Inter, sans-serif;
+}
+
+html.theme-changing * {
+    /* Stroke and fill aren't animatable */
+    transition: background 1s ease, border 1s ease, color 1s ease, box-shadow 1s ease;
 }
 </style>
