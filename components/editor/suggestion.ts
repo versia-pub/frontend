@@ -57,9 +57,9 @@ export default {
                 }
 
                 // @ts-expect-error Tippy types are wrong
-                popup = tippy("body", {
+                popup = tippy(props.editor.options.element, {
                     getReferenceClientRect: props.clientRect,
-                    appendTo: () => document.body,
+                    appendTo: () => props.editor.options.element,
                     content: component.element,
                     showOnCreate: true,
                     interactive: true,
@@ -75,14 +75,14 @@ export default {
                     return;
                 }
 
-                popup[0]?.setProps({
+                popup.setProps({
                     getReferenceClientRect: props.clientRect as () => DOMRect,
                 });
             },
 
             onKeyDown(props) {
                 if (props.event.key === "Escape") {
-                    popup[0]?.hide();
+                    popup.hide();
 
                     return true;
                 }
@@ -91,7 +91,8 @@ export default {
             },
 
             onExit() {
-                popup[0]?.destroy();
+                popup.hide();
+                popup.destroy();
                 component.destroy();
             },
         };
