@@ -107,7 +107,7 @@
             </CardHeader>
             <CardFooter class="grid">
                 <Button :as="NuxtLink" href="/" variant="default">
-                    {{ m.every_tangy_koala_persist() }}}
+                    {{ m.every_tangy_koala_persist() }}
                 </Button>
             </CardFooter>
         </Card>
