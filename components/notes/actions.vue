@@ -52,6 +52,7 @@ const emit = defineEmits<{
     quote: [];
     delete: [];
 }>();
+const { play } = useAudio();
 
 const confirmLikes = useSetting(SettingIds.ConfirmLike);
 const confirmReblogs = useSetting(SettingIds.ConfirmReblog);
@@ -70,6 +71,7 @@ const like = async () => {
         }
     }
 
+    play("like");
     const id = toast.loading(m.slimy_candid_tiger_read());
     const { data } = await client.value.favouriteStatus(noteId);
     toast.dismiss(id);

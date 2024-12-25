@@ -120,6 +120,7 @@ import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
+const { play } = useAudio();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 onMounted(() => {
@@ -217,6 +218,7 @@ const submit = async () => {
             });
 
             useEvent("composer:send-edit", data);
+            play("publish");
             useEvent("composer:close");
         } else {
             const { data } = await client.value.postStatus(state.content, {
@@ -236,6 +238,7 @@ const submit = async () => {
             });
 
             useEvent("composer:send", data as Status);
+            play("publish");
             useEvent("composer:close");
         }
     } catch (_e) {

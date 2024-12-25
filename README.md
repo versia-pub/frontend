@@ -141,6 +141,10 @@ This project is licensed under the AGPL 3.0 - see the [LICENSE](LICENSE) file fo
 
 All Versia assets (icon, logo, banners, etc) are licensed under [CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0).
 
+## Misskey Audio
+
+The `public/packs/audio/misskey` directory contains audio files from the Misskey project, which are licensed under the [AGPL 3.0](https://github.com/misskey-dev/misskey/blob/refs/heads/develop/LICENSE).
+
 # Acknowledgments
 
 ## Projects

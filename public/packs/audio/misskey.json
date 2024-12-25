@@ -1,0 +1,14 @@
+{
+    "publish": {
+        "src": [
+            "/packs/audio/misskey/n-aec-4va.mp3",
+            "/packs/audio/misskey/n-aec-4vb.mp3"
+        ]
+    },
+    "like": {
+        "src": [
+            "/packs/audio/misskey/bubble1.mp3",
+            "/packs/audio/misskey/bubble2.mp3"
+        ]
+    }
+}
