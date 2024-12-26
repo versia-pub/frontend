@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loaded" class="mx-auto max-w-2xl w-full pb-72 *:rounded space-y-4 *:border *:border-border/50">
+    <div v-if="loaded" class="mx-auto max-w-2xl w-full pb-72 *:rounded space-y-4 *:border">
         <Note v-for="note of context?.ancestors" :note="note" />
         <Note v-if="note" :note="note" />
         <Note v-for="note of context?.descendants" :note="note" />

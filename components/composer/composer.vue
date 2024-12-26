@@ -7,7 +7,7 @@
         placeholder="Put your content warning here" />
 
     <EditorContent v-model:content="state.content" :placeholder="chosenSplash"
-        class="*:!border-none *:!ring-0 *:!outline-none *:rounded-none p-0 max-h-[50dvh] overflow-y-auto min-h-48 *:!ring-offset-0 *:h-full"
+        class="*:!border-none *:!ring-0 *:!outline-none *:rounded-none p-0 *:max-h-[50dvh] *:overflow-y-auto *:min-h-48 *:!ring-offset-0 *:h-full"
         :disabled="sending" :mode="state.contentType === 'text/html' ? 'rich' : 'plain'" />
 
     <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
