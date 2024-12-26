@@ -8,7 +8,7 @@
 </template>
 
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import Home from "~/components/timelines/home.vue";
 import Public from "~/components/timelines/public.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
@@ -22,19 +22,5 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: () => [
-        {
-            text: m.steep_aqua_fox_harbor(),
-        },
-        identity.value
-            ? {
-                  text: m.bland_chunky_sparrow_propel(),
-                  href: "/home",
-              }
-            : {
-                  text: m.lost_trick_dog_grace(),
-                  href: "/public",
-              },
-    ],
 });
 </script>

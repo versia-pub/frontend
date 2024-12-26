@@ -6,7 +6,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import Global from "~/components/timelines/global.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 import * as m from "~/paraglide/messages.js";
@@ -17,14 +17,5 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: () => [
-        {
-            text: m.steep_aqua_fox_harbor(),
-        },
-        {
-            text: m.real_tame_moose_greet(),
-            href: "/global",
-        },
-    ],
 });
 </script>

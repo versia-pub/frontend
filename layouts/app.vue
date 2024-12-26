@@ -16,7 +16,7 @@
             </CardFooter>
         </Card>
     </Sidebar>
-    <MobileNavbar />
+    <MobileNavbar v-if="identity" />
     <ComposerDialog />
 </template>
 

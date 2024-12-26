@@ -6,25 +6,16 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import Public from "~/components/timelines/public.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 import * as m from "~/paraglide/messages.js";
 
 useHead({
-    title: "Public",
+    title: m.lost_trick_dog_grace(),
 });
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: () => [
-        {
-            text: m.steep_aqua_fox_harbor(),
-        },
-        {
-            text: m.lost_trick_dog_grace(),
-            href: "/public",
-        },
-    ],
 });
 </script>

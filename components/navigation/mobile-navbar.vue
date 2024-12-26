@@ -1,12 +1,10 @@
 <template>
     <div
-        class="fixed md:hidden bottom-0 inset-x-0 border-t h-20 bg-background z-10 flex items-center justify-around *:p-7 *:w-full gap-6 p-6">
-        <Timelines>
-            <Button variant="ghost" size="icon">
-                <Home class="!size-6" />
-            </Button>
-        </Timelines>
-        <Button v-if="identity" :as="NuxtLink" href="/notifications" variant="ghost" size="icon">
+        class="fixed md:hidden bottom-0 inset-x-0 border-t h-20 bg-background z-10 flex items-center justify-around *:h-full *:w-full gap-6 px-4 py-2">
+        <Button :as="NuxtLink" href="/" variant="ghost" size="icon">
+            <Home class="!size-6" />
+        </Button>
+        <Button :as="NuxtLink" href="/notifications" variant="ghost" size="icon">
             <Bell class="!size-6" />
         </Button>
         <AccountSwitcher>
@@ -14,7 +12,7 @@
                 <User class="!size-6" />
             </Button>
         </AccountSwitcher>
-        <Button v-if="identity" variant="default" size="icon" :title="m.salty_aloof_turkey_nudge()"
+        <Button variant="default" size="icon" :title="m.salty_aloof_turkey_nudge()"
             @click="useEvent('composer:open')">
             <Pen class="!size-6" />
         </Button>
@@ -27,5 +25,4 @@ import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
 import AccountSwitcher from "../sidebars/account-switcher.vue";
 import { Button } from "../ui/button";
-import Timelines from "./timelines.vue";
 </script>

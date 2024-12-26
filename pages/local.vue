@@ -7,7 +7,7 @@
 </template>
 
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import Local from "~/components/timelines/local.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 import * as m from "~/paraglide/messages.js";
@@ -18,14 +18,5 @@ useHead({
 
 definePageMeta({
     layout: "app",
-    breadcrumbs: () => [
-        {
-            text: m.steep_aqua_fox_harbor(),
-        },
-        {
-            text: m.crazy_game_parrot_pave(),
-            href: "/local",
-        },
-    ],
 });
 </script>
