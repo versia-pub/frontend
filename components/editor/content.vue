@@ -13,6 +13,7 @@ import Superscript from "@tiptap/extension-superscript";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
+import { Emoji } from "./emoji.ts";
 import suggestion from "./suggestion.ts";
 
 const content = defineModel<string>("content");
@@ -43,6 +44,7 @@ const editor = new Editor({
             },
             suggestion,
         }),
+        Emoji,
     ],
     content: content.value,
     onUpdate: ({ editor }) => {
