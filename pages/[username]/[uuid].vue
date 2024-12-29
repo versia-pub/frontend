@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loaded" class="mx-auto max-w-2xl w-full pb-72 *:rounded space-y-4 *:border">
+    <div v-if="loaded" class="mx-auto max-w-2xl w-full rounded overflow-hidden border divide-border divide-y">
         <div>
             <Note v-for="note, index of context?.ancestors" :note="note" :hide-actions="true"
                 :top-avatar-bar="index !== 0" :bottom-avatar-bar="true" :content-under-username="true" />

@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="rounded-none border-0">
         <Collapsible :default-open="true" v-slot="{ open }">
             <Tooltip>
                 <TooltipTrigger :as-child="true">
