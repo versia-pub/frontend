@@ -44,6 +44,14 @@ export default defineNuxtPlugin((nuxtApp) => {
                     return `<img src="/emojis/${emojiFont}/${match}.svg" alt="${match}" class="h-[1em] inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out">`;
                 });
             }
+
+            // Make all links that don't open to the same origin open in a new tab
+            for (const link of el.querySelectorAll("a")) {
+                if (link.hostname !== location.hostname) {
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                }
+            }
         },
     });
 });
