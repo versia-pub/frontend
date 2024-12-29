@@ -91,6 +91,6 @@ body {
 
 html.theme-changing * {
     /* Stroke and fill aren't animatable */
-    transition: background 1s ease, border 1s ease, color 1s ease, box-shadow 1s ease;
+    transition: background 1s ease, border 1s ease, color 1s ease, box-shadow 1s ease !important;
 }
 </style>
