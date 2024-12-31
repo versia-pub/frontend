@@ -10,7 +10,7 @@
             <audio v-else-if="attachment.type === 'audio'" :src="attachment.url"
                 :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
             <DialogTrigger v-else :as-child="true">
-                <div class="w-full h-full flex flex-col items-center justify-center bg-muted/20">
+                <div class="w-full h-full flex flex-col items-center justify-center bg-muted/20 min-h-48">
                     <File class="size-12" />
                     <span class="text-sm"></span>
                 </div>
@@ -43,7 +43,7 @@
                     </Button>
                 </DialogClose>
             </div>
-            <div class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vh]">
+            <div class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vw]">
                 <img v-if="attachment.type === 'image'" :src="attachment.url" :alt="attachment.description ?? ''"
                     class="object-contain" />
                 <video v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
