@@ -17,7 +17,7 @@ const props = withDefaults(
     :as-child="props.asChild"
     :class="
       cn(
-        'rounded-lg border bg-card text-card-foreground shadow-sm',
+        'rounded-lg border bg-card/20 backdrop-blur-xl text-card-foreground shadow-sm',
         props.class,
       )
     "

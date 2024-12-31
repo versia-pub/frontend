@@ -7,8 +7,8 @@
                 :corner-avatar="note.reblog ? note.account.avatar : undefined" :note-url="url"
                 :visibility="noteToUse.visibility" :created-at="new Date(noteToUse.created_at)"
                 :small-layout="smallLayout" class="z-[1]" />
-            <div v-if="topAvatarBar" :class="cn('shrink-0 bg-border w-0.5 absolute top-0 h-7 left-[3.25rem]')"></div>
-            <div v-if="bottomAvatarBar" :class="cn('shrink-0 bg-border w-0.5 absolute bottom-0 h-[calc(100%-1.5rem)] left-[3.25rem]')"></div>
+            <div v-if="topAvatarBar" :class="cn('shrink-0 bg-border w-0.5 absolute top-0 h-7 left-[3rem]')"></div>
+            <div v-if="bottomAvatarBar" :class="cn('shrink-0 bg-border w-0.5 absolute bottom-0 h-[calc(100%-1.5rem)] left-[3rem]')"></div>
         </CardHeader>
         <!-- Simply offset by the size of avatar + 0.75rem (the gap) -->
         <CardContent :class="contentUnderUsername && (smallLayout ? 'ml-11' : 'ml-[4.25rem]')">

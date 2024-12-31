@@ -6,8 +6,8 @@
             }
         }" :open-delay="2000">
             <HoverCardTrigger :as-child="true">
-                <NuxtLink :href="urlAsPath" :class="cn('relative size-14', smallLayout && 'size-8')">
-                    <Avatar :class="cn('size-14 border border-card', smallLayout && 'size-8')" :src="author.avatar"
+                <NuxtLink :href="urlAsPath" :class="cn('relative size-12', smallLayout && 'size-8')">
+                    <Avatar :class="cn('size-12 border border-card', smallLayout && 'size-8')" :src="author.avatar"
                         :name="author.display_name" />
                     <Avatar v-if="cornerAvatar" class="size-6 border absolute -bottom-1 -right-1" :src="cornerAvatar" />
                 </NuxtLink>
