@@ -12,17 +12,11 @@ const props = withDefaults(
 </script>
 
 <template>
-  <Primitive
-    :as="props.as"
-    :as-child="props.asChild"
-    :class="
-      cn(
+    <Primitive :as="props.as" :as-child="props.asChild" :class="cn(
         'rounded-lg border bg-card/20 backdrop-blur-xl text-card-foreground shadow-sm',
         props.class,
-      )
-    "
-    data-component="card"
-  >
-    <slot />
-  </Primitive>
+    )
+        " data-component="card">
+        <slot />
+    </Primitive>
 </template>
