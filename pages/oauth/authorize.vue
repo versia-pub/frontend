@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Client } from "@versia/client";
-import { AlertCircle, Loader } from "lucide-vue-next";
+import { AlertCircle, AppWindow, Loader } from "lucide-vue-next";
+import { confirmModalService } from "~/components/modals/composable";
 import UserAuthForm from "~/components/oauth/login.vue";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -11,19 +12,41 @@ useHead({
     title: m.fuzzy_sea_moth_absorb(),
 });
 
-const host = new URL(useBaseUrl().value).host;
-const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
+const baseUrl = useBaseUrl();
+const client = computed(() => new Client(new URL(baseUrl.value)));
+const instance = useInstanceFromClient(client);
 const {
     error,
     error_description,
     redirect_uri,
+    instance_switch_uri,
     response_type,
     client_id,
     scope,
-    state,
 } = useUrlSearchParams();
 const hasValidUrlSearchParams =
     redirect_uri && response_type && client_id && scope;
+
+const getHost = (uri: string) => new URL(uri).host;
+
+const changeInstance = async () => {
+    const { confirmed, value } = await confirmModalService.confirm({
+        title: m.sharp_alive_anteater_fade(),
+        inputType: "url",
+        message: m.noble_misty_rook_slide(),
+    });
+
+    if (confirmed && value) {
+        // Redirect to the client's instance switch URI
+        const url = new URL(instance_switch_uri as string);
+
+        url.searchParams.set("origin", value);
+
+        await navigateTo(url.toString(), {
+            external: true,
+        });
+    }
+};
 </script>
 
 <template>
@@ -69,11 +92,17 @@ const hasValidUrlSearchParams =
                         {{ m.novel_fine_stork_snap() }}
                     </h1>
                     <p class="text-sm text-muted-foreground" v-html="m.smug_main_whale_snip({
-                        host,
+                        host: getHost(baseUrl),
                     })">
                     </p>
                 </div>
-                <UserAuthForm v-if="instance && hasValidUrlSearchParams" :instance="instance" />
+                <template v-if="instance && hasValidUrlSearchParams">
+                    <UserAuthForm :instance="instance" />
+                    <Button variant="ghost" @click="changeInstance" v-if="instance_switch_uri">
+                        <AppWindow />
+                        {{ m.muddy_topical_pelican_gasp() }}
+                    </Button>
+                </template>
                 <div v-else-if="hasValidUrlSearchParams" class="p-4 flex items-center justify-center h-48">
                     <Loader class="size-8 animate-spin" />
                 </div>

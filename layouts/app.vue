@@ -37,7 +37,7 @@ import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 
 const appData = useAppData();
-const signInAction = () => signIn(appData);
+const signInAction = () => signIn(appData, new URL(useBaseUrl().value));
 const colorMode = useColorMode();
 const themeSetting = useSetting(SettingIds.Theme);
 const { n, d } = useMagicKeys();

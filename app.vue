@@ -27,6 +27,7 @@ const lang = useLanguage();
 setLanguageTag(lang.value);
 
 const code = useRequestURL().searchParams.get("code");
+const origin = useRequestURL().searchParams.get("origin");
 const appData = useAppData();
 const instance = useInstance();
 const description = useExtendedDescription(client);
@@ -72,8 +73,20 @@ useHead({
     },
 });
 
-if (code && appData.value && route.path !== "/oauth/code") {
-    signInWithCode(code, appData.value);
+if (code && origin && appData.value && route.path !== "/oauth/code") {
+    const newOrigin = new URL(
+        URL.canParse(origin) ? origin : `https://${origin}`,
+    );
+
+    signInWithCode(code, appData.value, newOrigin);
+}
+
+if (origin && !code) {
+    const newOrigin = new URL(
+        URL.canParse(origin) ? origin : `https://${origin}`,
+    );
+
+    signIn(appData, newOrigin);
 }
 
 useListen("identity:change", (newIdentity) => {

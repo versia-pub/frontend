@@ -44,7 +44,7 @@ export const useCacheRefresh = (client: MaybeRef<Client | null>) => {
 
                         // Get all permissions and deduplicate
                         const permissions = roles
-                            .flatMap((r) => r.permissions)
+                            ?.flatMap((r) => r.permissions)
                             .filter((p, i, arr) => arr.indexOf(p) === i);
 
                         if (identity.value) {

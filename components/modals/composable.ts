@@ -3,7 +3,7 @@ export type ConfirmModalOptions = {
     message?: string;
     confirmText?: string;
     cancelText?: string;
-    inputType?: "none" | "text" | "textarea";
+    inputType?: "none" | "text" | "textarea" | "url";
     defaultValue?: string;
 };
 

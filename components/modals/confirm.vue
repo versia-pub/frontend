@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Input, UrlInput } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import * as m from "~/paraglide/messages.js";
 import {
@@ -32,6 +32,8 @@ const resolvePromise = ref<((result: ConfirmModalResult) => void) | null>(null);
 
 function open(options: ConfirmModalOptions): Promise<ConfirmModalResult> {
     isOpen.value = true;
+    isValid.value = false;
+
     modalOptions.value = {
         title: options.title || m.antsy_whole_alligator_blink(),
         message: options.message,
@@ -68,6 +70,8 @@ function handleCancel() {
 confirmModalService.register({
     open,
 });
+
+const isValid = ref(false);
 </script>
 
 <template>
@@ -82,6 +86,8 @@ confirmModalService.register({
 
             <Input v-if="modalOptions.inputType === 'text'" v-model="inputValue" />
 
+            <UrlInput v-if="modalOptions.inputType === 'url'" v-model="inputValue" placeholder="google.com" v-model:is-valid="isValid" />
+
             <Textarea v-else-if="modalOptions.inputType === 'textarea'" v-model="inputValue" rows="6" />
 
             <AlertDialogFooter class="w-full">
@@ -91,7 +97,7 @@ confirmModalService.register({
                     </Button>
                 </AlertDialogCancel>
                 <AlertDialogAction :as-child="true">
-                    <Button @click="handleConfirm">
+                    <Button @click="handleConfirm" :disabled="!isValid && modalOptions.inputType === 'url'">
                         {{ modalOptions.confirmText }}
                     </Button>
                 </AlertDialogAction>

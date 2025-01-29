@@ -1,14 +1,24 @@
+import type { Client } from "@versia/client";
 import type { ApplicationData } from "@versia/client/types";
 import { nanoid } from "nanoid";
 import { toast } from "vue-sonner";
 import * as m from "~/paraglide/messages.js";
 
-export const signIn = async (appData: Ref<ApplicationData | null>) => {
+export const signIn = async (
+    appData: Ref<ApplicationData | null>,
+    origin: URL,
+) => {
     const id = toast.loading(m.level_due_ox_greet());
+
+    const redirectUri = new URL("/", useRequestURL().origin);
+
+    const client = useClient(origin);
+
+    redirectUri.searchParams.append("origin", client.value.url.origin);
 
     const output = await client.value.createApp("Versia", {
         scopes: ["read", "write", "follow", "push"],
-        redirect_uris: new URL("/", useRequestURL().origin).toString(),
+        redirect_uris: redirectUri.toString(),
         website: useBaseUrl().value,
     });
 
@@ -25,7 +35,7 @@ export const signIn = async (appData: Ref<ApplicationData | null>) => {
         output.data.client_secret,
         {
             scopes: ["read", "write", "follow", "push"],
-            redirect_uri: new URL("/", useRequestURL().origin).toString(),
+            redirect_uri: redirectUri.toString(),
         },
     );
 
@@ -35,19 +45,33 @@ export const signIn = async (appData: Ref<ApplicationData | null>) => {
         return;
     }
 
-    window.location.href = url;
+    // Add "instance_switch_uri" parameter to URL
+    const toRedirect = new URL(url);
+
+    toRedirect.searchParams.append("instance_switch_uri", useRequestURL().href);
+
+    window.location.href = toRedirect.toString();
 };
 
-export const signInWithCode = (code: string, appData: ApplicationData) => {
+export const signInWithCode = (
+    code: string,
+    appData: ApplicationData,
+    origin: URL,
+) => {
+    const client = useClient(origin);
+    const redirectUri = new URL("/", useRequestURL().origin);
+
+    redirectUri.searchParams.append("origin", client.value.url.origin);
+
     client.value
         ?.fetchAccessToken(
             appData.client_id,
             appData.client_secret,
             code,
-            new URL("/", useRequestURL().origin).toString(),
+            redirectUri.toString(),
         )
         .then(async (res) => {
-            const tempClient = useClient(res.data).value;
+            const tempClient = useClient(origin, res.data).value;
 
             const [accountOutput, instanceOutput] = await Promise.all([
                 tempClient.verifyAccountCredentials(),

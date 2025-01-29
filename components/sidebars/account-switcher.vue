@@ -98,7 +98,7 @@ import {
 const appData = useAppData();
 const isMobile = useMediaQuery("(max-width: 768px)");
 
-const signInAction = () => signIn(appData);
+const signInAction = () => signIn(appData, new URL(useBaseUrl().value));
 
 const signOut = async (userId?: string) => {
     const id = toast.loading("Signing out...");
