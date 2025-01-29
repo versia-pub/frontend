@@ -163,26 +163,25 @@ const formSchema = toTypedSchema(
             .refine(
                 (v) =>
                     v.size <=
-                    // @ts-expect-error Types aren't updated with this new value yet
                     (identity.value?.instance.configuration.emojis
-                        .emoji_size_limit ?? 0),
+                        .emoji_size_limit ?? Number.POSITIVE_INFINITY),
                 m.orange_weird_parakeet_hug({
-                    // @ts-expect-error Types aren't updated with this new value yet
-                    count: identity.value?.instance.configuration.emojis
-                        .emoji_size_limit,
+                    count:
+                        identity.value?.instance.configuration.emojis
+                            .emoji_size_limit ?? Number.POSITIVE_INFINITY,
                 }),
             ),
         shortcode: z
             .string()
             .min(1)
             .max(
-                // @ts-expect-error Types aren't updated with this new value yet
                 identity.value?.instance.configuration.emojis
-                    .max_emoji_shortcode_characters,
+                    .max_emoji_shortcode_characters ?? Number.POSITIVE_INFINITY,
                 m.solid_inclusive_owl_hug({
-                    // @ts-expect-error Types aren't updated with this new value yet
-                    count: identity.value?.instance.configuration.emojis
-                        .max_emoji_shortcode_characters,
+                    count:
+                        identity.value?.instance.configuration.emojis
+                            .max_emoji_shortcode_characters ??
+                        Number.POSITIVE_INFINITY,
                 }),
             )
             .regex(emojiValidator),
@@ -199,13 +198,14 @@ const formSchema = toTypedSchema(
         alt: z
             .string()
             .max(
-                // @ts-expect-error Types aren't updated with this new value yet
                 identity.value?.instance.configuration.emojis
-                    .max_emoji_description_characters,
+                    .max_emoji_description_characters ??
+                    Number.POSITIVE_INFINITY,
                 m.key_ago_hound_emerge({
-                    // @ts-expect-error Types aren't updated with this new value yet
-                    count: identity.value?.instance.configuration.emojis
-                        .max_emoji_description_characters,
+                    count:
+                        identity.value?.instance.configuration.emojis
+                            .max_emoji_description_characters ??
+                        Number.POSITIVE_INFINITY,
                 }),
             )
             .optional(),

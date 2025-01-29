@@ -53,12 +53,12 @@ useSeoMeta({
         return titleChunk ? `${titleChunk} · Versia` : "Versia";
     },
     title: computed(() => instance.value?.title ?? ""),
-    ogImage: computed(() => instance.value?.banner.url),
+    ogImage: computed(() => instance.value?.banner?.url),
     twitterTitle: computed(() => instance.value?.title ?? ""),
     twitterDescription: computed(() =>
         convert(description.value?.content ?? ""),
     ),
-    twitterImage: computed(() => instance.value?.banner.url),
+    twitterImage: computed(() => instance.value?.banner?.url),
     description: computed(() => convert(description.value?.content ?? "")),
     ogDescription: computed(() => convert(description.value?.content ?? "")),
     ogSiteName: "Versia",

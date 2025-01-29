@@ -24,6 +24,7 @@
                     <FormControl>
                         <ImageUploader v-model:image="identity.account.avatar" @submit-file="file => setValue(file)" @submit-url="url => setValue(url)" />
                     </FormControl>
+                    <FormMessage />
                 </FormItem>
             </FormField>
 
@@ -195,7 +196,7 @@ const formSchema = toTypedSchema(
                 (v) =>
                     v.size <=
                     (identity.value?.instance.configuration.accounts
-                        .header_size_limit ?? 0),
+                        .header_size_limit ?? Number.POSITIVE_INFINITY),
                 m.civil_icy_ant_mend({
                     size: identity.value?.instance.configuration.accounts
                         .header_size_limit,
@@ -208,7 +209,7 @@ const formSchema = toTypedSchema(
                 (v) =>
                     v.size <=
                     (identity.value?.instance.configuration.accounts
-                        .avatar_size_limit ?? 0),
+                        .avatar_size_limit ?? Number.POSITIVE_INFINITY),
                 m.zippy_caring_raven_edit({
                     size: identity.value?.instance.configuration.accounts
                         .avatar_size_limit,
