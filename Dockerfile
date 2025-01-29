@@ -6,7 +6,7 @@ FROM imbios/bun-node:22-alpine AS base
 FROM base AS install
 
 RUN mkdir -p /temp/dev
-COPY package.json bun.lockb /temp/dev/
+COPY package.json bun.lock /temp/dev/
 COPY project.inlang /temp/dev/project.inlang
 RUN cd /temp/dev && bun install --frozen-lockfile
 
