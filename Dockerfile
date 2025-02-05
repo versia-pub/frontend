@@ -23,7 +23,7 @@ FROM ghcr.io/static-web-server/static-web-server:2-alpine AS final
 COPY --from=builder /app/.output/public /app/public
 COPY sws.toml /etc/config.toml
 
-LABEL org.opencontainers.image.authors="Gaspard Wierzbinski (https://cpluspatch.com)"
+LABEL org.opencontainers.image.authors="Versia contributors (https://forge.versia.pub/versia-pub/frontend/graph)"
 LABEL org.opencontainers.image.source="https://github.com/versia-pub/frontend"
 LABEL org.opencontainers.image.vendor="Versia"
 LABEL org.opencontainers.image.licenses="AGPL-3.0"

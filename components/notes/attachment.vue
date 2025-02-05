@@ -5,8 +5,17 @@
                 <img :src="attachment.url" :alt="attachment.description ?? undefined"
                     class="w-full h-full object-contain bg-muted/20" />
             </DialogTrigger>
-            <video v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
+            <VideoPlayer v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
+                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" :options="{
+                    autoplay: false,
+                    controls: true,
+                    preload: 'auto',
+                    sources: [
+                        {
+                            src: attachment.url
+                        }
+                    ]
+                }" />
             <audio v-else-if="attachment.type === 'audio'" :src="attachment.url"
                 :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
             <DialogTrigger v-else :as-child="true">
@@ -46,8 +55,17 @@
             <div class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vw]">
                 <img v-if="attachment.type === 'image'" :src="attachment.url" :alt="attachment.description ?? ''"
                     class="object-contain" />
-                <video v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                    :alt="attachment.description ?? ''" class="object-cover" controls />
+                <VideoPlayer v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
+                    :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" :options="{
+                        autoplay: false,
+                        controls: true,
+                        preload: 'auto',
+                        sources: [
+                            {
+                                src: attachment.url
+                            }
+                        ]
+                    }" />
                 <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" :alt="attachment.description ?? ''"
                     class="object-cover" controls />
                 <div v-else class="flex flex-col items-center justify-center">
@@ -78,6 +96,7 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import VideoPlayer from '@/components/notes/videoplayer.vue';
 
 defineProps<{
     attachment: Attachment;
