@@ -5,18 +5,9 @@
                 <img :src="attachment.url" :alt="attachment.description ?? undefined"
                     class="w-full h-full object-contain bg-muted/20" />
             </DialogTrigger>
-            <VideoPlayer v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" :options="{
-                    autoplay: false,
-                    controls: true,
-                    preload: 'auto',
-                    sources: [
-                        {
-                            src: attachment.url,
-                            type: 'video/mp4'
-                        }
-                    ]
-                }" />
+            <video-player v-else-if="attachment.type === 'video' || attachment.type === 'gifv'"
+                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20"
+                src="attachment.url" controls :volume="0.6" />
             <audio v-else-if="attachment.type === 'audio'" :src="attachment.url"
                 :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
             <DialogTrigger v-else :as-child="true">
@@ -56,18 +47,9 @@
             <div class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vw]">
                 <img v-if="attachment.type === 'image'" :src="attachment.url" :alt="attachment.description ?? ''"
                     class="object-contain" />
-                <VideoPlayer v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                    :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" :options="{
-                        autoplay: false,
-                        controls: true,
-                        preload: 'auto',
-                        sources: [
-                            {
-                                src: attachment.url,
-                                type: 'video/mp4'
-                            }
-                        ]
-                    }" />
+                <video-player v-else-if="attachment.type === 'video' || attachment.type === 'gifv'"
+                    :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20"
+                    src="attachment.url" controls :volume="0.6" />
                 <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" :alt="attachment.description ?? ''"
                     class="object-cover" controls />
                 <div v-else class="flex flex-col items-center justify-center">
@@ -98,7 +80,8 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import VideoPlayer from '@/components/notes/videoplayer.vue';
+import { VideoPlayer } from '@videojs-player/vue'
+import 'video.js/dist/video-js.css'
 
 defineProps<{
     attachment: Attachment;

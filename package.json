@@ -49,6 +49,7 @@
         "@tiptap/vue-3": "^2.11.3",
         "@vee-validate/zod": "^4.15.0",
         "@versia/client": "0.1.5",
+        "@videojs-player/vue": "^1.0.0",
         "@vite-pwa/nuxt": "^0.10.6",
         "@vueuse/core": "^12.5.0",
         "@vueuse/nuxt": "^12.5.0",
