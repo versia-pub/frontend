@@ -12,7 +12,8 @@
                     preload: 'auto',
                     sources: [
                         {
-                            src: attachment.url
+                            src: attachment.url,
+                            type: 'video/mp4'
                         }
                     ]
                 }" />
@@ -62,7 +63,8 @@
                         preload: 'auto',
                         sources: [
                             {
-                                src: attachment.url
+                                src: attachment.url,
+                                type: 'video/mp4'
                             }
                         ]
                     }" />
