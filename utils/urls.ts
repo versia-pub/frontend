@@ -12,5 +12,5 @@ export const wrapUrl = (path: string) => {
 export const getLanguageTag = () => {
     const tag = languageTag();
 
-    return tag;
+    return tag === "en-rot" ? "en" : tag;
 };
