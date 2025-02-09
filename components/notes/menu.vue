@@ -87,52 +87,52 @@ const _delete = async () => {
         <DropdownMenuContent class="min-w-56">
             <DropdownMenuGroup>
                 <DropdownMenuItem v-if="authorIsMe" as="button" @click="emit('edit')">
-                    <Pencil class="mr-2 size-4" />
+                    <Pencil />
                     {{ m.front_lime_grizzly_persist() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(apiNoteString)">
-                    <Code class="mr-2 size-4" />
+                    <Code />
                     {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(noteId)">
-                    <Hash class="mr-2 size-4" />
+                    <Hash />
                     {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
-                    <Link class="mr-2 size-4" />
+                    <Link />
                     {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" v-if="isRemote" @click="copyText(remoteUrl)">
-                    <Link class="mr-2 size-4" />
+                    <Link />
                     {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="a" v-if="isRemote" target="_blank" rel="noopener noreferrer" :href="remoteUrl">
-                    <ExternalLink class="mr-2 size-4" />
+                    <ExternalLink />
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="authorIsMe" />
             <DropdownMenuGroup v-if="authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Delete class="mr-2 size-4" />
+                    <Delete />
                     {{ m.real_green_clownfish_pet() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="_delete">
-                    <Trash class="mr-2 size-4" />
+                    <Trash />
                     {{ m.tense_quick_cod_favor() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="loggedIn && !authorIsMe" />
             <DropdownMenuGroup v-if="loggedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Flag class="mr-2 size-4" />
+                    <Flag />
                     {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(authorId)">
-                    <Ban class="mr-2 size-4" />
+                    <Ban />
                     {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>

@@ -1,9 +1,10 @@
 <template>
-    <div class="md:px-8 px-4 py-2 max-w-7xl mx-auto w-full">
+    <!-- Add padding at bottom to prevent hiding some content by the bottom navbar -->
+    <div class="md:px-8 px-4 py-4 pb-20 max-w-7xl mx-auto w-full">
         <h1 class="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl capitalize">
             {{ page }}
-        </h1>   
-        <div class="grid grid-cols-1 gap-4 mt-6">
+        </h1>
+        <div class="grid grid-cols-1 gap-2 mt-6">
             <template v-for="[id, setting] of settingEntries">
                 <SwitchPreference v-if="setting.type === SettingType.Boolean" :setting="(setting as BooleanSetting)" @update:setting="updateSetting(id, setting)" />
                 <SelectPreference v-else-if="setting.type === SettingType.Enum" :setting="(setting as EnumSetting)" @update:setting="updateSetting(id, setting)" />

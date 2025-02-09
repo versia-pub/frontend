@@ -1,5 +1,5 @@
 <template>
-    <Collapsible :as="Card" class="grid items-center p-6 gap-4" v-slot="{ open }">
+    <Collapsible :as="Card" class="grid items-center px-6 py-4 gap-4" v-slot="{ open }">
         <div class="grid grid-cols-[1fr,auto] items-center gap-4">
             <CardHeader class="space-y-0.5 p-0">
                 <CardTitle class="text-base">

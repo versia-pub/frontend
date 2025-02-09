@@ -23,16 +23,16 @@
         </Card>
         <DropdownMenuContent class="min-w-48">
             <DropdownMenuItem @click="editName">
-                <TextCursorInput class="mr-2 size-4" />
+                <TextCursorInput />
                 {{ m.cuddly_such_swallow_hush() }}
             </DropdownMenuItem>
             <!-- <DropdownMenuItem @click="editCaption">
-                <Captions class="mr-2 size-4" />
+                <Captions />
                 <span>Add caption</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator /> -->
             <DropdownMenuItem @click="_delete">
-                <Delete class="mr-2 size-4" />
+                <Delete />
                 {{ m.tense_quick_cod_favor() }}
             </DropdownMenuItem>
         </DropdownMenuContent>

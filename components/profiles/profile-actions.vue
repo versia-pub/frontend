@@ -6,55 +6,55 @@
         <DropdownMenuContent class="min-w-56">
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(account.username)">
-                    <AtSign class="mr-2 size-4" />
+                    <AtSign />
                     {{ m.cool_dark_tapir_belong() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(JSON.stringify(account, null, 4))">
-                    <Code class="mr-2 size-4" />
+                    <Code />
                     {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.id)">
-                    <Hash class="mr-2 size-4" />
+                    <Hash />
                     {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
-                    <Link class="mr-2 size-4" />
+                    <Link />
                     {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.url)">
-                    <Link class="mr-2 size-4" />
+                    <Link />
                     {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="a" v-if="isRemote" target="_blank" rel="noopener noreferrer" :href="account.url">
-                    <ExternalLink class="mr-2 size-4" />
+                    <ExternalLink />
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
             <DropdownMenuGroup v-if="isLoggedIn && !isMe">
                 <DropdownMenuItem as="button" @click="muteUser(account.id)">
-                    <VolumeX class="mr-2 size-4" />
+                    <VolumeX />
                     {{ m.spare_wild_mole_intend() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(account.id)">
-                    <Ban class="mr-2 size-4" />
+                    <Ban />
                     {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isRemote" />
             <DropdownMenuGroup v-if="isRemote">
                 <DropdownMenuItem as="button" @click="refresh">
-                    <RefreshCw class="mr-2 size-4" />
+                    <RefreshCw />
                     {{ m.slow_chunky_chipmunk_hush() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
             <DropdownMenuGroup v-if="isLoggedIn && !isMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Flag class="mr-2 size-4" />
+                    <Flag />
                     {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>

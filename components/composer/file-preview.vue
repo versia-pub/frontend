@@ -14,16 +14,16 @@
             <DropdownMenuSeparator />
 
             <DropdownMenuItem @click="editName">
-                <TextCursorInput class="mr-2 size-4" />
+                <TextCursorInput />
                 <span>Rename</span>
             </DropdownMenuItem>
             <DropdownMenuItem @click="editCaption">
-                <Captions class="mr-2 size-4" />
+                <Captions />
                 <span>Add caption</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem @click="emit('remove')">
-                <Delete class="mr-2 size-4" />
+                <Delete />
                 <span>Remove</span>
             </DropdownMenuItem>
         </DropdownMenuContent>
