@@ -23,6 +23,10 @@
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="42" width="52" alt="HTML5 logo">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="42" width="52" alt="Linux logo">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" height="42" width="52" alt="TailwindCSS logo">
+    <br />
+    <a href="https://hosted.weblate.org/engage/versia-fe/">
+        <img src="https://hosted.weblate.org/widget/versia-fe/frontend/287x66-grey.png" alt="Translation status" />
+    </a>
 </div>
 
 

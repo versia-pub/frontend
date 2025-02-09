@@ -151,6 +151,14 @@ export const settings = (): Record<SettingIds, Setting> => {
                             },
                         ),
                 },
+                {
+                    value: "en-rot",
+                    label: () => "Brainrot",
+                },
+                {
+                    value: "en-pt",
+                    label: () => m.these_awful_ape_reside(),
+                },
             ],
             page: SettingPages.Behaviour,
         } as EnumSetting,

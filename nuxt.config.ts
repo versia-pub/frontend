@@ -258,7 +258,7 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            apiHost: "https://social.lysand.org",
+            apiHost: "https://beta.versia.social",
             onionApiHost: undefined,
         },
     },
