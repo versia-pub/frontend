@@ -111,7 +111,7 @@ const issuerRedirectUrl = (issuerId: string) => {
                     </FormItem>
                 </FormField>
                 <Button :disabled="isLoading" type="submit">
-                    <Loader v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
+                    <Loader v-if="isLoading" class="mr-2 size-4 animate-spin" />
                     {{ m.fuzzy_sea_moth_absorb() }}
                 </Button>
             </div>

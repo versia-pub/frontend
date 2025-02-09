@@ -25,13 +25,11 @@
         <Check class="size-4" />
     </div>
     <div v-else class="grid grid-cols-2 p-2 gap-2">
-        <Button variant="outline" size="sm" @click="accept">
+        <Button variant="secondary" size="sm" @click="accept" :title="m.slow_these_kestrel_sail()">
             <Check />
-            {{ m.slow_these_kestrel_sail() }}
         </Button>
-        <Button variant="ghost" size="sm" @click="reject">
+        <Button variant="ghost" size="sm" @click="reject" :title="m.weary_steep_yak_embrace()">
             <X />
-            {{ m.weary_steep_yak_embrace() }}
         </Button>
     </div>
 </template>

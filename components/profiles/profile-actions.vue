@@ -4,8 +4,6 @@
             <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-56">
-            <DropdownMenuLabel>{{ m.spicy_loved_giraffe_empower() }}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(account.username)">
                     <AtSign class="mr-2 size-4" />
@@ -70,7 +68,6 @@ import {
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";

@@ -20,7 +20,7 @@ const showTimelines = computed(
 <template>
     <SidebarProvider>
         <LeftSidebar />
-        <SidebarInset :class="cn('relative !overflow-y-auto !h-svh', !isMd && 'pt-4')">
+        <SidebarInset :class="cn('relative overflow-y-auto overflow-x-hidden', !isMd && 'pt-4')">
             <header v-if="showTimelines" class="flex h-16 items-center bg-background/80 backdrop-blur-2xl sticky top-0 inset-x-0 z-10 p-4">
                 <Timelines />
             </header>

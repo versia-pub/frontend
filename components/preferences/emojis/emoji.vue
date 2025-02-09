@@ -22,20 +22,17 @@
             </CardFooter>
         </Card>
         <DropdownMenuContent class="min-w-48">
-            <DropdownMenuLabel class="font-mono">{{ emoji.shortcode }}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
             <DropdownMenuItem @click="editName">
-                <TextCursorInput class="mr-2 h-4 w-4" />
+                <TextCursorInput class="mr-2 size-4" />
                 {{ m.cuddly_such_swallow_hush() }}
             </DropdownMenuItem>
             <!-- <DropdownMenuItem @click="editCaption">
-                <Captions class="mr-2 h-4 w-4" />
+                <Captions class="mr-2 size-4" />
                 <span>Add caption</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator /> -->
             <DropdownMenuItem @click="_delete">
-                <Delete class="mr-2 h-4 w-4" />
+                <Delete class="mr-2 size-4" />
                 {{ m.tense_quick_cod_favor() }}
             </DropdownMenuItem>
         </DropdownMenuContent>
@@ -60,8 +57,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import * as m from "~/paraglide/messages.js";

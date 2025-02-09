@@ -1,6 +1,5 @@
 <template>
     <Sidebar>
-        <SquarePattern v-if="!canParseUrl(backgroundImage.value as string)" />
         <slot v-if="!route.meta.requiresAuth || identity" />
         <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
             <CardHeader class="text-center gap-y-4">
@@ -22,7 +21,6 @@
 
 <script setup lang="ts">
 import ComposerDialog from "~/components/composer/dialog.vue";
-import SquarePattern from "~/components/graphics/square-pattern.vue";
 import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
 import Sidebar from "~/components/sidebars/sidebar.vue";
 import { Button } from "~/components/ui/button";

@@ -1,5 +1,5 @@
 <template>
-    <Sidebar variant="inset" collapsible="none" side="right" class="[--sidebar-width:24rem] hidden lg:flex">
+    <Sidebar side="right" collapsible="none" class="w-96 hidden lg:flex">
         <SidebarContent class="p-2 overflow-y-auto">
             <NotificationsTimeline />
         </SidebarContent>

@@ -4,7 +4,6 @@ import {
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -86,8 +85,6 @@ const _delete = async () => {
             <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-56">
-            <DropdownMenuLabel>{{ m.many_misty_parakeet_fall() }}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem v-if="authorIsMe" as="button" @click="emit('edit')">
                     <Pencil class="mr-2 size-4" />

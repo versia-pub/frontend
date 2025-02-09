@@ -1,5 +1,5 @@
 <template>
-    <Sidebar :variant="(sidebarStyle.value as 'sidebar' | 'floating' | 'inset')" collapsible="icon">
+    <Sidebar collapsible="none" class="hidden md:flex">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
@@ -136,12 +136,9 @@ import {
     SidebarRail,
 } from "~/components/ui/sidebar";
 import * as m from "~/paraglide/messages.js";
-import { type EnumSetting, SettingIds } from "~/settings";
 import Avatar from "../profiles/avatar.vue";
 import { Button } from "../ui/button";
 import AccountSwitcher from "./account-switcher.vue";
-
-const sidebarStyle = useSetting(SettingIds.SidebarStyle) as Ref<EnumSetting>;
 
 const data = {
     navMain: [

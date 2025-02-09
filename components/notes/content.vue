@@ -15,7 +15,7 @@
         maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`,
     }">
         <div :class="[
-            'prose prose-sm block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline',
+            'prose prose-sm block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline hover:prose-a:underline',
             $style.content,
         ]" v-html="content" v-render-emojis="emojis"></div>
         <div v-if="isOverflowing && collapsed"

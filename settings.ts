@@ -86,7 +86,6 @@ export enum SettingIds {
     BackgroundURL = "background-url",
     NotificationsSidebar = "notifications-sidebar",
     AvatarShape = "avatar-shape",
-    SidebarStyle = "sidebar-style",
     DefaultVisibility = "default-visibility",
 }
 
@@ -161,27 +160,6 @@ export const settings = (): Record<SettingIds, Setting> => {
                 },
             ],
             page: SettingPages.Behaviour,
-        } as EnumSetting,
-        [SettingIds.SidebarStyle]: {
-            title: m.deft_seemly_donkey_slide,
-            description: m.wide_least_samuel_conquer,
-            type: SettingType.Enum,
-            value: "inset",
-            options: [
-                {
-                    value: "inset",
-                    label: m.fluffy_north_crow_blink,
-                },
-                {
-                    value: "sidebar",
-                    label: m.day_polite_newt_loop,
-                },
-                {
-                    value: "floating",
-                    label: m.jolly_mad_jackdaw_assure,
-                },
-            ],
-            page: SettingPages.Appearance,
         } as EnumSetting,
         [SettingIds.AvatarShape]: {
             title: m.fit_cool_bulldog_dine,

@@ -9,7 +9,7 @@
                 <div v-for="provider of ssoConfig?.providers" :key="provider.id"
                     class="flex items-center justify-between p-4 bg-dark-700 rounded">
                     <div class="flex items-center gap-4">
-                        <Avatar :src="provider.icon" :alt="provider.name" class="h-8 w-8" />
+                        <Avatar :src="provider.icon" :alt="provider.name" class="size-8" />
                         <span class="font-semibold text-gray-300">{{ provider.name }}</span>
                     </div>
                     <div>
