@@ -19,7 +19,7 @@
             $style.content,
         ]" v-html="content" v-render-emojis="emojis"></div>
         <div v-if="isOverflowing && collapsed"
-            class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b"></div>
+            class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b-md"></div>
         <Button v-if="isOverflowing" @click="collapsed = !collapsed"
             class="absolute bottom-2 right-1/2 translate-x-1/2">{{
                 collapsed

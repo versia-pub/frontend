@@ -36,7 +36,7 @@
         <div class="flex flex-col gap-1 justify-center items-end" v-if="!smallLayout">
             <NuxtLink :href="noteUrlAsPath" class="text-xs text-muted-foreground"
                 :title="visibilities[visibility].text">
-                <component :is="visibilities[visibility].icon" class="size-5" />
+                <component :is="visibilities[visibility].icon" class="size-4" />
             </NuxtLink>
         </div>
     </div>
