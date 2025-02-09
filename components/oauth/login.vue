@@ -61,7 +61,7 @@ for (const name of [
 }
 
 const issuerRedirectUrl = (issuerId: string) => {
-    const url = new URL("/oauth/sso", useBaseUrl().value);
+    const url = new URL("/oauth/sso", client.value.url);
 
     for (const name of [
         "redirect_uri",

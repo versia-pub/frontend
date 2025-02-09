@@ -21,7 +21,7 @@
                 <UserPlus />
                 {{ m.sunny_pink_hyena_walk() }}
             </Button>
-            <Button variant="secondary" size="lg" @click="signOut()" v-if="identity">
+            <Button variant="secondary" size="lg" @click="signOut(appData, identity)" v-if="identity">
                 <LogOut />
                 {{ m.sharp_big_mallard_reap() }}
             </Button>
@@ -47,7 +47,9 @@
                             identity.account.display_name
                             }}</span>
                         <span class="truncate text-xs">@{{
-                            identity.account.acct
+                            identity.account.username
+                            }}@{{
+                                identity.instance.domain
                             }}</span>
                     </div>
                 </Button>
@@ -64,7 +66,7 @@
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem @click="signOut()" v-if="identity">
+            <DropdownMenuItem @click="signOut(appData, identity)" v-if="identity">
                 <LogOut />
                 {{ m.sharp_big_mallard_reap() }}
             </DropdownMenuItem>
@@ -98,48 +100,7 @@ import {
 const appData = useAppData();
 const isMobile = useMediaQuery("(max-width: 768px)");
 
-const signInAction = () => signIn(appData, new URL(useBaseUrl().value));
-
-const signOut = async (userId?: string) => {
-    const id = toast.loading("Signing out...");
-
-    if (!(appData.value && identity.value)) {
-        toast.dismiss(id);
-        toast.error("No app or identity data to sign out");
-        return;
-    }
-
-    const identityToRevoke = userId
-        ? identities.value.find((i) => i.account.id === userId)
-        : identity.value;
-
-    if (!identityToRevoke) {
-        toast.dismiss(id);
-        toast.error("No identity to revoke");
-        return;
-    }
-
-    // Don't do anything on error, as Versia Server doesn't implement the revoke endpoint yet
-    await client.value
-        ?.revokeToken(
-            appData.value.client_id,
-            identityToRevoke.tokens.access_token,
-            identityToRevoke.tokens.access_token,
-        )
-        .catch(() => {
-            // Do nothing
-        });
-
-    if (!userId) {
-        identity.value = null;
-        await navigateTo("/");
-        return;
-    }
-
-    identities.value = identities.value.filter((i) => i.id !== userId);
-    toast.dismiss(id);
-    toast.success("Signed out");
-};
+const signInAction = async () => signIn(appData, await askForInstance());
 
 const switchAccount = async (userId: string) => {
     if (userId === identity.value?.account.id) {

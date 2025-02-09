@@ -1,7 +1,7 @@
 <template>
     <Sidebar>
         <slot v-if="!route.meta.requiresAuth || identity" />
-        <Card v-else class="shadow-none bg-transparent border-none p-4 max-w-md mx-auto">
+        <Card v-else class="shadow-none border-none p-4 max-w-md mx-auto">
             <CardHeader class="text-center gap-y-4">
                 <CardTitle>{{ m.sunny_quick_lionfish_flip() }}</CardTitle>
                 <CardDescription>
@@ -35,7 +35,7 @@ import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 
 const appData = useAppData();
-const signInAction = () => signIn(appData, new URL(useBaseUrl().value));
+const signInAction = async () => signIn(appData, await askForInstance());
 const colorMode = useColorMode();
 const themeSetting = useSetting(SettingIds.Theme);
 const { n, d } = useMagicKeys();

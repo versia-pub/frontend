@@ -160,7 +160,7 @@ const schema = toTypedSchema(
         }),
 );
 
-const instance = useInstanceFromClient(new Client(new URL(useBaseUrl().value)));
+const instance = useInstanceFromClient(new Client(client.value.url));
 const form = useForm({
     validationSchema: schema,
 });

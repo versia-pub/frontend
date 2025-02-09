@@ -12,7 +12,7 @@
                             <div class="grid flex-1 text-left text-sm leading-tight">
                                 <span class="truncate font-semibold">{{ instance?.title ?? m.short_zippy_felix_kick()
                                     }}</span>
-                                <span class="truncate text-xs">{{ m.top_active_ocelot_cure() }}</span>
+                                <span class="truncate text-xs">{{ instance?.description ?? m.top_active_ocelot_cure() }}</span>
                             </div>
                             <!-- <ChevronsUpDown class="ml-auto" /> -->
                         </SidebarMenuButton>

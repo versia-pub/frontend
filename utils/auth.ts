@@ -2,7 +2,25 @@ import type { Client } from "@versia/client";
 import type { ApplicationData } from "@versia/client/types";
 import { nanoid } from "nanoid";
 import { toast } from "vue-sonner";
+import { confirmModalService } from "~/components/modals/composable";
+import pkg from "~/package.json";
 import * as m from "~/paraglide/messages.js";
+
+const getRedirectUri = () => new URL("/", useRequestURL().origin);
+
+export const askForInstance = async (): Promise<URL> => {
+    const { confirmed, value } = await confirmModalService.confirm({
+        title: m.sharp_alive_anteater_fade(),
+        inputType: "url",
+        message: m.noble_misty_rook_slide(),
+    });
+
+    if (confirmed && value) {
+        return new URL(URL.canParse(value) ? value : `https://${value}`);
+    }
+
+    throw new Error("No instance provided");
+};
 
 export const signIn = async (
     appData: Ref<ApplicationData | null>,
@@ -10,16 +28,17 @@ export const signIn = async (
 ) => {
     const id = toast.loading(m.level_due_ox_greet());
 
-    const redirectUri = new URL("/", useRequestURL().origin);
-
     const client = useClient(origin);
 
-    redirectUri.searchParams.append("origin", client.value.url.origin);
+    const redirectUri = getRedirectUri();
 
-    const output = await client.value.createApp("Versia", {
+    redirectUri.searchParams.append("origin", origin.toString());
+
+    const output = await client.value.createApp("Versia-FE", {
         scopes: ["read", "write", "follow", "push"],
         redirect_uris: redirectUri.toString(),
-        website: useBaseUrl().value,
+        // @ts-expect-error Package.json types are missing this field
+        website: pkg.homepage ?? undefined,
     });
 
     if (!output?.data) {
@@ -59,9 +78,9 @@ export const signInWithCode = (
     origin: URL,
 ) => {
     const client = useClient(origin);
-    const redirectUri = new URL("/", useRequestURL().origin);
+    const redirectUri = getRedirectUri();
 
-    redirectUri.searchParams.append("origin", client.value.url.origin);
+    redirectUri.searchParams.append("origin", origin.toString());
 
     client.value
         ?.fetchAccessToken(
@@ -104,4 +123,34 @@ export const signInWithCode = (
             // Redirect to home
             window.location.pathname = "/";
         });
+};
+
+export const signOut = async (
+    appData: ApplicationData | null,
+    identityToRevoke: Identity,
+) => {
+    const id = toast.loading("Signing out...");
+
+    if (!appData) {
+        toast.dismiss(id);
+        toast.error("No app or identity data to sign out");
+        return;
+    }
+
+    // Don't do anything on error, as Versia Server doesn't implement the revoke endpoint yet
+    await client.value
+        ?.revokeToken(
+            appData.client_id,
+            identityToRevoke.tokens.access_token,
+            identityToRevoke.tokens.access_token,
+        )
+        .catch(() => {
+            // Do nothing
+        });
+
+    identities.value = identities.value.filter(
+        (i) => i.id !== identityToRevoke.id,
+    );
+    toast.dismiss(id);
+    toast.success("Signed out");
 };

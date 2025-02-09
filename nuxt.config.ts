@@ -256,12 +256,6 @@ export default defineNuxtConfig({
             },
         ],
     },
-    runtimeConfig: {
-        public: {
-            apiHost: "https://beta.versia.social",
-            onionApiHost: undefined,
-        },
-    },
     devtools: {
         enabled: false,
 
