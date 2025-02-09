@@ -1,20 +1,6 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import { ChevronDownIcon } from "lucide-vue-next";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb";
-import { Separator } from "~/components/ui/separator";
-import {
-    SidebarInset,
-    SidebarProvider,
-    SidebarTrigger,
-} from "~/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { SettingIds } from "~/settings";
 import Timelines from "../navigation/timelines.vue";
 import LeftSidebar from "./left-sidebar.vue";

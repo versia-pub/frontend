@@ -71,6 +71,7 @@ export default (<Config>{
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+                DEFAULT: "var(--radius)",
             },
             animation: {
                 like: "like 1s ease-in-out",

@@ -9,7 +9,7 @@
                         </path>
                     </g>
                 </svg>
-                <img v-else-if="icon" :src="icon" alt="" class="size-4 rounded-sm" />
+                <img v-else-if="icon" :src="icon" alt="" class="size-4 rounded" />
                 {{ name }}
             </Badge>
         </TooltipTrigger>

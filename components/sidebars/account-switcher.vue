@@ -35,7 +35,7 @@
         <DropdownMenuTrigger :as-child="true">
             <slot />
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg" side="bottom"
+        <DropdownMenuContent class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded" side="bottom"
             align="end" :side-offset="4">
             <DropdownMenuLabel class="p-0 font-normal">
                 <Button @click="switchAccount(identity.account.id)" variant="ghost" size="lg"

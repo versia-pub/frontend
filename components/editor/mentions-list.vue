@@ -1,5 +1,5 @@
 <template>
-    <Command class="rounded-lg border shadow-md min-w-[200px]" :selected-value="items[selectedIndex]?.key">
+    <Command class="rounded border shadow-md min-w-[200px]" :selected-value="items[selectedIndex]?.key">
         <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup class="mentions-group" heading="Users">
