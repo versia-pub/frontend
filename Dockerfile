@@ -1,5 +1,4 @@
-# Paraglide doesn't properly work with Bun, so it needs Node
-FROM imbios/bun-node:22-alpine AS base
+FROM oven/bun:1.2.2-alpine AS base
 
 # Install dependencies into temp directory
 # This will cache them and speed up future builds
