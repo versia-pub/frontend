@@ -1,5 +1,4 @@
 import * as m from "~/paraglide/messages.js";
-import { setLanguageTag } from "./paraglide/runtime";
 
 export enum SettingType {
     String = "string",
@@ -136,7 +135,7 @@ export const settings = (): Record<SettingIds, Setting> => {
                         m.keen_aware_goldfish_thrive(
                             {},
                             {
-                                languageTag: "en",
+                                locale: "en",
                             },
                         ),
                 },
@@ -146,13 +145,9 @@ export const settings = (): Record<SettingIds, Setting> => {
                         m.vivid_mellow_sawfish_approve(
                             {},
                             {
-                                languageTag: "fr",
+                                locale: "fr",
                             },
                         ),
-                },
-                {
-                    value: "en-rot",
-                    label: () => "Brainrot",
                 },
                 {
                     value: "en-pt",

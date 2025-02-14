@@ -24,8 +24,8 @@
         "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
         "generate": "nuxt generate",
         "emojis:generate": "bun run utils/emojis.ts",
-        "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt prepare",
         "rebuild-i18n": "paraglide-js compile --project ./project.inlang --outdir ./paraglide",
+        "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt prepare",
         "lint": "bunx @biomejs/biome check .",
         "check": "bunx tsc -p ."
     },
@@ -82,12 +82,12 @@
         "@iconify-json/noto": "^1.2.2",
         "@iconify-json/twemoji": "^1.2.2",
         "@iconify/utils": "^2.3.0",
+        "@inlang/paraglide-js": "2.0.0-beta.17",
         "@nuxtjs/tailwindcss": "^6.13.1",
         "@tailwindcss/forms": "^0.5.10",
         "@types/html-to-text": "^9.0.4",
         "typescript": "^5.7.3",
-        "vue-tsc": "^2.2.0",
-        "@inlang/paraglide-js": "^2.0.0-beta.17"
+        "vue-tsc": "^2.2.0"
     },
     "trustedDependencies": [
         "@biomejs/biome",

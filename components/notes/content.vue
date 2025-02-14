@@ -43,6 +43,7 @@ import type { Attachment, Emoji, Status } from "@versia/client/types";
 import { TriangleAlert } from "lucide-vue-next";
 import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
+import { getLocale } from "~/paraglide/runtime";
 import { type BooleanSetting, SettingIds } from "~/settings";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import Attachments from "./attachments.vue";
@@ -77,7 +78,7 @@ const isOverflowing = computed(() => {
 
 const characterCount = plainContent?.length;
 const formattedCharacterCount = characterCount
-    ? new Intl.NumberFormat(getLanguageTag()).format(characterCount)
+    ? new Intl.NumberFormat(getLocale()).format(characterCount)
     : undefined;
 </script>
 

@@ -18,13 +18,13 @@ import "~/styles/index.css";
 import { convert } from "html-to-text";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
-import { setLanguageTag } from "./paraglide/runtime";
+import { defineGetLocale } from "./paraglide/runtime";
 import { type EnumSetting, SettingIds } from "./settings";
 // Sin
 //import "~/styles/mcdonalds.css";
 
 const lang = useLanguage();
-setLanguageTag(lang.value);
+defineGetLocale(() => lang.value);
 
 const code = useRequestURL().searchParams.get("code");
 const origin = useRequestURL().searchParams.get("origin");

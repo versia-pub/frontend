@@ -28,6 +28,7 @@ import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
+import { getLocale } from "~/paraglide/runtime";
 import { SettingIds } from "~/settings";
 import { confirmModalService } from "../modals/composable";
 import Menu from "./menu.vue";
@@ -144,7 +145,7 @@ const unreblog = async () => {
 
 const numberFormat = (number = 0) =>
     number !== 0
-        ? new Intl.NumberFormat(getLanguageTag(), {
+        ? new Intl.NumberFormat(getLocale(), {
               notation: "compact",
               compactDisplay: "short",
               maximumFractionDigits: 1,
