@@ -11,18 +11,37 @@
                 {{ m.frail_great_marten_pet() }}
             </DialogDescription>
             <form class="p-4 grid gap-6" @submit="submit">
-                <div v-if="values.image" class="flex items-center justify-around *:size-20 *:p-2 *:rounded *:border *:shadow">
+                <div
+                    v-if="values.image"
+                    class="flex items-center justify-around *:size-20 *:p-2 *:rounded *:border *:shadow"
+                >
                     <div class="bg-background">
-                        <img class="h-full object-cover" :src="createObjectURL(values.image as File)" :alt="values.alt" />
+                        <img
+                            class="h-full object-cover"
+                            :src="createObjectURL(values.image as File)"
+                            :alt="values.alt"
+                        />
                     </div>
                     <div class="bg-zinc-700">
-                        <img class="h-full object-cover" :src="createObjectURL(values.image as File)" :alt="values.alt" />
+                        <img
+                            class="h-full object-cover"
+                            :src="createObjectURL(values.image as File)"
+                            :alt="values.alt"
+                        />
                     </div>
                     <div class="bg-zinc-400">
-                        <img class="h-full object-cover" :src="createObjectURL(values.image as File)" :alt="values.alt" />
+                        <img
+                            class="h-full object-cover"
+                            :src="createObjectURL(values.image as File)"
+                            :alt="values.alt"
+                        />
                     </div>
                     <div class="bg-foreground">
-                        <img class="h-full object-cover" :src="createObjectURL(values.image as File)" :alt="values.alt" />
+                        <img
+                            class="h-full object-cover"
+                            :src="createObjectURL(values.image as File)"
+                            :alt="values.alt"
+                        />
                     </div>
                 </div>
 
@@ -32,13 +51,19 @@
                             {{ m.active_direct_bear_compose() }}
                         </FormLabel>
                         <FormControl>
-                            <Input type="file" accept="image/*" @change="(e: any) => {
+                            <Input
+                                type="file"
+                                accept="image/*"
+                                @change="(e: any) => {
                                 handleChange(e);
 
                                 if (!values.shortcode) {
                                     setFieldValue('shortcode', e.target.files[0].name.replace(/\.[^/.]+$/, ''));
                                 }
-                            }" @blur="handleBlur" :disabled="isSubmitting" />
+                            }"
+                                @blur="handleBlur"
+                                :disabled="isSubmitting"
+                            />
                         </FormControl>
                         <FormDescription>
                             {{ m.lime_late_millipede_urge() }}
@@ -53,7 +78,10 @@
                             {{ m.happy_mild_fox_gleam() }}
                         </FormLabel>
                         <FormControl>
-                            <Input v-bind="componentField" :disabled="isSubmitting" />
+                            <Input
+                                v-bind="componentField"
+                                :disabled="isSubmitting"
+                            />
                         </FormControl>
                         <FormDescription>
                             {{ m.glad_day_kestrel_amaze() }}
@@ -68,7 +96,10 @@
                             {{ m.short_cute_jackdaw_comfort() }}
                         </FormLabel>
                         <FormControl>
-                            <Input v-bind="componentField" :disabled="isSubmitting" />
+                            <Input
+                                v-bind="componentField"
+                                :disabled="isSubmitting"
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -80,7 +111,11 @@
                             {{ m.watery_left_shrimp_bless() }}
                         </FormLabel>
                         <FormControl>
-                            <Textarea rows="2" v-bind="componentField" :disabled="isSubmitting" />
+                            <Textarea
+                                rows="2"
+                                v-bind="componentField"
+                                :disabled="isSubmitting"
+                            />
                         </FormControl>
                         <FormDescription>
                             {{ m.weird_fun_jurgen_arise() }}
@@ -89,9 +124,15 @@
                     </FormItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField, value, handleChange }" v-if="hasEmojiAdmin" name="global"
-                    :as="Card">
-                    <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
+                <FormField
+                    v-slot="{ componentField, value, handleChange }"
+                    v-if="hasEmojiAdmin"
+                    name="global"
+                    :as="Card"
+                >
+                    <FormItem
+                        class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
+                    >
                         <CardHeader class="space-y-0.5 p-0">
                             <FormLabel :as="CardTitle">
                                 {{ m.pink_sharp_carp_work() }}
@@ -101,7 +142,12 @@
                             </CardDescription>
                         </CardHeader>
                         <FormControl>
-                            <Switch :checked="value" @update:checked="handleChange" v-bind="componentField" :disabled="isSubmitting" />
+                            <Switch
+                                :checked="value"
+                                @update:checked="handleChange"
+                                v-bind="componentField"
+                                :disabled="isSubmitting"
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -113,7 +159,11 @@
                             {{ m.soft_bold_ant_attend() }}
                         </Button>
                     </DialogClose>
-                    <Button type="submit" variant="default" :disabled="isSubmitting">
+                    <Button
+                        type="submit"
+                        variant="default"
+                        :disabled="isSubmitting"
+                    >
                         {{ m.flat_safe_haddock_gaze() }}
                     </Button>
                 </DialogFooter>
@@ -129,7 +179,12 @@ import { useForm } from "vee-validate";
 import { toast } from "vue-sonner";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
-import { Card, CardTitle } from "~/components/ui/card";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
 import {
     Dialog,
     DialogClose,
@@ -147,6 +202,9 @@ import {
     FormLabel,
     FormMessage,
 } from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { Switch } from "~/components/ui/switch";
+import { Textarea } from "~/components/ui/textarea";
 import * as m from "~/paraglide/messages.js";
 
 const open = ref(false);
@@ -169,7 +227,7 @@ const formSchema = toTypedSchema(
                     count:
                         identity.value?.instance.configuration.emojis
                             .emoji_size_limit ?? Number.POSITIVE_INFINITY,
-                }),
+                })
             ),
         shortcode: z
             .string()
@@ -182,7 +240,7 @@ const formSchema = toTypedSchema(
                         identity.value?.instance.configuration.emojis
                             .max_emoji_shortcode_characters ??
                         Number.POSITIVE_INFINITY,
-                }),
+                })
             )
             .regex(emojiValidator),
         global: z.boolean().default(false),
@@ -192,7 +250,7 @@ const formSchema = toTypedSchema(
                 64,
                 m.home_cool_orangutan_hug({
                     count: 64,
-                }),
+                })
             )
             .optional(),
         alt: z
@@ -206,10 +264,10 @@ const formSchema = toTypedSchema(
                         identity.value?.instance.configuration.emojis
                             .max_emoji_description_characters ??
                         Number.POSITIVE_INFINITY,
-                }),
+                })
             )
             .optional(),
-    }),
+    })
 );
 const { isSubmitting, handleSubmit, values, setFieldValue } = useForm({
     validationSchema: formSchema,
@@ -230,7 +288,7 @@ const submit = handleSubmit(async (values) => {
                 alt: values.alt,
                 category: values.category,
                 global: values.global,
-            },
+            }
         );
 
         toast.dismiss(id);

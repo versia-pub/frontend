@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
 import type { Status } from "@versia/client/types";
-import { Card, CardFooter, CardHeader } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Actions from "./actions.vue";
 import Content from "./content.vue";
 import Header from "./header.vue";

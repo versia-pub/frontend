@@ -1,7 +1,10 @@
 <template>
-    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
-        backgroundImage: 'url(/images/banner.webp)'
-    }">
+    <div
+        class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover"
+        :style="{
+            backgroundImage: 'url(/images/banner.webp)',
+        }"
+    >
         <Card v-if="params.success" class="w-full max-w-md">
             <CardHeader>
                 <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>
@@ -16,23 +19,39 @@
             </CardFooter>
         </Card>
         <Card v-else class="w-full max-w-md">
-            <form method="POST" action="/api/auth/reset" @submit="form.submitForm">
+            <form
+                method="POST"
+                action="/api/auth/reset"
+                @submit="form.submitForm"
+            >
                 <CardHeader>
-                    <Alert v-if="params.login_reset" variant="default" class="mb-4">
+                    <Alert
+                        v-if="params.login_reset"
+                        variant="default"
+                        class="mb-4"
+                    >
                         <AlertCircle class="size-4" />
-                        <AlertTitle>{{ m.east_loud_lobster_explore() }}</AlertTitle>
+                        <AlertTitle>{{
+                            m.east_loud_lobster_explore()
+                        }}</AlertTitle>
                         <AlertDescription>
                             {{ m.good_plane_gazelle_glow() }}
                         </AlertDescription>
                     </Alert>
-                    <Alert v-if="params.error" variant="destructive" class="mb-4">
+                    <Alert
+                        v-if="params.error"
+                        variant="destructive"
+                        class="mb-4"
+                    >
                         <AlertCircle class="size-4" />
                         <AlertTitle>{{ params.error }}</AlertTitle>
                         <AlertDescription>
                             {{ params.error_description }}
                         </AlertDescription>
                     </Alert>
-                    <CardTitle as="h1">{{ m.tired_green_sloth_evoke() }}</CardTitle>
+                    <CardTitle as="h1">{{
+                        m.tired_green_sloth_evoke()
+                    }}</CardTitle>
                     <CardDescription>
                         {{ m.solid_slow_platypus_talk() }}
                     </CardDescription>
@@ -51,27 +70,42 @@
                                 {{ m.true_male_gadfly_stab() }}
                             </FormLabel>
                             <FormControl>
-                                <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
-                                    v-bind="componentField" />
+                                <Input
+                                    placeholder="hunter2"
+                                    type="password"
+                                    auto-capitalize="none"
+                                    auto-correct="off"
+                                    v-bind="componentField"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     </FormField>
-                    <FormField v-slot="{ componentField }" name="password-confirm">
+                    <FormField
+                        v-slot="{ componentField }"
+                        name="password-confirm"
+                    >
                         <FormItem>
                             <FormLabel>
                                 {{ m.awful_cozy_jannes_rise() }}
                             </FormLabel>
                             <FormControl>
-                                <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-correct="off"
-                                    v-bind="componentField" />
+                                <Input
+                                    placeholder="hunter2"
+                                    type="password"
+                                    auto-capitalize="none"
+                                    auto-correct="off"
+                                    v-bind="componentField"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     </FormField>
                 </CardContent>
                 <CardFooter class="grid gap-2">
-                    <Button variant="default" type="submit">{{ m.noisy_round_skate_yell() }}</Button>
+                    <Button variant="default" type="submit">{{
+                        m.noisy_round_skate_yell()
+                    }}</Button>
                 </CardFooter>
             </form>
         </Card>
@@ -88,6 +122,7 @@ import { Button } from "~/components/ui/button";
 import {
     Card,
     CardContent,
+    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -147,7 +182,7 @@ const formSchema = toTypedSchema(
                 });
             }
             return {};
-        }),
+        })
 );
 
 const params = useUrlSearchParams();

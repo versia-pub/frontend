@@ -18,13 +18,14 @@ import "~/styles/index.css";
 import { convert } from "html-to-text";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
-import { defineGetLocale } from "./paraglide/runtime";
+import { overwriteGetLocale } from "./paraglide/runtime";
 import { type EnumSetting, SettingIds } from "./settings";
+import { TooltipProvider } from "./components/ui/tooltip";
 // Sin
 //import "~/styles/mcdonalds.css";
 
 const lang = useLanguage();
-defineGetLocale(() => lang.value);
+overwriteGetLocale(() => lang.value);
 
 const code = useRequestURL().searchParams.get("code");
 const origin = useRequestURL().searchParams.get("origin");
@@ -57,7 +58,7 @@ useSeoMeta({
     ogImage: computed(() => instance.value?.banner?.url),
     twitterTitle: computed(() => instance.value?.title ?? ""),
     twitterDescription: computed(() =>
-        convert(description.value?.content ?? ""),
+        convert(description.value?.content ?? "")
     ),
     twitterImage: computed(() => instance.value?.banner?.url),
     description: computed(() => convert(description.value?.content ?? "")),
@@ -75,7 +76,7 @@ useHead({
 
 if (code && origin && appData.value && route.path !== "/oauth/code") {
     const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`,
+        URL.canParse(origin) ? origin : `https://${origin}`
     );
 
     signInWithCode(code, appData.value, newOrigin);
@@ -83,7 +84,7 @@ if (code && origin && appData.value && route.path !== "/oauth/code") {
 
 if (origin && !code) {
     const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`,
+        URL.canParse(origin) ? origin : `https://${origin}`
     );
 
     signIn(appData, newOrigin);
@@ -104,6 +105,7 @@ body {
 
 html.theme-changing * {
     /* Stroke and fill aren't animatable */
-    transition: background-color 1s ease, border 1s ease, color 1s ease, box-shadow 1s ease !important;
+    transition: background-color 1s ease, border 1s ease, color 1s ease,
+        box-shadow 1s ease !important;
 }
 </style>

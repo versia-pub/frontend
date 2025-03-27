@@ -1,7 +1,15 @@
 <template>
     <DropdownMenu>
         <Card
-            :class="cn('grid hover:cursor-pointer gap-4 items-center p-4', canEdit ? 'grid-cols-[auto,1fr,auto]' : 'grid-cols-[auto,1fr]')">
+            :class="
+                cn(
+                    'grid hover:cursor-pointer gap-4 items-center p-4',
+                    canEdit
+                        ? 'grid-cols-[auto,1fr,auto]'
+                        : 'grid-cols-[auto,1fr]'
+                )
+            "
+        >
             <Avatar shape="square">
                 <AvatarImage :src="emoji.url" />
             </Avatar>
@@ -10,7 +18,11 @@
                     {{ emoji.shortcode }}
                 </CardTitle>
                 <CardDescription>
-                    {{ emoji.global ? m.real_tame_moose_greet() : m.witty_heroic_trout_cry() }}
+                    {{
+                        emoji.global
+                            ? m.real_tame_moose_greet()
+                            : m.witty_heroic_trout_cry()
+                    }}
                 </CardDescription>
             </CardHeader>
             <CardFooter class="p-0" v-if="canEdit">
@@ -45,12 +57,13 @@ import { type Emoji, RolePermission } from "@versia/client/types";
 import { Delete, Ellipsis, TextCursorInput } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { confirmModalService } from "~/components/modals/composable";
-import { Avatar } from "~/components/ui/avatar";
+import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
     Card,
     CardDescription,
     CardFooter,
+    CardHeader,
     CardTitle,
 } from "~/components/ui/card";
 import {
@@ -94,7 +107,7 @@ const editName = async () => {
             toast.success(m.gaudy_lime_bison_adore());
 
             identity.value.emojis = identity.value.emojis.map((e) =>
-                e.id === emoji.id ? data : e,
+                e.id === emoji.id ? data : e
             );
         } catch {
             toast.dismiss(id);
@@ -121,7 +134,7 @@ const _delete = async () => {
             toast.success(m.crisp_whole_canary_tear());
 
             identity.value.emojis = identity.value.emojis.filter(
-                (e) => e.id !== emoji.id,
+                (e) => e.id !== emoji.id
             );
         } catch {
             toast.dismiss(id);

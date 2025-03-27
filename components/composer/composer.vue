@@ -3,15 +3,28 @@
         <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
     </div>
 
-    <Input v-model:model-value="state.contentWarning" v-if="state.sensitive"
-        placeholder="Put your content warning here" />
+    <Input
+        v-model:model-value="state.contentWarning"
+        v-if="state.sensitive"
+        placeholder="Put your content warning here"
+    />
 
-    <EditorContent v-model:content="state.content" :placeholder="chosenSplash"
+    <EditorContent
+        v-model:content="state.content"
+        :placeholder="chosenSplash"
         class="*:!border-none *:!ring-0 *:!outline-none *:rounded-none p-0 *:max-h-[50dvh] *:overflow-y-auto *:min-h-48 *:!ring-offset-0 *:h-full"
-        :disabled="sending" :mode="state.contentType === 'text/html' ? 'rich' : 'plain'" />
+        :disabled="sending"
+        :mode="state.contentType === 'text/html' ? 'rich' : 'plain'"
+    />
 
     <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
-        <input type="file" ref="fileInput" @change="uploadFileFromEvent" class="hidden" multiple />
+        <input
+            type="file"
+            ref="fileInput"
+            @change="uploadFileFromEvent"
+            class="hidden"
+            multiple
+        />
         <Files v-model:files="state.files" />
     </div>
 
@@ -28,11 +41,15 @@
         </Tooltip>
         <Tooltip>
             <TooltipTrigger as="div">
-                <Toggle variant="default" size="sm" :pressed="state.contentType === 'text/html'" @update:pressed="(i) =>
-                    (state.contentType = i
-                        ? 'text/html'
-                        : 'text/plain')
-                    ">
+                <Toggle
+                    variant="default"
+                    size="sm"
+                    :pressed="state.contentType === 'text/html'"
+                    @update:pressed="
+                        (i) =>
+                            (state.contentType = i ? 'text/html' : 'text/plain')
+                    "
+                >
                     <LetterText class="!size-5" />
                 </Toggle>
             </TooltipTrigger>
@@ -41,14 +58,27 @@
             </TooltipContent>
         </Tooltip>
         <Select v-model:model-value="state.visibility">
-            <SelectTrigger :as-child="true" :disabled="relation?.type === 'edit'">
+            <SelectTrigger
+                :as-child="true"
+                :disabled="relation?.type === 'edit'"
+            >
                 <Button variant="ghost" size="icon">
-                    <component :is="visibilities[state.visibility].icon" class="!size-5" />
+                    <component
+                        :is="visibilities[state.visibility].icon"
+                        class="!size-5"
+                    />
                 </Button>
             </SelectTrigger>
             <SelectContent>
-                <SelectItem v-for="(v, k) in visibilities" :key="k" @click="state.visibility = k" :value="k">
-                    <div class="flex flex-row gap-4 items-center w-full justify-between">
+                <SelectItem
+                    v-for="(v, k) in visibilities"
+                    :key="k"
+                    @click="state.visibility = k"
+                    :value="k"
+                >
+                    <div
+                        class="flex flex-row gap-4 items-center w-full justify-between"
+                    >
                         <div class="flex flex-col gap-1">
                             <span class="font-semibold">{{ v.name }}</span>
                             <span>{{ v.text }}</span>
@@ -80,7 +110,11 @@
         </Tooltip>
         <Tooltip>
             <TooltipTrigger as="div">
-                <Toggle variant="default" size="sm" v-model:pressed="state.sensitive">
+                <Toggle
+                    variant="default"
+                    size="sm"
+                    v-model:pressed="state.sensitive"
+                >
                     <TriangleAlert class="!size-5" />
                 </Toggle>
             </TooltipTrigger>
@@ -88,7 +122,13 @@
                 <p>{{ m.frail_broad_mallard_dart() }}</p>
             </TooltipContent>
         </Tooltip>
-        <Button type="submit" size="lg" class="ml-auto" :disabled="sending" @click="submit">
+        <Button
+            type="submit"
+            size="lg"
+            class="ml-auto"
+            :disabled="sending"
+            @click="submit"
+        >
             <Loader v-if="sending" class="!size-5 animate-spin" />
             {{
                 relation?.type === "edit"
@@ -123,7 +163,9 @@ import EditorContent from "../editor/content.vue";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Toggle } from "../ui/toggle";
+import { DialogFooter } from "../ui/dialog";
 import Files from "./files.vue";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
@@ -179,7 +221,7 @@ const state = reactive({
     contentType: "text/html" as "text/html" | "text/plain",
     visibility: (relation?.type === "edit"
         ? relation.note.visibility
-        : (defaultVisibility.value.value ?? "public")) as Status["visibility"],
+        : defaultVisibility.value.value ?? "public") as Status["visibility"],
     files: (relation?.type === "edit"
         ? relation.note.media_attachments.map((a) => ({
               apiId: a.id,

@@ -7,7 +7,12 @@
                         {{ m.bright_late_osprey_renew() }}
                     </FormLabel>
                     <FormControl>
-                        <Input type="file" accept="image/*" @change="handleChange" @blur="handleBlur" />
+                        <Input
+                            type="file"
+                            accept="image/*"
+                            @change="handleChange"
+                            @blur="handleBlur"
+                        />
                     </FormControl>
                     <FormDescription>
                         {{ m.great_level_lamb_sway() }}
@@ -22,7 +27,11 @@
                         {{ m.safe_icy_bulldog_quell() }}
                     </FormLabel>
                     <FormControl>
-                        <ImageUploader v-model:image="identity.account.avatar" @submit-file="file => setValue(file)" @submit-url="url => setValue(url)" />
+                        <ImageUploader
+                            v-model:image="identity.account.avatar"
+                            @submit-file="(file) => setValue(file)"
+                            @submit-url="(url) => setValue(url)"
+                        />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
@@ -80,21 +89,61 @@
                     </FormLabel>
                     <FormControl>
                         <div class="grid gap-4">
-                            <div v-for="(field, index) in value" :key="index"
-                                class="grid items-center grid-cols-[auto,repeat(3,minmax(0,1fr))] gap-2">
-                                <Button variant="destructive" size="icon"
-                                    @click="handleChange([...value.slice(0, index), ...value.slice(index + 1)])">
+                            <div
+                                v-for="(field, index) in value"
+                                :key="index"
+                                class="grid items-center grid-cols-[auto,repeat(3,minmax(0,1fr))] gap-2"
+                            >
+                                <Button
+                                    variant="destructive"
+                                    size="icon"
+                                    @click="
+                                        handleChange([
+                                            ...value.slice(0, index),
+                                            ...value.slice(index + 1),
+                                        ])
+                                    "
+                                >
                                     <Trash />
                                 </Button>
-                                <Input v-model="field.name" placeholder="Name" @update:model-value="e => {
-                                    handleChange([...value.slice(0, index), { name: e, value: field.value }, ...value.slice(index + 1)]);
-                                }" />
-                                <Input v-model="field.value" placeholder="Value" class="col-span-2" @update:model-value="e => {
-                                    handleChange([...value.slice(0, index), { name: field.name, value: e }, ...value.slice(index + 1)]);
-                                }" />
+                                <Input
+                                    v-model="field.name"
+                                    placeholder="Name"
+                                    @update:model-value="
+                                        (e) => {
+                                            handleChange([
+                                                ...value.slice(0, index),
+                                                { name: e, value: field.value },
+                                                ...value.slice(index + 1),
+                                            ]);
+                                        }
+                                    "
+                                />
+                                <Input
+                                    v-model="field.value"
+                                    placeholder="Value"
+                                    class="col-span-2"
+                                    @update:model-value="
+                                        (e) => {
+                                            handleChange([
+                                                ...value.slice(0, index),
+                                                { name: field.name, value: e },
+                                                ...value.slice(index + 1),
+                                            ]);
+                                        }
+                                    "
+                                />
                             </div>
-                            <Button type="button" variant="secondary"
-                                @click="handleChange([...value, { name: '', value: '' }])">
+                            <Button
+                                type="button"
+                                variant="secondary"
+                                @click="
+                                    handleChange([
+                                        ...value,
+                                        { name: '', value: '' },
+                                    ])
+                                "
+                            >
                                 {{ m.front_north_eel_gulp() }}
                             </Button>
                         </div>
@@ -103,8 +152,14 @@
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField, value, handleChange }" name="bot" :as="Card">
-                <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
+            <FormField
+                v-slot="{ componentField, value, handleChange }"
+                name="bot"
+                :as="Card"
+            >
+                <FormItem
+                    class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
+                >
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
                             {{ m.gaudy_each_opossum_play() }}
@@ -114,14 +169,24 @@
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
-                        <Switch :checked="value" @update:checked="handleChange" v-bind="componentField" />
+                        <Switch
+                            :checked="value"
+                            @update:checked="handleChange"
+                            v-bind="componentField"
+                        />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField, value, handleChange }" name="locked" :as="Card">
-                <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
+            <FormField
+                v-slot="{ componentField, value, handleChange }"
+                name="locked"
+                :as="Card"
+            >
+                <FormItem
+                    class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
+                >
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
                             {{ m.dirty_moving_shark_emerge() }}
@@ -131,14 +196,24 @@
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
-                        <Switch :checked="value" @update:checked="handleChange" v-bind="componentField" />
+                        <Switch
+                            :checked="value"
+                            @update:checked="handleChange"
+                            v-bind="componentField"
+                        />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField, value, handleChange }" name="discoverable" :as="Card">
-                <FormItem class="grid grid-cols-[1fr,auto] items-center p-6 gap-2">
+            <FormField
+                v-slot="{ componentField, value, handleChange }"
+                name="discoverable"
+                :as="Card"
+            >
+                <FormItem
+                    class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
+                >
                     <CardHeader class="space-y-0.5 p-0">
                         <FormLabel :as="CardTitle">
                             {{ m.red_vivid_cuckoo_spark() }}
@@ -148,14 +223,21 @@
                         </CardDescription>
                     </CardHeader>
                     <FormControl>
-                        <Switch :checked="value" @update:checked="handleChange" v-bind="componentField" />
+                        <Switch
+                            :checked="value"
+                            @update:checked="handleChange"
+                            v-bind="componentField"
+                        />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             </FormField>
         </form>
     </Card>
-    <Profile :account="account" class="max-w-lg overflow-auto hidden xl:block" />
+    <Profile
+        :account="account"
+        class="max-w-lg overflow-auto hidden xl:block"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -167,7 +249,12 @@ import { toast } from "vue-sonner";
 import { z } from "zod";
 import Profile from "~/components/profiles/profile.vue";
 import { Button } from "~/components/ui/button";
-import { Card, CardTitle } from "~/components/ui/card";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
 import {
     FormControl,
     FormDescription,
@@ -200,7 +287,7 @@ const formSchema = toTypedSchema(
                 m.civil_icy_ant_mend({
                     size: identity.value?.instance.configuration.accounts
                         .header_size_limit,
-                }),
+                })
             )
             .optional(),
         avatar: z
@@ -213,7 +300,7 @@ const formSchema = toTypedSchema(
                 m.zippy_caring_raven_edit({
                     size: identity.value?.instance.configuration.accounts
                         .avatar_size_limit,
-                }),
+                })
             )
             .or(z.string().url())
             .optional(),
@@ -221,26 +308,26 @@ const formSchema = toTypedSchema(
             .string()
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_displayname_characters,
+                    .max_displayname_characters
             ),
         username: z
             .string()
             .regex(/^[a-z0-9_-]+$/, m.still_upper_otter_dine())
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_username_characters,
+                    .max_username_characters
             ),
         bio: z
             .string()
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_note_characters,
+                    .max_note_characters
             ),
         bot: z.boolean(),
         locked: z.boolean(),
         discoverable: z.boolean(),
         fields: z.array(z.object({ name: z.string(), value: z.string() })),
-    }),
+    })
 );
 
 const form = useForm({
@@ -280,8 +367,8 @@ const handleSubmit = form.handleSubmit(async (values) => {
         // Can't compare two arrays directly in JS, so we need to check if all fields are the same
         fields_attributes: values.fields.every((field) =>
             account.value.source?.fields?.some(
-                (f) => f.name === field.name && f.value === field.value,
-            ),
+                (f) => f.name === field.name && f.value === field.value
+            )
         )
             ? undefined
             : values.fields,
@@ -300,8 +387,8 @@ const handleSubmit = form.handleSubmit(async (values) => {
     try {
         const { data } = await client.value.updateCredentials(
             Object.fromEntries(
-                Object.entries(changedData).filter(([, v]) => v !== undefined),
-            ),
+                Object.entries(changedData).filter(([, v]) => v !== undefined)
+            )
         );
 
         toast.dismiss(id);
