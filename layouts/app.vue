@@ -1,41 +1,22 @@
 <template>
-    <Sidebar>
-        <slot v-if="!route.meta.requiresAuth || identity" />
-        <Card v-else class="shadow-none border-none p-4 max-w-md mx-auto">
-            <CardHeader class="text-center gap-y-4">
-                <CardTitle>{{ m.sunny_quick_lionfish_flip() }}</CardTitle>
-                <CardDescription>
-                    {{ m.brave_known_pelican_drip() }}
-                </CardDescription>
-            </CardHeader>
-            <CardFooter>
-                <Button variant="secondary" class="w-full" @click="signInAction">
-                    {{ m.fuzzy_sea_moth_absorb() }}
-                </Button>
-            </CardFooter>
-        </Card>
-    </Sidebar>
+    <SidebarProvider>
+        <AppSidebar>
+            <slot v-if="!route.meta.requiresAuth || identity" />
+            <AuthRequired v-else />
+        </AppSidebar>
+    </SidebarProvider>
     <MobileNavbar v-if="identity" />
     <ComposerDialog />
 </template>
 
 <script setup lang="ts">
 import ComposerDialog from "~/components/composer/dialog.vue";
+import AuthRequired from "~/components/errors/AuthRequired.vue";
 import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
-import Sidebar from "~/components/sidebars/sidebar.vue";
-import { Button } from "~/components/ui/button";
-import {
-    Card,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "~/components/ui/card";
-import * as m from "~/paraglide/messages.js";
+import AppSidebar from "~/components/sidebars/sidebar.vue";
+import { SidebarProvider } from "~/components/ui/sidebar";
 import { SettingIds } from "~/settings";
 
-const appData = useAppData();
-const signInAction = async () => signIn(appData, await askForInstance());
 const colorMode = useColorMode();
 const themeSetting = useSetting(SettingIds.Theme);
 const { n, d } = useMagicKeys();

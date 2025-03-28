@@ -64,7 +64,7 @@
         "nanoid": "^5.1.5",
         "nuxt": "^3.16.1",
         "nuxt-security": "^2.2.0",
-        "radix-vue": "^1.9.17",
+        "reka-ui": "^2.1.1",
         "shadcn-nuxt": "1.0.3",
         "tailwind-merge": "^3.0.2",
         "tailwindcss-animate": "^1.0.7",

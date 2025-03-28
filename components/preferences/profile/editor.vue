@@ -1,5 +1,5 @@
 <template>
-    <Card v-if="identity" class="w-full max-h-full overflow-auto">
+    <Card v-if="identity" class="w-full max-h-full block overflow-y-auto">
         <form class="p-4 grid gap-6" ref="formRef" @submit="handleSubmit">
             <FormField v-slot="{ handleChange, handleBlur }" name="banner">
                 <FormItem>
@@ -156,6 +156,7 @@
                 v-slot="{ componentField, value, handleChange }"
                 name="bot"
                 :as="Card"
+                class="block"
             >
                 <FormItem
                     class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
@@ -183,6 +184,7 @@
                 v-slot="{ componentField, value, handleChange }"
                 name="locked"
                 :as="Card"
+                class="block"
             >
                 <FormItem
                     class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
@@ -210,6 +212,7 @@
                 v-slot="{ componentField, value, handleChange }"
                 name="discoverable"
                 :as="Card"
+                class="block"
             >
                 <FormItem
                     class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
@@ -234,10 +237,6 @@
             </FormField>
         </form>
     </Card>
-    <Profile
-        :account="account"
-        class="max-w-lg overflow-auto hidden xl:block"
-    />
 </template>
 
 <script lang="ts" setup>
@@ -247,7 +246,6 @@ import { Trash } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { toast } from "vue-sonner";
 import { z } from "zod";
-import Profile from "~/components/profiles/profile.vue";
 import { Button } from "~/components/ui/button";
 import {
     Card,
@@ -287,7 +285,7 @@ const formSchema = toTypedSchema(
                 m.civil_icy_ant_mend({
                     size: identity.value?.instance.configuration.accounts
                         .header_size_limit,
-                })
+                }),
             )
             .optional(),
         avatar: z
@@ -300,7 +298,7 @@ const formSchema = toTypedSchema(
                 m.zippy_caring_raven_edit({
                     size: identity.value?.instance.configuration.accounts
                         .avatar_size_limit,
-                })
+                }),
             )
             .or(z.string().url())
             .optional(),
@@ -308,26 +306,26 @@ const formSchema = toTypedSchema(
             .string()
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_displayname_characters
+                    .max_displayname_characters,
             ),
         username: z
             .string()
             .regex(/^[a-z0-9_-]+$/, m.still_upper_otter_dine())
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_username_characters
+                    .max_username_characters,
             ),
         bio: z
             .string()
             .max(
                 identity.value.instance.configuration.accounts
-                    .max_note_characters
+                    .max_note_characters,
             ),
         bot: z.boolean(),
         locked: z.boolean(),
         discoverable: z.boolean(),
         fields: z.array(z.object({ name: z.string(), value: z.string() })),
-    })
+    }),
 );
 
 const form = useForm({
@@ -367,8 +365,8 @@ const handleSubmit = form.handleSubmit(async (values) => {
         // Can't compare two arrays directly in JS, so we need to check if all fields are the same
         fields_attributes: values.fields.every((field) =>
             account.value.source?.fields?.some(
-                (f) => f.name === field.name && f.value === field.value
-            )
+                (f) => f.name === field.name && f.value === field.value,
+            ),
         )
             ? undefined
             : values.fields,
@@ -387,8 +385,8 @@ const handleSubmit = form.handleSubmit(async (values) => {
     try {
         const { data } = await client.value.updateCredentials(
             Object.fromEntries(
-                Object.entries(changedData).filter(([, v]) => v !== undefined)
-            )
+                Object.entries(changedData).filter(([, v]) => v !== undefined),
+            ),
         );
 
         toast.dismiss(id);
@@ -399,6 +397,12 @@ const handleSubmit = form.handleSubmit(async (values) => {
         }
 
         account.value = data;
+        form.resetForm({
+            values: {
+                ...form.values,
+                ...values,
+            },
+        });
     } catch (e) {
         const error = e as ResponseError<{ error: string }>;
 

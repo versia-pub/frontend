@@ -5,7 +5,7 @@
             backgroundImage: 'url(/images/banner.webp)',
         }"
     >
-        <Card class="w-full max-w-md">
+        <Card class="w-full max-w-md *:w-full p-6">
             <CardHeader>
                 <CardTitle>{{ m.aware_awful_crow_spur() }}</CardTitle>
                 <CardDescription

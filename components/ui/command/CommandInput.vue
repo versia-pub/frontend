@@ -2,18 +2,19 @@
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-vue-next";
 import {
-    ComboboxInput,
-    type ComboboxInputProps,
+    ListboxFilter,
+    type ListboxFilterProps,
     useForwardProps,
-} from "radix-vue";
+} from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
+import { useCommand } from ".";
 
 defineOptions({
     inheritAttrs: false,
 });
 
 const props = defineProps<
-    ComboboxInputProps & {
+    ListboxFilterProps & {
         class?: HTMLAttributes["class"];
     }
 >();
@@ -25,12 +26,18 @@ const delegatedProps = computed(() => {
 });
 
 const forwardedProps = useForwardProps(delegatedProps);
+
+const { filterState } = useCommand();
 </script>
 
 <template>
-    <div class="flex items-center border-b px-3" cmdk-input-wrapper>
-        <Search class="mr-2 size-4 shrink-0 opacity-50" />
-        <ComboboxInput v-bind="{ ...forwardedProps, ...$attrs }" auto-focus
-            :class="cn('flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50', props.class)" />
-    </div>
+  <div class="flex items-center border-b px-3" cmdk-input-wrapper>
+    <Search class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <ListboxFilter
+      v-bind="{ ...forwardedProps, ...$attrs }"
+      v-model="filterState.search"
+      auto-focus
+      :class="cn('flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50', props.class)"
+    />
+  </div>
 </template>

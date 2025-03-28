@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import { Label, type LabelProps } from "radix-vue";
+import { Label, type LabelProps } from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
 
 const props = defineProps<LabelProps & { class?: HTMLAttributes["class"] }>();

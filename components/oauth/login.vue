@@ -82,7 +82,11 @@ const issuerRedirectUrl = (issuerId: string) => {
 
 <template>
     <div class="grid gap-6">
-        <form @submit="form.submitForm" method="post" :action="redirectUrl.toString()">
+        <form
+            @submit="form.submitForm"
+            method="post"
+            :action="redirectUrl.toString()"
+        >
             <div class="grid gap-6">
                 <FormField v-slot="{ componentField }" name="identifier">
                     <FormItem>
@@ -90,9 +94,15 @@ const issuerRedirectUrl = (issuerId: string) => {
                             {{ m.fluffy_soft_wolf_cook() }}
                         </FormLabel>
                         <FormControl>
-                            <Input placeholder="petergriffin" type="text" auto-capitalize="none"
-                            auto-complete="idenfifier" auto-correct="off" :disabled="isLoading"
-                            v-bind="componentField" />
+                            <Input
+                                placeholder="petergriffin"
+                                type="text"
+                                auto-capitalize="none"
+                                auto-complete="idenfifier"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -103,9 +113,15 @@ const issuerRedirectUrl = (issuerId: string) => {
                             {{ m.livid_bright_wallaby_quiz() }}
                         </FormLabel>
                         <FormControl>
-                            <Input placeholder="hunter2" type="password" auto-capitalize="none"
-                                auto-complete="password" auto-correct="off" :disabled="isLoading"
-                                v-bind="componentField" />
+                            <Input
+                                placeholder="hunter2"
+                                type="password"
+                                auto-capitalize="none"
+                                auto-complete="password"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -116,7 +132,10 @@ const issuerRedirectUrl = (issuerId: string) => {
                 </Button>
             </div>
         </form>
-        <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="relative">
+        <div
+            v-if="ssoConfig && ssoConfig.providers.length > 0"
+            class="relative"
+        >
             <div class="absolute inset-0 flex items-center">
                 <span class="w-full border-t" />
             </div>
@@ -126,11 +145,25 @@ const issuerRedirectUrl = (issuerId: string) => {
                 </span>
             </div>
         </div>
-        <div v-if="ssoConfig && ssoConfig.providers.length > 0" class="flex flex-col gap-2">
-            <Button as="a" :href="issuerRedirectUrl(provider.id)" variant="outline" type="button" :disabled="isLoading" v-for="provider of ssoConfig.providers">
+        <div
+            v-if="ssoConfig && ssoConfig.providers.length > 0"
+            class="flex flex-col gap-2"
+        >
+            <Button
+                as="a"
+                :href="issuerRedirectUrl(provider.id)"
+                variant="outline"
+                type="button"
+                :disabled="isLoading"
+                v-for="provider of ssoConfig.providers"
+            >
                 <Loader v-if="isLoading" class="mr-2 animate-spin" />
-                <img crossorigin="anonymous" :src="provider.icon" :alt="`${provider.name}'s logo`"
-                    class="size-4 mr-2" />
+                <img
+                    crossorigin="anonymous"
+                    :src="provider.icon"
+                    :alt="`${provider.name}'s logo`"
+                    class="size-4 mr-2"
+                />
                 {{ provider.name }}
             </Button>
         </div>

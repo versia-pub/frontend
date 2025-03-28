@@ -1,9 +1,7 @@
 <template>
-    <div class="mx-auto max-w-2xl w-full">
-        <TimelineScroller>
-            <Home />
-        </TimelineScroller>
-    </div>
+    <TimelineScroller>
+        <Home />
+    </TimelineScroller>
 </template>
 
 <script setup lang="tsx">

@@ -107,7 +107,7 @@ const editName = async () => {
             toast.success(m.gaudy_lime_bison_adore());
 
             identity.value.emojis = identity.value.emojis.map((e) =>
-                e.id === emoji.id ? data : e
+                e.id === emoji.id ? data : e,
             );
         } catch {
             toast.dismiss(id);
@@ -134,7 +134,7 @@ const _delete = async () => {
             toast.success(m.crisp_whole_canary_tear());
 
             identity.value.emojis = identity.value.emojis.filter(
-                (e) => e.id !== emoji.id
+                (e) => e.id !== emoji.id,
             );
         } catch {
             toast.dismiss(id);

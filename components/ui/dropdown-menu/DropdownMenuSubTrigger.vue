@@ -5,7 +5,7 @@ import {
     DropdownMenuSubTrigger,
     type DropdownMenuSubTriggerProps,
     useForwardProps,
-} from "radix-vue";
+} from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
 
 const props = defineProps<
@@ -30,6 +30,6 @@ const forwardedProps = useForwardProps(delegatedProps);
     )"
   >
     <slot />
-    <ChevronRight class="ml-auto size-4" />
+    <ChevronRight class="ml-auto h-4 w-4" />
   </DropdownMenuSubTrigger>
 </template>

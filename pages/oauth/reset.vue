@@ -5,7 +5,7 @@
             backgroundImage: 'url(/images/banner.webp)',
         }"
     >
-        <Card v-if="params.success" class="w-full max-w-md">
+        <Card v-if="params.success" class="w-full max-w-md *:w-full">
             <CardHeader>
                 <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>
                 <CardDescription>
@@ -57,13 +57,7 @@
                     </CardDescription>
                 </CardHeader>
                 <CardContent class="grid gap-6">
-                    <FormField v-slot="{ componentField }" name="token">
-                        <FormItem>
-                            <FormControl>
-                                <input type="hidden" v-bind="componentField" />
-                            </FormControl>
-                        </FormItem>
-                    </FormField>
+                    <input type="hidden" name="token" :value="params.token" />
                     <FormField v-slot="{ componentField }" name="password">
                         <FormItem>
                             <FormLabel>
@@ -102,7 +96,7 @@
                         </FormItem>
                     </FormField>
                 </CardContent>
-                <CardFooter class="grid gap-2">
+                <CardFooter class="grid gap-2 mt-4">
                     <Button variant="default" type="submit">{{
                         m.noisy_round_skate_yell()
                     }}</Button>
@@ -182,7 +176,7 @@ const formSchema = toTypedSchema(
                 });
             }
             return {};
-        })
+        }),
 );
 
 const params = useUrlSearchParams();

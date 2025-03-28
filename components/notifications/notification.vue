@@ -1,17 +1,30 @@
 <template>
-    <Card class="rounded-none border-0">
+    <Card class="*:w-full p-2">
         <Collapsible :default-open="true" v-slot="{ open }">
             <Tooltip>
                 <TooltipTrigger :as-child="true">
-                    <CardHeader v-if="notification.account"
-                        class="flex-row items-center gap-2 px-4 py-2 border-b border-border">
+                    <CardHeader
+                        v-if="notification.account"
+                        class="flex-row items-center gap-2 px-2"
+                    >
                         <component :is="icon" class="size-5 shrink-0" />
-                        <Avatar class="size-6 border border-card" :src="notification.account.avatar" :name="notification.account.display_name" />
-                        <span class="font-semibold" v-render-emojis="notification.account.emojis">{{
-                            notification.account.display_name
-                        }}</span>
+                        <Avatar
+                            class="size-5 border border-card"
+                            :src="notification.account.avatar"
+                            :name="notification.account.display_name"
+                        />
+                        <span
+                            class="font-semibold text-sm"
+                            v-render-emojis="notification.account.emojis"
+                            >{{ notification.account.display_name }}</span
+                        >
                         <CollapsibleTrigger :as-child="true">
-                            <Button variant="ghost" size="icon" class="ml-auto [&_svg]:data-[state=open]:-rotate-180" :title="open ? 'Collapse' : 'Expand'">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                class="ml-auto [&_svg]:data-[state=open]:-rotate-180"
+                                :title="open ? 'Collapse' : 'Expand'"
+                            >
                                 <ChevronDown class="duration-200" />
                             </Button>
                         </CollapsibleTrigger>
@@ -23,9 +36,19 @@
             </Tooltip>
             <CollapsibleContent :as-child="true">
                 <CardContent class="p-0">
-                    <Note v-if="notification.status" :note="notification.status" :small-layout="true"
-                        :hide-actions="true" />
-                    <FollowRequest v-else-if="notification.type === 'follow_request' && notification.account" :follower="notification.account" />
+                    <Note
+                        v-if="notification.status"
+                        :note="notification.status"
+                        :small-layout="true"
+                        :hide-actions="true"
+                    />
+                    <FollowRequest
+                        v-else-if="
+                            notification.type === 'follow_request' &&
+                            notification.account
+                        "
+                        :follower="notification.account"
+                    />
                 </CardContent>
             </CollapsibleContent>
         </Collapsible>

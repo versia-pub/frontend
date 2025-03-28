@@ -60,7 +60,7 @@ const relation = ref(
         type: "reply" | "quote" | "edit";
         note: Status;
         source?: StatusSource;
-    } | null
+    } | null,
 );
 </script>
 

@@ -6,11 +6,15 @@ import {
     SelectTrigger,
     type SelectTriggerProps,
     useForwardProps,
-} from "radix-vue";
+} from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
 
 const props = defineProps<
-    SelectTriggerProps & { class?: HTMLAttributes["class"] }
+    SelectTriggerProps & {
+        class?: HTMLAttributes["class"];
+        disableDefaultClasses?: boolean;
+        disableSelectIcon?: boolean;
+    }
 >();
 
 const delegatedProps = computed(() => {
@@ -23,16 +27,19 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <SelectTrigger
-    v-bind="forwardedProps"
-    :class="cn(
-      'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:truncate text-start',
-      props.class,
-    )"
-  >
-    <slot />
-    <SelectIcon as-child>
-      <ChevronDown class="size-4 opacity-50 shrink-0" />
-    </SelectIcon>
-  </SelectTrigger>
+    <SelectTrigger
+        v-bind="forwardedProps"
+        :class="
+            cn(
+                !$props.disableDefaultClasses &&
+                    'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:truncate text-start',
+                props.class
+            )
+        "
+    >
+        <slot />
+        <SelectIcon as-child v-if="!$props.disableSelectIcon">
+            <ChevronDown class="w-4 h-4 opacity-50 shrink-0" />
+        </SelectIcon>
+    </SelectTrigger>
 </template>

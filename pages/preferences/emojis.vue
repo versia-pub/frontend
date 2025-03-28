@@ -68,14 +68,14 @@ const permissions = usePermissions();
 const canUpload = computed(
     () =>
         permissions.value.includes(RolePermission.ManageOwnEmojis) ||
-        permissions.value.includes(RolePermission.ManageEmojis)
+        permissions.value.includes(RolePermission.ManageEmojis),
 );
 
 const emojis = computed(
     () =>
         identity.value?.emojis?.filter((emoji) =>
-            emoji.shortcode.toLowerCase().includes(search.value.toLowerCase())
-        ) ?? []
+            emoji.shortcode.toLowerCase().includes(search.value.toLowerCase()),
+        ) ?? [],
 );
 
 const search = ref("");

@@ -227,7 +227,7 @@ const formSchema = toTypedSchema(
                     count:
                         identity.value?.instance.configuration.emojis
                             .emoji_size_limit ?? Number.POSITIVE_INFINITY,
-                })
+                }),
             ),
         shortcode: z
             .string()
@@ -240,7 +240,7 @@ const formSchema = toTypedSchema(
                         identity.value?.instance.configuration.emojis
                             .max_emoji_shortcode_characters ??
                         Number.POSITIVE_INFINITY,
-                })
+                }),
             )
             .regex(emojiValidator),
         global: z.boolean().default(false),
@@ -250,7 +250,7 @@ const formSchema = toTypedSchema(
                 64,
                 m.home_cool_orangutan_hug({
                     count: 64,
-                })
+                }),
             )
             .optional(),
         alt: z
@@ -264,10 +264,10 @@ const formSchema = toTypedSchema(
                         identity.value?.instance.configuration.emojis
                             .max_emoji_description_characters ??
                         Number.POSITIVE_INFINITY,
-                })
+                }),
             )
             .optional(),
-    })
+    }),
 );
 const { isSubmitting, handleSubmit, values, setFieldValue } = useForm({
     validationSchema: formSchema,
@@ -288,7 +288,7 @@ const submit = handleSubmit(async (values) => {
                 alt: values.alt,
                 category: values.category,
                 global: values.global,
-            }
+            },
         );
 
         toast.dismiss(id);

@@ -4,22 +4,22 @@
             <Loader class="size-8 animate-spin" />
         </div>
         <TimelineScroller v-else-if="account">
-            <AccountProfile :account="account" />
-            <AccountTimeline v-if="accountId" :id="accountId" :key="accountId" />
+            <div class="p-4 pb-0">
+                <AccountProfile :account="account" />
+            </div>
+            <AccountTimeline
+                v-if="accountId"
+                :id="accountId"
+                :key="accountId"
+            />
         </TimelineScroller>
-        <Card v-else class="shadow-none bg-transparent border-none p-4">
-            <CardHeader class="text-center gap-y-4">
-                <CardTitle>{{ m.empty_awful_lark_dart() }}</CardTitle>
-                <CardDescription>
-                    {{ m.clean_even_mayfly_tap() }}
-                </CardDescription>
-            </CardHeader>
-        </Card>
+        <NotFound v-else />
     </div>
 </template>
 
 <script setup lang="ts">
 import { Loader } from "lucide-vue-next";
+import NotFound from "~/components/errors/NotFound.vue";
 import AccountProfile from "~/components/profiles/profile.vue";
 import AccountTimeline from "~/components/timelines/account.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";

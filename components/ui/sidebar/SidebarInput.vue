@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "vue";
-import Input from "~/components/ui/input/Input.vue";
 
 const props = defineProps<{
     class?: HTMLAttributes["class"];

@@ -1,13 +1,23 @@
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger as="button"
+        <DropdownMenuTrigger
+            as="button"
             :disabled="file.uploading || file.updating"
-            class="block bg-card text-card-foreground shadow-sm h-28 overflow-hidden rounded relative min-w-28 *:disabled:opacity-50">
+            class="block bg-card text-card-foreground shadow-sm h-28 overflow-hidden rounded relative min-w-28 *:disabled:opacity-50"
+        >
             <Avatar class="h-28 w-full" shape="square">
-                <AvatarImage class="!object-contain" :src="createObjectURL(file.file)" />
+                <AvatarImage
+                    class="!object-contain"
+                    :src="createObjectURL(file.file)"
+                />
             </Avatar>
-            <Badge v-if="!file.uploading && !file.updating" class="absolute bottom-1 right-1" variant="default">{{ formatBytes(file.file.size) }}</Badge>
-            <Badge v-else class="absolute bottom-1 right-1 rounded px-1 !opacity-100" variant="default"><Loader class="animate-spin size-4" /></Badge>
+            <Badge
+                v-if="file.uploading && !file.updating"
+                class="absolute bottom-1 right-1"
+                variant="default"
+                >{{ formatBytes(file.file.size) }}</Badge
+            >
+            <Spinner v-else class="absolute bottom-1 right-1 size-8 p-1.5" />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-48">
             <DropdownMenuLabel>{{ file.file.name }}</DropdownMenuLabel>
@@ -32,6 +42,7 @@
 
 <script lang="ts" setup>
 import { Captions, Delete, Loader, TextCursorInput } from "lucide-vue-next";
+import Spinner from "~/components/graphics/spinner.vue";
 import { confirmModalService } from "~/components/modals/composable.ts";
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -121,6 +132,8 @@ const formatBytes = (bytes: number) => {
     const digitsAfterPoint = 2;
     const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return `${Number.parseFloat((bytes / k ** i).toFixed(digitsAfterPoint))} ${sizes[i]}`;
+    return `${Number.parseFloat((bytes / k ** i).toFixed(digitsAfterPoint))} ${
+        sizes[i]
+    }`;
 };
 </script>

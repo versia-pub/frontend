@@ -193,25 +193,25 @@ const schema = toTypedSchema(
                     (v) => v.size <= (maxSize ?? Number.MAX_SAFE_INTEGER),
                     m.zippy_caring_raven_edit({
                         size: maxSize ?? Number.MAX_SAFE_INTEGER,
-                    })
+                    }),
                 ),
         })
         .or(
             z.object({
                 url: z.string().url(),
-            })
+            }),
         )
         .or(
             z.object({
                 email: z.string().email(),
-            })
-        )
+            }),
+        ),
 );
 
 const emailToGravatar = async (email: string) => {
     const sha256 = await crypto.subtle.digest(
         "SHA-256",
-        new TextEncoder().encode(email)
+        new TextEncoder().encode(email),
     );
 
     return `https://www.gravatar.com/avatar/${Array.from(new Uint8Array(sha256))
@@ -234,7 +234,7 @@ const submit = handleSubmit(async (values) => {
     } else if ((values as { email: string }).email) {
         emit(
             "submitUrl",
-            await emailToGravatar((values as { email: string }).email)
+            await emailToGravatar((values as { email: string }).email),
         );
     }
 

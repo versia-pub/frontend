@@ -18,9 +18,9 @@ import "~/styles/index.css";
 import { convert } from "html-to-text";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { overwriteGetLocale } from "./paraglide/runtime";
 import { type EnumSetting, SettingIds } from "./settings";
-import { TooltipProvider } from "./components/ui/tooltip";
 // Sin
 //import "~/styles/mcdonalds.css";
 
@@ -58,7 +58,7 @@ useSeoMeta({
     ogImage: computed(() => instance.value?.banner?.url),
     twitterTitle: computed(() => instance.value?.title ?? ""),
     twitterDescription: computed(() =>
-        convert(description.value?.content ?? "")
+        convert(description.value?.content ?? ""),
     ),
     twitterImage: computed(() => instance.value?.banner?.url),
     description: computed(() => convert(description.value?.content ?? "")),
@@ -76,7 +76,7 @@ useHead({
 
 if (code && origin && appData.value && route.path !== "/oauth/code") {
     const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`
+        URL.canParse(origin) ? origin : `https://${origin}`,
     );
 
     signInWithCode(code, appData.value, newOrigin);
@@ -84,7 +84,7 @@ if (code && origin && appData.value && route.path !== "/oauth/code") {
 
 if (origin && !code) {
     const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`
+        URL.canParse(origin) ? origin : `https://${origin}`,
     );
 
     signIn(appData, newOrigin);
@@ -107,5 +107,15 @@ html.theme-changing * {
     /* Stroke and fill aren't animatable */
     transition: background-color 1s ease, border 1s ease, color 1s ease,
         box-shadow 1s ease !important;
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+    transform: translateY(-100%);
 }
 </style>

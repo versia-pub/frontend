@@ -1,12 +1,9 @@
 <template>
-    <div class="mx-auto max-w-2xl w-full">
-        <TimelineScroller>
-            <Home v-if="identity" />
-            <Public v-else />
-        </TimelineScroller>
-    </div>
+    <TimelineScroller>
+        <Home v-if="identity" />
+        <Public v-else />
+    </TimelineScroller>
 </template>
-
 
 <script setup lang="tsx">
 import Home from "~/components/timelines/home.vue";

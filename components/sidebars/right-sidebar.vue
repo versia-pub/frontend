@@ -1,13 +1,17 @@
 <template>
-    <Sidebar side="right" collapsible="none" class="w-96 hidden lg:flex">
-        <SidebarContent class="p-2 overflow-y-auto">
+    <Sidebar
+        side="right"
+        collapsible="none"
+        class="hidden md:flex"
+        style="--sidebar-width: 24rem; --sidebar-width-mobile: 18rem"
+    >
+        <SidebarContent class="overflow-y-auto *:p-2 *:gap-2">
             <NotificationsTimeline />
         </SidebarContent>
-        <SidebarRail />
     </Sidebar>
 </template>
 
-<script lang="ts" setup>
-import NotificationsTimeline from "../timelines/notifications.vue";
-import { Sidebar, SidebarContent, SidebarRail } from "../ui/sidebar";
+<script setup lang="ts">
+import NotificationsTimeline from "~/components/timelines/notifications.vue";
+import { Sidebar, SidebarContent } from "~/components/ui/sidebar";
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <Avatar :shape="(shape.value as 'circle' | 'square')">
+    <Avatar :shape="(shape.value as 'circle' | 'square')" :size="size">
         <AvatarFallback v-if="name">
             {{ getInitials(name) }}
         </AvatarFallback>
@@ -11,9 +11,10 @@
 import { SettingIds } from "~/settings";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-const { name } = defineProps<{
+const { name, size = "base" } = defineProps<{
     src?: string;
     name?: string;
+    size?: "base" | "sm" | "lg";
 }>();
 
 /**

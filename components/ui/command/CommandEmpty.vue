@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import type { ComboboxEmptyProps } from "radix-vue";
-import { ComboboxEmpty } from "radix-vue";
+import type { PrimitiveProps } from "reka-ui";
+import { Primitive } from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
+import { useCommand } from ".";
 
 const props = defineProps<
-    ComboboxEmptyProps & { class?: HTMLAttributes["class"] }
+    PrimitiveProps & { class?: HTMLAttributes["class"] }
 >();
 
 const delegatedProps = computed(() => {
@@ -13,10 +14,15 @@ const delegatedProps = computed(() => {
 
     return delegated;
 });
+
+const { filterState } = useCommand();
+const isRender = computed(
+    () => !!filterState.search && filterState.filtered.count === 0,
+);
 </script>
 
 <template>
-  <ComboboxEmpty v-bind="delegatedProps" :class="cn('py-6 text-center text-sm', props.class)">
+  <Primitive v-if="isRender" v-bind="delegatedProps" :class="cn('py-6 text-center text-sm', props.class)">
     <slot />
-  </ComboboxEmpty>
+  </Primitive>
 </template>

@@ -1,11 +1,9 @@
 <template>
-    <div class="mx-auto max-w-2xl w-full">
-        <TimelineScroller>
-            <div class="rounded overflow-hidden">
-                <Notifications />
-            </div>
-        </TimelineScroller>
-    </div>
+    <TimelineScroller>
+        <div class="rounded overflow-hidden">
+            <Notifications />
+        </div>
+    </TimelineScroller>
 </template>
 
 <script lang="ts" setup>

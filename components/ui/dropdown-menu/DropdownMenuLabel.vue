@@ -4,7 +4,7 @@ import {
     DropdownMenuLabel,
     type DropdownMenuLabelProps,
     useForwardProps,
-} from "radix-vue";
+} from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
 
 const props = defineProps<
@@ -24,8 +24,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-    <DropdownMenuLabel v-bind="forwardedProps"
-        :class="cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', props.class)">
-        <slot />
-    </DropdownMenuLabel>
+  <DropdownMenuLabel
+    v-bind="forwardedProps"
+    :class="cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', props.class)"
+  >
+    <slot />
+  </DropdownMenuLabel>
 </template>

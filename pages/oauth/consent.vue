@@ -6,7 +6,7 @@
         }"
     >
         <Card
-            class="w-full max-w-md"
+            class="w-full max-w-md *:w-full p-6"
             as="form"
             method="POST"
             :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')"
@@ -26,8 +26,8 @@
                 }}</CardTitle>
             </CardHeader>
             <CardContent>
-                <Card>
-                    <CardContent class="flex flex-col px-4 py-2">
+                <Card class="p-2 gap-1">
+                    <CardContent class="flex flex-col px-4 py-2 w-full">
                         <CardTitle as="h2" class="text-lg">{{
                             application
                         }}</CardTitle>

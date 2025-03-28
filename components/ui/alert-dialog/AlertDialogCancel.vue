@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { AlertDialogCancel, type AlertDialogCancelProps } from "radix-vue";
+import { AlertDialogCancel, type AlertDialogCancelProps } from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
-import { buttonVariants } from "~/components/ui/button";
 
 const props = defineProps<
     AlertDialogCancelProps & { class?: HTMLAttributes["class"] }

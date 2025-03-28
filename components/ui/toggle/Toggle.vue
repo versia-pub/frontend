@@ -5,7 +5,7 @@ import {
     type ToggleEmits,
     type ToggleProps,
     useForwardPropsEmits,
-} from "radix-vue";
+} from "reka-ui";
 import { type HTMLAttributes, computed } from "vue";
 import { type ToggleVariants, toggleVariants } from ".";
 
@@ -36,10 +36,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <Toggle
-    v-bind="forwarded"
-    :class="cn(toggleVariants({ variant, size }), props.class)"
-  >
-    <slot />
-  </Toggle>
+    <Toggle
+        v-bind="forwarded"
+        :class="cn(toggleVariants({ variant, size }), props.class)"
+    >
+        <slot />
+    </Toggle>
 </template>

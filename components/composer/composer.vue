@@ -44,8 +44,8 @@
                 <Toggle
                     variant="default"
                     size="sm"
-                    :pressed="state.contentType === 'text/html'"
-                    @update:pressed="
+                    :model-value="state.contentType === 'text/html'"
+                    @update:model-value="
                         (i) =>
                             (state.contentType = i ? 'text/html' : 'text/plain')
                     "
@@ -61,6 +61,8 @@
             <SelectTrigger
                 :as-child="true"
                 :disabled="relation?.type === 'edit'"
+                :disable-default-classes="true"
+                :disable-select-icon="true"
             >
                 <Button variant="ghost" size="icon">
                     <component
@@ -110,11 +112,7 @@
         </Tooltip>
         <Tooltip>
             <TooltipTrigger as="div">
-                <Toggle
-                    variant="default"
-                    size="sm"
-                    v-model:pressed="state.sensitive"
-                >
+                <Toggle variant="default" size="sm" v-model="state.sensitive">
                     <TriangleAlert class="!size-5" />
                 </Toggle>
             </TooltipTrigger>
@@ -153,19 +151,23 @@ import {
     Smile,
     TriangleAlert,
 } from "lucide-vue-next";
-import { SelectTrigger } from "radix-vue";
 import { toast } from "vue-sonner";
 import Note from "~/components/notes/note.vue";
-import { Select, SelectContent, SelectItem } from "~/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+} from "~/components/ui/select";
 import * as m from "~/paraglide/messages.js";
 import { SettingIds } from "~/settings";
 import EditorContent from "../editor/content.vue";
 import { Button } from "../ui/button";
+import { DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Toggle } from "../ui/toggle";
-import { DialogFooter } from "../ui/dialog";
-import Files from "./files.vue";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
 const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
@@ -221,7 +223,7 @@ const state = reactive({
     contentType: "text/html" as "text/html" | "text/plain",
     visibility: (relation?.type === "edit"
         ? relation.note.visibility
-        : defaultVisibility.value.value ?? "public") as Status["visibility"],
+        : (defaultVisibility.value.value ?? "public")) as Status["visibility"],
     files: (relation?.type === "edit"
         ? relation.note.media_attachments.map((a) => ({
               apiId: a.id,

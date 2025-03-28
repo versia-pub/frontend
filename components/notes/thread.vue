@@ -1,7 +1,18 @@
 <template>
     <div>
-        <Note v-if="parent" :note="parent" :hide-actions="true" :content-under-username="true" :bottom-avatar-bar="true" />
-        <Note :note="note" :top-avatar-bar="!!parent" />
+        <Note
+            v-if="parent"
+            :note="parent"
+            :hide-actions="true"
+            :content-under-username="true"
+            :bottom-avatar-bar="true"
+            class="border-b-0 rounded-b-none"
+        />
+        <Note
+            :note="note"
+            :class="parent && 'border-t-0 rounded-t-none'"
+            :top-avatar-bar="!!parent"
+        />
     </div>
 </template>
 
