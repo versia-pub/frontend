@@ -12,7 +12,7 @@
                 :bottom-avatar-bar="true"
                 :content-under-username="true"
             />
-            <Note v-if="note" :note="note" :top-avatar-bar="true" />
+            <Note v-if="note" :note="note" :top-avatar-bar="(context?.ancestors.length ?? 0) > 0" />
         </div>
         <Note v-for="note of context?.descendants" :note="note" />
     </div>

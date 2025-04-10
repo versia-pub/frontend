@@ -1,24 +1,17 @@
 <template>
-    <div class="flex flex-row w-full gap-x-6 items-stretch justify-start text-sm *:max-w-14 *:w-full *:text-muted-foreground">
-        <Button variant="ghost" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!identity">
-            <Reply class="size-5 text-primary" />
+    <div class="flex flex-row w-full gap-x-4 items-stretch justify-start">
+        <ActionButton :icon="Reply" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!identity">
             {{ numberFormat(replyCount) }}
-        </Button>
-        <Button variant="ghost" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!identity" :class="liked && '*:fill-red-600 *:text-red-600'">
-            <Heart class="size-5 text-primary" />
+        </ActionButton>
+        <ActionButton :icon="Heart" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!identity" :class="liked && '*:fill-red-600 *:text-red-600'">
             {{ numberFormat(likeCount) }}
-        </Button>
-        <Button variant="ghost" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!identity" :class="reblogged && '*:text-green-600'">
-            <Repeat class="size-5 text-primary" />
+        </ActionButton>
+        <ActionButton :icon="Repeat" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!identity" :class="reblogged && '*:text-green-600'">
             {{ numberFormat(reblogCount) }}
-        </Button>
-        <Button variant="ghost" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!identity">
-            <Quote class="size-5 text-primary" />
-        </Button>
+        </ActionButton>
+        <ActionButton :icon="Quote" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!identity" />
         <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId" @edit="emit('edit')" :note-id="noteId" @delete="emit('delete')">
-            <Button variant="ghost" :title="m.busy_merry_cowfish_absorb()">
-                <Ellipsis class="size-5 text-primary" />
-            </Button>
+            <ActionButton :icon="Ellipsis" :title="m.busy_merry_cowfish_absorb()" />
         </Menu>
     </div>
 </template>
@@ -26,11 +19,11 @@
 <script lang="ts" setup>
 import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
 import { toast } from "vue-sonner";
-import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
 import { getLocale } from "~/paraglide/runtime";
 import { SettingIds } from "~/settings";
 import { confirmModalService } from "../modals/composable";
+import ActionButton from "./action-button.vue";
 import Menu from "./menu.vue";
 
 const { noteId } = defineProps<{

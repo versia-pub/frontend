@@ -5,7 +5,7 @@ export { default as AlertDescription } from "./AlertDescription.vue";
 export { default as AlertTitle } from "./AlertTitle.vue";
 
 export const alertVariants = cva(
-    "relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+    "relative w-full rounded-lg border px-4 py-3 grid text-sm [&>svg]:size-4 [&>svg]:text-current",
     {
         variants: {
             variant: {
@@ -13,9 +13,15 @@ export const alertVariants = cva(
                 destructive:
                     "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
             },
+            layout: {
+                default:
+                    "has-[>svg]:grid-cols-[1fr_auto] grid-rows-2 gap-x-3 gap-y-1 items-start",
+                button: "grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-0.5",
+            },
         },
         defaultVariants: {
             variant: "default",
+            layout: "default",
         },
     },
 );
