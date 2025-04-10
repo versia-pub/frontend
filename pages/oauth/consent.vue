@@ -1,85 +1,58 @@
 <template>
-    <div
-        class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover"
-        :style="{
-            backgroundImage: 'url(/images/banner.webp)',
-        }"
-    >
-        <Card
-            class="w-full max-w-md *:w-full p-6"
-            as="form"
-            method="POST"
-            :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')"
-        >
-            <input
-                type="hidden"
-                v-for="[key, value] in url.searchParams"
-                :key="key"
-                :name="key"
-                :value="value"
-            />
-            <CardHeader>
-                <CardTitle as="h1" class="text-2xl break-words">{{
-                    m.fresh_broad_cockroach_radiate({
-                        application: application ?? "",
-                    })
-                }}</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <Card class="p-2 gap-1">
-                    <CardContent class="flex flex-col px-4 py-2 w-full">
-                        <CardTitle as="h2" class="text-lg">{{
-                            application
+    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+        backgroundImage: 'url(/images/banner.webp)',
+    }">
+        <form method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')">
+            <Card class="w-full max-w-md *:w-full p-6">
+                <input type="hidden" v-for="[key, value] in url.searchParams" :key="key" :name="key" :value="value" />
+                <CardHeader>
+                    <CardTitle as="h1" class="text-2xl break-words">{{
+                        m.fresh_broad_cockroach_radiate({
+                            application: application ?? "",
+                        })
                         }}</CardTitle>
-                        <a
-                            v-if="website"
-                            :href="website"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="underline"
-                            >{{ website }}</a
-                        >
-                    </CardContent>
-                </Card>
-                <ul class="list-none my-6 [&>li]:mt-2">
-                    <li
-                        v-for="text in getScopeText(scopes)"
-                        :key="text[1]"
-                        class="flex flex-row gap-1 items-center"
-                    >
-                        <Check class="size-4" />
-                        <h2 class="text-sm">
-                            <strong class="font-bold">{{ text[0] }}</strong>
-                            {{ text[1] }}
-                        </h2>
-                    </li>
-                </ul>
-                <div class="flex-col flex gap-y-1 text-sm">
-                    <p
-                        v-html="
-                            m.gross_antsy_kangaroo_succeed({
-                                application: application ?? '',
-                            })
-                        "
-                    ></p>
-                    <p
-                        v-html="
-                            m.hour_close_giraffe_mop({
-                                application: application ?? '',
-                            })
-                        "
-                    ></p>
-                </div>
-            </CardContent>
-            <CardFooter class="grid gap-2">
-                <Button variant="default" type="submit">{{
-                    m.last_spare_polecat_reside()
-                }}</Button>
-                <Button :as="NuxtLink" href="/" variant="secondary">{{
-                    m.soft_bold_ant_attend()
-                }}</Button>
-            </CardFooter>
-        </Card>
+                </CardHeader>
+                <CardContent>
+                    <Card class="p-2 gap-1">
+                        <CardContent class="flex flex-col px-4 py-2 w-full">
+                            <CardTitle as="h2" class="text-lg">{{
+                                application
+                                }}</CardTitle>
+                            <a v-if="website" :href="website" target="_blank" rel="noopener noreferrer"
+                                class="underline">{{ website }}</a>
+                        </CardContent>
+                    </Card>
+                    <ul class="list-none my-6 [&>li]:mt-2">
+                        <li v-for="text in getScopeText(scopes)" :key="text[1]"
+                            class="flex flex-row gap-1 items-center">
+                            <Check class="size-4" />
+                            <h2 class="text-sm">
+                                <strong class="font-bold">{{ text[0] }}</strong>
+                                {{ text[1] }}
+                            </h2>
+                        </li>
+                    </ul>
+                    <div class="flex-col flex gap-y-1 text-sm">
+                        <p v-html="m.gross_antsy_kangaroo_succeed({
+                            application: application ?? '',
+                        })
+                            "></p>
+                        <p v-html="m.hour_close_giraffe_mop({
+                            application: application ?? '',
+                        })
+                            "></p>
+                    </div>
+                </CardContent>
+                <CardFooter class="grid gap-2">
+                    <Button variant="default" type="submit">{{
+                        m.last_spare_polecat_reside()
+                        }}</Button>
+                    <Button :as="NuxtLink" href="/" variant="secondary">{{
+                        m.soft_bold_ant_attend()
+                        }}</Button>
+                </CardFooter>
+            </Card>
+        </form>
     </div>
 </template>
 
