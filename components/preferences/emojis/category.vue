@@ -1,6 +1,6 @@
 <template>
     <Collapsible :default-open="true">
-        <div class="grid grid-cols-[1fr,auto] gap-4 items-baseline">
+        <div class="grid grid-cols-[1fr_auto] gap-4 items-baseline">
             <h2 class="text-2xl font-semibold tracking-tight">
                 {{ name }}
             </h2>

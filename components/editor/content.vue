@@ -1,6 +1,6 @@
 <template>
     <EditorContent :editor="editor"
-        :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:*:first-of-type:mt-0']" />
+        :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
 </template>
 
 <script lang="ts" setup>

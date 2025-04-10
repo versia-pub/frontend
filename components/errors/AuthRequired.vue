@@ -1,14 +1,13 @@
 <template>
-    <Alert class="grid grid-cols-[1fr_auto]">
-        <LogIn class="size-4" />
+    <Alert layout="button" class="grid">
+        <LogIn />
         <AlertTitle>{{ m.sunny_quick_lionfish_flip() }}</AlertTitle>
-        <AlertDescription class="col-start-1">
+        <AlertDescription>
             {{ m.brave_known_pelican_drip() }}
         </AlertDescription>
-        <!-- Add pl-4 because Alert is adding additional padding, which we don't want -->
         <Button
             variant="secondary"
-            class="w-full col-start-2 row-start-1 row-span-2 !pl-4"
+            class="w-full"
             @click="signInAction"
         >
             {{ m.fuzzy_sea_moth_absorb() }}

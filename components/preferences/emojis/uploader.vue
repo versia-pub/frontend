@@ -131,7 +131,7 @@
                     :as="Card"
                 >
                     <FormItem
-                        class="grid grid-cols-[1fr,auto] items-center p-6 gap-2"
+                        class="grid grid-cols-[1fr_auto] items-center gap-2"
                     >
                         <CardHeader class="space-y-0.5 p-0">
                             <FormLabel :as="CardTitle">

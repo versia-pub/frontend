@@ -1,6 +1,6 @@
 <template>
     <div class="md:px-8 px-4 py-2 max-w-7xl mx-auto w-full space-y-6">
-        <div :class="cn('grid gap-2', canUpload && 'grid-cols-[1fr,auto]')">
+        <div :class="cn('grid gap-2', canUpload && 'grid-cols-[1fr_auto]')">
             <h1
                 class="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl capitalize"
             >

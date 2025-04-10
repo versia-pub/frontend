@@ -4,7 +4,7 @@
         class="grid justify-normal items-center px-6 py-4 gap-4"
         v-slot="{ open }"
     >
-        <div class="grid grid-cols-[1fr,auto] items-center gap-4">
+        <div class="grid grid-cols-[1fr_auto] items-center gap-4">
             <CardHeader class="space-y-0.5 p-0">
                 <CardTitle class="text-base">
                     {{ setting.title() }}

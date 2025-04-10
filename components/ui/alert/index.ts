@@ -16,7 +16,7 @@ export const alertVariants = cva(
             layout: {
                 default:
                     "has-[>svg]:grid-cols-[1fr_auto] grid-rows-2 gap-x-3 gap-y-1 items-start",
-                button: "grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-0.5",
+                button: "grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-0.5 *:data-[slot=alert-description]:col-start-2 *:data-[slot=alert-description]:row-start-2 has-[>[data-slot=alert-description]]:[&>button]:row-span-2",
             },
         },
         defaultVariants: {

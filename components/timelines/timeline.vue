@@ -2,14 +2,14 @@
     <div
         role="status"
         class="flex flex-col gap-4 items-center *:max-w-2xl *:w-full p-4"
-    >
+        >
         <TimelineItem
-            :type="type"
-            v-for="item in items"
-            :key="item.id"
-            :item="item"
-            @update="updateItem"
-            @delete="removeItem"
+        :type="type"
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        @update="updateItem"
+        @delete="removeItem"
         />
 
         <Spinner v-if="isLoading" />
