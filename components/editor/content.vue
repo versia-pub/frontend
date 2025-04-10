@@ -72,6 +72,8 @@ onUnmounted(() => {
 </style>
 
 <style>
+@reference "../../styles/index.css";
+
 .tiptap p.is-editor-empty:first-child::before {
     color: hsl(var(--muted-foreground));
     content: attr(data-placeholder);

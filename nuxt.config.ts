@@ -1,7 +1,8 @@
+import tailwindcss from "@tailwindcss/vite";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        "@nuxtjs/tailwindcss",
         "@vueuse/nuxt",
         "@nuxt/fonts",
         "nuxt-security",
@@ -13,10 +14,8 @@ export default defineNuxtConfig({
     components: {
         dirs: [],
     },
-    tailwindcss: {
-        // Don't inject the default @tailwind utilities CSS
-        // To avoid conflicts with our own styles
-        cssPath: false,
+    vite: {
+        plugins: [tailwindcss()],
     },
     future: {
         compatibilityVersion: 4,
