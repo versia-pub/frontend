@@ -1,9 +1,9 @@
 <template>
-    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+    <div class="flex h-svh items-center justify-center px-4 py-6 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
         backgroundImage: 'url(/images/banner.webp)',
     }">
-        <form method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')">
-            <Card class="w-full max-w-md *:w-full p-6">
+        <form method="POST" :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')" class="w-full max-w-md">
+            <Card class="*:w-full p-6">
                 <input type="hidden" v-for="[key, value] in url.searchParams" :key="key" :name="key" :value="value" />
                 <CardHeader>
                     <CardTitle as="h1" class="text-2xl break-words">{{
