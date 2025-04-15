@@ -1,5 +1,5 @@
 <template>
-    <Avatar :class="shape.value === 'square' && 'rounded-md'">
+    <Avatar :class="[shape.value === 'square' && 'rounded-md', 'bg-secondary']">
         <AvatarFallback v-if="name">
             {{ getInitials(name) }}
         </AvatarFallback>

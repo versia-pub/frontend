@@ -6,7 +6,7 @@
                 variant="ghost"
                 class="h-fit w-fit p-0 m-0 relative group border overflow-hidden"
             >
-                <Avatar size="lg" :src="image" :name="displayName" />
+                <Avatar class="size-32" :src="image" :name="displayName" />
                 <div
                     class="absolute inset-0 bg-background/80 flex group-hover:opacity-100 opacity-0 duration-200 items-center justify-center"
                 >
@@ -88,7 +88,7 @@
                                     <Label>{{
                                         m.witty_honest_wallaby_support()
                                     }}</Label>
-                                    <Avatar size="lg" :src="gravatarUrl" />
+                                    <Avatar class="size-32" :src="gravatarUrl" />
                                 </div>
                             </FormItem>
                         </FormField>
@@ -114,7 +114,7 @@
                                     <Label>{{
                                         m.witty_honest_wallaby_support()
                                     }}</Label>
-                                    <Avatar size="lg" :src="value" />
+                                    <Avatar class="size-32" :src="value" />
                                 </div>
                             </FormItem>
                         </FormField>

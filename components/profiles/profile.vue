@@ -30,7 +30,7 @@
                     </Button>
                 </ProfileActions>
             </div>
-            <div class="flex flex-col -mt-1 gap-2 justify-center">
+            <div class="flex flex-col -mt-1 gap-1 justify-center">
                 <CardTitle class="" v-render-emojis="account.emojis">
                     {{ account.display_name }}
                 </CardTitle>
@@ -45,10 +45,10 @@
                     >
                 </CopyableText>
             </div>
-            <ProfileBadges :account="account" />
+            <ProfileBadges :account="account" class="my-2" />
             <ProfileContent :content="account.note" :emojis="account.emojis" />
         </CardContent>
-        <CardFooter>
+        <CardFooter class="flex-col *:w-full gap-4">
             <ProfileStats
                 :creation-date="new Date(account.created_at || 0)"
                 :follower-count="account.followers_count"

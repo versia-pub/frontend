@@ -33,7 +33,13 @@ export default defineNuxtConfig({
     },
     fonts: {
         families: [
-            { name: "Inter", provider: "local", weights: [400, 500, 600, 700, 800], styles: ["normal", "italic"], display: "swap" },
+            {
+                name: "Inter",
+                provider: "local",
+                weights: [400, 500, 600, 700, 800],
+                styles: ["normal", "italic"],
+                display: "swap",
+            },
         ],
     },
     pwa: {

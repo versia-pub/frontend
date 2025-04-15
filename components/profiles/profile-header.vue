@@ -16,8 +16,7 @@
             class="absolute bottom-0 translate-y-1/3 left-4 flex flex-row items-start gap-2"
         >
             <Avatar
-                size="lg"
-                class="border"
+                class="size-32 border"
                 :src="avatar"
                 :name="displayName"
             />
