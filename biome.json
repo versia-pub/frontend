@@ -80,7 +80,9 @@
             "dist/**/*",
             ".output",
             ".nuxt",
-            "paraglide"
+            "paraglide",
+            "result",
+            "project.inlang"
         ]
     }
 }

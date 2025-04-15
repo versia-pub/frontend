@@ -27,6 +27,15 @@ export default defineNuxtConfig({
         classSuffix: "",
     },
     compatibilityDate: "2024-11-05",
+    sourcemap: {
+        server: true,
+        client: true,
+    },
+    fonts: {
+        families: [
+            { name: "Inter", provider: "local", weights: [400, 500, 600, 700, 800], styles: ["normal", "italic"], display: "swap" },
+        ],
+    },
     pwa: {
         manifest: {
             name: "Versia",

@@ -171,6 +171,12 @@ importers:
       '@inlang/paraglide-js':
         specifier: 2.0.11
         version: 2.0.11
+      '@inlang/plugin-m-function-matcher':
+        specifier: ^2.0.9
+        version: 2.0.9
+      '@inlang/plugin-message-format':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@4.1.4)
@@ -964,6 +970,12 @@ packages:
   '@inlang/paraglide-js@2.0.11':
     resolution: {integrity: sha512-aR3vq/Q8wdXIaTHVujTZ+9NGlN+7OwVLVCiJBbhSo4Io9swR3iToAKgGeBk3GV8PJxiVqf/JwC5s4MLjZNcNJg==}
     hasBin: true
+
+  '@inlang/plugin-m-function-matcher@2.0.9':
+    resolution: {integrity: sha512-BlQstNVOnVpmetDBD/sOR0ElBP+RJLUmZL0gjaH4UOYqu/KlUWaDyh7cBt751Bx+QCVB3t9gov6FLkNgpYvY0w==}
+
+  '@inlang/plugin-message-format@4.0.0':
+    resolution: {integrity: sha512-zNpLxLTt+bDd3JLXj1ONzo+Q6AOzz2MfcgGo8XB6/bweGhFIndK3GU/q0iU4o7VI4KS1+OHNLpKwFcrAifwERQ==}
 
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
@@ -2804,6 +2816,11 @@ packages:
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
+
+  flat@6.0.1:
+    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   fontaine@0.5.0:
     resolution: {integrity: sha512-vPDSWKhVAfTx4hRKT777+N6Szh2pAosAuzLpbppZ6O3UdD/1m6OlHjNcC3vIbgkRTIcLjzySLHXzPeLO2rE8cA==}
@@ -6030,6 +6047,16 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
+  '@inlang/plugin-m-function-matcher@2.0.9':
+    dependencies:
+      '@inlang/sdk': 2.4.7
+    transitivePeerDependencies:
+      - babel-plugin-macros
+
+  '@inlang/plugin-message-format@4.0.0':
+    dependencies:
+      flat: 6.0.1
+
   '@inlang/recommend-sherlock@0.2.1':
     dependencies:
       comment-json: 4.2.5
@@ -8168,6 +8195,8 @@ snapshots:
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
+
+  flat@6.0.1: {}
 
   fontaine@0.5.0:
     dependencies:
