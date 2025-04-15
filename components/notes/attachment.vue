@@ -30,7 +30,7 @@
             </Popover>
         </Card>
         <DialogContent :hide-close="true"
-            class="fixed inset-0 z-50 w-screen h-screen p-6 duration-200 bg-transparent border-none grid grid-rows-[auto,1fr,auto] overflow-hidden translate-x-0 translate-y-0 max-w-full !animate-none gap-6">
+            class="fixed inset-0 z-50 w-screen h-screen p-6 duration-200 bg-transparent border-none grid grid-rows-[auto_1fr_auto] overflow-hidden translate-x-0 translate-y-0 max-w-full !animate-none gap-6">
             <div class="flex flex-row gap-2 w-full">
                 <DialogTitle class="sr-only">{{ attachment.type }}</DialogTitle>
                 <Button as="a" :href="attachment?.url" target="_blank" :download="true" variant="ghost" size="icon"

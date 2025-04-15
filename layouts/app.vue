@@ -2,7 +2,9 @@
     <SidebarProvider>
         <AppSidebar>
             <slot v-if="!route.meta.requiresAuth || identity" />
-            <AuthRequired v-else />
+            <div class="mx-auto max-w-4xl p-4" v-else>
+                <AuthRequired />
+            </div>
         </AppSidebar>
     </SidebarProvider>
     <MobileNavbar v-if="identity" />
@@ -27,10 +29,6 @@ const notUsingInput = computed(
         activeElement.value?.tagName !== "TEXTAREA" &&
         activeElement.value?.contentEditable !== "true",
 );
-
-const backgroundImage = useSetting(SettingIds.BackgroundURL);
-const canParseUrl = URL.canParse;
-
 const route = useRoute();
 
 watch([n, notUsingInput, d], async () => {

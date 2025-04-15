@@ -5,19 +5,23 @@ export { default as AlertDescription } from "./AlertDescription.vue";
 export { default as AlertTitle } from "./AlertTitle.vue";
 
 export const alertVariants = cva(
-    "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg]:size-4",
+    "relative w-full rounded-lg border px-4 py-3 grid text-sm [&>svg]:size-4 [&>svg]:text-current",
     {
         variants: {
             variant: {
-                default: "bg-background text-foreground",
+                default: "bg-card text-card-foreground",
                 destructive:
-                    "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
-                warning:
-                    "border-warning/50 text-warning dark:border-warning [&>svg]:text-warning",
+                    "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
+            },
+            layout: {
+                default:
+                    "has-[>svg]:grid-cols-[1fr_auto] grid-rows-2 gap-x-3 gap-y-1 items-start",
+                button: "grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-0.5 *:data-[slot=alert-description]:col-start-2 *:data-[slot=alert-description]:row-start-2 has-[>[data-slot=alert-description]]:[&>button]:row-span-2",
             },
         },
         defaultVariants: {
             variant: "default",
+            layout: "default",
         },
     },
 );

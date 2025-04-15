@@ -1,6 +1,6 @@
 <template>
     <Card as="article" class="relative gap-4 items-stretch">
-        <CardHeader as="header">
+        <CardHeader as="header" class="space-y-2">
             <ReblogHeader
                 v-if="note.reblog"
                 :avatar="note.account.avatar"
@@ -38,7 +38,7 @@
         <!-- Simply offset by the size of avatar + 0.75rem (the gap) -->
         <CardContent
             :class="
-                contentUnderUsername && (smallLayout ? 'ml-11' : 'ml-[4.25rem]')
+                ['space-y-4', contentUnderUsername && (smallLayout ? 'ml-11' : 'ml-[4.25rem]')]
             "
         >
             <Content

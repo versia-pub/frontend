@@ -1,6 +1,6 @@
 <template>
     <EditorContent :editor="editor"
-        :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:*:first-of-type:mt-0']" />
+        :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
 </template>
 
 <script lang="ts" setup>
@@ -72,6 +72,8 @@ onUnmounted(() => {
 </style>
 
 <style>
+@reference "../../styles/index.css";
+
 .tiptap p.is-editor-empty:first-child::before {
     color: hsl(var(--muted-foreground));
     content: attr(data-placeholder);

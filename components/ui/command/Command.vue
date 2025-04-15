@@ -61,7 +61,7 @@ function filterItems() {
     // Check which groups have at least 1 item shown
     for (const [groupId, group] of allGroups.value) {
         for (const itemId of group) {
-            if (filterState.filtered.items.get(itemId)) {
+            if ((filterState.filtered.items.get(itemId) ?? 0) > 0) {
                 filterState.filtered.groups.add(groupId);
                 break;
             }
@@ -90,15 +90,11 @@ provideCommandContext({
 </script>
 
 <template>
-    <ListboxRoot
-        v-bind="forwarded"
-        :class="
-            cn(
-                'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-                props.class
-            )
-        "
-    >
-        <slot />
-    </ListboxRoot>
+  <ListboxRoot
+    data-slot="command"
+    v-bind="forwarded"
+    :class="cn('bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md', props.class)"
+  >
+    <slot />
+  </ListboxRoot>
 </template>

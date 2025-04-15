@@ -1,16 +1,16 @@
 <template>
     <Card
-        class="flex-row gap-4 p-2"
+        class="flex-row gap-2 p-2 truncate items-center"
         :class="naked ? 'p-0 bg-transparent ring-0 border-none' : ''"
     >
-        <Avatar :src="account.avatar" :name="account.display_name" size="sm" />
-        <CardContent class="gap-1">
+        <Avatar :src="account.avatar" :name="account.display_name" class="size-10" />
+        <CardContent class="leading-tight">
             <span
-                class="truncate font-semibold"
+                class="font-semibold"
                 v-render-emojis="account.emojis"
                 >{{ account.display_name }}</span
             >
-            <span class="truncate text-xs">
+            <span class="text-xs">
                 @{{ account.username }}@{{ domain }}
             </span>
         </CardContent>

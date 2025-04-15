@@ -5,18 +5,19 @@
         <Transition name="slide-down">
             <Alert
                 v-if="profileEditor?.dirty"
-                class="grid grid-cols-[1fr_auto] mb-4 absolute top-4 inset-x-4 w-[calc(100%-2rem)]"
+                layout="button"
+                class="mb-4 absolute top-4 inset-x-4 w-[calc(100%-2rem)]"
             >
                 <Check class="size-4" />
                 <AlertTitle>Unsaved changes</AlertTitle>
-                <AlertDescription class="col-start-1">
+                <AlertDescription >
                     Click "apply" to save your changes.
                 </AlertDescription>
                 <!-- Add pl-4 because Alert is adding additional padding, which we don't want -->
                 <Button
                     variant="secondary"
                     @click="profileEditor?.submitForm"
-                    class="w-full col-start-2 row-start-1 row-span-2 !pl-4"
+                    class="w-full !pl-4"
                     >Apply</Button
                 >
             </Alert>

@@ -22,13 +22,13 @@
                 author.display_name
             }}</span>
             <span class="truncate text-sm tracking-tight">
-                <CopyableText :text="author.acct">
+                <span>
                     <span
                         class="font-semibold bg-gradient-to-tr from-pink-700 dark:from-indigo-400 via-purple-700 dark:via-purple-400 to-indigo-700 dark:to-indigo-400 text-transparent bg-clip-text">
                         @{{ username }}
                     </span>
                     <span class="text-muted-foreground">{{ instance && "@" }}{{ instance }}</span>
-                </CopyableText>
+                </span>
                 &middot;
                 <span class="text-muted-foreground ml-auto tracking-normal" :title="fullTime">{{ timeAgo }}</span>
             </span>

@@ -5,8 +5,8 @@
                 cn(
                     'grid hover:cursor-pointer gap-4 items-center p-4',
                     canEdit
-                        ? 'grid-cols-[auto,1fr,auto]'
-                        : 'grid-cols-[auto,1fr]'
+                        ? 'grid-cols-[auto_1fr_auto]'
+                        : 'grid-cols-[auto_1fr]'
                 )
             "
         >

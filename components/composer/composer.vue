@@ -67,7 +67,6 @@
                 <Button variant="ghost" size="icon">
                     <component
                         :is="visibilities[state.visibility].icon"
-                        class="!size-5"
                     />
                 </Button>
             </SelectTrigger>

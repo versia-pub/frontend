@@ -1,5 +1,5 @@
 <template>
-    <Card class="grid grid-cols-[1fr,auto] items-center px-6 py-4 gap-2">
+    <Card class="grid grid-cols-[1fr_auto] items-center px-6 py-4 gap-2">
         <CardHeader class="space-y-0.5 p-0">
             <CardTitle class="text-base">
                 {{ setting.title() }}

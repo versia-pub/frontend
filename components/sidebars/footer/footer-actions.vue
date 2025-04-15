@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronsUpDown, DownloadCloud, Pen } from "lucide-vue-next";
+import { ChevronsUpDown, DownloadCloud, Pen, UserPlus } from "lucide-vue-next";
 import TinyCard from "~/components/profiles/tiny-card.vue";
 import { Button } from "~/components/ui/button";
 import {
@@ -9,7 +9,7 @@ import {
     SidebarMenuItem,
 } from "~/components/ui/sidebar";
 import * as m from "~/paraglide/messages.js";
-import AccountSwitcher from "../account/account-switcher.vue";
+import AccountManager from "../account/account-manager.vue";
 const { $pwa } = useNuxtApp();
 </script>
 
@@ -17,38 +17,28 @@ const { $pwa } = useNuxtApp();
     <SidebarFooter>
         <SidebarMenu class="gap-3">
             <SidebarMenuItem>
-                <AccountSwitcher>
-                    <SidebarMenuButton size="lg">
-                        <TinyCard
-                            v-if="identity"
-                            :account="identity.account"
-                            :domain="identity.instance.domain"
-                            naked
-                        />
+                <AccountManager>
+                    <SidebarMenuButton v-if="identity" size="lg">
+                        <TinyCard :account="identity.account" :domain="identity.instance.domain" naked />
                         <ChevronsUpDown class="ml-auto size-4" />
                     </SidebarMenuButton>
-                </AccountSwitcher>
+                    <SidebarMenuButton v-else>
+                        <UserPlus />
+                        {{ m.sunny_pink_hyena_walk() }}
+                        <ChevronsUpDown class="ml-auto size-4" />
+                    </SidebarMenuButton>
+                </AccountManager>
             </SidebarMenuItem>
             <SidebarMenuItem class="flex flex-col gap-2">
-                <Button
-                    v-if="identity"
-                    variant="default"
-                    size="lg"
-                    class="w-full group-data-[collapsible=icon]:px-4"
-                    @click="useEvent('composer:open')"
-                >
+                <Button v-if="identity" variant="default" size="lg" class="w-full group-data-[collapsible=icon]:px-4"
+                    @click="useEvent('composer:open')">
                     <Pen />
                     <span class="group-data-[collapsible=icon]:hidden">
                         {{ m.salty_aloof_turkey_nudge() }}
                     </span>
                 </Button>
-                <Button
-                    v-if="$pwa?.needRefresh"
-                    variant="destructive"
-                    size="lg"
-                    class="w-full group-data-[collapsible=icon]:px-4"
-                    @click="$pwa?.updateServiceWorker(true)"
-                >
+                <Button v-if="$pwa?.needRefresh" variant="destructive" size="lg"
+                    class="w-full group-data-[collapsible=icon]:px-4" @click="$pwa?.updateServiceWorker(true)">
                     <DownloadCloud />
                     <span class="group-data-[collapsible=icon]:hidden">
                         {{ m.quaint_low_felix_pave() }}

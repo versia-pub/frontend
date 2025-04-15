@@ -1,11 +1,11 @@
 <template>
     <Card class="*:w-full p-2">
-        <Collapsible :default-open="true" v-slot="{ open }">
+        <Collapsible :default-open="true" v-slot="{ open }" class="space-y-1">
             <Tooltip>
                 <TooltipTrigger :as-child="true">
                     <CardHeader
                         v-if="notification.account"
-                        class="flex-row items-center gap-2 px-2"
+                        class="flex flex-row items-center gap-2 px-2"
                     >
                         <component :is="icon" class="size-5 shrink-0" />
                         <Avatar

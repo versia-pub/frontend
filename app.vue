@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import "~/styles/index.css";
 import { convert } from "html-to-text";
 import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
@@ -99,6 +98,9 @@ useCacheRefresh(client);
 </script>
 
 <style>
+@import "tailwindcss";
+@import "./styles/index.css";
+
 body {
     font-family: Inter, sans-serif;
 }
