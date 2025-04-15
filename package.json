@@ -1,6 +1,8 @@
 {
     "name": "versia-fe",
+    "version": "0.1.0",
     "private": true,
+    "description": " Versia Server frontend, designed with Nuxt.",
     "type": "module",
     "license": "AGPL-3.0",
     "author": {

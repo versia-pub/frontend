@@ -27,3 +27,6 @@ config
 public/emojis
 
 .npmrc
+
+# Nix result
+result
