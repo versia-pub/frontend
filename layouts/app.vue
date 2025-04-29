@@ -8,6 +8,7 @@
         </AppSidebar>
     </SidebarProvider>
     <MobileNavbar v-if="identity" />
+    <Preferences />
     <ComposerDialog />
 </template>
 
@@ -15,6 +16,7 @@
 import ComposerDialog from "~/components/composer/dialog.vue";
 import AuthRequired from "~/components/errors/AuthRequired.vue";
 import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
+import Preferences from "~/components/preferences2/index.vue";
 import AppSidebar from "~/components/sidebars/sidebar.vue";
 import { SidebarProvider } from "~/components/ui/sidebar";
 import { SettingIds } from "~/settings";

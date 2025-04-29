@@ -275,8 +275,7 @@
     "wise_neat_ox_buzz": "Dark",
     "each_strong_snail_aid": "Light",
     "helpful_raw_seal_nurture": "System",
-    "male_stout_florian_feast": "UI theme.",
-    "hour_elegant_mink_grip": "Theme",
+    "hour_elegant_mink_grip": "Color theme",
     "loud_raw_sheep_imagine": "Render custom emojis",
     "inclusive_pink_tuna_enjoy": "Render custom emojis. Requires a page reload to apply.",
     "fair_swift_elephant_hunt": "Blur sensitive content",
@@ -352,5 +351,7 @@
     "sunny_small_warbler_express": "URL is valid",
     "teal_late_grebe_blend": "URL is invalid",
     "sharp_alive_anteater_fade": "Which instance?",
-    "noble_misty_rook_slide": "Put your instance's domain name here."
+    "noble_misty_rook_slide": "Put your instance's domain name here.",
+    "next_hour_jurgen_sprout": "Are you sure you want to delete {amount} emojis?",
+    "equal_only_crow_file": "Deleting {amount} emojis..."
 }
