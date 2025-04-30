@@ -35,6 +35,8 @@ import {
 } from "@tanstack/vue-table";
 import type { Emoji } from "@versia/client/types";
 import {
+    ArrowDownAZ,
+    ArrowUpAz,
     ArrowUpDown,
     ChevronDown,
     Ellipsis,
@@ -112,7 +114,13 @@ const columns: ColumnDef<Emoji>[] = [
                     }
                 >
                     Shortcode
-                    <ArrowUpDown class="ml-2 size-4" />
+                    {column.getIsSorted() === false ? (
+                        <ArrowUpDown class="ml-2 size-4" />
+                    ) : column.getIsSorted() === "asc" ? (
+                        <ArrowDownAZ class="ml-2 size-4" />
+                    ) : (
+                        <ArrowUpAz class="ml-2 size-4" />
+                    )}
                 </Button>
             );
         },
@@ -133,7 +141,13 @@ const columns: ColumnDef<Emoji>[] = [
                     }
                 >
                     Category
-                    <ArrowUpDown class="ml-2 size-4" />
+                    {column.getIsSorted() === false ? (
+                        <ArrowUpDown class="ml-2 size-4" />
+                    ) : column.getIsSorted() === "asc" ? (
+                        <ArrowDownAZ class="ml-2 size-4" />
+                    ) : (
+                        <ArrowUpAz class="ml-2 size-4" />
+                    )}
                 </Button>
             );
         },
