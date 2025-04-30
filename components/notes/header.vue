@@ -1,7 +1,7 @@
 <template>
     <div class="rounded flex flex-row items-center gap-3">
         <HoverCard v-model:open="popupOpen" @update:open="() => {
-            if (!enableHoverCard.value) {
+            if (!preferences.popup_avatar_hover) {
                 popupOpen = false;
             }
         }" :open-delay="2000">
@@ -51,7 +51,6 @@ import type {
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import { getLocale } from "~/paraglide/runtime";
-import { SettingIds } from "~/settings";
 import Avatar from "../profiles/avatar.vue";
 import SmallCard from "../profiles/small-card.vue";
 import {
@@ -59,7 +58,6 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "../ui/hover-card";
-import CopyableText from "./copyable-text.vue";
 
 const { createdAt, noteUrl, author, authorUrl } = defineProps<{
     cornerAvatar?: string;
@@ -94,7 +92,6 @@ const fullTime = new Intl.DateTimeFormat(getLocale(), {
     dateStyle: "medium",
     timeStyle: "short",
 }).format(createdAt);
-const enableHoverCard = useSetting(SettingIds.PopupAvatarHover);
 const popupOpen = ref(false);
 
 const visibilities = {

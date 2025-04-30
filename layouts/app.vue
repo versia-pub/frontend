@@ -8,6 +8,7 @@
         </AppSidebar>
     </SidebarProvider>
     <MobileNavbar v-if="identity" />
+    <Preferences />
     <ComposerDialog />
 </template>
 
@@ -15,12 +16,11 @@
 import ComposerDialog from "~/components/composer/dialog.vue";
 import AuthRequired from "~/components/errors/AuthRequired.vue";
 import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
+import Preferences from "~/components/preferences/index.vue";
 import AppSidebar from "~/components/sidebars/sidebar.vue";
 import { SidebarProvider } from "~/components/ui/sidebar";
-import { SettingIds } from "~/settings";
 
 const colorMode = useColorMode();
-const themeSetting = useSetting(SettingIds.Theme);
 const { n, d } = useMagicKeys();
 const activeElement = useActiveElement();
 const notUsingInput = computed(
@@ -42,10 +42,10 @@ watch([n, notUsingInput, d], async () => {
         // Swap theme from dark to light or vice versa
         if (colorMode.value === "dark") {
             colorMode.preference = "light";
-            themeSetting.value.value = "light";
+            preferences.color_theme.value = "light";
         } else {
             colorMode.preference = "dark";
-            themeSetting.value.value = "dark";
+            preferences.color_theme.value = "dark";
         }
     }
 });

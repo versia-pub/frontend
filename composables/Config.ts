@@ -71,6 +71,7 @@ export const useConfig = () => {
             "jessew@social.lysand.org",
             "jessew@beta.versia.social",
             "jessew@versia.social",
+            "jessew@vs.cpluspatch.com",
             "aprl@social.lysand.org",
             "aprl@beta.versia.social",
             "aprl@versia.social",

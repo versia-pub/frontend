@@ -35,5 +35,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         <Check class="size-3.5" />
       </slot>
     </CheckboxIndicator>
+    <!-- Fixes an issue where empty buttons behave weirdly in tanstack table layouts -->
+    <Check class="size-3.5 opacity-0" />
   </CheckboxRoot>
 </template>

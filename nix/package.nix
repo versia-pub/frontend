@@ -10,14 +10,14 @@
   packageJson = builtins.fromJSON (builtins.readFile ../package.json);
 in
   stdenv.mkDerivation (finalAttrs: {
-    pname = packageJson.name;
+    pname = "versia-fe";
     version = packageJson.version;
 
     src = ../.;
 
     pnpmDeps = pnpm.fetchDeps {
       inherit (finalAttrs) pname version src;
-      hash = "sha256-Z8eZiCJ3wfk/RyMnqmbk9UhJbnfYHv1k9tusNwoOgB0=";
+      hash = "sha256-WYZDL8ankh/S2DrQMU9PRA0z8uWS7QO/nPp/i61mrVY=";
     };
 
     nativeBuildInputs = [

@@ -1,8 +1,8 @@
 {
-    "name": "versia-fe",
-    "version": "0.1.0",
+    "name": "@versia/frontend",
+    "version": "0.8.0-alpha",
     "private": true,
-    "description": " Versia Server frontend, designed with Nuxt.",
+    "description": "Beautiful, powerful and responsive web client for Versia Server.",
     "type": "module",
     "license": "AGPL-3.0",
     "author": {
@@ -36,6 +36,7 @@
         "@nuxtjs/color-mode": "3.5.2",
         "@tailwindcss/typography": "^0.5.16",
         "@tailwindcss/vite": "^4.1.4",
+        "@tanstack/vue-table": "^8.21.3",
         "@tiptap/extension-highlight": "^2.11.7",
         "@tiptap/extension-image": "^2.11.7",
         "@tiptap/extension-link": "^2.11.7",
@@ -75,7 +76,9 @@
         "tw-animate-css": "^1.2.8",
         "vaul-vue": "^0.4.1",
         "vee-validate": "^4.15.0",
+        "virtua": "^0.40.4",
         "vue": "^3.5.13",
+        "vue-draggable-plus": "^0.6.0",
         "vue-router": "^4.5.1",
         "vue-sonner": "^1.3.2",
         "zod": "^3.24.3"

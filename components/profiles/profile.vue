@@ -74,7 +74,6 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import * as m from "~/paraglide/messages.js";
-import { SettingIds } from "~/settings";
 import { confirmModalService } from "../modals/composable";
 import ProfileActions from "./profile-actions.vue";
 import ProfileBadges from "./profile-badges.vue";
@@ -91,10 +90,8 @@ const { relationship, isLoading } = useRelationship(client, account.id);
 const isMe = identity.value?.account.id === account.id;
 const [username, instance] = account.acct.split("@");
 
-const confirmFollows = useSetting(SettingIds.ConfirmFollow);
-
 const follow = async () => {
-    if (confirmFollows.value.value) {
+    if (preferences.confirm_actions.value.includes("follow")) {
         const confirmation = await confirmModalService.confirm({
             title: m.many_fair_capybara_imagine(),
             message: m.mellow_yummy_jannes_cuddle({
@@ -118,7 +115,7 @@ const follow = async () => {
 };
 
 const unfollow = async () => {
-    if (confirmFollows.value.value) {
+    if (preferences.confirm_actions.value.includes("follow")) {
         const confirmation = await confirmModalService.confirm({
             title: m.funny_aloof_swan_loop(),
             message: m.white_best_dolphin_catch({

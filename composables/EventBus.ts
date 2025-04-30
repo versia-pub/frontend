@@ -23,6 +23,7 @@ type ApplicationEvents = {
     "account:update": Account;
     "attachment:view": Attachment;
     "identity:change": Identity;
+    "preferences:open": undefined;
     error: {
         code: string;
         title: string;

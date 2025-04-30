@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { ChevronsUpDown, DownloadCloud, Pen, UserPlus } from "lucide-vue-next";
+import {
+    ChevronsUpDown,
+    Cog,
+    DownloadCloud,
+    Pen,
+    UserPlus,
+} from "lucide-vue-next";
 import TinyCard from "~/components/profiles/tiny-card.vue";
 import { Button } from "~/components/ui/button";
 import {
@@ -36,6 +42,10 @@ const { $pwa } = useNuxtApp();
                     <span class="group-data-[collapsible=icon]:hidden">
                         {{ m.salty_aloof_turkey_nudge() }}
                     </span>
+                </Button>
+                <Button v-if="identity" size="lg" variant="secondary" @click="useEvent('preferences:open')">
+                    <Cog />
+                    Preferences
                 </Button>
                 <Button v-if="$pwa?.needRefresh" variant="destructive" size="lg"
                     class="w-full group-data-[collapsible=icon]:px-4" @click="$pwa?.updateServiceWorker(true)">

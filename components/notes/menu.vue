@@ -21,7 +21,6 @@ import {
 import { toast } from "vue-sonner";
 import { confirmModalService } from "~/components/modals/composable.ts";
 import * as m from "~/paraglide/messages.js";
-import { SettingIds } from "~/settings";
 
 const { authorId, noteId } = defineProps<{
     apiNoteString: string;
@@ -41,8 +40,6 @@ const { copy } = useClipboard();
 const loggedIn = !!identity.value;
 const authorIsMe = loggedIn && authorId === identity.value?.account.id;
 
-const confirmDeletes = useSetting(SettingIds.ConfirmDelete);
-
 const copyText = (text: string) => {
     copy(text);
     toast.success(m.flat_nice_worm_dream());
@@ -57,7 +54,7 @@ const blockUser = async (userId: string) => {
 };
 
 const _delete = async () => {
-    if (confirmDeletes.value.value) {
+    if (preferences.confirm_actions.value.includes("delete")) {
         const confirmation = await confirmModalService.confirm({
             title: m.calm_icy_weasel_twirl(),
             message: m.gray_fun_toucan_slide(),

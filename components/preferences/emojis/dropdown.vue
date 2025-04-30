@@ -1,39 +1,11 @@
 <template>
     <DropdownMenu>
-        <Card
-            :class="
-                cn(
-                    'grid hover:cursor-pointer gap-4 items-center p-4',
-                    canEdit
-                        ? 'grid-cols-[auto_1fr_auto]'
-                        : 'grid-cols-[auto_1fr]'
-                )
-            "
-        >
-            <Avatar shape="square">
-                <AvatarImage :src="emoji.url" />
-            </Avatar>
-            <CardHeader class="p-0 gap-0 overflow-hidden">
-                <CardTitle as="span" class="text-sm font-mono truncate">
-                    {{ emoji.shortcode }}
-                </CardTitle>
-                <CardDescription>
-                    {{
-                        emoji.global
-                            ? m.real_tame_moose_greet()
-                            : m.witty_heroic_trout_cry()
-                    }}
-                </CardDescription>
-            </CardHeader>
-            <CardFooter class="p-0" v-if="canEdit">
-                <DropdownMenuTrigger :as-child="true">
-                    <Button variant="ghost" size="icon">
-                        <Ellipsis />
-                    </Button>
-                </DropdownMenuTrigger>
-            </CardFooter>
-        </Card>
-        <DropdownMenuContent class="min-w-48">
+        <DropdownMenuTrigger as-child>
+            <Button variant="ghost" size="icon" title="Open menu" class="size-8 p-0">
+                <MoreHorizontal class="size-4" />
+            </Button>
+        </DropdownMenuTrigger>
+         <DropdownMenuContent class="min-w-48">
             <DropdownMenuItem @click="editName">
                 <TextCursorInput />
                 {{ m.cuddly_such_swallow_hush() }}
@@ -52,20 +24,11 @@
 </template>
 
 <script lang="ts" setup>
-import { cn } from "@/lib/utils";
 import { type Emoji, RolePermission } from "@versia/client/types";
-import { Delete, Ellipsis, TextCursorInput } from "lucide-vue-next";
+import { Delete, MoreHorizontal, TextCursorInput } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { confirmModalService } from "~/components/modals/composable";
-import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
-import {
-    Card,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "~/components/ui/card";
 import {
     DropdownMenu,
     DropdownMenuContent,

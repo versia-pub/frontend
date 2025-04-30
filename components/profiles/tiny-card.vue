@@ -1,7 +1,7 @@
 <template>
     <Card
         class="flex-row gap-2 p-2 truncate items-center"
-        :class="naked ? 'p-0 bg-transparent ring-0 border-none' : ''"
+        :class="naked ? 'p-0 bg-transparent ring-0 border-none shadow-none' : ''"
     >
         <Avatar :src="account.avatar" :name="account.display_name" class="size-10" />
         <CardContent class="leading-tight">
