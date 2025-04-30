@@ -21,7 +21,8 @@
                 "noUnusedVariables": "off",
                 "noUnusedImports": "off",
                 "noUndeclaredDependencies": "off",
-                "useImportExtensions": "off"
+                "useImportExtensions": "off",
+                "useJsxKeyInIterable": "off"
             },
             "complexity": {
                 "noExcessiveCognitiveComplexity": "off"

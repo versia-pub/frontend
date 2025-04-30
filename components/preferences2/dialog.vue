@@ -21,6 +21,7 @@ import TinyCard from "../profiles/tiny-card.vue";
 import { Separator } from "../ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Category from "./category.vue";
+import Developer from "./developer.vue";
 import Emojis from "./emojis/index.vue";
 import Page from "./page.vue";
 import { preferences } from "./preferences";
@@ -108,6 +109,11 @@ const { account: author3 } = useAccountFromAcct(
                 <TabsContent value="Emojis" as-child>
                     <Page title="Emojis">
                         <Emojis />
+                    </Page>
+                </TabsContent>
+                <TabsContent value="Developer" as-child>
+                    <Page title="Developer">
+                        <Developer />
                     </Page>
                 </TabsContent>
                 <TabsContent value="About" as-child>

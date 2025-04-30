@@ -1,5 +1,5 @@
 <template>
-    <Base :pref="pref" v-slot="{ setValue, value }">
+    <Base :pref="pref" :name="name" v-slot="{ setValue, value }">
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
             <Button variant="outline">
@@ -30,10 +30,12 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import type { preferences as prefs } from "../preferences";
 import type { MultiSelectPreference } from "../types";
 import Base from "./base.vue";
 
-const { pref } = defineProps<{
+const { pref, name } = defineProps<{
     pref: MultiSelectPreference<string>;
+    name: keyof typeof prefs;
 }>();
 </script>

@@ -1,11 +1,11 @@
 <template>
-    <ContentWarning v-if="(sensitive || contentWarning) && showCw.value" :content-warning="contentWarning" v-model="blurred" />
+    <ContentWarning v-if="(sensitive || contentWarning) && preferences.show_content_warning" :content-warning="contentWarning" v-model="blurred" />
 
-    <OverflowGuard :character-count="characterCount" :class="(blurred && showCw.value) && 'blur-md'">
+    <OverflowGuard :character-count="characterCount" :class="(blurred && preferences.show_content_warning) && 'blur-md'">
         <Prose v-html="content" v-render-emojis="emojis"></Prose>
     </OverflowGuard>
 
-    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(blurred && showCw.value) && 'blur-xl'" />
+    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(blurred && preferences.show_content_warning) && 'blur-xl'" />
 
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
         <Note :note="quote" :hide-actions="true" :small-layout="true" />
@@ -14,7 +14,6 @@
 
 <script lang="ts" setup>
 import type { Attachment, Emoji, Status } from "@versia/client/types";
-import { type BooleanSetting, SettingIds } from "~/settings";
 import Attachments from "./attachments.vue";
 import ContentWarning from "./content-warning.vue";
 import Note from "./note.vue";
@@ -32,7 +31,6 @@ const { content, plainContent, sensitive, contentWarning } = defineProps<{
 }>();
 
 const blurred = ref(sensitive || !!contentWarning);
-const showCw = useSetting(SettingIds.ShowContentWarning) as Ref<BooleanSetting>;
 
 const characterCount = plainContent?.length;
 </script>

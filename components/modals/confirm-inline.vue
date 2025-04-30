@@ -19,9 +19,9 @@ defineProps<{
     modalOptions: ConfirmModalOptions;
 }>();
 
-defineEmits<{
-    confirm: (result: ConfirmModalResult) => void;
-    cancel: () => void;
+const emit = defineEmits<{
+    confirm: [result: ConfirmModalResult];
+    cancel: [];
 }>();
 
 const inputValue = ref<string>("");
@@ -55,10 +55,10 @@ const inputValue = ref<string>("");
             </div>
 
             <DialogFooter>
-                <Button variant="outline" @click="() => $emit('cancel')">
+                <Button variant="outline" @click="() => emit('cancel')">
                     {{ modalOptions.cancelText }}
                 </Button>
-                <Button @click="() => $emit('confirm', {
+                <Button @click="() => emit('confirm', {
                     confirmed: true,
                     value: inputValue,
                 })">

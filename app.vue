@@ -1,7 +1,7 @@
 <template>
     <TooltipProvider>
         <Component is="style">
-            {{ customCss.value }}
+            {{ preferences.custom_css }}
         </Component>
         <NuxtPwaAssets />
         <NuxtLayout>
@@ -19,7 +19,6 @@ import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { overwriteGetLocale } from "./paraglide/runtime";
-import { type EnumSetting, SettingIds } from "./settings";
 // Sin
 //import "~/styles/mcdonalds.css";
 
@@ -31,23 +30,32 @@ const origin = useRequestURL().searchParams.get("origin");
 const appData = useAppData();
 const instance = useInstance();
 const description = useExtendedDescription(client);
-const customCss = useSetting(SettingIds.CustomCSS);
 const route = useRoute();
 
 // Theme switcher
-const theme = useSetting(SettingIds.Theme) as Ref<EnumSetting>;
 const colorMode = useColorMode();
+const radius = useCssVar("--radius");
 
-watch(theme.value, () => {
+watch(preferences.color_theme, (newVal) => {
     // Add theme-changing class to html to trigger transition
     document.documentElement.classList.add("theme-changing");
-    colorMode.preference = theme.value.value;
+    colorMode.preference = newVal;
 
     setTimeout(() => {
         // Remove theme-changing class after transition
         document.documentElement.classList.remove("theme-changing");
     }, 1000);
 });
+
+watch(
+    preferences.border_radius,
+    (newVal) => {
+        radius.value = `${newVal}rem`;
+    },
+    {
+        immediate: true,
+    },
+);
 
 useSeoMeta({
     titleTemplate: (titleChunk) => {

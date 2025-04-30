@@ -1,5 +1,5 @@
 <template>
-    <Base :pref="pref" v-slot="{ setValue, value }">
+    <Base :pref="pref" :name="name" v-slot="{ setValue, value }">
         <Select :model-value="value" @update:model-value="setValue">
             <SelectTrigger>
                 <SelectValue placeholder="Select an option" />
@@ -24,10 +24,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "~/components/ui/select";
+import type { preferences as prefs } from "../preferences";
 import type { SelectPreference } from "../types";
 import Base from "./base.vue";
 
-const { pref } = defineProps<{
+const { pref, name } = defineProps<{
     pref: SelectPreference<string>;
+    name: keyof typeof prefs;
 }>();
 </script>

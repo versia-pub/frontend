@@ -21,7 +21,6 @@ import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import * as m from "~/paraglide/messages.js";
 import { getLocale } from "~/paraglide/runtime";
-import { SettingIds } from "~/settings";
 import { confirmModalService } from "../modals/composable";
 import ActionButton from "./action-button.vue";
 import Menu from "./menu.vue";
@@ -48,11 +47,8 @@ const emit = defineEmits<{
 }>();
 const { play } = useAudio();
 
-const confirmLikes = useSetting(SettingIds.ConfirmLike);
-const confirmReblogs = useSetting(SettingIds.ConfirmReblog);
-
 const like = async () => {
-    if (confirmLikes.value.value) {
+    if (preferences.confirm_actions.value.includes("like")) {
         const confirmation = await confirmModalService.confirm({
             title: m.slimy_least_ray_aid(),
             message: m.stale_new_ray_jolt(),
@@ -74,7 +70,7 @@ const like = async () => {
 };
 
 const unlike = async () => {
-    if (confirmLikes.value.value) {
+    if (preferences.confirm_actions.value.includes("like")) {
         const confirmation = await confirmModalService.confirm({
             title: m.odd_strong_halibut_prosper(),
             message: m.slow_blue_parrot_savor(),
@@ -95,7 +91,7 @@ const unlike = async () => {
 };
 
 const reblog = async () => {
-    if (confirmReblogs.value.value) {
+    if (preferences.confirm_actions.value.includes("reblog")) {
         const confirmation = await confirmModalService.confirm({
             title: m.best_mellow_llama_surge(),
             message: m.salty_plain_mallard_gaze(),
@@ -116,7 +112,7 @@ const reblog = async () => {
 };
 
 const unreblog = async () => {
-    if (confirmReblogs.value.value) {
+    if (preferences.confirm_actions.value.includes("reblog")) {
         const confirmation = await confirmModalService.confirm({
             title: m.main_fancy_octopus_loop(),
             message: m.odd_alive_swan_express(),

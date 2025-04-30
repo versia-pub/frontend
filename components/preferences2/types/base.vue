@@ -13,16 +13,22 @@
 </template>
 
 <script lang="ts" setup>
+import type { preferences as prefs } from "../preferences";
 import type { Preference } from "../types";
 
-const { pref } = defineProps<{
+const { pref, name } = defineProps<{
     pref: Preference<any>;
+    name: keyof typeof prefs;
 }>();
 
-const value = ref<any>(pref.options.defaultValue);
+const value = ref<any>(preferences[name].value);
 const setValue = (newValue: MaybeRef<any>) => {
     value.value = toValue(newValue);
 };
+
+watch(value, (newVal) => {
+    preferences[name].value = newVal;
+});
 
 defineSlots<{
     default(props: {

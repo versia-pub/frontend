@@ -24,7 +24,7 @@
         <!-- If there are no posts at all -->
         <NoPosts v-else-if="hasReachedEnd && items.length === 0" />
 
-        <div v-else-if="!infiniteScroll.value" class="py-10 px-4">
+        <div v-else-if="!preferences.infinite_scroll" class="py-10 px-4">
             <Button
                 variant="secondary"
                 @click="loadNext"
@@ -43,7 +43,6 @@
 import type { Notification, Status } from "@versia/client/types";
 import { useIntersectionObserver } from "@vueuse/core";
 import * as m from "~/paraglide/messages.js";
-import { SettingIds } from "~/settings";
 import NoPosts from "../errors/NoPosts.vue";
 import ReachedEnd from "../errors/ReachedEnd.vue";
 import Spinner from "../graphics/spinner.vue";
@@ -66,13 +65,12 @@ const emit = defineEmits<(e: "update") => void>();
 
 const loadMoreTrigger = ref<HTMLElement | null>(null);
 
+// @ts-expect-error Too complex?
 useIntersectionObserver(loadMoreTrigger, ([observer]) => {
     if (observer?.isIntersecting && !props.isLoading && !props.hasReachedEnd) {
         props.loadNext();
     }
 });
-
-const infiniteScroll = useSetting(SettingIds.InfiniteScroll);
 
 watch(
     () => props.items,

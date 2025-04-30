@@ -1,6 +1,6 @@
 <template>
     <Collapsible as-child>
-        <Base :pref="pref">
+        <Base :name="name" :pref="pref">
         <template #default>
             <CollapsibleTrigger as-child>
                 <Button variant="outline">
@@ -25,10 +25,12 @@ import {
     CollapsibleTrigger,
 } from "~/components/ui/collapsible";
 import { Textarea } from "~/components/ui/textarea";
+import type { preferences as prefs } from "../preferences";
 import type { CodePreference } from "../types";
 import Base from "./base.vue";
 
-const { pref } = defineProps<{
+const { pref, name } = defineProps<{
     pref: CodePreference;
+    name: keyof typeof prefs;
 }>();
 </script>

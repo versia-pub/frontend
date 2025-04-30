@@ -25,7 +25,6 @@ const data: [string, string | VNode][] = [
     ["Author", pkg.author.name],
     [
         "Repository",
-        // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
         <a
             href={pkg.repository.url.replace("git+", "")}
             target="_blank"

@@ -1,5 +1,5 @@
 <template>
-    <Base :pref="pref" v-slot="{ setValue, value }">
+    <Base :pref="pref" :name="name" v-slot="{ setValue, value }">
         <NumberField :model-value="value" @update:model-value="setValue" :min="pref.options.min" :max="pref.options.max" :step="pref.options.integer ? 1 : pref.options.step">
             <NumberFieldContent>
                 <NumberFieldDecrement />
@@ -18,10 +18,12 @@ import {
     NumberFieldIncrement,
     NumberFieldInput,
 } from "~/components/ui/number-field";
+import type { preferences as prefs } from "../preferences";
 import type { NumberPreference } from "../types";
 import Base from "./base.vue";
 
-const { pref } = defineProps<{
+const { pref, name } = defineProps<{
     pref: NumberPreference;
+    name: keyof typeof prefs;
 }>();
 </script>

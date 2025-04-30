@@ -159,7 +159,6 @@ import {
     SelectTrigger,
 } from "~/components/ui/select";
 import * as m from "~/paraglide/messages.js";
-import { SettingIds } from "~/settings";
 import EditorContent from "../editor/content.vue";
 import { Button } from "../ui/button";
 import { DialogFooter } from "../ui/dialog";
@@ -169,13 +168,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Files from "./files.vue";
 
 const { Control_Enter, Command_Enter } = useMagicKeys();
-const ctrlEnterSend = useSetting(SettingIds.CtrlEnterToSend);
-const defaultVisibility = useSetting(SettingIds.DefaultVisibility);
 const { play } = useAudio();
 const fileInput = ref<HTMLInputElement | null>(null);
 
 watch([Control_Enter, Command_Enter], () => {
-    if (sending.value || !ctrlEnterSend.value.value) {
+    if (sending.value || !preferences.ctrl_enter_send.value) {
         return;
     }
 
@@ -220,9 +217,10 @@ const state = reactive({
     sensitive: relation?.type === "edit" ? relation.note.sensitive : false,
     contentWarning: relation?.type === "edit" ? relation.note.spoiler_text : "",
     contentType: "text/html" as "text/html" | "text/plain",
-    visibility: (relation?.type === "edit"
-        ? relation.note.visibility
-        : (defaultVisibility.value.value ?? "public")) as Status["visibility"],
+    visibility:
+        relation?.type === "edit"
+            ? relation.note.visibility
+            : preferences.default_visibility.value,
     files: (relation?.type === "edit"
         ? relation.note.media_attachments.map((a) => ({
               apiId: a.id,
