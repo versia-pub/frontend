@@ -21,10 +21,10 @@
             <DialogDescription class="sr-only">
                 {{ m.suave_broad_albatross_drop() }}
             </DialogDescription>
-            <form class="p-4 grid gap-6" @submit="submit">
+            <form class="grid gap-6" @submit="submit">
                 <Tabs
                     default-value="upload"
-                    class="mt-2 data-[component=tabpanel]:*:mt-6"
+                    class="mt-2 *:data-[slot=tabs-content]:mt-2"
                 >
                     <TabsList class="w-full *:w-full">
                         <TabsTrigger value="upload">
@@ -222,7 +222,7 @@ const emailToGravatar = async (email: string) => {
 const open = ref(false);
 const gravatarUrl = ref<string | undefined>(undefined);
 
-const { handleSubmit, isSubmitting, values } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
     validationSchema: schema,
 });
 

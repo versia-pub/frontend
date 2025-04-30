@@ -10,7 +10,7 @@
             <DialogDescription class="sr-only">
                 {{ m.frail_great_marten_pet() }}
             </DialogDescription>
-            <form class="p-4 grid gap-6" @submit="submit">
+            <form class="grid gap-6" @submit="submit">
                 <div
                     v-if="values.image"
                     class="flex items-center justify-around *:size-20 *:p-2 *:rounded *:border *:shadow"
@@ -125,32 +125,18 @@
                 </FormField>
 
                 <FormField
-                    v-slot="{ componentField, value, handleChange }"
+                    v-slot="{ value, handleChange }"
                     v-if="hasEmojiAdmin"
                     name="global"
-                    :as="Card"
+                    as-child
                 >
-                    <FormItem
-                        class="grid grid-cols-[1fr_auto] items-center gap-2"
-                    >
-                        <CardHeader class="space-y-0.5 p-0">
-                            <FormLabel :as="CardTitle">
-                                {{ m.pink_sharp_carp_work() }}
-                            </FormLabel>
-                            <CardDescription>
-                                {{ m.dark_pretty_hyena_link() }}
-                            </CardDescription>
-                        </CardHeader>
-                        <FormControl>
-                            <Switch
-                                :checked="value"
-                                @update:checked="handleChange"
-                                v-bind="componentField"
-                                :disabled="isSubmitting"
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
+                    <FormSwitch :title="m.pink_sharp_carp_work()" :description="m.dark_pretty_hyena_link()">
+                        <Switch
+                            :model-value="value"
+                            @update:model-value="handleChange"
+                            :disabled="isSubmitting"
+                        />
+                    </FormSwitch>
                 </FormField>
 
                 <DialogFooter>
@@ -178,6 +164,7 @@ import { RolePermission } from "@versia/client/types";
 import { useForm } from "vee-validate";
 import { toast } from "vue-sonner";
 import { z } from "zod";
+import FormSwitch from "~/components/form/switch.vue";
 import { Button } from "~/components/ui/button";
 import {
     Card,

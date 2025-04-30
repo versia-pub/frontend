@@ -14,12 +14,6 @@
                     "
                 />
             </SidebarGroup>
-            <SidebarGroup v-if="identity" class="mt-auto">
-                <SidebarGroupLabel>{{
-                    m.close_short_kitten_coax()
-                }}</SidebarGroupLabel>
-                <NavGroup :items="sidebarConfig.navMain" />
-            </SidebarGroup>
         </SidebarContent>
         <FooterActions />
         <SidebarRail />
@@ -38,6 +32,5 @@ import {
 import * as m from "~/paraglide/messages.js";
 import FooterActions from "./footer/footer-actions.vue";
 import InstanceHeader from "./instance/instance-header.vue";
-import NavGroup from "./navigation/nav-group.vue";
 import NavItems from "./navigation/nav-items.vue";
 </script>

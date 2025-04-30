@@ -25,16 +25,17 @@ import Developer from "./developer.vue";
 import Emojis from "./emojis/index.vue";
 import Page from "./page.vue";
 import { preferences } from "./preferences";
+import Profile from "./profile.vue";
 import Stats from "./stats.vue";
 
 const pages = Object.values(preferences)
     .map((p) => p.options.category)
     .filter((c) => c !== undefined)
     .map((c) => c.split("/")[0] as string)
-    .concat(["Account", "Emojis", "Roles", "Developer", "About"])
+    .concat(["Account", "Emojis", "Developer", "About"])
     // Remove duplicates
     .filter((c, i, a) => a.indexOf(c) === i);
-const extraPages = ["Account", "Emojis", "Roles", "Developer", "About"];
+const extraPages = ["Account", "Emojis", "Developer", "About"];
 
 const icons: Record<string, Component> = {
     Account: UserIcon,
@@ -75,11 +76,17 @@ const { account: author3 } = useAccountFromAcct(
     client,
     "lina@social.lysand.org",
 );
+
+const open = ref(false);
+
+useListen("preferences:open", () => {
+    open.value = true;
+});
 </script>
 
 <template>
-    <Dialog open v-if="identity">
-        <DialogContent class="md:max-w-5xl w-full h-full p-0 md:max-h-[70dvh]">
+    <Dialog v-model:open="open" v-if="identity">
+        <DialogContent class="md:max-w-5xl w-full h-full p-0 md:max-h-[70dvh] overflow-hidden">
             <Tabs class="md:grid-cols-[auto_minmax(0,1fr)] !grid gap-2 *:p-4 overflow-hidden *:overflow-y-auto *:h-full" orientation="vertical"
                 :default-value="pages[0]">
                 <DialogHeader class="gap-6 grid grid-rows-[auto_minmax(0,1fr)] border-b md:border-b-0 md:border-r min-w-60 text-left">
@@ -109,6 +116,11 @@ const { account: author3 } = useAccountFromAcct(
                 <TabsContent value="Emojis" as-child>
                     <Page title="Emojis">
                         <Emojis />
+                    </Page>
+                </TabsContent>
+                <TabsContent value="Account" as-child>
+                    <Page title="Account">
+                        <Profile />
                     </Page>
                 </TabsContent>
                 <TabsContent value="Developer" as-child>

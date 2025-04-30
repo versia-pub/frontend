@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Card, CardTitle } from "../ui/card";
+import { Card, CardTitle } from "../ui/card/index.ts";
 // biome-ignore lint/style/useImportType: <explanation>
 import { preferences as prefs } from "./preferences.ts";
 import {

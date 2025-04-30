@@ -5,9 +5,9 @@
                 <FormLabel class="font-semibold tracking-tight" :as="CardTitle">
                     {{ title }}
                 </FormLabel>
-                <CardDescription class="text-xs leading-none" v-if="description">
+                <FormDescription class="text-xs leading-none" v-if="description">
                     {{ description }}
-                </CardDescription>
+                </FormDescription>
             </CardHeader>
             <FormControl>
                 <slot />
@@ -19,7 +19,13 @@
 
 <script lang="ts" setup>
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+    FormControl,
+    FormDescription,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "../ui/form";
 
 const { title, description } = defineProps<{
     title: string;

@@ -1,5 +1,5 @@
 import { StorageSerializers } from "@vueuse/core";
-import { preferences as prefs } from "~/components/preferences2/preferences.ts";
+import { preferences as prefs } from "~/components/preferences/preferences";
 
 type SerializedPreferences = {
     [K in keyof typeof prefs]: (typeof prefs)[K]["options"]["defaultValue"];

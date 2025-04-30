@@ -119,13 +119,13 @@ html.theme-changing * {
         box-shadow 1s ease !important;
 }
 
-.slide-down-enter-active,
-.slide-down-leave-active {
+.slide-up-enter-active,
+.slide-up-leave-active {
     transition: transform 0.3s ease;
 }
 
-.slide-down-enter-from,
-.slide-down-leave-to {
-    transform: translateY(-100%);
+.slide-up-enter-from,
+.slide-up-leave-to {
+    transform: translateY(100%);
 }
 </style>
