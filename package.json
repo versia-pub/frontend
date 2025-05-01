@@ -23,7 +23,7 @@
     },
     "scripts": {
         "build": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt build",
-        "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun nuxt dev --https --https.cert config/versia-fe.localhost.pem --https.key config/versia-fe.localhost-key.pem --host versia-fe.localhost",
+        "dev": "bun nuxt dev --host versia-fe.localhost",
         "generate": "nuxt generate",
         "emojis:generate": "bun run utils/emojis.ts",
         "rebuild-i18n": "paraglide-js compile --project ./project.inlang --outdir ./paraglide",
