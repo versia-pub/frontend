@@ -1,5 +1,5 @@
 <template>
-    <svg class="absolute inset-x-0 top-0 h-full w-full stroke-primary/[0.07] [mask-image:radial-gradient(100%_100%_at_top_right,hsl(var(--primary-foreground)),transparent)] pointer-events-none"
+    <svg class="absolute inset-x-0 top-0 h-full w-full stroke-primary/[0.07] [mask-image:radial-gradient(100%_100%_at_top_right,var(--primary-foreground),transparent)] pointer-events-none"
         aria-hidden="true">
         <defs>
             <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1"
