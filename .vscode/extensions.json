@@ -1,3 +1,11 @@
 {
-    "recommendations": ["inlang.vs-code-extension"]
+    "recommendations": [
+        "inlang.vs-code-extension",
+        "biomejs.biome",
+        "oven.bun-vscode",
+        "vivaxy.vscode-conventional-commits",
+        "EditorConfig.EditorConfig",
+        "Nuxtr.nuxt-vscode-extentions",
+        "bradlc.vscode-tailwindcss"
+    ]
 }
