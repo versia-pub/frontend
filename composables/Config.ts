@@ -66,6 +66,8 @@ export const useConfig = () => {
             "E.T. phone home.",
             "Just keep posting!",
             "Just one more post bro",
+            "I am the one who knocks.",
+            "You've lost the game!",
         ],
         DEVELOPER_HANDLES: [
             "jessew@social.lysand.org",
