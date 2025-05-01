@@ -1,0 +1,54 @@
+:root {
+    --rose-pine-base: #191724;
+    --rose-pine-surface: #1f1d2e;
+    --rose-pine-overlay: #26233a;
+    --rose-pine-muted: #6e6a86;
+    --rose-pine-subtle: #908caa;
+    --rose-pine-text: #e0def4;
+    --rose-pine-love: #eb6f92;
+    --rose-pine-gold: #f6c177;
+    --rose-pine-rose: #ebbcba;
+    --rose-pine-pine: #31748f;
+    --rose-pine-foam: #9ccfd8;
+    --rose-pine-iris: #c4a7e7;
+    --rose-pine-highlight-low: #21202e;
+    --rose-pine-highlight-med: #403d52;
+    --rose-pine-highlight-high: #524f67;
+}
+
+:root {
+    --background: var(--rose-pine-base);
+    --foreground: var(--rose-pine-text);
+    --card: var(--rose-pine-base);
+    --card-foreground: var(--rose-pine-text);
+    --popover: var(--rose-pine-base);
+    --popover-foreground: var(--rose-pine-text);
+    --primary: var(--rose-pine-subtle);
+    --primary-foreground: var(--rose-pine-text);
+    --secondary: var(--rose-pine-muted);
+    --secondary-foreground: var(--rose-pine-subtle);
+    --muted: var(--rose-pine-surface);
+    --muted-foreground: var(--rose-pine-subtle);
+    --accent: var(--rose-pine-muted);
+    --accent-foreground: var(--rose-pine-subtle);
+    --warning: var(--rose-pine-gold);
+    --warning-foreground: var(--rose-pine-gold);
+    --destructive: var(--rose-pine-rose);
+    --destructive-foreground: var(--rose-pine-rose);
+    --border: var(--rose-pine-highlight-med);
+    --input: var(--rose-pine-subtle);
+    --ring: var(--rose-pine-highlight-med);
+    --chart-1: var(--rose-pine-text);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: var(--rose-pine-base);
+    --sidebar-foreground: var(--rose-pine-text);
+    --sidebar-primary: var(--rose-pine-text);
+    --sidebar-primary-foreground: var(--rose-pine-subtle);
+    --sidebar-accent: var(--rose-pine-base);
+    --sidebar-accent-foreground: var(--rose-pine-subtle);
+    --sidebar-border: var(--rose-pine-highlight-high);
+    --sidebar-ring: var(--rose-pine-highlight-med);
+}
