@@ -77,6 +77,8 @@ const { account: author3 } = useAccountFromAcct(
     "lina@social.lysand.org",
 );
 
+const { account: author4 } = useAccountFromAcct(client, "nyx@v.everypizza.im");
+
 const open = ref(false);
 
 useListen("preferences:open", () => {
@@ -144,6 +146,7 @@ useListen("preferences:open", () => {
                                 <TinyCard v-if="author1" :account="author1" domain="vs.cpluspatch.com" />
                                 <TinyCard v-if="author2" :account="author2" domain="social.lysand.org" />
                                 <TinyCard v-if="author3" :account="author3" domain="social.lysand.org" />
+                                <TinyCard v-if="author4" :account="author4" domain="v.everypizza.im" />
                             </div>
                         </section>
                         <Separator />
