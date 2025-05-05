@@ -1,5 +1,5 @@
 <template>
-    <Alert layout="button" class="grid">
+    <Alert layout="button">
         <LogIn />
         <AlertTitle>{{ m.sunny_quick_lionfish_flip() }}</AlertTitle>
         <AlertDescription>

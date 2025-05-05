@@ -1,7 +1,7 @@
 <template>
     <ContentWarning v-if="(sensitive || contentWarning) && preferences.show_content_warning" :content-warning="contentWarning" v-model="blurred" />
 
-    <OverflowGuard :character-count="characterCount" :class="(blurred && preferences.show_content_warning) && 'blur-md'">
+    <OverflowGuard v-if="content" :character-count="characterCount" :class="(blurred && preferences.show_content_warning) && 'blur-md'">
         <Prose v-html="content" v-render-emojis="emojis"></Prose>
     </OverflowGuard>
 

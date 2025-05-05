@@ -1,85 +1,16 @@
 <template>
-    <Dialog>
-        <Card class="w-full h-full overflow-hidden relative p-0">
-            <DialogTrigger v-if="attachment.type === 'image'" :as-child="true">
-                <img :src="attachment.url" :alt="attachment.description ?? undefined"
-                    class="w-full h-full object-contain bg-muted/20" />
-            </DialogTrigger>
-            <video v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
-            <audio v-else-if="attachment.type === 'audio'" :src="attachment.url"
-                :alt="attachment.description ?? undefined" class="w-full h-full object-cover bg-muted/20" controls />
-            <DialogTrigger v-else :as-child="true">
-                <div class="w-full h-full flex flex-col items-center justify-center bg-muted/20 min-h-48">
-                    <File class="size-12" />
-                    <span class="text-sm"></span>
-                </div>
-            </DialogTrigger>
-            <!-- Alt text viewer -->
-            <Popover v-if="attachment.description">
-                <div class="absolute top-0 right-0 p-2">
-                    <PopoverTrigger :as-child="true">
-                        <Button variant="outline" size="icon" class="[&_svg]:size-6" title="View alt text">
-                            <Captions />
-                        </Button>
-                    </PopoverTrigger>
-                </div>
-                <PopoverContent>
-                    <p class="text-sm">{{ attachment.description }}</p>
-                </PopoverContent>
-            </Popover>
-        </Card>
-        <DialogContent :hide-close="true"
-            class="p-6 duration-200 bg-transparent border-none overflow-hidden !animate-none gap-6 w-screen h-screen !max-w-none">
-            <div class="grid grid-rows-[auto_1fr_auto]">
-                <div class="flex flex-row gap-2 w-full">
-                    <DialogTitle class="sr-only">{{ attachment.type }}</DialogTitle>
-                    <Button as="a" :href="attachment?.url" target="_blank" :download="true" variant="ghost" size="icon"
-                        class="[&_svg]:size-6  ml-auto">
-                        <Download />
-                    </Button>
-                    <DialogClose :as-child="true">
-                        <Button variant="ghost" size="icon" class="[&_svg]:size-6">
-                            <X />
-                        </Button>
-                    </DialogClose>
-                </div>
-                <div class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vw]">
-                    <img v-if="attachment.type === 'image'" :src="attachment.url" :alt="attachment.description ?? ''"
-                        class="object-contain" />
-                    <video v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :src="attachment.url"
-                        :alt="attachment.description ?? ''" class="object-cover" controls />
-                    <audio v-else-if="attachment.type === 'audio'" :src="attachment.url"
-                        :alt="attachment.description ?? ''" class="object-cover" controls />
-                    <div v-else class="flex flex-col items-center justify-center">
-                        <File class="size-12" />
-                        <span class="text-sm"></span>
-                    </div>
-                </div>
-                <DialogDescription class="flex items-center justify-center">
-                    <Card v-if="attachment.description" class="p-4 max-w-md max-h-48 overflow-auto">
-                        <p class="text-sm">{{ attachment.description }}</p>
-                    </Card>
-                </DialogDescription>
-            </div>
-        </DialogContent>
-    </Dialog>
+    <ImageAttachment v-if="attachment.type === 'image'" :attachment="attachment" />
+    <VideoAttachment v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :attachment="attachment" />
+    <AudioAttachment v-else-if="attachment.type === 'audio'" :attachment="attachment" />
+    <FileAttachment v-else :attachment="attachment" />
 </template>
 
 <script lang="ts" setup>
 import type { Attachment } from "@versia/client/types";
-import { Captions, Download, File, X } from "lucide-vue-next";
-import { Card } from "~/components/ui/card";
-import { Button } from "../ui/button";
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogTitle,
-    DialogTrigger,
-} from "../ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import AudioAttachment from "./attachments/audio.vue";
+import FileAttachment from "./attachments/file.vue";
+import ImageAttachment from "./attachments/image.vue";
+import VideoAttachment from "./attachments/video.vue";
 
 defineProps<{
     attachment: Attachment;
