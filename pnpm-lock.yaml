@@ -69,8 +69,8 @@ importers:
         specifier: ^4.15.0
         version: 4.15.0(vue@3.5.14(typescript@5.8.3))(zod@3.25.23)
       '@versia/client':
-        specifier: 0.2.0-alpha.2
-        version: 0.2.0-alpha.2
+        specifier: 0.2.0-alpha.3
+        version: 0.2.0-alpha.3
       '@videojs-player/vue':
         specifier: ^1.0.0
         version: 1.0.0(@types/video.js@7.3.58)(video.js@7.21.7)(vue@3.5.14(typescript@5.8.3))
@@ -1993,8 +1993,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@versia/client@0.2.0-alpha.2':
-    resolution: {integrity: sha512-/x1Z2tyJsfckCOLX8K8XDVs3rd3vX0wfCz20IMTc9uaGRkDTcL7MYzz20WCgOEW/WmnwL3iVf/jVgJm0NzoF4Q==}
+  '@versia/client@0.2.0-alpha.3':
+    resolution: {integrity: sha512-osJ1+Y1GfnhyqZ+NRg8paAUfADa4d6uGEd87viruXtDAYkHWkDBS/cb353ArI9y4d2Mjenkqk0B1Zz4cm71fDQ==}
     engines: {bun: '>=1.2.5'}
 
   '@videojs-player/vue@1.0.0':
@@ -7857,7 +7857,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@versia/client@0.2.0-alpha.2':
+  '@versia/client@0.2.0-alpha.3':
     dependencies:
       '@badgateway/oauth2-client': 3.2.0
       iso-639-1: 3.1.5

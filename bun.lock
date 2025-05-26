@@ -24,7 +24,7 @@
         "@tiptap/suggestion": "^2.12.0",
         "@tiptap/vue-3": "^2.12.0",
         "@vee-validate/zod": "^4.15.0",
-        "@versia/client": "0.2.0-alpha.2",
+        "@versia/client": "0.2.0-alpha.3",
         "@videojs-player/vue": "^1.0.0",
         "@vite-pwa/nuxt": "^1.0.1",
         "@vueuse/core": "^13.2.0",
@@ -780,7 +780,7 @@
 
     "@vercel/nft": ["@vercel/nft@0.29.3", "", { "dependencies": { "@mapbox/node-pre-gyp": "^2.0.0", "@rollup/pluginutils": "^5.1.3", "acorn": "^8.6.0", "acorn-import-attributes": "^1.9.5", "async-sema": "^3.1.1", "bindings": "^1.4.0", "estree-walker": "2.0.2", "glob": "^10.4.5", "graceful-fs": "^4.2.9", "node-gyp-build": "^4.2.2", "picomatch": "^4.0.2", "resolve-from": "^5.0.0" }, "bin": { "nft": "out/cli.js" } }, "sha512-aVV0E6vJpuvImiMwU1/5QKkw2N96BRFE7mBYGS7FhXUoS6V7SarQ+8tuj33o7ofECz8JtHpmQ9JW+oVzOoB7MA=="],
 
-    "@versia/client": ["@versia/client@0.2.0-alpha.2", "", { "dependencies": { "@badgateway/oauth2-client": "^3.0.0", "iso-639-1": "^3.1.5", "magic-regexp": "^0.10.0", "zod": "^3.24.2", "zod-openapi": "^4.2.4" } }, "sha512-/x1Z2tyJsfckCOLX8K8XDVs3rd3vX0wfCz20IMTc9uaGRkDTcL7MYzz20WCgOEW/WmnwL3iVf/jVgJm0NzoF4Q=="],
+    "@versia/client": ["@versia/client@0.2.0-alpha.3", "", { "dependencies": { "@badgateway/oauth2-client": "^3.0.0", "iso-639-1": "^3.1.5", "magic-regexp": "^0.10.0", "zod": "^3.24.2", "zod-openapi": "^4.2.4" } }, "sha512-osJ1+Y1GfnhyqZ+NRg8paAUfADa4d6uGEd87viruXtDAYkHWkDBS/cb353ArI9y4d2Mjenkqk0B1Zz4cm71fDQ=="],
 
     "@videojs-player/vue": ["@videojs-player/vue@1.0.0", "", { "peerDependencies": { "@types/video.js": "7.x", "video.js": "7.x", "vue": "3.x" } }, "sha512-WonTezRfKu3fYdQLt/ta+nuKH6gMZUv8l40Jke/j4Lae7IqeO/+lLAmBnh3ni88bwR+vkFXIlZ2Ci7VKInIYJg=="],
 

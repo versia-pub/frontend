@@ -50,6 +50,7 @@
                 :sensitive="noteToUse.sensitive"
                 :content-warning="noteToUse.spoiler_text"
             />
+            <Reactions v-if="noteToUse.reactions && noteToUse.reactions.length > 0" :reactions="noteToUse.reactions" :emojis="noteToUse.emojis" :status-id="noteToUse.id" />
         </CardContent>
         <CardFooter v-if="!hideActions">
             <Actions
@@ -81,6 +82,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Actions from "./actions.vue";
 import Content from "./content.vue";
 import Header from "./header.vue";
+import Reactions from "./reactions/index.vue";
 import ReblogHeader from "./reblog-header.vue";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
