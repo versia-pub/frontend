@@ -33,7 +33,7 @@ import {
     getSortedRowModel,
     useVueTable,
 } from "@tanstack/vue-table";
-import type { Emoji } from "@versia/client/types";
+import type { CustomEmoji } from "@versia/client/schemas";
 import {
     ArrowDownAZ,
     ArrowUpAz,
@@ -45,13 +45,14 @@ import {
     Plus,
 } from "lucide-vue-next";
 import { ref } from "vue";
+import type { z } from "zod";
 import BatchDropdown from "./batch-dropdown.vue";
 import Dropdown from "./dropdown.vue";
 import Uploader from "./uploader.vue";
 
 // No destructuring props to avoid reactivity issues
 const props = defineProps<{
-    emojis: Emoji[];
+    emojis: z.infer<typeof CustomEmoji>[];
     canUpload: boolean;
 }>();
 
@@ -64,7 +65,7 @@ const valueUpdater = <T extends Updater<any>>(updaterOrValue: T, ref: Ref) => {
             : updaterOrValue;
 };
 
-const columns: ColumnDef<Emoji>[] = [
+const columns: ColumnDef<z.infer<typeof CustomEmoji>>[] = [
     {
         id: "select",
         header: ({ table }) => (

@@ -45,7 +45,7 @@
                 :content="noteToUse.content"
                 :quote="note.quote ?? undefined"
                 :attachments="noteToUse.media_attachments"
-                :plain-content="noteToUse.plain_content ?? undefined"
+                :plain-content="noteToUse.text ?? undefined"
                 :emojis="noteToUse.emojis"
                 :sensitive="noteToUse.sensitive"
                 :content-warning="noteToUse.spoiler_text"
@@ -58,7 +58,7 @@
                 :url="url"
                 :api-note-string="JSON.stringify(noteToUse, null, 4)"
                 :reblog-count="noteToUse.reblogs_count"
-                :remote-url="noteToUse.url"
+                :remote-url="noteToUse.url ?? undefined"
                 :is-remote="isRemote"
                 :author-id="noteToUse.account.id"
                 @edit="useEvent('composer:edit', noteToUse)"
@@ -75,15 +75,18 @@
 
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import type { Status } from "@versia/client/types";
+import type { Status } from "@versia/client/schemas";
+import type { z } from "zod";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Actions from "./actions.vue";
 import Content from "./content.vue";
 import Header from "./header.vue";
 import ReblogHeader from "./reblog-header.vue";
 
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
 const { note } = defineProps<{
-    note: Status;
+    note: PartialBy<z.infer<typeof Status>, "reblog" | "quote">;
     hideActions?: boolean;
     smallLayout?: boolean;
     contentUnderUsername?: boolean;
@@ -92,7 +95,11 @@ const { note } = defineProps<{
 }>();
 
 // Notes can be reblogs, in which case the actual thing to render is inside the reblog property
-const noteToUse = computed(() => (note.reblog ? note.reblog : note));
+const noteToUse = computed(() =>
+    note.reblog
+        ? (note.reblog as z.infer<typeof Status>)
+        : (note as z.infer<typeof Status>),
+);
 
 const url = wrapUrl(`/@${noteToUse.value.account.acct}/${noteToUse.value.id}`);
 const accountUrl = wrapUrl(`/@${noteToUse.value.account.acct}`);

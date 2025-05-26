@@ -4,11 +4,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { Emoji } from "@versia/client/types";
+import type { CustomEmoji } from "@versia/client/schemas";
+import type { z } from "zod";
 
 const { content } = defineProps<{
     content: string;
-    emojis: Emoji[];
+    emojis: z.infer<typeof CustomEmoji>[];
 }>();
 </script>
 

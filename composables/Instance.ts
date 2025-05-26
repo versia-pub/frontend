@@ -1,5 +1,6 @@
 import type { Client } from "@versia/client";
-import type { ExtendedDescription, Instance } from "@versia/client/types";
+import type { Instance, TermsOfService } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useInstance = () => {
     return computed(() => identity.value?.instance);
@@ -7,10 +8,10 @@ export const useInstance = () => {
 
 export const useInstanceFromClient = (client: MaybeRef<Client>) => {
     if (!client) {
-        return ref(null as Instance | null);
+        return ref(null as z.infer<typeof Instance> | null);
     }
 
-    const output = ref(null as Instance | null);
+    const output = ref(null as z.infer<typeof Instance> | null);
 
     watchEffect(() => {
         toValue(client)
@@ -25,10 +26,10 @@ export const useInstanceFromClient = (client: MaybeRef<Client>) => {
 
 export const useTos = (client: MaybeRef<Client>) => {
     if (!client) {
-        return ref(null as ExtendedDescription | null);
+        return ref(null as z.infer<typeof TermsOfService> | null);
     }
 
-    const output = ref(null as ExtendedDescription | null);
+    const output = ref(null as z.infer<typeof TermsOfService> | null);
 
     watchEffect(() => {
         toValue(client)

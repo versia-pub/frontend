@@ -1,27 +1,28 @@
-import type { Account, Attachment, Status } from "@versia/client/types";
+import type { Account, Attachment, Status } from "@versia/client/schemas";
 import mitt from "mitt";
+import type { z } from "zod";
 import type { Identity } from "./Identities";
 
 type ApplicationEvents = {
-    "note:reply": Status;
-    "note:delete": Status;
-    "note:edit": Status;
-    "note:like": Status;
-    "note:unlike": Status;
-    "note:reblog": Status;
-    "note:unreblog": Status;
-    "note:quote": Status;
-    "note:report": Status;
+    "note:reply": z.infer<typeof Status>;
+    "note:delete": z.infer<typeof Status>;
+    "note:edit": z.infer<typeof Status>;
+    "note:like": z.infer<typeof Status>;
+    "note:unlike": z.infer<typeof Status>;
+    "note:reblog": z.infer<typeof Status>;
+    "note:unreblog": z.infer<typeof Status>;
+    "note:quote": z.infer<typeof Status>;
+    "note:report": z.infer<typeof Status>;
     "composer:open": undefined;
-    "composer:reply": Status;
-    "composer:quote": Status;
-    "composer:edit": Status;
-    "composer:send": Status;
-    "composer:send-edit": Status;
+    "composer:reply": z.infer<typeof Status>;
+    "composer:quote": z.infer<typeof Status>;
+    "composer:edit": z.infer<typeof Status>;
+    "composer:send": z.infer<typeof Status>;
+    "composer:send-edit": z.infer<typeof Status>;
     "composer:close": undefined;
-    "account:report": Account;
-    "account:update": Account;
-    "attachment:view": Attachment;
+    "account:report": z.infer<typeof Account>;
+    "account:update": z.infer<typeof Account>;
+    "attachment:view": z.infer<typeof Attachment>;
     "identity:change": Identity;
     "preferences:open": undefined;
     error: {

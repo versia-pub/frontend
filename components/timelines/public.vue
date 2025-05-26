@@ -1,11 +1,10 @@
 <template>
-    <Timeline type="status" :items="(items as Status[])" :is-loading="isLoading" :has-reached-end="hasReachedEnd"
+    <Timeline type="status" :items="items" :is-loading="isLoading" :has-reached-end="hasReachedEnd"
         :error="error" :load-next="loadNext" :load-prev="loadPrev" :remove-item="removeItem"
         :update-item="updateItem" />
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@versia/client/types";
 import { usePublicTimeline } from "~/composables/PublicTimeline";
 import Timeline from "./timeline.vue";
 

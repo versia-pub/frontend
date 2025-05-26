@@ -13,10 +13,10 @@ export const formSchema = (identity: Identity) =>
                     (v) =>
                         v.size <=
                         (identity.instance.configuration.accounts
-                            .header_size_limit ?? Number.POSITIVE_INFINITY),
+                            .header_limit ?? Number.POSITIVE_INFINITY),
                     m.civil_icy_ant_mend({
                         size: identity.instance.configuration.accounts
-                            .header_size_limit,
+                            .header_limit,
                     }),
                 )
                 .optional(),
@@ -26,10 +26,10 @@ export const formSchema = (identity: Identity) =>
                     (v) =>
                         v.size <=
                         (identity.instance.configuration.accounts
-                            .avatar_size_limit ?? Number.POSITIVE_INFINITY),
+                            .avatar_limit ?? Number.POSITIVE_INFINITY),
                     m.zippy_caring_raven_edit({
                         size: identity.instance.configuration.accounts
-                            .avatar_size_limit,
+                            .avatar_limit,
                     }),
                 )
                 .or(z.string().url())

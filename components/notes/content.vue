@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment, Emoji, Status } from "@versia/client/types";
+import type { Attachment, CustomEmoji, Status } from "@versia/client/schemas";
+import type { z } from "zod";
 import Attachments from "./attachments.vue";
 import ContentWarning from "./content-warning.vue";
 import Note from "./note.vue";
@@ -23,9 +24,9 @@ import Prose from "./prose.vue";
 const { content, plainContent, sensitive, contentWarning } = defineProps<{
     plainContent?: string;
     content: string;
-    quote?: NonNullable<Status["quote"]>;
-    emojis: Emoji[];
-    attachments: Attachment[];
+    quote?: NonNullable<z.infer<typeof Status.shape.quote>>;
+    emojis: z.infer<typeof CustomEmoji>[];
+    attachments: z.infer<typeof Attachment>[];
     sensitive: boolean;
     contentWarning?: string;
 }>();

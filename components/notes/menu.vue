@@ -26,7 +26,7 @@ const { authorId, noteId } = defineProps<{
     apiNoteString: string;
     isRemote: boolean;
     url: string;
-    remoteUrl: string;
+    remoteUrl?: string;
     authorId: string;
     noteId: string;
 }>();
@@ -102,7 +102,7 @@ const _delete = async () => {
                     <Link />
                     {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
-                <DropdownMenuItem as="button" v-if="isRemote" @click="copyText(remoteUrl)">
+                <DropdownMenuItem as="button" v-if="isRemote && remoteUrl" @click="copyText(remoteUrl)">
                     <Link />
                     {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>

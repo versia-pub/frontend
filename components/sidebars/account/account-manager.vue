@@ -44,8 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
-import { ChevronsUpDown, LogIn, LogOut, UserPlus } from "lucide-vue-next";
+import { LogIn, LogOut, UserPlus } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import TinyCard from "~/components/profiles/tiny-card.vue";
 import { Button } from "~/components/ui/button";

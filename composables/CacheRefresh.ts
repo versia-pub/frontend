@@ -1,5 +1,5 @@
 import type { Client } from "@versia/client";
-import type { RolePermission } from "@versia/client/types";
+import type { RolePermission } from "@versia/client/schemas";
 import { toast } from "vue-sonner";
 import * as m from "~/paraglide/messages.js";
 

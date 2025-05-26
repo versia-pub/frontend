@@ -1,8 +1,13 @@
-import type { ApplicationData } from "@versia/client/types";
+import type { CredentialApplication } from "@versia/client/schemas";
 import { StorageSerializers } from "@vueuse/core";
+import type { z } from "zod";
 
 export const useAppData = () => {
-    return useLocalStorage<ApplicationData | null>("versia:app_data", null, {
-        serializer: StorageSerializers.object,
-    });
+    return useLocalStorage<z.infer<typeof CredentialApplication> | null>(
+        "versia:app_data",
+        null,
+        {
+            serializer: StorageSerializers.object,
+        },
+    );
 };

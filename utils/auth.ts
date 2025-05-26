@@ -1,7 +1,7 @@
-import type { Client } from "@versia/client";
-import type { ApplicationData } from "@versia/client/types";
+import type { CredentialApplication } from "@versia/client/schemas";
 import { nanoid } from "nanoid";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import { confirmModalService } from "~/components/modals/composable";
 import pkg from "~/package.json";
 import * as m from "~/paraglide/messages.js";
@@ -23,7 +23,7 @@ export const askForInstance = async (): Promise<URL> => {
 };
 
 export const signIn = async (
-    appData: Ref<ApplicationData | null>,
+    appData: Ref<z.infer<typeof CredentialApplication> | null>,
     origin: URL,
 ) => {
     const id = toast.loading(m.level_due_ox_greet());
@@ -74,7 +74,7 @@ export const signIn = async (
 
 export const signInWithCode = (
     code: string,
-    appData: ApplicationData,
+    appData: z.infer<typeof CredentialApplication>,
     origin: URL,
 ) => {
     const client = useClient(origin);
@@ -126,7 +126,7 @@ export const signInWithCode = (
 };
 
 export const signOut = async (
-    appData: ApplicationData | null,
+    appData: z.infer<typeof CredentialApplication> | null,
     identityToRevoke: Identity,
 ) => {
     const id = toast.loading("Signing out...");

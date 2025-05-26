@@ -248,6 +248,7 @@ export default defineNuxtConfig({
             htmlAttrs: { lang: "en-us" },
         },
         rootAttrs: {
+            // @ts-expect-error Nonstandard HTML attribute for Vaul
             "vaul-drawer-wrapper": true,
         },
         keepalive: true,

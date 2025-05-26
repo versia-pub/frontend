@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment } from "@versia/client/types";
+import type { Attachment } from "@versia/client/schemas";
+import type { z } from "zod";
 import Base from "./base.vue";
 
 const { attachment } = defineProps<{
-    attachment: Attachment;
+    attachment: z.infer<typeof Attachment>;
 }>();
 </script>

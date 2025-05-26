@@ -1,11 +1,12 @@
 import type { Client } from "@versia/client";
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useAccountSearch = (
     client: MaybeRef<Client | null>,
     q: string,
-): Ref<Account[] | null> => {
-    const output = ref(null as Account[] | null);
+): Ref<z.infer<typeof Account>[] | null> => {
+    const output = ref(null as z.infer<typeof Account>[] | null);
 
     ref(client)
         .value?.searchAccount(q, {

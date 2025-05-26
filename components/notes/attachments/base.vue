@@ -48,8 +48,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment } from "@versia/client/types";
+import type { Attachment } from "@versia/client/schemas";
 import { Captions, Download, File, X } from "lucide-vue-next";
+import type { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import {
@@ -67,7 +68,7 @@ import {
 } from "~/components/ui/popover";
 
 const { attachment, lightbox = false } = defineProps<{
-    attachment: Attachment;
+    attachment: z.infer<typeof Attachment>;
     lightbox?: boolean;
 }>();
 </script>

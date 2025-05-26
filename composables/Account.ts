@@ -1,15 +1,16 @@
 import type { Client } from "@versia/client";
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useAccount = (
     client: MaybeRef<Client | null>,
     accountId: MaybeRef<string | null>,
 ) => {
     if (!client) {
-        return ref(null as Account | null);
+        return ref(null as z.infer<typeof Account> | null);
     }
 
-    const output = ref(null as Account | null);
+    const output = ref(null as z.infer<typeof Account> | null);
 
     watchEffect(() => {
         if (toValue(accountId)) {

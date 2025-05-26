@@ -6,10 +6,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { Attachment as AttachmentType } from "@versia/client/types";
+import type { Attachment as AttachmentType } from "@versia/client/schemas";
+import type { z } from "zod";
 import Attachment from "./attachment.vue";
 
 defineProps<{
-    attachments: AttachmentType[];
+    attachments: z.infer<typeof AttachmentType>[];
 }>();
 </script>

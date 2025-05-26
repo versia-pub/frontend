@@ -1,15 +1,16 @@
 import type { Client } from "@versia/client";
-import type { Account, Mention } from "@versia/client/types";
+import type { Account, Mention } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useResolveMentions = (
-    mentions: Ref<Mention[]>,
+    mentions: Ref<z.infer<typeof Mention>[]>,
     client: Client | null,
-): Ref<Account[]> => {
+): Ref<z.infer<typeof Account>[]> => {
     if (!client) {
         return ref([]);
     }
 
-    const output = ref<Account[]>([]);
+    const output = ref<z.infer<typeof Account>[]>([]);
 
     watch(
         mentions,

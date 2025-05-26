@@ -10,8 +10,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Emoji } from "@versia/client/types";
+import type { CustomEmoji } from "@versia/client/schemas";
 import { Repeat } from "lucide-vue-next";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import Avatar from "../profiles/avatar.vue";
 import { Card } from "../ui/card";
@@ -19,7 +20,7 @@ import { Card } from "../ui/card";
 const { url } = defineProps<{
     avatar: string;
     displayName: string;
-    emojis: Emoji[];
+    emojis: z.infer<typeof CustomEmoji>[];
     url: string;
 }>();
 

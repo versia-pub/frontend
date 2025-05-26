@@ -44,12 +44,13 @@
 
 <script lang="ts" setup>
 import { cn } from "@/lib/utils";
-import type { Account, StatusVisibility } from "@versia/client/types";
+import type { Account, Status } from "@versia/client/schemas";
 import type {
     UseTimeAgoMessages,
     UseTimeAgoUnitNamesDefault,
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
+import type { z } from "zod";
 import { getLocale } from "~/paraglide/runtime";
 import Avatar from "../profiles/avatar.vue";
 import SmallCard from "../profiles/small-card.vue";
@@ -61,11 +62,11 @@ import {
 
 const { createdAt, noteUrl, author, authorUrl } = defineProps<{
     cornerAvatar?: string;
-    visibility: StatusVisibility;
+    visibility: z.infer<typeof Status.shape.visibility>;
     noteUrl: string;
     createdAt: Date;
     smallLayout?: boolean;
-    author: Account;
+    author: z.infer<typeof Account>;
     authorUrl: string;
 }>();
 

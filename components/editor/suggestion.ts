@@ -1,15 +1,15 @@
-import { VueRenderer } from "@tiptap/vue-3";
-import tippy, { type Instance } from "tippy.js";
-
 import type { MentionNodeAttrs } from "@tiptap/extension-mention";
 import type { SuggestionOptions } from "@tiptap/suggestion";
-import type { Account } from "@versia/client/types";
+import { VueRenderer } from "@tiptap/vue-3";
+import type { Account } from "@versia/client/schemas";
 import { go } from "fuzzysort";
+import tippy, { type Instance } from "tippy.js";
+import type { z } from "zod";
 import MentionList from "./mentions-list.vue";
 
 export type UserData = {
     key: string;
-    value: Account;
+    value: z.infer<typeof Account>;
 };
 
 export default {

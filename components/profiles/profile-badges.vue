@@ -25,12 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import ProfileBadge from "./profile-badge.vue";
 
 const { account } = defineProps<{
-    account: Account;
+    account: z.infer<typeof Account>;
 }>();
 
 const config = useConfig();

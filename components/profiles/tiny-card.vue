@@ -18,12 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
+import type { z } from "zod";
 import { Card, CardContent } from "~/components/ui/card";
 import Avatar from "./avatar.vue";
 
 const { account, domain, naked } = defineProps<{
-    account: Account;
+    account: z.infer<typeof Account>;
     domain: string;
     naked?: boolean;
 }>();

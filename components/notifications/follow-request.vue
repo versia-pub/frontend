@@ -35,16 +35,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
 import { Check, Loader, X } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
 import Avatar from "../profiles/avatar.vue";
 
 const { follower } = defineProps<{
-    follower: Account;
+    follower: z.infer<typeof Account>;
 }>();
 
 const loading = ref(true);

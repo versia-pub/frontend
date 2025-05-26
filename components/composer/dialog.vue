@@ -5,8 +5,9 @@ import {
     DialogDescription,
     DialogTitle,
 } from "@/components/ui/dialog";
-import type { Status, StatusSource } from "@versia/client/types";
+import type { Status, StatusSource } from "@versia/client/schemas";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import Composer from "./composer.vue";
 
@@ -58,8 +59,8 @@ const open = ref(false);
 const relation = ref(
     null as {
         type: "reply" | "quote" | "edit";
-        note: Status;
-        source?: StatusSource;
+        note: z.infer<typeof Status>;
+        source?: z.infer<typeof StatusSource>;
     } | null,
 );
 </script>

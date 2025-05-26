@@ -1,15 +1,16 @@
 import type { Client } from "@versia/client";
-import type { Status } from "@versia/client/types";
+import type { Status } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useNote = (
     client: MaybeRef<Client | null>,
     noteId: MaybeRef<string | null>,
 ) => {
     if (!(toValue(client) && toValue(noteId))) {
-        return ref(null as Status | null);
+        return ref(null as z.infer<typeof Status> | null);
     }
 
-    const output = ref(null as Status | null);
+    const output = ref(null as z.infer<typeof Status> | null);
 
     watchEffect(() => {
         toValue(noteId) &&

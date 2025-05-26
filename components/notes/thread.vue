@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@versia/client/types";
+import type { Status } from "@versia/client/schemas";
+import type { z } from "zod";
 import Note from "./note.vue";
 
 const { note } = defineProps<{
-    note: Status;
+    note: z.infer<typeof Status>;
 }>();
 
 const parent = useNote(client, note.in_reply_to_id);

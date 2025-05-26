@@ -71,7 +71,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
 import {
     AtSign,
     Ban,
@@ -84,10 +84,11 @@ import {
     VolumeX,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 
 const { account } = defineProps<{
-    account: Account;
+    account: z.infer<typeof Account>;
 }>();
 
 const isMe = identity.value?.account.id === account.id;

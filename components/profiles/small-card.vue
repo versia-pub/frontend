@@ -52,7 +52,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
+import type { z } from "zod";
 import { Separator } from "~/components/ui/separator";
 import CopyableText from "../notes/copyable-text.vue";
 import Avatar from "./avatar.vue";
@@ -60,7 +61,7 @@ import ProfileContent from "./profile-content.vue";
 import ProfileFields from "./profile-fields.vue";
 
 const { account } = defineProps<{
-    account: Account;
+    account: z.infer<typeof Account>;
 }>();
 
 const [username, instance] = account.acct.split("@");

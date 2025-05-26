@@ -56,16 +56,16 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from "@versia/client/types";
+import type { Notification } from "@versia/client/schemas";
 import {
     AtSign,
     ChevronDown,
     Heart,
     Repeat,
     User,
-    UserCheck,
     UserPlus,
 } from "lucide-vue-next";
+import type { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import {
@@ -84,7 +84,7 @@ import Avatar from "../profiles/avatar.vue";
 import FollowRequest from "./follow-request.vue";
 
 const { notification } = defineProps<{
-    notification: Notification;
+    notification: z.infer<typeof Notification>;
 }>();
 
 const icon = computed(() => {
@@ -99,8 +99,8 @@ const icon = computed(() => {
             return Heart;
         case "follow_request":
             return User;
-        case "follow_accept":
-            return UserCheck;
+        // case "follow_accept":
+        //    return UserCheck;
         default:
             return null;
     }
@@ -118,8 +118,8 @@ const text = computed(() => {
             return m.swift_just_beetle_devour();
         case "follow_request":
             return m.seemly_short_thrush_bloom();
-        case "follow_accept":
-            return m.weird_seemly_termite_scold();
+        //case "follow_accept":
+        //    return m.weird_seemly_termite_scold();
         default:
             return "";
     }

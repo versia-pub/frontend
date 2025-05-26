@@ -138,7 +138,7 @@
 
 <script lang="ts" setup>
 import type { ResponseError } from "@versia/client";
-import type { Status, StatusSource } from "@versia/client/types";
+import type { Attachment, Status, StatusSource } from "@versia/client/schemas";
 import {
     AtSign,
     FilePlus2,
@@ -151,6 +151,7 @@ import {
     TriangleAlert,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import Note from "~/components/notes/note.vue";
 import {
     Select,
@@ -182,8 +183,8 @@ watch([Control_Enter, Command_Enter], () => {
 const { relation } = defineProps<{
     relation?: {
         type: "reply" | "quote" | "edit";
-        note: Status;
-        source?: StatusSource;
+        note: z.infer<typeof Status>;
+        source?: z.infer<typeof StatusSource>;
     };
 }>();
 
@@ -279,7 +280,7 @@ const submit = async () => {
                 visibility: state.visibility,
             });
 
-            useEvent("composer:send", data as Status);
+            useEvent("composer:send", data as z.infer<typeof Status>);
             play("publish");
             useEvent("composer:close");
         }
@@ -317,7 +318,9 @@ const uploadFiles = (files: File[]) => {
                     return;
                 }
 
-                state.files[index].apiId = media.data.id;
+                state.files[index].apiId = (
+                    media.data as z.infer<typeof Attachment>
+                ).id;
                 state.files[index].uploading = false;
             })
             .catch(() => {

@@ -8,10 +8,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { Emoji, Field } from "@versia/client/types";
+import type { CustomEmoji, Field } from "@versia/client/schemas";
+import type { z } from "zod";
 
 defineProps<{
-    fields: Field[];
-    emojis: Emoji[];
+    fields: z.infer<typeof Field>[];
+    emojis: z.infer<typeof CustomEmoji>[];
 }>();
 </script>

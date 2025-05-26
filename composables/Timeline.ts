@@ -1,6 +1,7 @@
 import type { Client, Output } from "@versia/client";
-import type { Notification, Status } from "@versia/client/types";
+import type { Notification, Status } from "@versia/client/schemas";
 import { useIntervalFn } from "@vueuse/core";
+import type { z } from "zod";
 
 export interface TimelineOptions<T> {
     fetchFunction: (client: Client, options: object) => Promise<Output<T[]>>;
@@ -8,10 +9,9 @@ export interface TimelineOptions<T> {
     limit?: number;
 }
 
-export function useTimeline<T extends Status | Notification>(
-    client: Client,
-    options: TimelineOptions<T>,
-) {
+export function useTimeline<
+    T extends z.infer<typeof Status> | z.infer<typeof Notification>,
+>(client: Client, options: TimelineOptions<T>) {
     const items = ref<T[]>([]) as Ref<T[]>;
     const isLoading = ref(false);
     const hasReachedEnd = ref(false);

@@ -160,7 +160,7 @@
 
 <script lang="ts" setup>
 import { toTypedSchema } from "@vee-validate/zod";
-import { RolePermission } from "@versia/client/types";
+import { RolePermission } from "@versia/client/schemas";
 import { useForm } from "vee-validate";
 import { toast } from "vue-sonner";
 import { z } from "zod";
@@ -221,11 +221,11 @@ const formSchema = toTypedSchema(
             .min(1)
             .max(
                 identity.value?.instance.configuration.emojis
-                    .max_emoji_shortcode_characters ?? Number.POSITIVE_INFINITY,
+                    .max_shortcode_characters ?? Number.POSITIVE_INFINITY,
                 m.solid_inclusive_owl_hug({
                     count:
                         identity.value?.instance.configuration.emojis
-                            .max_emoji_shortcode_characters ??
+                            .max_shortcode_characters ??
                         Number.POSITIVE_INFINITY,
                 }),
             )
@@ -244,12 +244,11 @@ const formSchema = toTypedSchema(
             .string()
             .max(
                 identity.value?.instance.configuration.emojis
-                    .max_emoji_description_characters ??
-                    Number.POSITIVE_INFINITY,
+                    .max_description_characters ?? Number.POSITIVE_INFINITY,
                 m.key_ago_hound_emerge({
                     count:
                         identity.value?.instance.configuration.emojis
-                            .max_emoji_description_characters ??
+                            .max_description_characters ??
                         Number.POSITIVE_INFINITY,
                 }),
             )

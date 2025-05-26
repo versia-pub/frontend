@@ -13,9 +13,10 @@
 </template>
 
 <script lang="ts" setup>
-import { type Emoji, RolePermission } from "@versia/client/types";
+import { type CustomEmoji, RolePermission } from "@versia/client/schemas";
 import { Delete } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import { confirmModalService } from "~/components/modals/composable";
 import {
     DropdownMenu,
@@ -26,7 +27,7 @@ import {
 import * as m from "~/paraglide/messages.js";
 
 const { emojis } = defineProps<{
-    emojis: Emoji[];
+    emojis: z.infer<typeof CustomEmoji>[];
 }>();
 
 const permissions = usePermissions();

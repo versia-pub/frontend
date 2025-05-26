@@ -1,23 +1,24 @@
-import type { Token } from "@versia/client";
 import type {
     Account,
-    Emoji,
+    CustomEmoji,
     Instance,
     RolePermission,
-} from "@versia/client/types";
+    Token,
+} from "@versia/client/schemas";
 import { StorageSerializers, useLocalStorage } from "@vueuse/core";
 import { ref, watch } from "vue";
+import type { z } from "zod";
 
 /**
  * Represents an identity with associated tokens, account, instance, permissions, and emojis.
  */
 export interface Identity {
     id: string;
-    tokens: Token;
-    account: Account;
-    instance: Instance;
+    tokens: z.infer<typeof Token>;
+    account: z.infer<typeof Account>;
+    instance: z.infer<typeof Instance>;
     permissions: RolePermission[];
-    emojis: Emoji[];
+    emojis: z.infer<typeof CustomEmoji>[];
 }
 
 /**

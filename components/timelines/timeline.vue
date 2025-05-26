@@ -40,8 +40,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification, Status } from "@versia/client/types";
+import type { Notification, Status } from "@versia/client/schemas";
 import { useIntersectionObserver } from "@vueuse/core";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import NoPosts from "../errors/NoPosts.vue";
 import ReachedEnd from "../errors/ReachedEnd.vue";
@@ -50,7 +51,7 @@ import { Button } from "../ui/button";
 import TimelineItem from "./timeline-item.vue";
 
 const props = defineProps<{
-    items: Status[] | Notification[];
+    items: z.infer<typeof Status>[] | z.infer<typeof Notification>[];
     type: "status" | "notification";
     isLoading: boolean;
     hasReachedEnd: boolean;
@@ -58,14 +59,15 @@ const props = defineProps<{
     loadNext: () => void;
     loadPrev: () => void;
     removeItem: (id: string) => void;
-    updateItem: ((item: Status) => void) | ((item: Notification) => void);
+    updateItem:
+        | ((item: z.infer<typeof Status>) => void)
+        | ((item: z.infer<typeof Notification>) => void);
 }>();
 
 const emit = defineEmits<(e: "update") => void>();
 
 const loadMoreTrigger = ref<HTMLElement | null>(null);
 
-// @ts-expect-error Too complex?
 useIntersectionObserver(loadMoreTrigger, ([observer]) => {
     if (observer?.isIntersecting && !props.isLoading && !props.hasReachedEnd) {
         props.loadNext();

@@ -1,11 +1,12 @@
 import type { Client } from "@versia/client";
-import type { Relationship } from "@versia/client/types";
+import type { Relationship } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useRelationship = (
     client: MaybeRef<Client | null>,
     accountId: MaybeRef<string | null>,
 ) => {
-    const relationship = ref(null as Relationship | null);
+    const relationship = ref(null as z.infer<typeof Relationship> | null);
     const isLoading = ref(false);
 
     if (!identity.value) {

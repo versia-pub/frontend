@@ -17,8 +17,10 @@
 </template>
 
 <script lang="ts" setup>
+import type { Status } from "@versia/client/schemas";
 import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import { getLocale } from "~/paraglide/runtime";
 import { confirmModalService } from "../modals/composable";
@@ -33,7 +35,7 @@ const { noteId } = defineProps<{
     noteId: string;
     isRemote: boolean;
     url: string;
-    remoteUrl: string;
+    remoteUrl?: string;
     authorId: string;
     liked: boolean;
     reblogged: boolean;
@@ -108,7 +110,10 @@ const reblog = async () => {
     const { data } = await client.value.reblogStatus(noteId);
     toast.dismiss(id);
     toast.success(m.weird_moving_hawk_lift());
-    useEvent("note:edit", data.reblog || data);
+    useEvent(
+        "note:edit",
+        (data.reblog as z.infer<typeof Status> | null) || data,
+    );
 };
 
 const unreblog = async () => {

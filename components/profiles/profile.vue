@@ -66,9 +66,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { Account } from "@versia/client/types";
+import type { Account } from "@versia/client/schemas";
 import { Ellipsis, Loader } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import type { z } from "zod";
 import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "~/components/ui/card";
@@ -83,7 +84,7 @@ import ProfileHeader from "./profile-header.vue";
 import ProfileStats from "./profile-stats.vue";
 
 const { account } = defineProps<{
-    account: Account;
+    account: z.infer<typeof Account>;
 }>();
 
 const { relationship, isLoading } = useRelationship(client, account.id);

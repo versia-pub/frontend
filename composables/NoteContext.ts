@@ -1,15 +1,16 @@
 import type { Client } from "@versia/client";
-import type { Context } from "@versia/client/types";
+import type { Context } from "@versia/client/schemas";
+import type { z } from "zod";
 
 export const useNoteContext = (
     client: MaybeRef<Client | null>,
     noteId: MaybeRef<string | null>,
 ) => {
     if (!ref(client).value) {
-        return ref(null as Context | null);
+        return ref(null as z.infer<typeof Context> | null);
     }
 
-    const output = ref(null as Context | null);
+    const output = ref(null as z.infer<typeof Context> | null);
 
     watchEffect(() => {
         if (toValue(noteId)) {
