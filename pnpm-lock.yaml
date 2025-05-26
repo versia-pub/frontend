@@ -69,8 +69,8 @@ importers:
         specifier: ^4.15.0
         version: 4.15.0(vue@3.5.14(typescript@5.8.3))(zod@3.25.23)
       '@versia/client':
-        specifier: 0.1.5
-        version: 0.1.5
+        specifier: 0.2.0-alpha.2
+        version: 0.2.0-alpha.2
       '@videojs-player/vue':
         specifier: ^1.0.0
         version: 1.0.0(@types/video.js@7.3.58)(video.js@7.21.7)(vue@3.5.14(typescript@5.8.3))
@@ -720,9 +720,9 @@ packages:
     resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
     engines: {node: '>=6.9.0'}
 
-  '@badgateway/oauth2-client@2.4.2':
-    resolution: {integrity: sha512-70Fmzlmn8EfCjjssls8N6E94quBUWnLhu4inPZU2pkwpc6ZvbErkLRvtkYl81KFCvVcuVC0X10QPZVNwjXo2KA==}
-    engines: {node: '>= 14'}
+  '@badgateway/oauth2-client@3.2.0':
+    resolution: {integrity: sha512-EHsoV6oLHot7HeYkIoSxCZApNgBjwNo1OTV9kXIDnmijGAshlVkJreVAAtexFn+sfDKPE0JW5SCPYJV1y4IoMg==}
+    engines: {node: '>= 18'}
 
   '@biomejs/biome@1.9.4':
     resolution: {integrity: sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog==}
@@ -1993,9 +1993,9 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@versia/client@0.1.5':
-    resolution: {integrity: sha512-POD2/IT98EZZ32kWEPc3XUY2zApX94tuBftNWIMyoT04Sp7CPuvv1TT2fxM2kmgrC6kgbh4I6yirPpzVY+FpSA==}
-    engines: {bun: '>=1.1.8'}
+  '@versia/client@0.2.0-alpha.2':
+    resolution: {integrity: sha512-/x1Z2tyJsfckCOLX8K8XDVs3rd3vX0wfCz20IMTc9uaGRkDTcL7MYzz20WCgOEW/WmnwL3iVf/jVgJm0NzoF4Q==}
+    engines: {bun: '>=1.2.5'}
 
   '@videojs-player/vue@1.0.0':
     resolution: {integrity: sha512-WonTezRfKu3fYdQLt/ta+nuKH6gMZUv8l40Jke/j4Lae7IqeO/+lLAmBnh3ni88bwR+vkFXIlZ2Ci7VKInIYJg==}
@@ -3579,6 +3579,10 @@ packages:
   isexe@3.1.1:
     resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
     engines: {node: '>=16'}
+
+  iso-639-1@3.1.5:
+    resolution: {integrity: sha512-gXkz5+KN7HrG0Q5UGqSMO2qB9AsbEeyLP54kF1YrMsIxmu+g4BdB7rflReZTSTZGpfj8wywu6pfPBCylPIzGQA==}
+    engines: {node: '>=6.0'}
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
@@ -5734,6 +5738,12 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
+  zod-openapi@4.2.4:
+    resolution: {integrity: sha512-tsrQpbpqFCXqVXUzi3TPwFhuMtLN3oNZobOtYnK6/5VkXsNdnIgyNr4r8no4wmYluaxzN3F7iS+8xCW8BmMQ8g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.21.4
+
   zod@3.25.23:
     resolution: {integrity: sha512-Od2bdMosahjSrSgJtakrwjMDb1zM1A3VIHCPGveZt/3/wlrTWBya2lmEh2OYe4OIu8mPTmmr0gnLHIWQXdtWBg==}
 
@@ -6416,7 +6426,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@badgateway/oauth2-client@2.4.2': {}
+  '@badgateway/oauth2-client@3.2.0': {}
 
   '@biomejs/biome@1.9.4':
     optionalDependencies:
@@ -7847,10 +7857,13 @@ snapshots:
       - rollup
       - supports-color
 
-  '@versia/client@0.1.5':
+  '@versia/client@0.2.0-alpha.2':
     dependencies:
-      '@badgateway/oauth2-client': 2.4.2
+      '@badgateway/oauth2-client': 3.2.0
+      iso-639-1: 3.1.5
+      magic-regexp: 0.10.0
       zod: 3.25.23
+      zod-openapi: 4.2.4(zod@3.25.23)
 
   '@videojs-player/vue@1.0.0(@types/video.js@7.3.58)(video.js@7.21.7)(vue@3.5.14(typescript@5.8.3))':
     dependencies:
@@ -9626,6 +9639,8 @@ snapshots:
   isexe@2.0.0: {}
 
   isexe@3.1.1: {}
+
+  iso-639-1@3.1.5: {}
 
   jackspeak@3.4.3:
     dependencies:
@@ -12151,5 +12166,9 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
+
+  zod-openapi@4.2.4(zod@3.25.23):
+    dependencies:
+      zod: 3.25.23
 
   zod@3.25.23: {}
