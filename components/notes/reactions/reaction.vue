@@ -1,7 +1,7 @@
 <template>
     <HoverCard @update:open="(open) => open && accounts === null && refreshReactions()">
         <HoverCardTrigger as-child>
-            <Button variant="secondary" size="sm" class="gap-2">
+            <Button @click="reaction.me ? unreact() : react()" :variant="reaction.me ? 'secondary' : 'outline'" size="sm" class="gap-2">
                 <img v-if="emoji" :src="emoji.url" :alt="emoji.shortcode"
                     class="h-[1lh] align-middle inline not-prose" />
                 <span v-else>
@@ -34,6 +34,7 @@ import type {
     CustomEmoji,
     NoteReaction,
 } from "@versia/client/schemas";
+import { toast } from "vue-sonner";
 import type { z } from "zod";
 import Spinner from "~/components/graphics/spinner.vue";
 import Avatar from "~/components/profiles/avatar.vue";
@@ -43,6 +44,7 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "~/components/ui/hover-card";
+import * as m from "~/paraglide/messages.js";
 import { getLocale } from "~/paraglide/runtime.js";
 
 const { reaction, emoji, statusId } = defineProps<{
@@ -69,5 +71,31 @@ const refreshReactions = async () => {
     const { data: accountsData } = await client.value.getAccounts(accountIds);
 
     accounts.value = accountsData;
+};
+
+const react = async () => {
+    const id = toast.loading(m.gray_stale_antelope_roam());
+
+    const { data } = await client.value.createEmojiReaction(
+        statusId,
+        reaction.name,
+    );
+
+    toast.dismiss(id);
+    toast.success(m.main_least_turtle_fall());
+    useEvent("note:edit", data);
+};
+
+const unreact = async () => {
+    const id = toast.loading(m.many_weary_bat_intend());
+
+    const { data } = await client.value.deleteEmojiReaction(
+        statusId,
+        reaction.name,
+    );
+
+    toast.dismiss(id);
+    toast.success(m.aware_even_oryx_race());
+    useEvent("note:edit", data);
 };
 </script>

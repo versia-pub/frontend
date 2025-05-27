@@ -1,5 +1,5 @@
 <template>
-    <div v-if="relation" class="rounded border overflow-auto max-h-72">
+    <div v-if="relation" class="overflow-auto max-h-72">
         <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
     </div>
 

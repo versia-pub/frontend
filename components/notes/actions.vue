@@ -10,6 +10,9 @@
             {{ numberFormat(reblogCount) }}
         </ActionButton>
         <ActionButton :icon="Quote" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!identity" />
+        <Picker @pick="react">
+            <ActionButton :icon="Smile" :title="m.bald_cool_kangaroo_jump()" :disabled="!identity" />
+        </Picker>
         <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId" @edit="emit('edit')" :note-id="noteId" @delete="emit('delete')">
             <ActionButton :icon="Ellipsis" :title="m.busy_merry_cowfish_absorb()" />
         </Menu>
@@ -17,8 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Status } from "@versia/client/schemas";
-import { Ellipsis, Heart, Quote, Repeat, Reply } from "lucide-vue-next";
+import type { CustomEmoji, Status } from "@versia/client/schemas";
+import { Ellipsis, Heart, Quote, Repeat, Reply, Smile } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
@@ -26,6 +29,8 @@ import { getLocale } from "~/paraglide/runtime";
 import { confirmModalService } from "../modals/composable";
 import ActionButton from "./action-button.vue";
 import Menu from "./menu.vue";
+import type { UnicodeEmoji } from "./reactions/picker/emoji";
+import Picker from "./reactions/picker/index.vue";
 
 const { noteId } = defineProps<{
     replyCount: number;
@@ -46,6 +51,7 @@ const emit = defineEmits<{
     reply: [];
     quote: [];
     delete: [];
+    react: [];
 }>();
 const { play } = useAudio();
 
@@ -134,6 +140,19 @@ const unreblog = async () => {
     const { data } = await client.value.unreblogStatus(noteId);
     toast.dismiss(id);
     toast.success(m.royal_polite_moose_catch());
+    useEvent("note:edit", data);
+};
+
+const react = async (emoji: z.infer<typeof CustomEmoji> | UnicodeEmoji) => {
+    const id = toast.loading(m.gray_stale_antelope_roam());
+    const text = (emoji as UnicodeEmoji).hexcode
+        ? (emoji as UnicodeEmoji).unicode
+        : `:${(emoji as z.infer<typeof CustomEmoji>).shortcode}:`;
+
+    const { data } = await client.value.createEmojiReaction(noteId, text);
+
+    toast.dismiss(id);
+    toast.success(m.main_least_turtle_fall());
     useEvent("note:edit", data);
 };
 
