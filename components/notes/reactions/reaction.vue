@@ -1,7 +1,7 @@
 <template>
     <HoverCard @update:open="(open) => open && accounts === null && refreshReactions()">
         <HoverCardTrigger as-child>
-            <Button @click="reaction.me ? unreact() : react()" :variant="reaction.me ? 'secondary' : 'outline'" size="sm" class="gap-2">
+            <Button @click="reaction.me ? !reaction.remote && unreact() : !reaction.remote && react()" :variant="reaction.me ? 'secondary' : reaction.remote ? 'ghost' : 'outline'" size="sm" class="gap-2">
                 <img v-if="emoji" :src="emoji.url" :alt="emoji.shortcode"
                     class="h-[1lh] align-middle inline not-prose" />
                 <span v-else>
