@@ -167,12 +167,6 @@ import { z } from "zod";
 import FormSwitch from "~/components/form/switch.vue";
 import { Button } from "~/components/ui/button";
 import {
-    Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "~/components/ui/card";
-import {
     Dialog,
     DialogClose,
     DialogContent,

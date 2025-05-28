@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import FilePreview from "./file-preview.vue";
 
-defineModel<
+const files = defineModel<
     {
         apiId?: string;
         file: File;
