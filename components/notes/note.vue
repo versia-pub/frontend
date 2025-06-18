@@ -1,5 +1,5 @@
 <template>
-    <Card as="article" class="relative gap-4 items-stretch">
+    <Card as="article" class="relative gap-3 items-stretch">
         <CardHeader as="header" class="space-y-2">
             <ReblogHeader
                 v-if="note.reblog"

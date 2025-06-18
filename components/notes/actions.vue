@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row w-full gap-x-4 items-stretch justify-start">
+    <div class="flex flex-row w-full max-w-sm items-stretch justify-between">
         <ActionButton :icon="Reply" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!identity">
             {{ numberFormat(replyCount) }}
         </ActionButton>

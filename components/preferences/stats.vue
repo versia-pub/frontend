@@ -1,5 +1,5 @@
 <template>
-    <Card class="grid gap-3 text-sm max-w-sm p-4">
+    <Card class="grid gap-3 text-sm max-w-sm">
         <dl class="grid gap-3">
             <div v-for="[key, value] of data" :key="key" class="flex flex-row items-baseline justify-between gap-4 truncate">
                 <dt class="text-muted-foreground">

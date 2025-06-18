@@ -1,6 +1,6 @@
 <template>
-    <Button variant="ghost" class="max-w-14 w-full">
-        <component :is="icon" class="size-4.5" />
+    <Button variant="ghost" class="max-w-14 w-full" size="sm">
+        <component :is="icon" class="size-4" />
         <slot />
     </Button>
 </template>

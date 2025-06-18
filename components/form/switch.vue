@@ -1,5 +1,5 @@
 <template>
-    <Card class="p-4">
+    <Card>
         <FormItem class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
             <CardHeader class="flex flex-col gap-1.5 p-0">
                 <FormLabel class="font-semibold tracking-tight" :as="CardTitle">
