@@ -79,7 +79,7 @@ const relation = ref(
     >
         <DialogContent
             :hide-close="true"
-            class="sm:max-w-xl max-w-full w-[calc(100%-2*0.5rem)] grid-rows-[minmax(0,1fr)_auto] max-h-[90dvh] p-5 pt-6 top-2 sm:top-1/2 translate-y-0 sm:-translate-y-1/2 rounded"
+            class="sm:max-w-xl max-w-full w-[calc(100%-2*0.5rem)] grid-cols-1 max-h-[90dvh] p-5 pt-6 top-2 sm:top-1/2 translate-y-0 sm:-translate-y-1/2"
         >
             <DialogTitle class="sr-only">
                 {{

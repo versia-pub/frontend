@@ -5,14 +5,9 @@
             :disabled="file.uploading || file.updating"
             class="block bg-card text-card-foreground shadow-sm h-28 overflow-hidden rounded relative min-w-28 *:disabled:opacity-50"
         >
-            <Avatar class="h-28 w-full" shape="square">
-                <AvatarImage
-                    class="!object-contain"
-                    :src="createObjectURL(file.file)"
-                />
-            </Avatar>
+            <img :src="createObjectURL(file.file)" class="object-contain h-28 w-full" :alt="file.alt" />
             <Badge
-                v-if="file.uploading && !file.updating"
+                v-if="!(file.uploading || file.updating)"
                 class="absolute bottom-1 right-1"
                 variant="default"
                 >{{ formatBytes(file.file.size) }}</Badge
@@ -22,29 +17,27 @@
         <DropdownMenuContent class="min-w-48">
             <DropdownMenuLabel>{{ file.file.name }}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-
             <DropdownMenuItem @click="editName">
                 <TextCursorInput />
-                <span>Rename</span>
+                Rename
             </DropdownMenuItem>
             <DropdownMenuItem @click="editCaption">
                 <Captions />
-                <span>Add caption</span>
+                Add caption
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem @click="emit('remove')">
                 <Delete />
-                <span>Remove</span>
+                Remove
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
 </template>
 
 <script lang="ts" setup>
-import { Captions, Delete, Loader, TextCursorInput } from "lucide-vue-next";
+import { Captions, Delete, TextCursorInput } from "lucide-vue-next";
 import Spinner from "~/components/graphics/spinner.vue";
 import { confirmModalService } from "~/components/modals/composable.ts";
-import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import {
     DropdownMenu,
@@ -54,14 +47,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import type { ComposerState } from "./composer";
 
-const file = defineModel<{
-    apiId?: string;
-    file: File;
-    alt?: string;
-    uploading: boolean;
-    updating: boolean;
-}>("file", {
+const file = defineModel<ComposerState["files"][number]>("file", {
     required: true,
 });
 

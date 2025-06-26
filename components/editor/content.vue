@@ -17,6 +17,7 @@ import { Emoji } from "./emoji.ts";
 import suggestion from "./suggestion.ts";
 
 const content = defineModel<string>("content");
+const rawContent = defineModel<string>("rawContent");
 const {
     placeholder,
     disabled,
@@ -25,6 +26,10 @@ const {
     placeholder?: string;
     mode?: "rich" | "plain";
     disabled?: boolean;
+}>();
+
+const emit = defineEmits<{
+    pasteFiles: [files: File[]];
 }>();
 
 const editor = new Editor({
@@ -49,6 +54,15 @@ const editor = new Editor({
     content: content.value,
     onUpdate: ({ editor }) => {
         content.value = mode === "rich" ? editor.getHTML() : editor.getText();
+        rawContent.value = editor.getText();
+    },
+    onPaste: (event) => {
+        // If pasting files, prevent the default behavior
+        if (event.clipboardData && event.clipboardData.files.length > 0) {
+            event.preventDefault();
+            const files = Array.from(event.clipboardData.files);
+            emit("pasteFiles", files);
+        }
     },
     autofocus: true,
     editable: !disabled,
