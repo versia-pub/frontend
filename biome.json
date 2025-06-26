@@ -1,18 +1,18 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-    "organizeImports": {
-        "enabled": true
-    },
+    "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+    "assist": { "actions": { "source": { "organizeImports": "on" } } },
     "linter": {
         "enabled": true,
         "rules": {
-            "all": true,
             "suspicious": {
                 "noConsole": "off",
-                "noExplicitAny": "off"
+                "noExplicitAny": "off",
+                "noDuplicateElseIf": "error",
+                "noDocumentCookie": "off"
             },
             "performance": {
-                "noBarrelFile": "off"
+                "noBarrelFile": "off",
+                "noNamespaceImport": "off"
             },
             "correctness": {
                 "noNodejsModules": "off",
@@ -30,7 +30,6 @@
             "style": {
                 "noDefaultExport": "off",
                 "noParameterProperties": "off",
-                "noNamespaceImport": "off",
                 "useFilenamingConvention": "off",
                 "useNamingConvention": {
                     "level": "warn",
@@ -63,12 +62,20 @@
                             }
                         ]
                     }
-                }
-            },
-            "nursery": {
-                "noDuplicateElseIf": "error",
+                },
+                "noParameterAssign": "error",
+                "useAsConstAssertion": "error",
+                "useDefaultParameterLast": "error",
+                "useEnumInitializers": "error",
+                "useSelfClosingElements": "error",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "error",
+                "useNumberNamespace": "error",
+                "noInferrableTypes": "error",
+                "noUselessElse": "error",
                 "noCommonJs": "error"
-            }
+            },
+            "nursery": {}
         }
     },
     "formatter": {
@@ -76,15 +83,31 @@
         "indentStyle": "space",
         "indentWidth": 4
     },
+    "overrides": [
+        {
+            "includes": ["**/*.vue"],
+            "linter": {
+                "rules": {
+                    "correctness": {
+                        "noUnusedImports": "off"
+                    },
+                    "style": {
+                        "useImportType": "off"
+                    }
+                }
+            }
+        }
+    ],
     "files": {
-        "ignore": [
-            "node_modules/**/*",
-            "dist/**/*",
-            ".output",
-            ".nuxt",
-            "paraglide",
-            "result",
-            "project.inlang"
+        "includes": [
+            "**",
+            "!**/node_modules/**/*",
+            "!**/dist/**/*",
+            "!**/.output",
+            "!**/.nuxt",
+            "!**/paraglide",
+            "!**/result",
+            "!**/project.inlang"
         ]
     }
 }

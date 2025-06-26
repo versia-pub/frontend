@@ -2,7 +2,7 @@ import type { CustomEmoji } from "@versia/client/schemas";
 import { go } from "fuzzysort";
 import { nanoid } from "nanoid";
 import type { z } from "zod";
-import { type UnicodeEmoji, emojiGroups } from "./emoji";
+import { emojiGroups, type UnicodeEmoji } from "./emoji";
 
 export const EMOJI_PER_ROW = 7;
 export type VirtualizedItem =

@@ -43,7 +43,7 @@ import {
 } from "~/components/ui/popover";
 import CategoryHeader from "./category-header.vue";
 import EmojiDisplay from "./display.vue";
-import { type EmojiGroupId, type UnicodeEmoji, emojiGroups } from "./emoji.ts";
+import { type EmojiGroupId, emojiGroups, type UnicodeEmoji } from "./emoji.ts";
 import Emoji from "./emoji.vue";
 import Sidebar from "./sidebar.vue";
 import { EMOJI_PER_ROW, getVirtualizedItems } from "./virtual.ts";

@@ -1,13 +1,5 @@
 <script setup lang="tsx">
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
     Ban,
     Code,
     Delete,
@@ -19,6 +11,14 @@ import {
     Trash,
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { confirmModalService } from "~/components/modals/composable.ts";
 import * as m from "~/paraglide/messages.js";
 

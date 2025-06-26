@@ -1,9 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import { getIconData, iconToHTML, iconToSVG, replaceIDs } from "@iconify/utils";
 import * as fluentEmojiData from "@iconify-json/fluent-emoji";
 import * as fluentFlatEmojiData from "@iconify-json/fluent-emoji-flat";
 import * as notoEmojiData from "@iconify-json/noto";
 import * as twemojiData from "@iconify-json/twemoji";
-import { getIconData, iconToHTML, iconToSVG, replaceIDs } from "@iconify/utils";
 
 const emojiSets = {
     twemoji: twemojiData,

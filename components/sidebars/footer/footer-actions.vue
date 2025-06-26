@@ -16,6 +16,7 @@ import {
 } from "~/components/ui/sidebar";
 import * as m from "~/paraglide/messages.js";
 import AccountManager from "../account/account-manager.vue";
+
 const { $pwa } = useNuxtApp();
 </script>
 

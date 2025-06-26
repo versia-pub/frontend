@@ -75,9 +75,9 @@
 </template>
 
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
 import type { Status } from "@versia/client/schemas";
 import type { z } from "zod";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Actions from "./actions.vue";
 import Content from "./content.vue";

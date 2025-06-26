@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import {
     InfoIcon,
     PaletteIcon,
     SettingsIcon,
@@ -15,6 +8,13 @@ import {
     TerminalSquareIcon,
     UserIcon,
 } from "lucide-vue-next";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import pkg from "~/package.json";
 import Avatar from "../profiles/avatar.vue";
 import TinyCard from "../profiles/tiny-card.vue";

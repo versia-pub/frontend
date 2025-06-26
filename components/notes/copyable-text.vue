@@ -14,10 +14,10 @@
 </template>
 
 <script lang="tsx" setup>
-import { cn } from "@/lib/utils";
 import { Check, Clipboard } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
 import { toast } from "vue-sonner";
+import { cn } from "@/lib/utils";
 import * as m from "~/paraglide/messages.js";
 
 const { text } = defineProps<{

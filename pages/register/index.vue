@@ -120,6 +120,7 @@ import { Client, type ResponseError } from "@versia/client";
 import { AlertCircle, Loader } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { z } from "zod";
+import { NuxtLink } from "#components";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -127,7 +128,6 @@ import { Dialog, DialogContent, DialogHeader } from "~/components/ui/dialog";
 import { FormItem } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 useHead({
     title: m.early_last_ocelot_praise(),

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Client } from "@versia/client";
 import { AlertCircle, Loader } from "lucide-vue-next";
+import { NuxtLink } from "#components";
 import UserAuthForm from "~/components/oauth/login.vue";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 useHead({
     title: m.fuzzy_sea_moth_absorb(),

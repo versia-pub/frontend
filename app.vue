@@ -19,6 +19,7 @@ import ConfirmationModal from "./components/modals/confirm.vue";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { overwriteGetLocale } from "./paraglide/runtime";
+
 // Sin
 //import "~/styles/mcdonalds.css";
 

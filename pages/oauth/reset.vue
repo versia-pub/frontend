@@ -111,6 +111,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { AlertCircle } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { z } from "zod";
+import { NuxtLink } from "#components";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import {
@@ -130,7 +131,6 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 useHead({
     title: m.arable_arable_herring_lead(),

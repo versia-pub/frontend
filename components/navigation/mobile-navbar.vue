@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
 import { Bell, Home, Pen, User } from "lucide-vue-next";
-import * as m from "~/paraglide/messages.js";
 import { NuxtLink } from "#components";
+import * as m from "~/paraglide/messages.js";
 import { Button } from "../ui/button";
 </script>

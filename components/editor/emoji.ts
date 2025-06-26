@@ -24,9 +24,7 @@ declare module "@tiptap/core" {
              *   .commands
              *   .setEmoji({ shortcode: 'smile' })
              */
-            setImage: (options: {
-                shortcode: string;
-            }) => ReturnType;
+            setImage: (options: { shortcode: string }) => ReturnType;
         };
     }
 }

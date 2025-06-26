@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
 import { Search } from "lucide-vue-next";
 import {
     ListboxFilter,
     type ListboxFilterProps,
     useForwardProps,
 } from "reka-ui";
-import { type HTMLAttributes, computed } from "vue";
+import { computed, type HTMLAttributes } from "vue";
+import { cn } from "@/lib/utils";
 import { useCommand } from ".";
 
 defineOptions({

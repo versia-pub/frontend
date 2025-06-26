@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts" setup>
-import { cn } from "@/lib/utils";
 import type { Account, Status } from "@versia/client/schemas";
 import type {
     UseTimeAgoMessages,
@@ -51,6 +50,7 @@ import type {
 } from "@vueuse/core";
 import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import type { z } from "zod";
+import { cn } from "@/lib/utils";
 import { getLocale } from "~/paraglide/runtime";
 import Avatar from "../profiles/avatar.vue";
 import SmallCard from "../profiles/small-card.vue";

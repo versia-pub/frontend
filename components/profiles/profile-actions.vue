@@ -63,14 +63,6 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import type { Account } from "@versia/client/schemas";
 import {
     AtSign,
@@ -85,6 +77,14 @@ import {
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import type { z } from "zod";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import * as m from "~/paraglide/messages.js";
 
 const { account } = defineProps<{

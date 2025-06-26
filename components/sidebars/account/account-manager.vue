@@ -46,6 +46,8 @@
 <script lang="ts" setup>
 import { LogIn, LogOut, UserPlus } from "lucide-vue-next";
 import { toast } from "vue-sonner";
+import { NuxtLink } from "#components";
+import { identity as currentIdentity } from "#imports";
 import TinyCard from "~/components/profiles/tiny-card.vue";
 import { Button } from "~/components/ui/button";
 import {
@@ -58,8 +60,6 @@ import {
     DialogTrigger,
 } from "~/components/ui/dialog";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
-import { identity as currentIdentity } from "#imports";
 
 const appData = useAppData();
 

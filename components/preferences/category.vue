@@ -19,8 +19,14 @@
 
 <script lang="ts" setup>
 import { Card, CardTitle } from "../ui/card/index.ts";
-// biome-ignore lint/style/useImportType: <explanation>
 import { preferences as prefs } from "./preferences.ts";
+import BooleanPreferenceVue from "./types/boolean.vue";
+import CodePreferenceVue from "./types/code.vue";
+import MultiSelectPreferenceVue from "./types/multiselect.vue";
+import NumberPreferenceVue from "./types/number.vue";
+import SelectPreferenceVue from "./types/select.vue";
+import TextPreferenceVue from "./types/text.vue";
+import UrlPreferenceVue from "./types/url.vue";
 import {
     BooleanPreference,
     CodePreference,
@@ -30,13 +36,6 @@ import {
     TextPreference,
     UrlPreference,
 } from "./types.ts";
-import BooleanPreferenceVue from "./types/boolean.vue";
-import CodePreferenceVue from "./types/code.vue";
-import MultiSelectPreferenceVue from "./types/multiselect.vue";
-import NumberPreferenceVue from "./types/number.vue";
-import SelectPreferenceVue from "./types/select.vue";
-import TextPreferenceVue from "./types/text.vue";
-import UrlPreferenceVue from "./types/url.vue";
 
 const { preferences = [], name } = defineProps<{
     preferences: (keyof typeof prefs)[];

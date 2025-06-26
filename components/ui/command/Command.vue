@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { cn } from "@/lib/utils";
 import type { ListboxRootEmits, ListboxRootProps } from "reka-ui";
 import { ListboxRoot, useFilter, useForwardPropsEmits } from "reka-ui";
-import { type HTMLAttributes, computed, reactive, ref, watch } from "vue";
+import { computed, type HTMLAttributes, reactive, ref, watch } from "vue";
+import { cn } from "@/lib/utils";
 import { provideCommandContext } from ".";
 
 const props = withDefaults(

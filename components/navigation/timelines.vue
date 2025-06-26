@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
 import { BedSingle, Globe, House, MapIcon } from "lucide-vue-next";
+import { NuxtLink } from "#components";
 import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 const timelines = [
     {

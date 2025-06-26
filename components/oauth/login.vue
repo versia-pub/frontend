@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/zod";
+import type { Instance } from "@versia/client/schemas";
+import { Loader } from "lucide-vue-next";
+import { useForm } from "vee-validate";
+import * as z from "zod";
 import {
     FormControl,
     FormField,
@@ -6,11 +11,6 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { toTypedSchema } from "@vee-validate/zod";
-import type { Instance } from "@versia/client/schemas";
-import { Loader } from "lucide-vue-next";
-import { useForm } from "vee-validate";
-import * as z from "zod";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import * as m from "~/paraglide/messages.js";

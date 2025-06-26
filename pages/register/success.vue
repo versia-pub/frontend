@@ -19,10 +19,10 @@
 </template>
 
 <script setup lang="ts">
+import { NuxtLink } from "#components";
 import { Button } from "~/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 useHead({
     title: "Success!",

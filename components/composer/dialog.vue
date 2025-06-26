@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import type { Status, StatusSource } from "@versia/client/schemas";
+import { toast } from "vue-sonner";
+import type { z } from "zod";
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogTitle,
 } from "@/components/ui/dialog";
-import type { Status, StatusSource } from "@versia/client/schemas";
-import { toast } from "vue-sonner";
-import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
 import Composer from "./composer.vue";
 

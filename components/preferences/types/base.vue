@@ -35,9 +35,6 @@ defineSlots<{
         value: any;
         setValue: (value: MaybeRef<any>) => void;
     }): any;
-    extra(props: {
-        value: any;
-        setValue: (value: MaybeRef<any>) => void;
-    }): any;
+    extra(props: { value: any; setValue: (value: MaybeRef<any>) => void }): any;
 }>();
 </script>

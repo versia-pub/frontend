@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { Check } from "lucide-vue-next";
+import { NuxtLink } from "#components";
 import { Button } from "~/components/ui/button";
 import {
     Card,
@@ -67,7 +68,6 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 import * as m from "~/paraglide/messages.js";
-import { NuxtLink } from "#components";
 
 useHead({
     title: m.lower_factual_frog_evoke(),
