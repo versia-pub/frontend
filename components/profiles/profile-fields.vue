@@ -1,15 +1,18 @@
 <template>
-    <div class="flex flex-col gap-y-4">
-        <div v-for="field in fields" :key="field.name" class="flex flex-col gap-1 break-words">
-            <h3 class="font-semibold text-sm" v-render-emojis="emojis">{{ field.name }}</h3>
-            <div v-html="field.value" class="prose prose-sm prose-zinc dark:prose-invert" v-render-emojis="emojis"></div>
-        </div>
-    </div>
+    <Col class="gap-y-4">
+        <Col v-for="field in fields" :key="field.name" class="gap-1 break-words">
+            <HeadingSmall v-render-emojis="emojis">{{ field.name }}</HeadingSmall>
+            <Html v-html="field.value" v-render-emojis="emojis" />
+        </Col>
+    </Col>
 </template>
 
 <script lang="ts" setup>
 import type { CustomEmoji, Field } from "@versia/client/schemas";
 import type { z } from "zod";
+import HeadingSmall from "~/components/typography/headings/small.vue";
+import Html from "../typography/html.vue";
+import Col from "../typography/layout/col.vue";
 
 defineProps<{
     fields: z.infer<typeof Field>[];

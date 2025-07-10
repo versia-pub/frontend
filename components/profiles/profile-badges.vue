@@ -1,6 +1,5 @@
 <template>
-    <div
-        class="flex flex-row flex-wrap gap-2 -mx-2"
+    <Row class="gap-2" wrap
         v-if="isDeveloper || account.bot || roles.length > 0"
     >
         <ProfileBadge
@@ -21,13 +20,14 @@
             :description="role.description"
             :icon="role.icon"
         />
-    </div>
+    </Row>
 </template>
 
 <script lang="ts" setup>
 import type { Account } from "@versia/client/schemas";
 import type { z } from "zod";
 import * as m from "~/paraglide/messages.js";
+import Row from "../typography/layout/row.vue";
 import ProfileBadge from "./profile-badge.vue";
 
 const { account } = defineProps<{

@@ -23,23 +23,14 @@
         </div>
     </div>
     <div class="flex flex-col justify-center items-center mt-8">
-        <span class="font-semibold" v-render-emojis="account.emojis">
+        <Text class="font-bold" v-render-emojis="account.emojis">
             {{ account.display_name }}
-        </span>
-        <CopyableText :text="account.acct" class="text-sm">
-            <span
-                class="font-semibold bg-gradient-to-tr from-pink-700 dark:from-indigo-400 via-purple-700 dark:via-purple-400 to-indigo-700 dark:to-indigo-400 text-transparent bg-clip-text"
-            >
-                @{{ username }}
-            </span>
-            <span class="text-muted-foreground"
-                >{{ instance && "@" }}{{ instance }}</span
-            >
-        </CopyableText>
+        </Text>
+        <Address :username="username" :domain="domain" />
     </div>
-    <ProfileContent
-        :content="account.note"
-        :emojis="account.emojis"
+    <Html
+        v-html="account.note"
+        v-render-emojis="account.emojis"
         class="mt-4 max-h-72 overflow-y-auto"
     />
     <Separator v-if="account.fields.length > 0" class="mt-4" />
@@ -55,14 +46,15 @@
 import type { Account } from "@versia/client/schemas";
 import type { z } from "zod";
 import { Separator } from "~/components/ui/separator";
-import CopyableText from "../notes/copyable-text.vue";
+import Html from "../typography/html.vue";
+import Text from "../typography/text.vue";
+import Address from "./address.vue";
 import Avatar from "./avatar.vue";
-import ProfileContent from "./profile-content.vue";
 import ProfileFields from "./profile-fields.vue";
 
 const { account } = defineProps<{
     account: z.infer<typeof Account>;
 }>();
 
-const [username, instance] = account.acct.split("@");
+const [username, domain] = account.acct.split("@");
 </script>

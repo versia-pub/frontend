@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded flex flex-row items-center gap-3">
+    <div class="rounded grid grid-cols-[auto_1fr_auto] items-center gap-3">
         <HoverCard v-model:open="popupOpen" @update:open="() => {
             if (!preferences.popup_avatar_hover) {
                 popupOpen = false;
@@ -16,24 +16,18 @@
                 <SmallCard :account="author" />
             </HoverCardContent>
         </HoverCard>
-        <div
-            :class="cn('flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight', smallLayout && 'text-sm')">
-            <span class="truncate font-semibold" v-render-emojis="author.emojis">{{
+        <Col
+            :class="smallLayout && 'text-sm'">
+            <Text class="font-semibold" v-render-emojis="author.emojis">{{
                 author.display_name
-            }}</span>
-            <span class="truncate text-sm tracking-tight">
-                <span>
-                    <span
-                        class="font-semibold bg-gradient-to-tr from-pink-700 dark:from-indigo-400 via-purple-700 dark:via-purple-400 to-indigo-700 dark:to-indigo-400 text-transparent bg-clip-text">
-                        @{{ username }}
-                    </span>
-                    <span class="text-muted-foreground">{{ instance && "@" }}{{ instance }}</span>
-                </span>
+            }}</Text>
+            <div class="-mt-1">
+                <Address as="span" :username="username" :domain="instance" />
                 &middot;
-                <span class="text-muted-foreground ml-auto tracking-normal" :title="fullTime">{{ timeAgo }}</span>
-            </span>
-        </div>
-        <div class="flex flex-col gap-1 h-full justify-center items-end" v-if="!smallLayout">
+                <Text as="span" muted class="ml-auto tracking-normal" :title="fullTime">{{ timeAgo }}</Text>
+            </div>
+        </Col>
+        <div v-if="!smallLayout">
             <NuxtLink :href="noteUrlAsPath" class="text-xs text-muted-foreground"
                 :title="visibilities[visibility].text">
                 <component :is="visibilities[visibility].icon" class="size-4" />
@@ -52,8 +46,12 @@ import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
 import type { z } from "zod";
 import { cn } from "@/lib/utils";
 import { getLocale } from "~/paraglide/runtime";
+import Address from "../profiles/address.vue";
 import Avatar from "../profiles/avatar.vue";
 import SmallCard from "../profiles/small-card.vue";
+import Col from "../typography/layout/col.vue";
+import Row from "../typography/layout/row.vue";
+import Text from "../typography/text.vue";
 import {
     HoverCard,
     HoverCardContent,

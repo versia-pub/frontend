@@ -8,13 +8,7 @@
                 follower.display_name
                 }}</span>
             <span class="truncate tracking-tight">
-                <CopyableText :text="follower.acct">
-                    <span
-                        class="font-semibold bg-gradient-to-tr from-pink-700 dark:from-indigo-400 via-purple-700 dark:via-purple-400 to-indigo-700 dark:to-indigo-400 text-transparent bg-clip-text">
-                        @{{ username }}
-                    </span>
-                    <span class="text-muted-foreground">{{ instance && "@" }}{{ instance }}</span>
-                </CopyableText>
+                <Address :username="username" :domain="domain" />
             </span>
         </div>
     </div>
@@ -39,9 +33,9 @@ import type { Account } from "@versia/client/schemas";
 import { Check, Loader, X } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import type { z } from "zod";
-import CopyableText from "~/components/notes/copyable-text.vue";
 import { Button } from "~/components/ui/button";
 import * as m from "~/paraglide/messages.js";
+import Address from "../profiles/address.vue";
 import Avatar from "../profiles/avatar.vue";
 
 const { follower } = defineProps<{
@@ -50,7 +44,7 @@ const { follower } = defineProps<{
 
 const loading = ref(true);
 const followerUrl = `/@${follower.acct}`;
-const [username, instance] = follower.acct.split("@");
+const [username, domain] = follower.acct.split("@");
 const { relationship } = useRelationship(client, follower.id);
 
 // TODO: Add "followed" notification

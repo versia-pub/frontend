@@ -5,14 +5,10 @@
     >
         <Avatar :src="account.avatar" :name="account.display_name" class="size-10" />
         <CardContent class="leading-tight">
-            <span
-                class="font-semibold"
-                v-render-emojis="account.emojis"
-                >{{ account.display_name }}</span
-            >
-            <span class="text-xs">
-                @{{ account.username }}@{{ domain }}
-            </span>
+            <Text class="font-semibold" v-render-emojis="account.emojis">
+                {{ account.display_name }}
+            </Text>
+            <Address :username="account.username" :domain="domain" />
         </CardContent>
     </Card>
 </template>
@@ -21,6 +17,8 @@
 import type { Account } from "@versia/client/schemas";
 import type { z } from "zod";
 import { Card, CardContent } from "~/components/ui/card";
+import Text from "../typography/text.vue";
+import Address from "./address.vue";
 import Avatar from "./avatar.vue";
 
 const { account, domain, naked } = defineProps<{
