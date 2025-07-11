@@ -1,5 +1,7 @@
 <template>
+    <BubbleMenu :editor="editor" />
     <EditorContent :editor="editor"
+        v-bind="$attrs"
         :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
 </template>
 
@@ -14,6 +16,7 @@ import Superscript from "@tiptap/extension-superscript";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
+import BubbleMenu from "./bubble-menu.vue";
 import suggestion from "./suggestion.ts";
 
 const content = defineModel<string>("content");
@@ -113,7 +116,7 @@ onUnmounted(() => {
     @apply font-bold rounded-sm text-primary-foreground bg-primary px-1 py-0.5;
 }
 
-.tiptap .emoji > img {
+.tiptap .emoji>img {
     @apply h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out;
 }
 </style>
