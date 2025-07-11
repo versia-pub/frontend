@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts" setup>
+import Emoji, { emojis } from "@tiptap/extension-emoji";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
@@ -13,7 +14,6 @@ import Superscript from "@tiptap/extension-superscript";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
-import { Emoji } from "./emoji.ts";
 import suggestion from "./suggestion.ts";
 
 const content = defineModel<string>("content");
@@ -49,7 +49,20 @@ const editor = new Editor({
             },
             suggestion,
         }),
-        Emoji,
+        Emoji.configure({
+            emojis: emojis.concat(
+                identity.value?.emojis.map((emoji) => ({
+                    name: emoji.shortcode,
+                    shortcodes: [emoji.shortcode],
+                    group: emoji.category ?? undefined,
+                    tags: [],
+                    fallbackImage: emoji.url,
+                })) || [],
+            ),
+            HTMLAttributes: {
+                class: "emoji not-prose",
+            },
+        }),
     ],
     content: content.value,
     onUpdate: ({ editor }) => {
@@ -98,5 +111,9 @@ onUnmounted(() => {
 
 .tiptap .mention {
     @apply font-bold rounded-sm text-primary-foreground bg-primary px-1 py-0.5;
+}
+
+.tiptap .emoji > img {
+    @apply h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out;
 }
 </style>
