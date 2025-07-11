@@ -46,8 +46,8 @@ export const state = reactive<ComposerState>({
 watch(
     state,
     (newState) => {
-        const characterLimit = (identity.value as Identity).instance
-            .configuration.statuses.max_characters;
+        const characterLimit =
+            identity.value?.instance.configuration.statuses.max_characters ?? 0;
         const characterCount = newState.rawContent.length;
 
         state.canSend =

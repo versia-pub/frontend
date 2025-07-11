@@ -9,7 +9,7 @@
     </SidebarProvider>
     <MobileNavbar v-if="identity" />
     <Preferences />
-    <ComposerDialog />
+    <ComposerDialog v-if="identity" />
 </template>
 
 <script setup lang="ts">

@@ -1,6 +1,6 @@
 <template>
     <slot />
-    <ComposerDialog />
+    <ComposerDialog v-if="identity" />
 </template>
 
 <script lang="ts" setup>
