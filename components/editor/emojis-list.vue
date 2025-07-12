@@ -1,11 +1,11 @@
 <template>
-    <Command class="rounded border shadow-md min-w-[200px] h-fit not-prose" :selected-value="items[selectedIndex]?.key">
+    <Command class="rounded border shadow-md min-w-[200px] h-fit not-prose" :selected-value="emojis[selectedIndex]?.id">
         <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup class="mentions-group" heading="Users">
-                <CommandItem :value="user.key" v-for="user, index in items" :key="user.key" @click="selectItem(index)" class="scroll-m-10">
-                    <Avatar class="size-4" :src="user.value.avatar" :name="user.value.display_name" />
-                    <span v-render-emojis="user.value.emojis">{{ user.value.display_name }}</span>
+            <CommandGroup class="emojis-group" heading="Emojis">
+                <CommandItem :value="emoji.id" v-for="emoji, index in emojis" :key="emoji.id" @click="selectItem(index)" class="scroll-m-10">
+                    <img class="h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out" :src="emoji.url" :title="emoji.shortcode" />
+                    <span>{{ emoji.shortcode }}</span>
                 </CommandItem>
             </CommandGroup>
         </CommandList>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MentionNodeAttrs } from "@tiptap/extension-mention";
+import type {} from "@tiptap/extension-emoji";
 import {
     Command,
     CommandEmpty,
@@ -21,27 +21,36 @@ import {
     CommandItem,
     CommandList,
 } from "~/components/ui/command";
-import Avatar from "../profiles/avatar.vue";
-import type { UserData } from "./suggestion";
 
 const { items, command } = defineProps<{
-    items: UserData[];
-    command: (value: MentionNodeAttrs) => void;
+    items: string[];
+    command: (value: { name: string }) => void;
 }>();
 
 const selectedIndex = ref(0);
+const emojis = computed(() => {
+    return items
+        .map((item) => {
+            return identity.value?.emojis.find(
+                (emoji) => emoji.shortcode === item,
+            );
+        })
+        .filter((emoji) => emoji !== undefined);
+});
 
 const onKeyDown = ({ event }: { event: Event }) => {
     if (event instanceof KeyboardEvent) {
         if (event.key === "ArrowDown") {
-            selectedIndex.value = (selectedIndex.value + 1) % items.length;
+            selectedIndex.value =
+                (selectedIndex.value + 1) % emojis.value.length;
             scrollIntoView(selectedIndex.value);
 
             return true;
         }
         if (event.key === "ArrowUp") {
             selectedIndex.value =
-                (selectedIndex.value - 1 + items.length) % items.length;
+                (selectedIndex.value - 1 + emojis.value.length) %
+                emojis.value.length;
             scrollIntoView(selectedIndex.value);
 
             return true;
@@ -54,12 +63,11 @@ const onKeyDown = ({ event }: { event: Event }) => {
 };
 
 const selectItem = (index: number) => {
-    const item = items[index];
+    const item = emojis.value[index];
 
     if (item) {
         command({
-            id: item.key,
-            label: item.value.acct,
+            name: item.shortcode,
         });
     }
 };

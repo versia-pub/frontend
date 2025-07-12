@@ -6,7 +6,7 @@
     <ContentWarning v-if="state.sensitive" v-model="state.contentWarning" />
 
     <EditorContent @paste-files="uploadFiles" v-model:content="state.content" v-model:raw-content="state.rawContent" :placeholder="getRandomSplash()"
-        class="*:!border-none *:!ring-0 *:!outline-none *:rounded-none p-0 *:max-h-[50dvh] *:overflow-y-auto *:min-h-48 *:!ring-offset-0 *:h-full"
+        class="[&>.tiptap]:!border-none [&>.tiptap]:!ring-0 [&>.tiptap]:!outline-none [&>.tiptap]:rounded-none p-0 [&>.tiptap]:max-h-[50dvh] [&>.tiptap]:overflow-y-auto [&>.tiptap]:min-h-48 [&>.tiptap]:!ring-offset-0 [&>.tiptap]:h-full"
         :disabled="state.sending" :mode="state.contentType === 'text/html' ? 'rich' : 'plain'" />
 
     <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">

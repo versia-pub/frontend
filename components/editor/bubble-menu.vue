@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { BubbleMenu, type Editor } from "@tiptap/vue-3";
+import type { Editor } from "@tiptap/vue-3";
+import { BubbleMenu } from "@tiptap/vue-3/menus";
 import {
     BoldIcon,
     CurlyBracesIcon,

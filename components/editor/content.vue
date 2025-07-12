@@ -2,22 +2,21 @@
     <BubbleMenu :editor="editor" />
     <EditorContent :editor="editor"
         v-bind="$attrs"
-        :class="[$style.content, 'prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
+        :class="[$style.content, 'relative prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
 </template>
 
 <script lang="ts" setup>
 import Emoji, { emojis } from "@tiptap/extension-emoji";
 import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
+import { TaskItem, TaskList } from "@tiptap/extension-list";
 import Mention from "@tiptap/extension-mention";
-import Placeholder from "@tiptap/extension-placeholder";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
-import Underline from "@tiptap/extension-underline";
+import { Placeholder } from "@tiptap/extensions";
 import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import BubbleMenu from "./bubble-menu.vue";
-import suggestion from "./suggestion.ts";
+import { emojiSuggestion, mentionSuggestion } from "./suggestion.ts";
 
 const content = defineModel<string>("content");
 const rawContent = defineModel<string>("rawContent");
@@ -42,15 +41,15 @@ const editor = new Editor({
             placeholder,
         }),
         Highlight,
-        Link,
         Subscript,
         Superscript,
-        Underline,
+        TaskList,
+        TaskItem,
         Mention.configure({
             HTMLAttributes: {
                 class: "mention",
             },
-            suggestion,
+            suggestion: mentionSuggestion,
         }),
         Emoji.configure({
             emojis: emojis.concat(
@@ -65,6 +64,7 @@ const editor = new Editor({
             HTMLAttributes: {
                 class: "emoji not-prose",
             },
+            suggestion: emojiSuggestion,
         }),
     ],
     content: content.value,
