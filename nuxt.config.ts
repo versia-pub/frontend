@@ -14,6 +14,13 @@ export default defineNuxtConfig({
     components: {
         dirs: [],
     },
+    typescript: {
+        tsConfig: {
+            compilerOptions: {
+                allowImportingTsExtensions: true,
+            },
+        },
+    },
     vite: {
         plugins: [tailwindcss()],
     },

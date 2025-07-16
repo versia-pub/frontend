@@ -25,10 +25,11 @@
         "build": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt build",
         "dev": "bun nuxt dev --host versia-fe.localhost",
         "generate": "nuxt generate",
-        "emojis:generate": "bun run utils/emojis.ts",
+        "emojis:generate": "bun run app/utils/emojis.ts",
         "rebuild-i18n": "paraglide-js compile --project ./project.inlang --outdir ./paraglide",
         "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./paraglide && nuxt prepare",
         "lint": "bunx @biomejs/biome check .",
+        "typecheck": "nuxt prepare && vue-tsc -b --noEmit",
         "check": "bunx tsc -p ."
     },
     "dependencies": {
@@ -69,7 +70,7 @@
         "magic-regexp": "^0.10.0",
         "mitt": "^3.0.1",
         "nanoid": "^5.1.5",
-        "nuxt": "^3.17.6",
+        "nuxt": "^4.0.0",
         "nuxt-security": "^2.2.0",
         "reka-ui": "^2.3.2",
         "shadcn-nuxt": "2.2.0",

@@ -1,5 +1,3 @@
-import type { JSX } from "vue/jsx-runtime";
-
 declare module "#app" {
     interface PageMeta {
         breadcrumbs?: () => {
@@ -10,7 +8,8 @@ declare module "#app" {
                 href: string;
             }[];
         }[];
-        header?: JSX.Element;
         requiresAuth?: boolean;
     }
 }
+
+export {};
