@@ -69,7 +69,7 @@ const send = async () => {
 watch(
     props,
     async (props) => {
-        if (props.relation) {
+        if (props.relation && !store.relation) {
             store.stateFromRelation(
                 props.relation.type,
                 props.relation.note,

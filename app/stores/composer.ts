@@ -116,7 +116,6 @@ export const useComposerStore = (key: ComposerStateKey) =>
                 if (relationType === "edit") {
                     this.content = source?.text || note.content;
                     this.rawContent = source?.text || "";
-                    console.log(note.media_attachments);
                     this.files = await Promise.all(
                         note.media_attachments.map(async (file) => ({
                             id: crypto.randomUUID(),
@@ -255,6 +254,40 @@ export const useComposerStore = (key: ComposerStateKey) =>
                     this.sending = false;
                     throw error;
                 }
+            },
+        },
+        persist: {
+            serializer: {
+                serialize(data) {
+                    // Delete file references before storing to avoid large storage usage
+                    const newFiles = (data as ComposerState).files.map((f) => {
+                        const { file, ...rest } = f;
+
+                        return rest;
+                    });
+
+                    return JSON.stringify({ ...data, files: newFiles });
+                },
+                deserialize(str) {
+                    return JSON.parse(str);
+                },
+            },
+            storage: {
+                // Store everything in "composer" key to avoid creating too many entries
+                getItem(key) {
+                    return JSON.stringify(
+                        JSON.parse(localStorage.getItem("composer") || "{}")[
+                            key
+                        ],
+                    );
+                },
+                setItem(key, value) {
+                    const composer = JSON.parse(
+                        localStorage.getItem("composer") || "{}",
+                    );
+                    composer[key] = JSON.parse(value);
+                    localStorage.setItem("composer", JSON.stringify(composer));
+                },
             },
         },
     });
