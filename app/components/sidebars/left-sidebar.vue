@@ -9,7 +9,7 @@
                 <NavItems
                     :items="
                         sidebarConfig.other.filter((i) =>
-                            i.requiresLogin ? !!identity : true
+                            i.requiresLogin ? authStore.isSignedIn : true
                         )
                     "
                 />
@@ -33,4 +33,6 @@ import * as m from "~~/paraglide/messages.js";
 import FooterActions from "./footer/footer-actions.vue";
 import InstanceHeader from "./instance/instance-header.vue";
 import NavItems from "./navigation/nav-items.vue";
+
+const authStore = useAuthStore();
 </script>

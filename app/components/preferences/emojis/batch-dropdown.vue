@@ -30,14 +30,14 @@ const { emojis } = defineProps<{
     emojis: z.infer<typeof CustomEmoji>[];
 }>();
 
-const permissions = usePermissions();
+const authStore = useAuthStore();
 const canEdit =
     (!emojis.some((e) => e.global) &&
-        permissions.value.includes(RolePermission.ManageOwnEmojis)) ||
-    permissions.value.includes(RolePermission.ManageEmojis);
+        authStore.permissions.includes(RolePermission.ManageOwnEmojis)) ||
+    authStore.permissions.includes(RolePermission.ManageEmojis);
 
 const deleteAll = async () => {
-    if (!identity.value) {
+    if (!authStore.isSignedIn) {
         return;
     }
 
@@ -57,14 +57,16 @@ const deleteAll = async () => {
         );
         try {
             await Promise.all(
-                emojis.map((emoji) => client.value.deleteEmoji(emoji.id)),
+                emojis.map((emoji) => authStore.client.deleteEmoji(emoji.id)),
             );
             toast.dismiss(id);
             toast.success("Emojis deleted");
 
-            identity.value.emojis = identity.value.emojis.filter(
-                (e) => !emojis.some((emoji) => e.id === emoji.id),
-            );
+            authStore.updateActiveIdentity({
+                emojis: authStore.emojis.filter(
+                    (e) => !emojis.some((emoji) => e.id === emoji.id),
+                ),
+            });
         } catch {
             toast.dismiss(id);
         }

@@ -9,6 +9,8 @@ export default defineNuxtConfig({
         "@vite-pwa/nuxt",
         "shadcn-nuxt",
         "@nuxtjs/color-mode",
+        "@pinia/nuxt",
+        "pinia-plugin-persistedstate/nuxt",
     ],
     ssr: false,
     components: {

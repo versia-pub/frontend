@@ -24,14 +24,10 @@ import { TooltipProvider } from "./components/ui/tooltip";
 //import "~/styles/mcdonalds.css";
 
 const lang = useLanguage();
+const authStore = useAuthStore();
 overwriteGetLocale(() => lang.value);
 
-const code = useRequestURL().searchParams.get("code");
-const origin = useRequestURL().searchParams.get("origin");
-const appData = useAppData();
-const instance = useInstance();
-const description = useExtendedDescription(client);
-const route = useRoute();
+const description = useExtendedDescription();
 
 // Theme switcher
 const colorMode = useColorMode();
@@ -62,13 +58,13 @@ useSeoMeta({
     titleTemplate: (titleChunk) => {
         return titleChunk ? `${titleChunk} · Versia` : "Versia";
     },
-    title: computed(() => instance.value?.title ?? ""),
-    ogImage: computed(() => instance.value?.banner?.url),
-    twitterTitle: computed(() => instance.value?.title ?? ""),
+    title: computed(() => authStore.instance?.title ?? ""),
+    ogImage: computed(() => authStore.instance?.banner?.url),
+    twitterTitle: computed(() => authStore.instance?.title ?? ""),
     twitterDescription: computed(() =>
         convert(description.value?.content ?? ""),
     ),
-    twitterImage: computed(() => instance.value?.banner?.url),
+    twitterImage: computed(() => authStore.instance?.banner?.url),
     description: computed(() => convert(description.value?.content ?? "")),
     ogDescription: computed(() => convert(description.value?.content ?? "")),
     ogSiteName: "Versia",
@@ -82,28 +78,7 @@ useHead({
     },
 });
 
-if (code && origin && appData.value && route.path !== "/oauth/code") {
-    const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`,
-    );
-
-    signInWithCode(code, appData.value, newOrigin);
-}
-
-if (origin && !code) {
-    const newOrigin = new URL(
-        URL.canParse(origin) ? origin : `https://${origin}`,
-    );
-
-    signIn(appData, newOrigin);
-}
-
-useListen("identity:change", (newIdentity) => {
-    identity.value = newIdentity;
-    window.location.pathname = "/";
-});
-
-useCacheRefresh(client);
+useCacheRefresh();
 </script>
 
 <style>

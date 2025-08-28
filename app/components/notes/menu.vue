@@ -37,8 +37,8 @@ const emit = defineEmits<{
 }>();
 
 const { copy } = useClipboard();
-const loggedIn = !!identity.value;
-const authorIsMe = loggedIn && authorId === identity.value?.account.id;
+const authStore = useAuthStore();
+const authorIsMe = authStore.isSignedIn && authorId === authStore.account?.id;
 
 const copyText = (text: string) => {
     copy(text);
@@ -47,7 +47,7 @@ const copyText = (text: string) => {
 
 const blockUser = async (userId: string) => {
     const id = toast.loading(m.top_cute_bison_nudge());
-    await client.value.blockAccount(userId);
+    await authStore.client.blockAccount(userId);
     toast.dismiss(id);
 
     toast.success(m.main_weary_racoon_peek());
@@ -68,7 +68,7 @@ const _delete = async () => {
     }
 
     const id = toast.loading(m.new_funny_fox_boil());
-    await client.value.deleteStatus(noteId);
+    await authStore.client.deleteStatus(noteId);
     toast.dismiss(id);
 
     toast.success(m.green_tasty_bumblebee_beam());
@@ -122,8 +122,8 @@ const _delete = async () => {
                     {{ m.tense_quick_cod_favor() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="loggedIn && !authorIsMe" />
-            <DropdownMenuGroup v-if="loggedIn && !authorIsMe">
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !authorIsMe" />
+            <DropdownMenuGroup v-if="authStore.isSignedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag />
                     {{ m.great_few_jaguar_rise() }}

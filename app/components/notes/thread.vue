@@ -25,5 +25,5 @@ const { note } = defineProps<{
     note: z.infer<typeof Status>;
 }>();
 
-const parent = useNote(client, note.in_reply_to_id);
+const parent = useNote(note.in_reply_to_id);
 </script>

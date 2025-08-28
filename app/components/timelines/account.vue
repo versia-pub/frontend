@@ -21,7 +21,7 @@ const {
     loadPrev,
     removeItem,
     updateItem,
-} = useAccountTimeline(client.value, props.id);
+} = useAccountTimeline(props.id);
 
 useListen("note:delete", ({ id }) => {
     removeItem(id);

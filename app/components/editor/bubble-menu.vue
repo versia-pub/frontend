@@ -68,9 +68,10 @@ watch(active, (value) => {
 </script>
 
 <template>
-    <BubbleMenu :editor="editor" class="bg-popover rounded-md">
+    <BubbleMenu :editor="editor">
         <ToggleGroup type="multiple"
             v-model="active"
+             class="bg-popover rounded-md"
         >
             <ToggleGroupItem value="bold">
                 <BoldIcon />

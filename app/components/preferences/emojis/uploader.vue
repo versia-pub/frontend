@@ -189,8 +189,10 @@ import { Textarea } from "~/components/ui/textarea";
 import * as m from "~~/paraglide/messages.js";
 
 const open = ref(false);
-const permissions = usePermissions();
-const hasEmojiAdmin = permissions.value.includes(RolePermission.ManageEmojis);
+const authStore = useAuthStore();
+const hasEmojiAdmin = authStore.permissions.includes(
+    RolePermission.ManageEmojis,
+);
 const createObjectURL = URL.createObjectURL;
 
 const formSchema = toTypedSchema(
@@ -202,11 +204,11 @@ const formSchema = toTypedSchema(
             .refine(
                 (v) =>
                     v.size <=
-                    (identity.value?.instance.configuration.emojis
+                    (authStore.instance?.configuration.emojis
                         .emoji_size_limit ?? Number.POSITIVE_INFINITY),
                 m.orange_weird_parakeet_hug({
                     count:
-                        identity.value?.instance.configuration.emojis
+                        authStore.instance?.configuration.emojis
                             .emoji_size_limit ?? Number.POSITIVE_INFINITY,
                 }),
             ),
@@ -214,11 +216,11 @@ const formSchema = toTypedSchema(
             .string()
             .min(1)
             .max(
-                identity.value?.instance.configuration.emojis
+                authStore.instance?.configuration.emojis
                     .max_shortcode_characters ?? Number.POSITIVE_INFINITY,
                 m.solid_inclusive_owl_hug({
                     count:
-                        identity.value?.instance.configuration.emojis
+                        authStore.instance?.configuration.emojis
                             .max_shortcode_characters ??
                         Number.POSITIVE_INFINITY,
                 }),
@@ -237,11 +239,11 @@ const formSchema = toTypedSchema(
         alt: z
             .string()
             .max(
-                identity.value?.instance.configuration.emojis
+                authStore.instance?.configuration.emojis
                     .max_description_characters ?? Number.POSITIVE_INFINITY,
                 m.key_ago_hound_emerge({
                     count:
-                        identity.value?.instance.configuration.emojis
+                        authStore.instance?.configuration.emojis
                             .max_description_characters ??
                         Number.POSITIVE_INFINITY,
                 }),
@@ -254,14 +256,14 @@ const { isSubmitting, handleSubmit, values, setFieldValue } = useForm({
 });
 
 const submit = handleSubmit(async (values) => {
-    if (!identity.value) {
+    if (!authStore.isSignedIn) {
         return;
     }
 
     const id = toast.loading(m.factual_gray_mouse_believe());
 
     try {
-        const { data } = await client.value.uploadEmoji(
+        const { data } = await authStore.client.uploadEmoji(
             values.shortcode,
             values.image,
             {
@@ -274,7 +276,10 @@ const submit = handleSubmit(async (values) => {
         toast.dismiss(id);
         toast.success(m.cool_trite_gull_quiz());
 
-        identity.value.emojis = [...identity.value.emojis, data];
+        authStore.updateActiveIdentity({
+            emojis: [...authStore.emojis, data],
+        });
+
         open.value = false;
     } catch {
         toast.dismiss(id);

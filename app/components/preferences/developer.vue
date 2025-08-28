@@ -25,13 +25,13 @@ const copy = (data: string) => {
     toast.success("Copied to clipboard");
 };
 
-const appData = useAppData();
+const authStore = useAuthStore();
 
 const data: [string, string | VNode][] = [
-    ["User ID", identity.value?.account.id ?? ""],
-    ["Instance domain", identity.value?.instance.domain ?? ""],
-    ["Instance version", identity.value?.instance.versia_version ?? ""],
-    ["Client ID", appData.value?.client_id ?? ""],
+    ["User ID", authStore.account?.id ?? ""],
+    ["Instance domain", authStore.instance?.domain ?? ""],
+    ["Instance version", authStore.instance?.versia_version ?? ""],
+    ["Client ID", authStore.application?.client_id ?? ""],
     [
         "Client secret",
         <Button
@@ -39,7 +39,7 @@ const data: [string, string | VNode][] = [
             class="font-sans"
             size="sm"
             // @ts-expect-error missing onClick types
-            onClick={() => copy(appData.value?.client_secret ?? "")}
+            onClick={() => copy(authStore.application?.client_secret ?? "")}
         >
             Click to copy
         </Button>,
@@ -51,7 +51,7 @@ const data: [string, string | VNode][] = [
             class="font-sans"
             size="sm"
             // @ts-expect-error missing onClick types
-            onClick={() => copy(identity.value?.tokens.access_token ?? "")}
+            onClick={() => copy(authStore.token?.access_token ?? "")}
         >
             Click to copy
         </Button>,

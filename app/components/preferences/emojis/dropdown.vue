@@ -42,14 +42,10 @@ const { emoji } = defineProps<{
     emoji: z.infer<typeof CustomEmoji>;
 }>();
 
-const permissions = usePermissions();
-const canEdit =
-    (!emoji.global &&
-        permissions.value.includes(RolePermission.ManageOwnEmojis)) ||
-    permissions.value.includes(RolePermission.ManageEmojis);
+const authStore = useAuthStore();
 
 const editName = async () => {
-    if (!identity.value) {
+    if (!authStore.isSignedIn) {
         return;
     }
 
@@ -63,16 +59,18 @@ const editName = async () => {
     if (result.confirmed) {
         const id = toast.loading(m.teary_tame_gull_bless());
         try {
-            const { data } = await client.value.updateEmoji(emoji.id, {
+            const { data } = await authStore.client.updateEmoji(emoji.id, {
                 shortcode: result.value,
             });
 
             toast.dismiss(id);
             toast.success(m.gaudy_lime_bison_adore());
 
-            identity.value.emojis = identity.value.emojis.map((e) =>
-                e.id === emoji.id ? data : e,
-            );
+            authStore.updateActiveIdentity({
+                emojis: authStore.emojis.map((e) =>
+                    e.id === emoji.id ? data : e,
+                ),
+            });
         } catch {
             toast.dismiss(id);
         }
@@ -80,7 +78,7 @@ const editName = async () => {
 };
 
 const _delete = async () => {
-    if (!identity.value) {
+    if (!authStore.isSignedIn) {
         return;
     }
 
@@ -93,13 +91,13 @@ const _delete = async () => {
     if (confirmed) {
         const id = toast.loading(m.weary_away_liger_zip());
         try {
-            await client.value.deleteEmoji(emoji.id);
+            await authStore.client.deleteEmoji(emoji.id);
             toast.dismiss(id);
             toast.success(m.crisp_whole_canary_tear());
 
-            identity.value.emojis = identity.value.emojis.filter(
-                (e) => e.id !== emoji.id,
-            );
+            authStore.updateActiveIdentity({
+                emojis: authStore.emojis.filter((e) => e.id !== emoji.id),
+            });
         } catch {
             toast.dismiss(id);
         }

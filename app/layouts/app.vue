@@ -1,15 +1,15 @@
 <template>
     <SidebarProvider>
         <AppSidebar>
-            <slot v-if="!route.meta.requiresAuth || identity" />
+            <slot v-if="!route.meta.requiresAuth || authStore.isSignedIn" />
             <div class="mx-auto max-w-4xl p-4" v-else>
                 <AuthRequired />
             </div>
         </AppSidebar>
     </SidebarProvider>
-    <MobileNavbar v-if="identity" />
+    <MobileNavbar v-if="authStore.isSignedIn" />
     <Preferences />
-    <ComposerDialog v-if="identity" />
+    <ComposerDialog v-if="authStore.isSignedIn" />
 </template>
 
 <script setup lang="ts">
@@ -23,6 +23,7 @@ import { SidebarProvider } from "~/components/ui/sidebar";
 const colorMode = useColorMode();
 const { n, d } = useMagicKeys();
 const activeElement = useActiveElement();
+const authStore = useAuthStore();
 const notUsingInput = computed(
     () =>
         activeElement.value?.tagName !== "INPUT" &&

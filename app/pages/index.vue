@@ -1,6 +1,6 @@
 <template>
     <TimelineScroller>
-        <Home v-if="identity" />
+        <Home v-if="authStore.isSignedIn" />
         <Public v-else />
     </TimelineScroller>
 </template>
@@ -11,8 +11,9 @@ import Public from "~/components/timelines/public.vue";
 import TimelineScroller from "~/components/timelines/timeline-scroller.vue";
 import * as m from "~~/paraglide/messages.js";
 
+const authStore = useAuthStore();
 useHead({
-    title: identity.value
+    title: authStore.isSignedIn
         ? m.bland_chunky_sparrow_propel()
         : m.lost_trick_dog_grace(),
 });

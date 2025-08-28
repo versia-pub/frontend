@@ -6,7 +6,7 @@ import {
     SidebarMenuItem,
 } from "~/components/ui/sidebar";
 
-const instance = useInstance();
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const instance = useInstance();
         <SidebarMenu>
             <SidebarMenuItem>
                 <NuxtLink href="/">
-                    <InstanceSmallCard v-if="instance" :instance="instance" />
+                    <InstanceSmallCard v-if="authStore.instance" :instance="authStore.instance" />
                 </NuxtLink>
             </SidebarMenuItem>
         </SidebarMenu>

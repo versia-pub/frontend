@@ -41,9 +41,9 @@ const element = ref<HTMLElement | null>(null);
 const route = useRoute();
 const uuid = route.params.uuid as string;
 
-const note = useNote(client, uuid);
+const note = useNote(uuid);
 const noteId = computed(() => note.value?.id ?? null);
-const context = useNoteContext(client, noteId);
+const context = useNoteContext(noteId);
 const loaded = computed(() => note.value !== null && context.value !== null);
 
 // If ancestors changes, scroll down so that the initial note stays at the same place

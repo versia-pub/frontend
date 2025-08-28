@@ -14,6 +14,8 @@ export type UserData = {
     value: z.infer<typeof Account>;
 };
 
+const authStore = useAuthStore();
+
 const updatePosition = (editor: Editor, element: HTMLElement): void => {
     const virtualElement = {
         getBoundingClientRect: () =>
@@ -42,7 +44,9 @@ export const mentionSuggestion = {
             return [];
         }
 
-        const users = await client.value.searchAccount(query, { limit: 20 });
+        const users = await authStore.client.searchAccount(query, {
+            limit: 20,
+        });
 
         return go(
             query,
@@ -122,7 +126,7 @@ export const emojiSuggestion = {
             return [];
         }
 
-        const emojis = (identity.value as Identity).emojis;
+        const emojis = authStore.emojis;
 
         return go(
             query,

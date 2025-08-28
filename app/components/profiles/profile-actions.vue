@@ -33,8 +33,8 @@
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
-            <DropdownMenuGroup v-if="isLoggedIn && !isMe">
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
+            <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
                 <DropdownMenuItem as="button" @click="muteUser(account.id)">
                     <VolumeX />
                     {{ m.spare_wild_mole_intend() }}
@@ -51,8 +51,8 @@
                     {{ m.slow_chunky_chipmunk_hush() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="isLoggedIn && !isMe" />
-            <DropdownMenuGroup v-if="isLoggedIn && !isMe">
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
+            <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag />
                     {{ m.great_few_jaguar_rise() }}
@@ -91,8 +91,8 @@ const { account } = defineProps<{
     account: z.infer<typeof Account>;
 }>();
 
-const isMe = identity.value?.account.id === account.id;
-const isLoggedIn = !!identity.value;
+const authStore = useAuthStore();
+const isMe = authStore.account?.id === account.id;
 
 const { copy } = useClipboard();
 const copyText = (text: string) => {
@@ -105,7 +105,7 @@ const isRemote = account.acct.includes("@");
 
 const muteUser = async (userId: string) => {
     const id = toast.loading(m.ornate_tidy_coyote_grow());
-    await client.value.muteAccount(userId);
+    await authStore.client.muteAccount(userId);
     toast.dismiss(id);
 
     toast.success("User muted");
@@ -113,7 +113,7 @@ const muteUser = async (userId: string) => {
 
 const blockUser = async (userId: string) => {
     const id = toast.loading(m.empty_smug_raven_bloom());
-    await client.value.blockAccount(userId);
+    await authStore.client.blockAccount(userId);
     toast.dismiss(id);
 
     toast.success("User blocked");
@@ -121,7 +121,7 @@ const blockUser = async (userId: string) => {
 
 const refresh = async () => {
     const id = toast.loading(m.real_every_macaw_wish());
-    await client.value.refetchAccount(account.id);
+    await authStore.client.refetchAccount(account.id);
     toast.dismiss(id);
 
     toast.success(m.many_cool_fox_love());

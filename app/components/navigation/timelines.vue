@@ -2,7 +2,7 @@
     <Tabs v-model:model-value="current">
         <TabsList>
             <TabsTrigger v-for="timeline in timelines.filter(
-                i => i.requiresLogin ? !!identity : true,
+                i => i.requiresLogin ? authStore.isSignedIn : true,
             )" :key="timeline.value" :value="timeline.value" :as="NuxtLink" :href="timeline.url">
                 {{ timeline.name }}
             </TabsTrigger>
@@ -47,12 +47,12 @@ const timelines = [
     },
 ];
 
-const { beforeEach } = useRouter();
 const { path } = useRoute();
+const authStore = useAuthStore();
 
 const current = computed(() => {
     if (path === "/") {
-        return identity.value ? "home" : "public";
+        return authStore.isSignedIn ? "home" : "public";
     }
 
     const timeline = timelines.find((i) => i.url === path);

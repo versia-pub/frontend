@@ -160,15 +160,17 @@ const schema = toTypedSchema(
         }),
 );
 
-const instance = useInstanceFromClient(new Client(client.value.url));
+const client = new Client(new URL(useRequestURL().origin));
+const instance = useInstanceFromClient(client);
 const form = useForm({
     validationSchema: schema,
 });
+const authStore = useAuthStore();
 
 const handleSubmit = form.handleSubmit((values) => {
     isLoading.value = true;
-    ref(client)
-        .value?.registerAccount(
+    authStore.client
+        .registerAccount(
             values.username,
             values.email,
             values.password,

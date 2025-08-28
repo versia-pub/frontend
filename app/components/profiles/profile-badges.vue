@@ -33,15 +33,14 @@ import ProfileBadge from "./profile-badge.vue";
 const { account } = defineProps<{
     account: z.infer<typeof Account>;
 }>();
+const authStore = useAuthStore();
 
 const config = useConfig();
 const roles = account.roles.filter((r) => r.visible);
 // Get user handle in username@instance format
 const handle = account.acct.includes("@")
     ? account.acct
-    : `${account.acct}@${
-          identity.value?.instance.domain ?? window.location.host
-      }`;
+    : `${account.acct}@${authStore.instance?.domain ?? window.location.host}`;
 const isDeveloper = config.DEVELOPER_HANDLES.includes(handle);
 </script>
 

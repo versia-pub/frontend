@@ -11,8 +11,10 @@ import {
 import * as m from "~~/paraglide/messages.js";
 import Composer from "./composer.vue";
 
+const authStore = useAuthStore();
+
 useListen("composer:open", () => {
-    if (identity.value) {
+    if (authStore.isSignedIn) {
         open.value = true;
     }
 });
@@ -21,7 +23,7 @@ useListen("composer:edit", async (note) => {
     const id = toast.loading(m.wise_late_fireant_walk(), {
         duration: 0,
     });
-    const { data: source } = await client.value.getStatusSource(note.id);
+    const { data: source } = await authStore.client.getStatusSource(note.id);
     relation.value = {
         type: "edit",
         note,

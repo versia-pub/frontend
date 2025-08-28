@@ -17,5 +17,5 @@ const {
     loadPrev,
     removeItem,
     updateItem,
-} = useNotificationTimeline(client.value);
+} = useNotificationTimeline();
 </script>

@@ -5,22 +5,19 @@
             :disabled="file.uploading || file.updating"
             class="block bg-card text-card-foreground shadow-sm h-28 overflow-hidden rounded relative min-w-28 *:disabled:opacity-50"
         >
-            <img :src="createObjectURL(file.file)" class="object-contain h-28 w-full" :alt="file.alt" />
+            <img v-if="file.file?.type.startsWith('image/')" :src="createObjectURL(file.file)" class="object-contain h-28 w-full" :alt="file.alt" />
+            <FileIcon v-else class="size-6 m-auto text-muted-foreground" />
             <Badge
-                v-if="!(file.uploading || file.updating)"
+                v-if="file.file && !(file.uploading || file.updating)"
                 class="absolute bottom-1 right-1"
                 variant="default"
                 >{{ formatBytes(file.file.size) }}</Badge
             >
-            <Spinner v-else class="absolute bottom-1 right-1 size-8 p-1.5" />
+            <Spinner v-else-if="file.file" class="absolute bottom-1 right-1 size-8 p-1.5" />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-48">
-            <DropdownMenuLabel>{{ file.file.name }}</DropdownMenuLabel>
+            <DropdownMenuLabel v-if="file.file">{{ file.file.name }}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem @click="editName">
-                <TextCursorInput />
-                Rename
-            </DropdownMenuItem>
             <DropdownMenuItem @click="editCaption">
                 <Captions />
                 Add caption
@@ -35,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Captions, Delete, TextCursorInput } from "lucide-vue-next";
+import { Captions, Delete, FileIcon } from "lucide-vue-next";
 import Spinner from "~/components/graphics/spinner.vue";
 import { confirmModalService } from "~/components/modals/composable.ts";
 import { Badge } from "~/components/ui/badge";
@@ -47,44 +44,21 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import type { ComposerState } from "./composer";
+import type { ComposerStateKey } from "~/stores/composer";
 
-const file = defineModel<ComposerState["files"][number]>("file", {
+const { composerKey } = defineProps<{
+    composerKey: ComposerStateKey;
+}>();
+
+const file = defineModel<ComposerFile>("file", {
     required: true,
 });
+
+const composerStore = useComposerStore(composerKey)();
 
 const emit = defineEmits<{
     remove: [];
 }>();
-
-const editName = async () => {
-    const result = await confirmModalService.confirm({
-        title: "Enter a new name",
-        defaultValue: file.value.file.name,
-        confirmText: "Edit",
-        inputType: "text",
-    });
-
-    if (result.confirmed) {
-        file.value.updating = true;
-        file.value.file = new File(
-            [file.value.file],
-            result.value ?? file.value.file.name,
-            {
-                type: file.value.file.type,
-                lastModified: file.value.file.lastModified,
-            },
-        );
-
-        try {
-            await client.value.updateMedia(file.value.apiId ?? "", {
-                file: file.value.file,
-            });
-        } finally {
-            file.value.updating = false;
-        }
-    }
-};
 
 const editCaption = async () => {
     const result = await confirmModalService.confirm({
@@ -97,16 +71,10 @@ const editCaption = async () => {
     });
 
     if (result.confirmed) {
-        file.value.updating = true;
-        file.value.alt = result.value;
-
-        try {
-            await client.value.updateMedia(file.value.apiId ?? "", {
-                description: file.value.alt,
-            });
-        } finally {
-            file.value.updating = false;
-        }
+        await composerStore.updateFileDescription(
+            file.value.id,
+            result.value ?? "",
+        );
     }
 };
 

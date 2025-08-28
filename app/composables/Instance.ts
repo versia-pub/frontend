@@ -2,10 +2,6 @@ import type { Client } from "@versia/client";
 import type { Instance, TermsOfService } from "@versia/client/schemas";
 import type { z } from "zod";
 
-export const useInstance = () => {
-    return computed(() => identity.value?.instance);
-};
-
 export const useInstanceFromClient = (client: MaybeRef<Client>) => {
     if (!client) {
         return ref(null as z.infer<typeof Instance> | null);

@@ -4,18 +4,20 @@ import { useIntervalFn } from "@vueuse/core";
 import type { z } from "zod";
 
 export interface TimelineOptions<T> {
-    fetchFunction: (client: Client, options: object) => Promise<Output<T[]>>;
+    fetchFunction: (options: object) => Promise<Output<T[]>>;
     updateInterval?: number;
     limit?: number;
 }
 
 export function useTimeline<
     T extends z.infer<typeof Status> | z.infer<typeof Notification>,
->(client: Client, options: TimelineOptions<T>) {
+>(options: TimelineOptions<T>) {
     const items = ref<T[]>([]) as Ref<T[]>;
     const isLoading = ref(false);
     const hasReachedEnd = ref(false);
     const error = ref<Error | null>(null);
+    const authStore = useAuthStore();
+    const { identity } = storeToRefs(authStore);
 
     const nextMaxId = ref<string | undefined>(undefined);
     const prevMinId = ref<string | undefined>(undefined);
@@ -29,7 +31,7 @@ export function useTimeline<
         error.value = null;
 
         try {
-            const response = await options.fetchFunction(client, {
+            const response = await options.fetchFunction({
                 limit: options.limit || 20,
                 max_id: direction === "next" ? nextMaxId.value : undefined,
                 min_id: direction === "prev" ? prevMinId.value : undefined,
@@ -97,6 +99,17 @@ export function useTimeline<
 
     onUnmounted(() => {
         pause();
+    });
+
+    watch(identity, (newIdentity, oldIdentity) => {
+        if (newIdentity?.id !== oldIdentity?.id) {
+            // Reload timeline when identity changes
+            items.value = [];
+            nextMaxId.value = undefined;
+            prevMinId.value = undefined;
+            hasReachedEnd.value = false;
+            error.value = null;
+        }
     });
 
     return {

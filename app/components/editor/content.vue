@@ -29,6 +29,7 @@ const {
     mode?: "rich" | "plain";
     disabled?: boolean;
 }>();
+const authStore = useAuthStore();
 
 const emit = defineEmits<{
     pasteFiles: [files: File[]];
@@ -53,13 +54,13 @@ const editor = new Editor({
         }),
         Emoji.configure({
             emojis: emojis.concat(
-                identity.value?.emojis.map((emoji) => ({
+                authStore.emojis.map((emoji) => ({
                     name: emoji.shortcode,
                     shortcodes: [emoji.shortcode],
                     group: emoji.category ?? undefined,
                     tags: [],
                     fallbackImage: emoji.url,
-                })) || [],
+                })),
             ),
             HTMLAttributes: {
                 class: "emoji not-prose",

@@ -4,11 +4,12 @@ import type { z } from "zod";
 import { type TimelineOptions, useTimeline } from "./Timeline";
 
 export function useNotificationTimeline(
-    client: Client,
     options: Partial<TimelineOptions<z.infer<typeof Notification>>> = {},
 ) {
-    return useTimeline(client, {
-        fetchFunction: (client, opts) => client.getNotifications(opts),
+    const authStore = useAuthStore();
+
+    return useTimeline({
+        fetchFunction: (opts) => authStore.client.getNotifications(opts),
         ...options,
     });
 }

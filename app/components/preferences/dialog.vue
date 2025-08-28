@@ -62,22 +62,11 @@ const categories = Object.fromEntries(
     }),
 );
 
-const { account: author1 } = useAccountFromAcct(
-    client,
-    "jessew@vs.cpluspatch.com",
-);
-
-const { account: author2 } = useAccountFromAcct(
-    client,
-    "aprl@social.lysand.org",
-);
-
-const { account: author3 } = useAccountFromAcct(
-    client,
-    "lina@social.lysand.org",
-);
-
-const { account: author4 } = useAccountFromAcct(client, "nyx@v.everypizza.im");
+const { account: author1 } = useAccountFromAcct("jessew@vs.cpluspatch.com");
+const { account: author2 } = useAccountFromAcct("aprl@social.lysand.org");
+const { account: author3 } = useAccountFromAcct("lina@social.lysand.org");
+const { account: author4 } = useAccountFromAcct("nyx@v.everypizza.im");
+const authStore = useAuthStore();
 
 const open = ref(false);
 
@@ -87,14 +76,14 @@ useListen("preferences:open", () => {
 </script>
 
 <template>
-    <Dialog v-model:open="open" v-if="identity">
+    <Dialog v-model:open="open" v-if="authStore.isSignedIn">
         <DialogContent class="md:max-w-5xl w-full h-full p-0 md:max-h-[70dvh] overflow-hidden">
             <Tabs class="md:grid-cols-[auto_minmax(0,1fr)] !grid gap-2 *:p-4 overflow-hidden *:overflow-y-auto *:h-full" orientation="vertical"
                 :default-value="pages[0]">
                 <DialogHeader class="gap-6 grid grid-rows-[auto_minmax(0,1fr)] border-b md:border-b-0 md:border-r min-w-60 text-left">
                     <div class="grid gap-3 items-center grid-cols-[auto_minmax(0,1fr)]">
-                        <Avatar :name="identity.account.display_name || identity.account.username"
-                            :src="identity.account.avatar" />
+                        <Avatar :name="authStore.account!.display_name || authStore.account!.username"
+                            :src="authStore.account!.avatar" />
                         <DialogTitle>Preferences</DialogTitle>
                     </div>
                     <DialogDescription class="sr-only">

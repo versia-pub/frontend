@@ -3,19 +3,19 @@
         <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
     </div>
 
-    <ContentWarning v-if="state.sensitive" v-model="state.contentWarning" />
+    <ContentWarning v-if="store.sensitive" v-model="store.contentWarning" />
 
-    <EditorContent @paste-files="uploadFiles" v-model:content="state.content" v-model:raw-content="state.rawContent" :placeholder="getRandomSplash()"
+    <EditorContent @paste-files="uploadFiles" v-model:content="store.content" v-model:raw-content="store.rawContent" :placeholder="getRandomSplash()"
         class="[&>.tiptap]:!border-none [&>.tiptap]:!ring-0 [&>.tiptap]:!outline-none [&>.tiptap]:rounded-none p-0 [&>.tiptap]:max-h-[50dvh] [&>.tiptap]:overflow-y-auto [&>.tiptap]:min-h-48 [&>.tiptap]:!ring-offset-0 [&>.tiptap]:h-full"
-        :disabled="state.sending" :mode="state.contentType === 'text/html' ? 'rich' : 'plain'" />
+        :disabled="store.sending" :mode="store.contentType === 'text/html' ? 'rich' : 'plain'" />
 
     <div class="w-full flex flex-row gap-2 overflow-x-auto *:shrink-0 pb-2">
         <input type="file" ref="fileInput" @change="uploadFileFromEvent" class="hidden" multiple />
-        <Files v-model:files="state.files" />
+        <Files v-model:files="store.files" :composer-key="composerKey" />
     </div>
 
     <DialogFooter class="items-center flex-row overflow-x-auto">
-        <ComposerButtons @submit="send" @pick-file="fileInput?.click()" v-model:content-type="state.contentType" v-model:sensitive="state.sensitive" v-model:visibility="state.visibility" :relation="state.relation" :sending="state.sending" :can-send="state.canSend" :raw-content="state.rawContent" />
+        <ComposerButtons @submit="send" @pick-file="fileInput?.click()" v-model:content-type="store.contentType" v-model:sensitive="store.sensitive" v-model:visibility="store.visibility" :relation="store.relation" :sending="store.sending" :can-send="store.canSend" :raw-content="store.rawContent" />
     </DialogFooter>
 </template>
 
@@ -24,37 +24,53 @@ import Note from "~/components/notes/note.vue";
 import EditorContent from "../editor/content.vue";
 import { DialogFooter } from "../ui/dialog";
 import ComposerButtons from "./buttons.vue";
-import {
-    type ComposerState,
-    getRandomSplash,
-    send,
-    state,
-    stateFromRelation,
-    uploadFile,
-} from "./composer";
 import ContentWarning from "./content-warning.vue";
 import Files from "./files.vue";
 
+const props = defineProps<{
+    relation?: ComposerState["relation"];
+}>();
+
 const { Control_Enter, Command_Enter } = useMagicKeys();
+const { play } = useAudio();
 const fileInput = useTemplateRef<HTMLInputElement>("fileInput");
+const composerKey = props.relation
+    ? (`${props.relation.type}-${props.relation.note.id}` as const)
+    : "blank";
+const store = useComposerStore(composerKey)();
 
 watch([Control_Enter, Command_Enter], () => {
-    if (state.sending || !preferences.ctrl_enter_send.value) {
+    if (store.sending || !preferences.ctrl_enter_send.value) {
         return;
     }
 
     send();
 });
 
-const props = defineProps<{
-    relation?: ComposerState["relation"];
-}>();
+const getRandomSplash = (): string => {
+    const splashes = useConfig().COMPOSER_SPLASHES;
+
+    return splashes[Math.floor(Math.random() * splashes.length)] as string;
+};
+
+const send = async () => {
+    const result =
+        store.relation?.type === "edit"
+            ? await store.sendEdit()
+            : await store.send();
+
+    if (result) {
+        play("publish");
+        store.$reset();
+        useEvent("composer:close");
+    }
+};
 
 watch(
     props,
     async (props) => {
         if (props.relation) {
-            await stateFromRelation(
+            store.stateFromRelation(
                 props.relation.type,
                 props.relation.note,
                 props.relation.source,
@@ -69,7 +85,7 @@ const uploadFileFromEvent = (e: Event) => {
     const files = Array.from(target.files ?? []);
 
     for (const file of files) {
-        uploadFile(file);
+        store.uploadFile(file);
     }
 
     target.value = "";
@@ -77,7 +93,7 @@ const uploadFileFromEvent = (e: Event) => {
 
 const uploadFiles = (files: File[]) => {
     for (const file of files) {
-        uploadFile(file);
+        store.uploadFile(file);
     }
 };
 </script>

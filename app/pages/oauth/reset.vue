@@ -1,10 +1,4 @@
 <template>
-    <div
-        class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover"
-        :style="{
-            backgroundImage: 'url(/images/banner.webp)',
-        }"
-    >
         <Card v-if="params.success" class="w-full max-w-md *:w-full">
             <CardHeader>
                 <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>
@@ -103,7 +97,6 @@
                 </CardFooter>
             </form>
         </Card>
-    </div>
 </template>
 
 <script setup lang="ts">
@@ -135,8 +128,12 @@ import * as m from "~~/paraglide/messages.js";
 useHead({
     title: m.arable_arable_herring_lead(),
 });
+definePageMeta({
+    layout: "auth",
+});
 
-identity.value = null;
+const authStore = useAuthStore();
+authStore.setActiveIdentity(null);
 
 const formSchema = toTypedSchema(
     z

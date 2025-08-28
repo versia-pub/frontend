@@ -45,7 +45,8 @@ const { follower } = defineProps<{
 const loading = ref(true);
 const followerUrl = `/@${follower.acct}`;
 const [username, domain] = follower.acct.split("@");
-const { relationship } = useRelationship(client, follower.id);
+const { relationship } = useRelationship(follower.id);
+const authStore = useAuthStore();
 
 // TODO: Add "followed" notification
 watch(relationship, () => {
@@ -58,7 +59,7 @@ const accept = async () => {
     const id = toast.loading(m.cool_slimy_coyote_affirm());
     loading.value = true;
 
-    const { data } = await client.value.acceptFollowRequest(follower.id);
+    const { data } = await authStore.client.acceptFollowRequest(follower.id);
 
     toast.dismiss(id);
     toast.success(m.busy_awful_mouse_jump());
@@ -70,7 +71,7 @@ const reject = async () => {
     const id = toast.loading(m.front_sunny_penguin_flip());
     loading.value = true;
 
-    const { data } = await client.value.rejectFollowRequest(follower.id);
+    const { data } = await authStore.client.rejectFollowRequest(follower.id);
 
     toast.dismiss(id);
     toast.success(m.green_flat_mayfly_trust());

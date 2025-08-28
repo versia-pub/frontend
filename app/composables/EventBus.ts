@@ -1,7 +1,6 @@
 import type { Account, Attachment, Status } from "@versia/client/schemas";
 import mitt from "mitt";
 import type { z } from "zod";
-import type { Identity } from "./Identities";
 
 type ApplicationEvents = {
     "note:reply": z.infer<typeof Status>;
@@ -23,7 +22,6 @@ type ApplicationEvents = {
     "account:report": z.infer<typeof Account>;
     "account:update": z.infer<typeof Account>;
     "attachment:view": z.infer<typeof Attachment>;
-    "identity:change": Identity;
     "preferences:open": undefined;
     error: {
         code: string;

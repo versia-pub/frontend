@@ -1,6 +1,6 @@
 <template>
-     <div v-if="emojis.length > 0" class="grow">
-        <Table :emojis="emojis" :can-upload="canUpload" />
+     <div v-if="authStore.emojis.length > 0" class="grow">
+        <Table :emojis="authStore.emojis" :can-upload="canUpload" />
      </div>
 </template>
 
@@ -8,12 +8,10 @@
 import { RolePermission } from "@versia/client/schemas";
 import Table from "./table.vue";
 
-const permissions = usePermissions();
+const authStore = useAuthStore();
 const canUpload = computed(
     () =>
-        permissions.value.includes(RolePermission.ManageOwnEmojis) ||
-        permissions.value.includes(RolePermission.ManageEmojis),
+        authStore.permissions.includes(RolePermission.ManageOwnEmojis) ||
+        authStore.permissions.includes(RolePermission.ManageEmojis),
 );
-
-const emojis = computed(() => identity.value?.emojis ?? []);
 </script>

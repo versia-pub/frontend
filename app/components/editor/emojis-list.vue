@@ -26,14 +26,13 @@ const { items, command } = defineProps<{
     items: string[];
     command: (value: { name: string }) => void;
 }>();
+const authStore = useAuthStore();
 
 const selectedIndex = ref(0);
 const emojis = computed(() => {
     return items
         .map((item) => {
-            return identity.value?.emojis.find(
-                (emoji) => emoji.shortcode === item,
-            );
+            return authStore.emojis.find((emoji) => emoji.shortcode === item);
         })
         .filter((emoji) => emoji !== undefined);
 });

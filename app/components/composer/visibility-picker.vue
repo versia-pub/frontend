@@ -18,14 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Button } from "~/components/ui/button";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
 } from "~/components/ui/select";
-import { type ComposerState, visibilities } from "./composer";
+import { visibilities } from "./visibilities";
 
 const visibility = defineModel<ComposerState["visibility"]>("visibility", {
     required: true,

@@ -52,6 +52,7 @@ const emit = defineEmits<{
     pick: [emoji: z.infer<typeof CustomEmoji> | UnicodeEmoji];
 }>();
 
+const authStore = useAuthStore();
 const open = ref(false);
 const selectedEmoji = ref<z.infer<typeof CustomEmoji> | UnicodeEmoji | null>(
     null,
@@ -59,12 +60,10 @@ const selectedEmoji = ref<z.infer<typeof CustomEmoji> | UnicodeEmoji | null>(
 const emojiContainer = useTemplateRef<HTMLDivElement>("emojiContainer");
 const filter = ref("");
 
-const customEmojis = computed(() => identity.value?.emojis ?? []);
-
 const customEmojiCategories = computed(() => {
     const categories: Record<string, z.infer<typeof CustomEmoji>[]> = {};
 
-    for (const emoji of customEmojis.value) {
+    for (const emoji of authStore.emojis) {
         const categoryName = emoji.category || "Uncategorized";
 
         if (!categories[categoryName]) {

@@ -32,7 +32,7 @@
             <TriangleAlert class="!size-5" />
         </Toggle>
     </ComposerButton>
-    <CharacterCounter class="ml-auto" :max="(identity as Identity).instance.configuration.statuses.max_characters" :current="rawContent.length" />
+    <CharacterCounter class="ml-auto" :max="authStore.instance?.configuration.statuses.max_characters ?? 0" :current="rawContent.length" />
     <Button type="submit" size="lg" :disabled="sending || !canSend" @click="emit('submit')">
         <Loader v-if="sending" class="!size-5 animate-spin" />
         {{
@@ -57,7 +57,7 @@ import { Button } from "../ui/button";
 import { Toggle } from "../ui/toggle";
 import ComposerButton from "./button.vue";
 import CharacterCounter from "./character-counter.vue";
-import { type ComposerState, visibilities } from "./composer";
+import { visibilities } from "./visibilities";
 import VisibilityPicker from "./visibility-picker.vue";
 
 const { relation, sending, canSend, rawContent } = defineProps<{
@@ -66,6 +66,7 @@ const { relation, sending, canSend, rawContent } = defineProps<{
     canSend: boolean;
     rawContent: string;
 }>();
+const authStore = useAuthStore();
 
 const contentType = defineModel<ComposerState["contentType"]>("contentType", {
     required: true,

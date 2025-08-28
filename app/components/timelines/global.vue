@@ -18,7 +18,7 @@ const {
     loadPrev,
     removeItem,
     updateItem,
-} = useGlobalTimeline(client.value);
+} = useGlobalTimeline();
 
 useListen("note:delete", ({ id }) => {
     removeItem(id);

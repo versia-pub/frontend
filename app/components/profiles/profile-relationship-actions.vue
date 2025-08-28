@@ -1,5 +1,5 @@
 <template>
-    <Button variant="secondary" :disabled="isLoading || relationship?.requested" v-if="!isMe && identity"
+    <Button variant="secondary" :disabled="isLoading || relationship?.requested" v-if="!isMe && authStore.isSignedIn"
         @click="relationship?.following ? unfollow() : follow()">
         <Loader v-if="isLoading" class="animate-spin" />
         <span v-else>
@@ -27,8 +27,9 @@ const { account } = defineProps<{
     account: z.infer<typeof Account>;
 }>();
 
-const { relationship, isLoading } = useRelationship(client, account.id);
-const isMe = identity.value?.account.id === account.id;
+const { relationship, isLoading } = useRelationship(account.id);
+const authStore = useAuthStore();
+const isMe = authStore.account?.id === account.id;
 
 const follow = async () => {
     if (preferences.confirm_actions.value.includes("follow")) {
@@ -47,7 +48,7 @@ const follow = async () => {
     }
 
     const id = toast.loading(m.quick_basic_peacock_bubble());
-    const { data } = await client.value.followAccount(account.id);
+    const { data } = await authStore.client.followAccount(account.id);
     toast.dismiss(id);
 
     relationship.value = data;
@@ -71,7 +72,7 @@ const unfollow = async () => {
     }
 
     const id = toast.loading(m.big_safe_guppy_mix());
-    const { data } = await client.value.unfollowAccount(account.id);
+    const { data } = await authStore.client.unfollowAccount(account.id);
     toast.dismiss(id);
 
     relationship.value = data;

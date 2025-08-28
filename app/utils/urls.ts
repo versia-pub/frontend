@@ -1,8 +1,10 @@
 export const wrapUrl = (path: string) => {
+    const authStore = useAuthStore();
+
     return new URL(
         path,
-        identity.value
-            ? `https://${identity.value.instance.domain}`
+        authStore.instance
+            ? `https://${authStore.instance.domain}`
             : window.location.origin,
     ).toString();
 };

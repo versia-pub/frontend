@@ -10,15 +10,15 @@
                     Manage your accounts and settings.
                 </DialogDescription>
             </DialogHeader>
-            <div v-if="identities.length > 0" class="grid gap-4 py-2">
-                <div v-for="identity of identities" :key="identity.account.id"
+            <div v-if="authStore.identities.length > 0" class="grid gap-4 py-2">
+                <div v-for="identity of authStore.identities" :key="identity.account.id"
                     class="grid grid-cols-[1fr_auto] has-[>[data-switch]]:grid-cols-[1fr_auto_auto] gap-2">
                     <TinyCard :account="identity.account" :domain="identity.instance.domain" naked />
-                    <Button data-switch v-if="currentIdentity?.id !== identity.id"
-                        @click="switchAccount(identity.account.id)" variant="outline">
+                    <Button data-switch v-if="authStore.identity?.id !== identity.id"
+                        @click="authStore.setActiveIdentity(identity.id)" variant="outline">
                         Switch
                     </Button>
-                    <Button @click="signOut(appData, identity)" variant="outline" size="icon"
+                    <Button @click="signOutAction(identity.id)" variant="outline" size="icon"
                         :title="m.sharp_big_mallard_reap()">
                         <LogOut />
                     </Button>
@@ -47,7 +47,6 @@
 import { LogIn, LogOut, UserPlus } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { NuxtLink } from "#components";
-import { identity as currentIdentity } from "#imports";
 import TinyCard from "~/components/profiles/tiny-card.vue";
 import { Button } from "~/components/ui/button";
 import {
@@ -61,31 +60,25 @@ import {
 } from "~/components/ui/dialog";
 import * as m from "~~/paraglide/messages.js";
 
-const appData = useAppData();
+const authStore = useAuthStore();
+const signInAction = async () => {
+    const instance = await askForInstance();
 
-const signInAction = async () => signIn(appData, await askForInstance());
+    const id = toast.loading(m.level_due_ox_greet());
 
-const switchAccount = async (userId: string) => {
-    if (userId === currentIdentity.value?.account.id) {
-        return await navigateTo(`/@${currentIdentity.value.account.username}`);
-    }
-
-    const id = toast.loading("Switching account...");
-
-    const identityToSwitch = identities.value.find(
-        (i) => i.account.id === userId,
-    );
-
-    if (!identityToSwitch) {
+    try {
+        await authStore.startSignIn(instance);
+    } catch (e) {
+        console.error(e);
         toast.dismiss(id);
-        toast.error("No identity to switch to");
-        return;
     }
+};
 
-    currentIdentity.value = identityToSwitch;
+const signOutAction = async (identityId: string) => {
+    const id = toast.loading("Signing out...");
+
+    await authStore.signOut(identityId);
     toast.dismiss(id);
-    toast.success("Switched account");
-
-    window.location.href = "/";
+    toast.success("Signed out");
 };
 </script>

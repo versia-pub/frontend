@@ -1,5 +1,5 @@
 <template>
-    <form v-if="identity" class="grid gap-6" @submit="save">
+    <form class="grid gap-6" @submit="save">
         <Transition name="slide-up">
             <Alert v-if="dirty" layout="button" class="absolute bottom-2 z-10 inset-x-2 w-[calc(100%-1rem)]">
                 <SaveOff class="size-4" />
@@ -19,7 +19,7 @@
 
         <FormField v-slot="{ setValue }" name="avatar">
             <TextInput :title="m.safe_icy_bulldog_quell()">
-                <ImageUploader v-model:image="identity.account.avatar" @submit-file="(file) => setValue(file)"
+                <ImageUploader v-model:image="authStore.account!.avatar" @submit-file="(file) => setValue(file)"
                     @submit-url="(url) => setValue(url)" />
             </TextInput>
         </FormField>
@@ -85,25 +85,25 @@ import ImageUploader from "./profile/image-uploader.vue";
 
 const dirty = computed(() => form.meta.value.dirty);
 const submitting = ref(false);
+const authStore = useAuthStore();
 
-if (!identity.value) {
-    throw new Error("Identity not found.");
+if (!(authStore.instance && authStore.account)) {
+    throw new Error("Not signed in.");
 }
 
-const account = computed(() => identity.value?.account as Identity["account"]);
-const schema = formSchema(identity.value);
+const schema = formSchema(authStore.instance);
 
 const form = useForm({
     validationSchema: schema,
     initialValues: {
-        bio: account.value.source?.note ?? "",
-        bot: account.value.bot ?? false,
-        locked: account.value.locked ?? false,
-        discoverable: account.value.discoverable ?? true,
-        username: account.value.username,
-        name: account.value.display_name,
+        bio: authStore.account.source?.note ?? "",
+        bot: authStore.account.bot ?? false,
+        locked: authStore.account.locked ?? false,
+        discoverable: authStore.account.discoverable ?? true,
+        username: authStore.account.username,
+        name: authStore.account.display_name,
         fields:
-            account.value.source?.fields.map((f) => ({
+            authStore.account.source?.fields.map((f) => ({
                 name: f.name,
                 value: f.value,
             })) ?? [],
@@ -111,7 +111,7 @@ const form = useForm({
 });
 
 const save = form.handleSubmit(async (values) => {
-    if (submitting.value) {
+    if (submitting.value || !authStore.account) {
         return;
     }
 
@@ -120,25 +120,29 @@ const save = form.handleSubmit(async (values) => {
 
     const changedData = {
         display_name:
-            values.name === account.value.display_name
+            values.name === authStore.account.display_name
                 ? undefined
                 : values.name,
         username:
-            values.username === account.value.username
+            values.username === authStore.account.username
                 ? undefined
                 : values.username,
         note:
-            values.bio === account.value.source?.note ? undefined : values.bio,
-        bot: values.bot === account.value.bot ? undefined : values.bot,
+            values.bio === authStore.account.source?.note
+                ? undefined
+                : values.bio,
+        bot: values.bot === authStore.account.bot ? undefined : values.bot,
         locked:
-            values.locked === account.value.locked ? undefined : values.locked,
+            values.locked === authStore.account.locked
+                ? undefined
+                : values.locked,
         discoverable:
-            values.discoverable === account.value.discoverable
+            values.discoverable === authStore.account.discoverable
                 ? undefined
                 : values.discoverable,
         // Can't compare two arrays directly in JS, so we need to check if all fields are the same
         fields_attributes: values.fields.every((field) =>
-            account.value.source?.fields?.some(
+            authStore.account?.source?.fields?.some(
                 (f) => f.name === field.name && f.value === field.value,
             ),
         )
@@ -157,7 +161,7 @@ const save = form.handleSubmit(async (values) => {
     }
 
     try {
-        const { data } = await client.value.updateCredentials(
+        const { data } = await authStore.client.updateCredentials(
             Object.fromEntries(
                 Object.entries(changedData).filter(([, v]) => v !== undefined),
             ),
@@ -166,9 +170,9 @@ const save = form.handleSubmit(async (values) => {
         toast.dismiss(id);
         toast.success(m.spry_honest_kestrel_arrive());
 
-        if (identity.value) {
-            identity.value.account = data;
-        }
+        authStore.updateActiveIdentity({
+            account: data,
+        });
 
         form.resetForm({
             values: {

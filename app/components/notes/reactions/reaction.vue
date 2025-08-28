@@ -53,6 +53,8 @@ const { reaction, emoji, statusId } = defineProps<{
     emoji?: z.infer<typeof CustomEmoji>;
 }>();
 
+const authStore = useAuthStore();
+
 const formatNumber = (number: number) =>
     new Intl.NumberFormat(getLocale(), {
         notation: "compact",
@@ -63,12 +65,13 @@ const formatNumber = (number: number) =>
 const accounts = ref<z.infer<typeof Account>[] | null>(null);
 
 const refreshReactions = async () => {
-    const { data } = await client.value.getStatusReactions(statusId);
+    const { data } = await authStore.client.getStatusReactions(statusId);
     const accountIds =
         data.find((r) => r.name === reaction.name)?.account_ids.slice(0, 10) ??
         [];
 
-    const { data: accountsData } = await client.value.getAccounts(accountIds);
+    const { data: accountsData } =
+        await authStore.client.getAccounts(accountIds);
 
     accounts.value = accountsData;
 };
@@ -76,7 +79,7 @@ const refreshReactions = async () => {
 const react = async () => {
     const id = toast.loading(m.gray_stale_antelope_roam());
 
-    const { data } = await client.value.createEmojiReaction(
+    const { data } = await authStore.client.createEmojiReaction(
         statusId,
         reaction.name,
     );
@@ -89,7 +92,7 @@ const react = async () => {
 const unreact = async () => {
     const id = toast.loading(m.many_weary_bat_intend());
 
-    const { data } = await client.value.deleteEmojiReaction(
+    const { data } = await authStore.client.deleteEmojiReaction(
         statusId,
         reaction.name,
     );

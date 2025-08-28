@@ -39,7 +39,7 @@ definePageMeta({
     ],
 });
 
-const { account, isLoading } = useAccountFromAcct(client, username);
+const { account, isLoading } = useAccountFromAcct(username);
 const accountId = computed(() => account.value?.id ?? undefined);
 
 useSeoMeta({

@@ -1,15 +1,15 @@
-import type { Client } from "@versia/client";
 import type { Status } from "@versia/client/schemas";
 import type { z } from "zod";
 import { type TimelineOptions, useTimeline } from "./Timeline";
 
 export function useGlobalTimeline(
-    client: Client,
     options: Partial<TimelineOptions<z.infer<typeof Status>>> = {},
 ) {
-    return useTimeline(client, {
+    const authStore = useAuthStore();
+
+    return useTimeline({
         // TODO: Implement global timeline in client sdk
-        fetchFunction: (client, opts) => client.getPublicTimeline(opts),
+        fetchFunction: (opts) => authStore.client.getPublicTimeline(opts),
         ...options,
     });
 }

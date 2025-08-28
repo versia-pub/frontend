@@ -17,7 +17,7 @@ const {
     loadPrev,
     removeItem,
     updateItem,
-} = usePublicTimeline(client.value);
+} = usePublicTimeline();
 
 useListen("note:delete", ({ id }) => {
     removeItem(id);

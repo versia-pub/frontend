@@ -1,17 +1,17 @@
 <template>
     <div class="flex flex-row w-full max-w-sm items-stretch justify-between">
-        <ActionButton :icon="Reply" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!identity">
+        <ActionButton :icon="Reply" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!authStore.isSignedIn">
             {{ numberFormat(replyCount) }}
         </ActionButton>
-        <ActionButton :icon="Heart" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!identity" :class="liked && '*:fill-red-600 *:text-red-600'">
+        <ActionButton :icon="Heart" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!authStore.isSignedIn" :class="liked && '*:fill-red-600 *:text-red-600'">
             {{ numberFormat(likeCount) }}
         </ActionButton>
-        <ActionButton :icon="Repeat" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!identity" :class="reblogged && '*:text-green-600'">
+        <ActionButton :icon="Repeat" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!authStore.isSignedIn" :class="reblogged && '*:text-green-600'">
             {{ numberFormat(reblogCount) }}
         </ActionButton>
-        <ActionButton :icon="Quote" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!identity" />
+        <ActionButton :icon="Quote" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!authStore.isSignedIn" />
         <Picker @pick="react">
-            <ActionButton :icon="Smile" :title="m.bald_cool_kangaroo_jump()" :disabled="!identity" />
+            <ActionButton :icon="Smile" :title="m.bald_cool_kangaroo_jump()" :disabled="!authStore.isSignedIn" />
         </Picker>
         <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId" @edit="emit('edit')" :note-id="noteId" @delete="emit('delete')">
             <ActionButton :icon="Ellipsis" :title="m.busy_merry_cowfish_absorb()" />
@@ -54,6 +54,7 @@ const emit = defineEmits<{
     react: [];
 }>();
 const { play } = useAudio();
+const authStore = useAuthStore();
 
 const like = async () => {
     if (preferences.confirm_actions.value.includes("like")) {
@@ -71,7 +72,7 @@ const like = async () => {
 
     play("like");
     const id = toast.loading(m.slimy_candid_tiger_read());
-    const { data } = await client.value.favouriteStatus(noteId);
+    const { data } = await authStore.client.favouriteStatus(noteId);
     toast.dismiss(id);
     toast.success(m.mealy_slow_buzzard_commend());
     useEvent("note:edit", data);
@@ -92,7 +93,7 @@ const unlike = async () => {
     }
 
     const id = toast.loading(m.busy_active_leopard_strive());
-    const { data } = await client.value.unfavouriteStatus(noteId);
+    const { data } = await authStore.client.unfavouriteStatus(noteId);
     toast.dismiss(id);
     toast.success(m.fresh_direct_bear_affirm());
     useEvent("note:edit", data);
@@ -113,7 +114,7 @@ const reblog = async () => {
     }
 
     const id = toast.loading(m.late_sunny_cobra_scold());
-    const { data } = await client.value.reblogStatus(noteId);
+    const { data } = await authStore.client.reblogStatus(noteId);
     toast.dismiss(id);
     toast.success(m.weird_moving_hawk_lift());
     useEvent(
@@ -137,7 +138,7 @@ const unreblog = async () => {
     }
 
     const id = toast.loading(m.white_sharp_gorilla_embrace());
-    const { data } = await client.value.unreblogStatus(noteId);
+    const { data } = await authStore.client.unreblogStatus(noteId);
     toast.dismiss(id);
     toast.success(m.royal_polite_moose_catch());
     useEvent("note:edit", data);
@@ -149,7 +150,7 @@ const react = async (emoji: z.infer<typeof CustomEmoji> | UnicodeEmoji) => {
         ? (emoji as UnicodeEmoji).unicode
         : `:${(emoji as z.infer<typeof CustomEmoji>).shortcode}:`;
 
-    const { data } = await client.value.createEmojiReaction(noteId, text);
+    const { data } = await authStore.client.createEmojiReaction(noteId, text);
 
     toast.dismiss(id);
     toast.success(m.main_least_turtle_fall());

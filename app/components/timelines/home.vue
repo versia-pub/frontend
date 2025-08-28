@@ -4,9 +4,9 @@
         :update-item="updateItem" />
 </template>
 
-<script lang="ts" setup>import { useHomeTimeline } from "~/composables/HomeTimeline";
+<script lang="ts" setup>
+import { useHomeTimeline } from "~/composables/HomeTimeline";
 import Timeline from "./timeline.vue";
-import type { z } from "zod";
 
 const {
     error,
@@ -17,7 +17,7 @@ const {
     loadPrev,
     removeItem,
     updateItem,
-} = useHomeTimeline(client.value);
+} = useHomeTimeline();
 
 useListen("note:delete", ({ id }) => {
     removeItem(id);

@@ -1,22 +1,19 @@
-import type { Client } from "@versia/client";
 import type { Relationship } from "@versia/client/schemas";
 import type { z } from "zod";
 
-export const useRelationship = (
-    client: MaybeRef<Client | null>,
-    accountId: MaybeRef<string | null>,
-) => {
+export const useRelationship = (accountId: MaybeRef<string | null>) => {
     const relationship = ref(null as z.infer<typeof Relationship> | null);
     const isLoading = ref(false);
+    const authStore = useAuthStore();
 
-    if (!identity.value) {
+    if (!authStore.isSignedIn) {
         return { relationship, isLoading };
     }
 
     watchEffect(() => {
         if (toValue(accountId)) {
-            toValue(client)
-                ?.getRelationship(toValue(accountId) ?? "")
+            authStore.client
+                .getRelationship(toValue(accountId) ?? "")
                 .then((res) => {
                     relationship.value = res.data;
                 });
@@ -28,14 +25,14 @@ export const useRelationship = (
             if (newOutput?.following !== oldOutput?.following) {
                 isLoading.value = true;
                 if (newOutput?.following) {
-                    toValue(client)
-                        ?.followAccount(toValue(accountId) ?? "")
+                    authStore.client
+                        .followAccount(toValue(accountId) ?? "")
                         .finally(() => {
                             isLoading.value = false;
                         });
                 } else {
-                    toValue(client)
-                        ?.unfollowAccount(toValue(accountId) ?? "")
+                    authStore.client
+                        .unfollowAccount(toValue(accountId) ?? "")
                         .finally(() => {
                             isLoading.value = false;
                         });

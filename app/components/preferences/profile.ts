@@ -1,10 +1,11 @@
 import { toTypedSchema } from "@vee-validate/zod";
+import type { Instance } from "@versia/client/schemas";
 import { z } from "zod";
 import * as m from "~~/paraglide/messages.js";
 
 const characterRegex = new RegExp(/^[a-z0-9_-]+$/);
 
-export const formSchema = (identity: Identity) =>
+export const formSchema = (instance: z.infer<typeof Instance>) =>
     toTypedSchema(
         z.strictObject({
             banner: z
@@ -12,11 +13,10 @@ export const formSchema = (identity: Identity) =>
                 .refine(
                     (v) =>
                         v.size <=
-                        (identity.instance.configuration.accounts
-                            .header_limit ?? Number.POSITIVE_INFINITY),
+                        (instance.configuration.accounts.header_limit ??
+                            Number.POSITIVE_INFINITY),
                     m.civil_icy_ant_mend({
-                        size: identity.instance.configuration.accounts
-                            .header_limit,
+                        size: instance.configuration.accounts.header_limit,
                     }),
                 )
                 .optional(),
@@ -25,11 +25,10 @@ export const formSchema = (identity: Identity) =>
                 .refine(
                     (v) =>
                         v.size <=
-                        (identity.instance.configuration.accounts
-                            .avatar_limit ?? Number.POSITIVE_INFINITY),
+                        (instance.configuration.accounts.avatar_limit ??
+                            Number.POSITIVE_INFINITY),
                     m.zippy_caring_raven_edit({
-                        size: identity.instance.configuration.accounts
-                            .avatar_limit,
+                        size: instance.configuration.accounts.avatar_limit,
                     }),
                 )
                 .or(z.string().url())
@@ -37,22 +36,15 @@ export const formSchema = (identity: Identity) =>
             name: z
                 .string()
                 .max(
-                    identity.instance.configuration.accounts
-                        .max_displayname_characters,
+                    instance.configuration.accounts.max_displayname_characters,
                 ),
             username: z
                 .string()
                 .regex(characterRegex, m.still_upper_otter_dine())
-                .max(
-                    identity.instance.configuration.accounts
-                        .max_username_characters,
-                ),
+                .max(instance.configuration.accounts.max_username_characters),
             bio: z
                 .string()
-                .max(
-                    identity.instance.configuration.accounts
-                        .max_note_characters,
-                ),
+                .max(instance.configuration.accounts.max_note_characters),
             bot: z.boolean().default(false),
             locked: z.boolean().default(false),
             discoverable: z.boolean().default(true),

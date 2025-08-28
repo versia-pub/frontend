@@ -10,6 +10,7 @@ const showTimelines = computed(
         ["/", "/home", "/local", "/public", "/global"].includes(route.path) &&
         isMd.value,
 );
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -23,5 +24,5 @@ const showTimelines = computed(
         </header>
         <slot />
     </main>
-    <RightSidebar v-if="identity" v-show="preferences.display_notifications_sidebar" />
+    <RightSidebar v-if="authStore.isSignedIn" v-show="preferences.display_notifications_sidebar" />
 </template>

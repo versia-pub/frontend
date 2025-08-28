@@ -17,12 +17,23 @@
 
 <script lang="ts" setup>
 import { LogIn } from "lucide-vue-next";
+import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import * as m from "~~/paraglide/messages.js";
 
-const appData = useAppData();
-const signInAction = async () => signIn(appData, await askForInstance());
+const authStore = useAuthStore();
+const signInAction = async () => {
+    const instance = await askForInstance();
+
+    const id = toast.loading(m.level_due_ox_greet());
+
+    try {
+        await authStore.startSignIn(instance);
+    } catch (e) {
+        toast.dismiss(id);
+    }
+};
 </script>
 
 <style></style>
