@@ -1,10 +1,7 @@
 <template>
     <SidebarProvider>
         <AppSidebar>
-            <slot v-if="!route.meta.requiresAuth || authStore.isSignedIn" />
-            <div class="mx-auto max-w-4xl p-4" v-else>
-                <AuthRequired />
-            </div>
+            <slot />
         </AppSidebar>
     </SidebarProvider>
     <MobileNavbar v-if="authStore.isSignedIn" />
@@ -14,7 +11,6 @@
 
 <script setup lang="ts">
 import ComposerDialog from "~/components/composer/dialog.vue";
-import AuthRequired from "~/components/errors/AuthRequired.vue";
 import MobileNavbar from "~/components/navigation/mobile-navbar.vue";
 import Preferences from "~/components/preferences/index.vue";
 import AppSidebar from "~/components/sidebars/sidebar.vue";
@@ -31,6 +27,17 @@ const notUsingInput = computed(
         activeElement.value?.contentEditable !== "true",
 );
 const route = useRoute();
+
+watch(
+    () => route.path,
+    async () => {
+        console.log(route.meta.requiresAuth && !authStore.isSignedIn);
+        if (route.meta.requiresAuth && !authStore.isSignedIn) {
+            window.location.href = "/";
+        }
+    },
+    { immediate: true },
+);
 
 watch([n, notUsingInput, d], async () => {
     if (n?.value && notUsingInput.value) {

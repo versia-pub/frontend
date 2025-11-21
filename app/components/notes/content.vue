@@ -1,11 +1,11 @@
 <template>
-    <ContentWarning v-if="(sensitive || contentWarning) && preferences.show_content_warning" :content-warning="contentWarning" v-model="blurred" />
+    <ContentWarning v-if="(sensitive || contentWarning) && preferences.show_content_warning" :content-warning="contentWarning" :character-count="characterCount ?? 0" :attachment-count="attachments.length" v-model="hidden" />
 
-    <OverflowGuard v-if="content" :character-count="characterCount" :class="(blurred && preferences.show_content_warning) && 'blur-md'">
+    <OverflowGuard v-if="content" :character-count="characterCount" :class="(hidden && preferences.show_content_warning) && 'hidden'">
         <Prose v-html="content" v-render-emojis="emojis"></Prose>
     </OverflowGuard>
 
-    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(blurred && preferences.show_content_warning) && 'blur-xl'" />
+    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(hidden && preferences.show_content_warning) && 'hidden'" />
 
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
         <Note :note="quote" :hide-actions="true" :small-layout="true" />
@@ -31,7 +31,7 @@ const { content, plainContent, sensitive, contentWarning } = defineProps<{
     contentWarning?: string;
 }>();
 
-const blurred = ref(sensitive || !!contentWarning);
+const hidden = ref(sensitive || !!contentWarning);
 
 const characterCount = plainContent?.length;
 </script>

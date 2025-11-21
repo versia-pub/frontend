@@ -1,13 +1,13 @@
 <template>
     <form class="grid gap-6" @submit="save">
         <Transition name="slide-up">
-            <Alert v-if="dirty" layout="button" class="absolute bottom-2 z-10 inset-x-2 w-[calc(100%-1rem)]">
+            <Alert v-if="dirty" class="absolute bottom-2 z-10 inset-x-2 w-[calc(100%-1rem)] grid-cols-[calc(var(--spacing)*4)_1fr_auto]!">
                 <SaveOff class="size-4" />
                 <AlertTitle>Unsaved changes</AlertTitle>
+                <Button variant="secondary" class="w-full row-span-2" type="button" :disabled="submitting">Apply</Button>
                 <AlertDescription>
                     Click "apply" to save your changes.
                 </AlertDescription>
-                <Button variant="secondary" class="w-full" typ="submit" :disabled="submitting">Apply</Button>
             </Alert>
         </Transition>
 

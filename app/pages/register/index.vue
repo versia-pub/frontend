@@ -11,7 +11,7 @@
                         {{ errors.error }}
                     </AlertDescription>
                 </Alert>
-                <CardTitle as="h1" class="text-2xl break-words">{{ m.wide_topical_vole_walk() }}</CardTitle>
+                <CardTitle as="h1" class="text-2xl wrap-break-word">{{ m.wide_topical_vole_walk() }}</CardTitle>
             </CardHeader>
             <CardContent v-if="instance && tos" class="grid gap-6">
                 <FormField v-slot="{ componentField }" name="username">
@@ -74,7 +74,7 @@
                                 <Dialog>
                                     {{ m.plane_quick_chipmunk_rush() }} <DialogTrigger :as-child="true"><Button variant="link"
                                             class="px-0 underline">{{ m.glad_last_crow_dine() }}</Button>.</DialogTrigger>
-                                    <DialogContent class="!max-h-[90vh] overflow-auto">
+                                    <DialogContent class="max-h-[90vh]! overflow-auto">
                                         <DialogHeader>
                                             <DialogTitle>{{ instance.title }}
                                             </DialogTitle>
@@ -136,7 +136,7 @@ useHead({
 const schema = toTypedSchema(
     z
         .object({
-            email: z.string().email(),
+            email: z.email(),
             password: z.string().min(3).max(255),
             "password-confirm": z.string().min(3).max(255),
             username: z
@@ -151,12 +151,11 @@ const schema = toTypedSchema(
         .superRefine((data, ctx) => {
             if (data.password !== data["password-confirm"]) {
                 ctx.addIssue({
-                    path: [...ctx.path, "password-confirm"],
+                    path: ["password-confirm"],
                     code: "custom",
                     message: m.candid_fancy_leopard_prosper(),
                 });
             }
-            return {};
         }),
 );
 

@@ -55,7 +55,7 @@
         "@tiptap/suggestion": "^3.11.0",
         "@tiptap/vue-3": "^3.11.0",
         "@vee-validate/zod": "^4.15.1",
-        "@versia/client": "0.2.0-alpha.4",
+        "@versia/client": "0.2.0",
         "@videojs-player/vue": "^1.0.0",
         "@vite-pwa/nuxt": "^1.0.7",
         "@vueuse/core": "^14.0.0",
@@ -88,10 +88,10 @@
         "vue-draggable-plus": "^0.6.0",
         "vue-router": "^4.6.3",
         "vue-sonner": "^2.0.9",
-        "zod": "^3.25.76"
+        "zod": "^4.1.12"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.2.2",
+        "@biomejs/biome": "^2.3.7",
         "@iconify-json/fluent-emoji": "^1.2.7",
         "@iconify-json/fluent-emoji-flat": "^1.2.5",
         "@iconify-json/noto": "^1.2.7",

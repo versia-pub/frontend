@@ -2,7 +2,6 @@
 import { Client } from "@versia/client";
 import { AlertCircle, Loader } from "lucide-vue-next";
 import { NuxtLink } from "#components";
-import UserAuthForm from "~/components/oauth/login.vue";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import * as m from "~~/paraglide/messages.js";
@@ -11,8 +10,8 @@ useHead({
     title: m.fuzzy_sea_moth_absorb(),
 });
 
-const baseUrl = useRequestURL();
-const client = computed(() => new Client(new URL(baseUrl)));
+const baseUrl = new URL("https://versia.localhost"); //useRequestURL();
+const client = computed(() => new Client(baseUrl));
 const instance = useInstanceFromClient(client);
 const {
     error,
@@ -22,8 +21,13 @@ const {
     client_id,
     scope,
 } = useUrlSearchParams();
+
 const hasValidUrlSearchParams =
     redirect_uri && response_type && client_id && scope;
+
+const isLoading = ref(false);
+const getProviderUrl = (providerId: string) =>
+    new URL(`/oauth/sso/${providerId}`, baseUrl).toString();
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const hasValidUrlSearchParams =
             }"
         >
             <div
-                class="absolute top-0 left-0 w-full h-72 bg-gradient-to-t from-transparent to-black/70"
+                class="absolute top-0 left-0 w-full h-72 bg-linear-to-t from-transparent to-black/70"
             />
             <div class="relative z-20 flex items-center text-lg font-medium">
                 <img
@@ -59,18 +63,6 @@ const hasValidUrlSearchParams =
                 />
                 {{ instance?.title }}
             </div>
-            <!-- <div class="relative z-20 mt-auto">
-                <blockquote class="space-y-2">
-                    <p class="text-lg">
-                        &ldquo;This library has saved me countless hours of work and
-                        helped me deliver stunning designs to my clients faster than
-                        ever before.&rdquo;
-                    </p>
-                    <footer class="text-sm">
-                        Sofia Davis
-                    </footer>
-                </blockquote>
-            </div> -->
         </div>
         <div class="lg:p-8 w-full max-w-xl">
             <div
@@ -96,9 +88,45 @@ const hasValidUrlSearchParams =
                         "
                     ></p>
                 </div>
-                <template v-if="instance && hasValidUrlSearchParams">
-                    <UserAuthForm :instance="instance" />
-                </template>
+                    <div v-if="instance && hasValidUrlSearchParams" class="grid gap-6">
+                        <div
+                            v-if="instance.sso.providers.length > 0"
+                            class="flex flex-col gap-2"
+                        >
+                            <form v-for="provider of instance.sso.providers" :key="provider.id" method="POST" :action="getProviderUrl(provider.id)">
+                                <input type="hidden" name="redirect_uri" :value="redirect_uri" />
+                                <input type="hidden" name="client_id" :value="client_id" />
+                                <input v-for="(scopePart, index) of (scope as string).split(' ')" type="hidden" :name="`scope[${index}]`" :value="scopePart" />
+                                <Button
+                                    variant="outline"
+                                    type="submit"
+                                    :disabled="isLoading"
+                                    class="w-full"
+                                >
+                                    <Loader v-if="isLoading" class="mr-2 animate-spin" />
+                                    <img
+                                        crossorigin="anonymous"
+                                        :src="provider.icon"
+                                        :alt="`${provider.name}'s logo`"
+                                        class="size-4 mr-2"
+                                    />
+                                    {{ provider.name }}
+                                </Button>
+                            </form>
+                        </div>
+                        <Alert v-else variant="destructive" class="mb-4">
+                            <AlertCircle class="size-4" />
+                            <AlertTitle>
+                                No SSO providers are configured.
+                            </AlertTitle>
+                            <AlertDescription>
+                                <p>
+                                    Please ask the administrator of
+                                    {{ instance.domain }} to set up SSO providers.
+                                </p>
+                            </AlertDescription>
+                        </Alert>
+                    </div>
                 <div
                     v-else-if="hasValidUrlSearchParams"
                     class="p-4 flex items-center justify-center h-48"
