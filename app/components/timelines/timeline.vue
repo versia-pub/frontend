@@ -16,9 +16,6 @@
 
         <div v-if="error" class="timeline-error">{{ error.message }}</div>
 
-        <!-- If there are some posts, but the user scrolled to the end -->
-        <ReachedEnd v-if="hasReachedEnd && items.length > 0"/>
-
         <!-- If there are no posts at all -->
         <NoPosts v-else-if="hasReachedEnd && items.length === 0"/>
 
@@ -43,7 +40,6 @@ import { useIntersectionObserver } from "@vueuse/core";
 import type { z } from "zod";
 import * as m from "~~/paraglide/messages.js";
 import NoPosts from "../errors/NoPosts.vue";
-import ReachedEnd from "../errors/ReachedEnd.vue";
 import Spinner from "../graphics/spinner.vue";
 import { Button } from "../ui/button";
 import TimelineItem from "./timeline-item.vue";
