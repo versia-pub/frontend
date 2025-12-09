@@ -1,30 +1,42 @@
 <template>
-    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+    <div
+        class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover"
+        :style="{
         backgroundImage: 'url(/images/banner.webp)'
-    }">
-        <Card v-if="instance?.registrations.enabled ?? true" class="w-full max-w-md" as="form" @submit="handleSubmit">
+    }"
+    >
+        <Card
+            v-if="instance?.registrations.enabled ?? true"
+            class="w-full max-w-md"
+            as="form"
+            @submit="handleSubmit"
+        >
             <CardHeader>
                 <Alert v-if="errors.error" variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4" />
+                    <AlertCircle class="size-4"/>
                     <AlertTitle>{{ m.vexed_each_falcon_enjoy() }}</AlertTitle>
-                    <AlertDescription>
-                        {{ errors.error }}
-                    </AlertDescription>
+                    <AlertDescription>{{ errors.error }}</AlertDescription>
                 </Alert>
-                <CardTitle as="h1" class="text-2xl wrap-break-word">{{ m.wide_topical_vole_walk() }}</CardTitle>
+                <CardTitle as="h1" class="text-2xl wrap-break-word">
+                    {{ m.wide_topical_vole_walk() }}
+                </CardTitle>
             </CardHeader>
             <CardContent v-if="instance && tos" class="grid gap-6">
                 <FormField v-slot="{ componentField }" name="username">
                     <FormItem>
-                        <FormLabel>
-                            {{ m.keen_clean_nils_slurp() }}
-                        </FormLabel>
+                        <FormLabel>{{ m.keen_clean_nils_slurp() }}</FormLabel>
                         <FormControl>
-                            <Input placeholder="petergriffin" type="text" auto-capitalize="none"
-                                auto-complete="idenfifier" auto-correct="off" :disabled="isLoading"
-                                v-bind="componentField" />
+                            <Input
+                                placeholder="petergriffin"
+                                type="text"
+                                auto-capitalize="none"
+                                auto-complete="idenfifier"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="email">
@@ -33,11 +45,17 @@
                             {{ m.top_inclusive_wallaby_hack() }}
                         </FormLabel>
                         <FormControl>
-                            <Input placeholder="peter.griffin@fox.com" type="email" auto-capitalize="none"
-                                auto-complete="email" auto-correct="off" :disabled="isLoading"
-                                v-bind="componentField" />
+                            <Input
+                                placeholder="peter.griffin@fox.com"
+                                type="email"
+                                auto-capitalize="none"
+                                auto-complete="email"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="password">
@@ -46,56 +64,93 @@
                             {{ m.livid_bright_wallaby_quiz() }}
                         </FormLabel>
                         <FormControl>
-                            <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
-                                auto-correct="off" :disabled="isLoading" v-bind="componentField" />
+                            <Input
+                                placeholder="hunter2"
+                                type="password"
+                                auto-capitalize="none"
+                                auto-complete="password"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="password-confirm">
                     <FormItem>
-                        <FormLabel>
-                            {{ m.awful_cozy_jannes_rise() }}
-                        </FormLabel>
+                        <FormLabel>{{ m.awful_cozy_jannes_rise() }}</FormLabel>
                         <FormControl>
-                            <Input placeholder="hunter2" type="password" auto-capitalize="none" auto-complete="password"
-                                auto-correct="off" :disabled="isLoading" v-bind="componentField" />
+                            <Input
+                                placeholder="hunter2"
+                                type="password"
+                                auto-capitalize="none"
+                                auto-complete="password"
+                                auto-correct="off"
+                                :disabled="isLoading"
+                                v-bind="componentField"
+                            />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
-                <FormField v-slot="{ componentField, value, handleChange }" name="tos">
+                <FormField
+                    v-slot="{ componentField, value, handleChange }"
+                    name="tos"
+                >
                     <FormItem class="space-y-0">
                         <div class="flex flex-row gap-x-2 items-center ">
                             <FormControl>
-                                <Checkbox v-bind="componentField" :checked="value" @update:checked="handleChange" />
+                                <Checkbox
+                                    v-bind="componentField"
+                                    :checked="value"
+                                    @update:checked="handleChange"
+                                />
                             </FormControl>
                             <FormLabel>
                                 <Dialog>
-                                    {{ m.plane_quick_chipmunk_rush() }} <DialogTrigger :as-child="true"><Button variant="link"
-                                            class="px-0 underline">{{ m.glad_last_crow_dine() }}</Button>.</DialogTrigger>
-                                    <DialogContent class="max-h-[90vh]! overflow-auto">
+                                    {{ m.plane_quick_chipmunk_rush() }}
+                                    <DialogTrigger :as-child="true">
+                                        <Button
+                                            variant="link"
+                                            class="px-0 underline"
+                                        >
+                                            {{ m.glad_last_crow_dine() }}
+                                        </Button>
+                                        .
+                                    </DialogTrigger>
+                                    <DialogContent
+                                        class="max-h-[90vh]! overflow-auto"
+                                    >
                                         <DialogHeader>
-                                            <DialogTitle>{{ instance.title }}
+                                            <DialogTitle>
+                                                {{ instance.title }}
                                             </DialogTitle>
                                         </DialogHeader>
-                                        <div v-html="tos.content" class="prose prose-sm dark:prose-invert"></div>
+                                        <div
+                                            v-html="tos.content"
+                                            class="prose prose-sm dark:prose-invert"
+                                        ></div>
                                     </DialogContent>
                                 </Dialog>
                             </FormLabel>
                         </div>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
-                <div class="flex-col flex gap-y-1 text-sm text-muted-foreground">
+                <div
+                    class="flex-col flex gap-y-1 text-sm text-muted-foreground"
+                >
                     <p>{{ m.happy_house_dragonfly_clap() }}</p>
                 </div>
             </CardContent>
             <CardFooter v-if="instance && tos" class="grid gap-2">
-                <Button variant="default" type="submit">{{ m.early_last_ocelot_praise() }}</Button>
+                <Button variant="default" type="submit">
+                    {{ m.early_last_ocelot_praise() }}
+                </Button>
             </CardFooter>
             <div v-else class="p-4 flex items-center justify-center h-48">
-                <Loader class="size-8 animate-spin" />
+                <Loader class="size-8 animate-spin"/>
             </div>
         </Card>
         <Card v-else class="w-full max-w-md">

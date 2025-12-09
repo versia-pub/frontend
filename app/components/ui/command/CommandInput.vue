@@ -31,17 +31,17 @@ const { filterState } = useCommand();
 </script>
 
 <template>
-  <div
-    data-slot="command-input-wrapper"
-    class="flex h-12 items-center gap-2 border-b px-3"
-  >
-    <Search class="size-4 shrink-0 opacity-50" />
-    <ListboxFilter
-      v-bind="{ ...forwardedProps, ...$attrs }"
-      v-model="filterState.search"
-      data-slot="command-input"
-      auto-focus
-      :class="cn('placeholder:text-muted-foreground flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50', props.class)"
-    />
-  </div>
+    <div
+        data-slot="command-input-wrapper"
+        class="flex h-12 items-center gap-2 border-b px-3"
+    >
+        <Search class="size-4 shrink-0 opacity-50"/>
+        <ListboxFilter
+            v-bind="{ ...forwardedProps, ...$attrs }"
+            v-model="filterState.search"
+            data-slot="command-input"
+            auto-focus
+            :class="cn('placeholder:text-muted-foreground flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50', props.class)"
+        />
+    </div>
 </template>

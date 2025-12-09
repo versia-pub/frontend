@@ -14,7 +14,10 @@ const authStore = useAuthStore();
         <SidebarMenu>
             <SidebarMenuItem>
                 <NuxtLink href="/">
-                    <InstanceSmallCard v-if="authStore.instance" :instance="authStore.instance" />
+                    <InstanceSmallCard
+                        v-if="authStore.instance"
+                        :instance="authStore.instance"
+                    />
                 </NuxtLink>
             </SidebarMenuItem>
         </SidebarMenu>

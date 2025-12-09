@@ -2,30 +2,64 @@
     <FormItem>
         <FormLabel>
             {{ title }}
-            <Button type="button" variant="secondary" size="icon" class="ml-auto" @click="addField()" :title="m.front_north_eel_gulp()">
-                <Plus />
+            <Button
+                type="button"
+                variant="secondary"
+                size="icon"
+                class="ml-auto"
+                @click="addField()"
+                :title="m.front_north_eel_gulp()"
+            >
+                <Plus/>
             </Button>
         </FormLabel>
 
         <FormControl>
-            <VueDraggable class="grid gap-4" v-model="list" :animation="200" handle=".drag-handle">
-                <div v-for="(field, index) in list" :key="field.id"
-                    class="grid items-center grid-cols-[auto_repeat(3,minmax(0,1fr))_auto] gap-2">
-                    <Button as="span" variant="ghost" size="icon" class="drag-handle cursor-grab">
-                        <GripVertical />
+            <VueDraggable
+                class="grid gap-4"
+                v-model="list"
+                :animation="200"
+                handle=".drag-handle"
+            >
+                <div
+                    v-for="(field, index) in list"
+                    :key="field.id"
+                    class="grid items-center grid-cols-[auto_repeat(3,minmax(0,1fr))_auto] gap-2"
+                >
+                    <Button
+                        as="span"
+                        variant="ghost"
+                        size="icon"
+                        class="drag-handle cursor-grab"
+                    >
+                        <GripVertical/>
                     </Button>
-                    <Input :model-value="field.name" placeholder="Name" @update:model-value="
+                    <Input
+                        :model-value="field.name"
+                        placeholder="Name"
+                        @update:model-value="
                         (e) =>  updateKey(index, String(e))
-                    " />
-                    <Input :model-value="field.value" placeholder="Value" class="col-span-2" @update:model-value="
+                    "
+                    />
+                    <Input
+                        :model-value="field.value"
+                        placeholder="Value"
+                        class="col-span-2"
+                        @update:model-value="
                         (e) => updateValue(index, String(e))
-                    " />
-                    <Button type="button" variant="secondary" size="icon" @click="removeField(index)">
-                        <Trash />
+                    "
+                    />
+                    <Button
+                        type="button"
+                        variant="secondary"
+                        size="icon"
+                        @click="removeField(index)"
+                    >
+                        <Trash/>
                     </Button>
                 </div>
             </VueDraggable>
-            <FormMessage />
+            <FormMessage/>
         </FormControl>
     </FormItem>
 </template>

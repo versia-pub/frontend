@@ -1,18 +1,21 @@
 <template>
-    <Base :pref="pref" :name="name" v-slot="{ setValue, value }">
+    <TypeBase :pref="pref" :name="name" v-slot="{ setValue, value }">
         <Select :model-value="value" @update:model-value="setValue">
             <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
+                <SelectValue placeholder="Select an option"/>
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem v-for="[val, title] in Object.entries(pref.options.options)" :value="val">
+                    <SelectItem
+                        v-for="[val, title] in Object.entries(pref.options.options)"
+                        :value="val"
+                    >
                         {{ title }}
                     </SelectItem>
                 </SelectGroup>
             </SelectContent>
         </Select>
-    </Base>
+    </TypeBase>
 </template>
 
 <script lang="ts" setup>
@@ -26,7 +29,7 @@ import {
 } from "~/components/ui/select";
 import type { preferences as prefs } from "../preferences";
 import type { SelectPreference } from "../types";
-import Base from "./base.vue";
+import TypeBase from "./type-base.vue";
 
 const { pref, name } = defineProps<{
     pref: SelectPreference<string>;

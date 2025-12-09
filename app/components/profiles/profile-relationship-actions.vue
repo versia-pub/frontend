@@ -1,7 +1,11 @@
 <template>
-    <Button variant="secondary" :disabled="isLoading || relationship?.requested" v-if="!isMe && authStore.isSignedIn"
-        @click="relationship?.following ? unfollow() : follow()">
-        <Loader v-if="isLoading" class="animate-spin" />
+    <Button
+        variant="secondary"
+        :disabled="isLoading || relationship?.requested"
+        v-if="!isMe && authStore.isSignedIn"
+        @click="relationship?.following ? unfollow() : follow()"
+    >
+        <Loader v-if="isLoading" class="animate-spin"/>
         <span v-else>
             {{
                 relationship?.following

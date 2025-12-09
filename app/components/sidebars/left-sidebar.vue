@@ -1,11 +1,13 @@
 <template>
     <Sidebar collapsible="offcanvas">
-        <InstanceHeader />
+        <InstanceHeader/>
         <SidebarContent>
             <SidebarGroup>
-                <SidebarGroupLabel>{{
+                <SidebarGroupLabel>
+                    {{
                     m.trite_real_sawfish_drum()
-                }}</SidebarGroupLabel>
+                }}
+                </SidebarGroupLabel>
                 <NavItems
                     :items="
                         sidebarConfig.other.filter((i) =>
@@ -15,8 +17,8 @@
                 />
             </SidebarGroup>
         </SidebarContent>
-        <FooterActions />
-        <SidebarRail />
+        <FooterActions/>
+        <SidebarRail/>
     </Sidebar>
 </template>
 

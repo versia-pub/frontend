@@ -2,9 +2,7 @@
     <Card v-if="code && domain" class="w-full max-w-md *:w-full">
         <CardHeader>
             <CardTitle>Signing in...</CardTitle>
-            <CardDescription>
-                You will be redirected shortly.
-            </CardDescription>
+            <CardDescription>You will be redirected shortly.</CardDescription>
         </CardHeader>
     </Card>
     <Card v-else class="w-full max-w-md *:w-full">

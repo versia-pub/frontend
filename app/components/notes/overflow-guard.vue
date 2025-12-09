@@ -1,18 +1,29 @@
 <template>
-    <div ref="container" class="overflow-y-hidden relative duration-200" :style="{
+    <div
+        ref="container"
+        class="overflow-y-hidden relative duration-200"
+        :style="{
         maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`,
-    }">
-        <slot />
-        <div v-if="isOverflowing && collapsed"
-            class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b"></div>
-        <Button v-if="isOverflowing" @click="collapsed = !collapsed"
-            class="absolute bottom-2 right-1/2 translate-x-1/2">{{
+    }"
+    >
+        <slot/>
+        <div
+            v-if="isOverflowing && collapsed"
+            class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b"
+        ></div>
+        <Button
+            v-if="isOverflowing"
+            @click="collapsed = !collapsed"
+            class="absolute bottom-2 right-1/2 translate-x-1/2"
+        >
+            {{
                 collapsed
                     ? `${m.lazy_honest_mammoth_bump()}${formattedCharacterCount ? ` • ${m.dark_spare_goldfish_charm({
                         count: formattedCharacterCount,
                     })}` : ""}`
                     : m.that_misty_mule_arrive()
-            }}</Button>
+            }}
+        </Button>
     </div>
 </template>
 

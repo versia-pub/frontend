@@ -1,9 +1,7 @@
 <template>
     <Alert>
         <AlertTitle>{{ m.fine_arable_lemming_fold() }}</AlertTitle>
-        <AlertDescription>
-            {{ m.petty_honest_fish_stir() }}
-        </AlertDescription>
+        <AlertDescription>{{ m.petty_honest_fish_stir() }}</AlertDescription>
     </Alert>
 </template>
 

@@ -75,7 +75,11 @@ const isValid = ref(false);
 </script>
 
 <template>
-    <AlertDialog :key="String(isOpen)" :open="isOpen" @update:open="isOpen = false">
+    <AlertDialog
+        :key="String(isOpen)"
+        :open="isOpen"
+        @update:open="isOpen = false"
+    >
         <AlertDialogContent class="sm:max-w-[425px] flex flex-col">
             <AlertDialogHeader>
                 <AlertDialogTitle>{{ modalOptions.title }}</AlertDialogTitle>
@@ -84,11 +88,23 @@ const isValid = ref(false);
                 </AlertDialogDescription>
             </AlertDialogHeader>
 
-            <Input v-if="modalOptions.inputType === 'text'" v-model="inputValue" />
+            <Input
+                v-if="modalOptions.inputType === 'text'"
+                v-model="inputValue"
+            />
 
-            <UrlInput v-if="modalOptions.inputType === 'url'" v-model="inputValue" placeholder="google.com" v-model:is-valid="isValid" />
+            <UrlInput
+                v-if="modalOptions.inputType === 'url'"
+                v-model="inputValue"
+                placeholder="google.com"
+                v-model:is-valid="isValid"
+            />
 
-            <Textarea v-else-if="modalOptions.inputType === 'textarea'" v-model="inputValue" rows="6" />
+            <Textarea
+                v-else-if="modalOptions.inputType === 'textarea'"
+                v-model="inputValue"
+                rows="6"
+            />
 
             <AlertDialogFooter class="w-full">
                 <AlertDialogCancel :as-child="true">
@@ -97,7 +113,10 @@ const isValid = ref(false);
                     </Button>
                 </AlertDialogCancel>
                 <AlertDialogAction :as-child="true">
-                    <Button @click="handleConfirm" :disabled="!isValid && modalOptions.inputType === 'url'">
+                    <Button
+                        @click="handleConfirm"
+                        :disabled="!isValid && modalOptions.inputType === 'url'"
+                    >
                         {{ modalOptions.confirmText }}
                     </Button>
                 </AlertDialogAction>

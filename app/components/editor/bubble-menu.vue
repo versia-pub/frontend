@@ -69,30 +69,31 @@ watch(active, (value) => {
 
 <template>
     <BubbleMenu :editor="editor">
-        <ToggleGroup type="multiple"
+        <ToggleGroup
+            type="multiple"
             v-model="active"
-             class="bg-popover rounded-md"
+            class="bg-popover rounded-md"
         >
             <ToggleGroupItem value="bold">
-                <BoldIcon />
+                <BoldIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="italic">
-                <ItalicIcon />
+                <ItalicIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="underline">
-                <UnderlineIcon />
+                <UnderlineIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="code">
-                <CurlyBracesIcon />
+                <CurlyBracesIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="strike">
-                <StrikethroughIcon />
+                <StrikethroughIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="subscript">
-                <SubscriptIcon />
+                <SubscriptIcon/>
             </ToggleGroupItem>
             <ToggleGroupItem value="superscript">
-                <SuperscriptIcon />
+                <SuperscriptIcon/>
             </ToggleGroupItem>
         </ToggleGroup>
     </BubbleMenu>

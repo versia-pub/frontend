@@ -12,13 +12,17 @@
                 :bottom-avatar-bar="true"
                 :content-under-username="true"
             />
-            <Note v-if="note" :note="note" :top-avatar-bar="(context?.ancestors.length ?? 0) > 0" />
+            <Note
+                v-if="note"
+                :note="note"
+                :top-avatar-bar="(context?.ancestors.length ?? 0) > 0"
+            />
         </div>
-        <Note v-for="note of context?.descendants" :note="note" />
+        <Note v-for="note of context?.descendants" :note="note"/>
     </div>
 
     <div v-else class="p-4 flex items-center justify-center h-48">
-        <Spinner />
+        <Spinner/>
     </div>
 </template>
 

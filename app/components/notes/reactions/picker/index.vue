@@ -1,31 +1,57 @@
 <template>
     <Popover v-model:open="open">
         <PopoverTrigger as-child>
-            <slot />
+            <slot/>
         </PopoverTrigger>
         <PopoverContent class="p-0 w-fit">
-            <div class="grid-cols-[minmax(0,1fr)_auto] gap-0 grid divide-x *:h-112 *:overflow-y-auto"
-                orientation="vertical">
-                <div class="grid grid-rows-[auto_minmax(0,1fr)_auto] gap-0" ref="emojiContainer">
+            <div
+                class="grid-cols-[minmax(0,1fr)_auto] gap-0 grid divide-x *:h-112 *:overflow-y-auto"
+                orientation="vertical"
+            >
+                <div
+                    class="grid grid-rows-[auto_minmax(0,1fr)_auto] gap-0"
+                    ref="emojiContainer"
+                >
                     <div class="p-2">
-                        <Input placeholder="Search" v-model="filter" />
+                        <Input placeholder="Search" v-model="filter"/>
                     </div>
-                    <VList :data="virtualizedItems" #default="{ item }" class="relative" :style="{
+                    <VList
+                        :data="virtualizedItems"
+                        #default="{ item }"
+                        class="relative"
+                        :style="{
                         width: `calc(var(--spacing) * ((12 * ${EMOJI_PER_ROW}) + (${EMOJI_PER_ROW} - 1)) + var(--spacing) * 4)`,
-                    }">
-                        <CategoryHeader :key="item.headerId" v-if="item.type === 'header'" :category-name="item.name" />
-                        <div v-else-if="item.type === 'emoji-row'" :key="item.rowId" class="flex gap-1 p-2">
-                            <Emoji v-for="emoji in item.emojis" :key="getEmojiKey(emoji)" :emoji="emoji"
-                                @select="(e) => selectedEmoji = e" @pick="e => {
+                    }"
+                    >
+                        <CategoryHeader
+                            :key="item.headerId"
+                            v-if="item.type === 'header'"
+                            :category-name="item.name"
+                        />
+                        <div
+                            v-else-if="item.type === 'emoji-row'"
+                            :key="item.rowId"
+                            class="flex gap-1 p-2"
+                        >
+                            <Emoji
+                                v-for="emoji in item.emojis"
+                                :key="getEmojiKey(emoji)"
+                                :emoji="emoji"
+                                @select="(e) => selectedEmoji = e"
+                                @pick="e => {
                                     emit('pick', e); open = false;
-                                }" />
+                                }"
+                            />
                         </div>
                     </VList>
-                    <EmojiDisplay :emoji="selectedEmoji" :style="{
+                    <EmojiDisplay
+                        :emoji="selectedEmoji"
+                        :style="{
                         width: `calc(var(--spacing) * ((12 * ${EMOJI_PER_ROW}) + (${EMOJI_PER_ROW} - 1)) + var(--spacing) * 4)`,
-                    }" />
+                    }"
+                    />
                 </div>
-                <Sidebar :categories="categories" @select="scrollToCategory" />
+                <Sidebar :categories="categories" @select="scrollToCategory"/>
             </div>
         </PopoverContent>
     </Popover>

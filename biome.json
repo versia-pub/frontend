@@ -6,6 +6,14 @@
             "tailwindDirectives": true
         }
     },
+    "html": {
+        "experimentalFullSupportEnabled": true,
+        "formatter": {
+            "enabled": true,
+            "indentStyle": "space",
+            "indentWidth": 4
+        }
+    },
     "linter": {
         "enabled": true,
         "rules": {
@@ -31,7 +39,8 @@
                 "useJsxKeyInIterable": "off"
             },
             "complexity": {
-                "noExcessiveCognitiveComplexity": "off"
+                "noExcessiveCognitiveComplexity": "off",
+                "noImportantStyles": "off"
             },
             "style": {
                 "noDefaultExport": "off",

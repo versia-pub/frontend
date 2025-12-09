@@ -101,7 +101,7 @@ const relation = ref(
                         : m.brief_cool_capybara_fear()
                 }}
             </DialogDescription>
-            <Composer :relation="relation ?? undefined" />
+            <Composer :relation="relation ?? undefined"/>
         </DialogContent>
     </Dialog>
 </template>

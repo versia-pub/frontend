@@ -1,6 +1,6 @@
 <template>
-    <slot />
-    <ComposerDialog v-if="authStore.isSignedIn" />
+    <slot/>
+    <ComposerDialog v-if="authStore.isSignedIn"/>
 </template>
 
 <script lang="ts" setup>

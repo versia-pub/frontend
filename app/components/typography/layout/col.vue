@@ -20,6 +20,6 @@ const props = withDefaults(defineProps<Props>(), {
         :as-child="asChild"
         :class="cn('flex flex-col', props.wrap && 'flex-wrap', props.class, props.centered && 'items-center')"
     >
-        <slot />
+        <slot/>
     </Primitive>
 </template>

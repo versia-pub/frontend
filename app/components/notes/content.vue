@@ -1,14 +1,28 @@
 <template>
-    <ContentWarning v-if="(sensitive || contentWarning) && preferences.show_content_warning" :content-warning="contentWarning" :character-count="characterCount ?? 0" :attachment-count="attachments.length" v-model="hidden" />
+    <ContentWarning
+        v-if="(sensitive || contentWarning) && preferences.show_content_warning"
+        :content-warning="contentWarning"
+        :character-count="characterCount ?? 0"
+        :attachment-count="attachments.length"
+        v-model="hidden"
+    />
 
-    <OverflowGuard v-if="content" :character-count="characterCount" :class="(hidden && preferences.show_content_warning) && 'hidden'">
+    <OverflowGuard
+        v-if="content"
+        :character-count="characterCount"
+        :class="(hidden && preferences.show_content_warning) && 'hidden'"
+    >
         <Prose v-html="content" v-render-emojis="emojis"></Prose>
     </OverflowGuard>
 
-    <Attachments v-if="attachments.length > 0" :attachments="attachments" :class="(hidden && preferences.show_content_warning) && 'hidden'" />
+    <Attachments
+        v-if="attachments.length > 0"
+        :attachments="attachments"
+        :class="(hidden && preferences.show_content_warning) && 'hidden'"
+    />
 
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
-        <Note :note="quote" :hide-actions="true" :small-layout="true" />
+        <Note :note="quote" :hide-actions="true" :small-layout="true"/>
     </div>
 </template>
 

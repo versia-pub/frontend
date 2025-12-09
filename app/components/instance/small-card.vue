@@ -1,8 +1,11 @@
 <template>
     <Card class="grid grid-cols-[auto_1fr] gap-2">
-        <Avatar :src="instance.thumbnail?.url ??
+        <Avatar
+            :src="instance.thumbnail?.url ??
             'https://cdn.versia.pub/branding/icon.svg'
-            " :name="instance.title" />
+            "
+            :name="instance.title"
+        />
         <div class="grid text-sm leading-tight *:line-clamp-1">
             <span class="truncate font-semibold">
                 {{
@@ -14,7 +17,6 @@
                     instance.versia_version || instance.version
                 }}
             </span>
-
         </div>
         <h1 class="line-clamp-1 text-sm font-semibold col-span-2">
             {{

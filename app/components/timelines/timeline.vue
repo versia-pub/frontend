@@ -2,27 +2,25 @@
     <div
         role="status"
         class="flex flex-col gap-4 items-center *:max-w-2xl *:w-full p-4"
-        >
+    >
         <TimelineItem
-        :type="type"
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-        @update="updateItem"
-        @delete="removeItem"
+            :type="type"
+            v-for="item in items"
+            :key="item.id"
+            :item="item"
+            @update="updateItem"
+            @delete="removeItem"
         />
 
-        <Spinner v-if="isLoading" />
+        <Spinner v-if="isLoading"/>
 
-        <div v-if="error" class="timeline-error">
-            {{ error.message }}
-        </div>
+        <div v-if="error" class="timeline-error">{{ error.message }}</div>
 
         <!-- If there are some posts, but the user scrolled to the end -->
-        <ReachedEnd v-if="hasReachedEnd && items.length > 0" />
+        <ReachedEnd v-if="hasReachedEnd && items.length > 0"/>
 
         <!-- If there are no posts at all -->
-        <NoPosts v-else-if="hasReachedEnd && items.length === 0" />
+        <NoPosts v-else-if="hasReachedEnd && items.length === 0"/>
 
         <div v-else-if="!preferences.infinite_scroll" class="py-10 px-4">
             <Button

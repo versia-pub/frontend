@@ -50,7 +50,12 @@
                 :sensitive="noteToUse.sensitive"
                 :content-warning="noteToUse.spoiler_text"
             />
-            <Reactions v-if="noteToUse.reactions && noteToUse.reactions.length > 0" :reactions="noteToUse.reactions" :emojis="noteToUse.emojis" :status-id="noteToUse.id" />
+            <Reactions
+                v-if="noteToUse.reactions && noteToUse.reactions.length > 0"
+                :reactions="noteToUse.reactions"
+                :emojis="noteToUse.emojis"
+                :status-id="noteToUse.id"
+            />
         </CardContent>
         <CardFooter v-if="!hideActions">
             <Actions

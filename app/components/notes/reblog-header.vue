@@ -1,9 +1,13 @@
 <template>
     <NuxtLink :href="urlAsPath">
-        <Card class="flex-row px-2 py-1 items-center gap-2 hover:bg-muted duration-100 text-sm">
-            <Repeat class="size-4 text-primary" />
-            <Avatar class="size-6 border" :src="avatar" :name="displayName" />
-            <span class="font-semibold" v-render-emojis="emojis">{{ displayName }}</span>
+        <Card
+            class="flex-row px-2 py-1 items-center gap-2 hover:bg-muted duration-100 text-sm"
+        >
+            <Repeat class="size-4 text-primary"/>
+            <Avatar class="size-6 border" :src="avatar" :name="displayName"/>
+            <span class="font-semibold" v-render-emojis="emojis"
+                >{{ displayName }}</span
+            >
             {{ m.large_vivid_horse_catch() }}
         </Card>
     </NuxtLink>

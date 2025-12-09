@@ -60,7 +60,7 @@ const getProviderUrl = (providerId: string) =>
                     "
                     alt="Versia logo"
                     class="size-10 mr-4"
-                />
+                >
                 {{ instance?.title }}
             </div>
         </div>
@@ -69,11 +69,9 @@ const getProviderUrl = (providerId: string) =>
                 class="mx-auto flex w-full flex-col justify-center space-y-10 sm:w-[350px]"
             >
                 <Alert v-if="error" variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4" />
+                    <AlertCircle class="size-4"/>
                     <AlertTitle>{{ error }}</AlertTitle>
-                    <AlertDescription>
-                        {{ error_description }}
-                    </AlertDescription>
+                    <AlertDescription>{{ error_description }}</AlertDescription>
                 </Alert>
                 <div class="flex flex-col space-y-2 text-center">
                     <h1 class="text-2xl font-semibold tracking-tight">
@@ -88,56 +86,82 @@ const getProviderUrl = (providerId: string) =>
                         "
                     ></p>
                 </div>
-                    <div v-if="instance && hasValidUrlSearchParams" class="grid gap-6">
-                        <div
-                            v-if="instance.sso.providers.length > 0"
-                            class="flex flex-col gap-2"
+                <div
+                    v-if="instance && hasValidUrlSearchParams"
+                    class="grid gap-6"
+                >
+                    <div
+                        v-if="instance.sso.providers.length > 0"
+                        class="flex flex-col gap-2"
+                    >
+                        <form
+                            v-for="provider of instance.sso.providers"
+                            :key="provider.id"
+                            method="POST"
+                            :action="getProviderUrl(provider.id)"
                         >
-                            <form v-for="provider of instance.sso.providers" :key="provider.id" method="POST" :action="getProviderUrl(provider.id)">
-                                <input type="hidden" name="redirect_uri" :value="redirect_uri" />
-                                <input type="hidden" name="client_id" :value="client_id" />
-                                <input v-for="(scopePart, index) of (scope as string).split(' ')" type="hidden" :name="`scope[${index}]`" :value="scopePart" />
-                                <Button
-                                    variant="outline"
-                                    type="submit"
-                                    :disabled="isLoading"
-                                    class="w-full"
+                            <input
+                                type="hidden"
+                                name="redirect_uri"
+                                :value="redirect_uri"
+                            >
+                            <input
+                                type="hidden"
+                                name="client_id"
+                                :value="client_id"
+                            >
+                            <input
+                                v-for="(scopePart, index) of (scope as string).split(' ')"
+                                type="hidden"
+                                :name="`scope[${index}]`"
+                                :value="scopePart"
+                            >
+                            <Button
+                                variant="outline"
+                                type="submit"
+                                :disabled="isLoading"
+                                class="w-full"
+                            >
+                                <Loader
+                                    v-if="isLoading"
+                                    class="mr-2 animate-spin"
+                                />
+                                <img
+                                    crossorigin="anonymous"
+                                    :src="provider.icon"
+                                    :alt="`${provider.name}'s logo`"
+                                    class="size-4 mr-2"
                                 >
-                                    <Loader v-if="isLoading" class="mr-2 animate-spin" />
-                                    <img
-                                        crossorigin="anonymous"
-                                        :src="provider.icon"
-                                        :alt="`${provider.name}'s logo`"
-                                        class="size-4 mr-2"
-                                    />
-                                    {{ provider.name }}
-                                </Button>
-                            </form>
-                        </div>
-                        <Alert v-else variant="destructive" class="mb-4">
-                            <AlertCircle class="size-4" />
-                            <AlertTitle>
-                                No SSO providers are configured.
-                            </AlertTitle>
-                            <AlertDescription>
-                                <p>
-                                    Please ask the administrator of
-                                    {{ instance.domain }} to set up SSO providers.
-                                </p>
-                            </AlertDescription>
-                        </Alert>
+                                {{ provider.name }}
+                            </Button>
+                        </form>
                     </div>
+                    <Alert v-else variant="destructive" class="mb-4">
+                        <AlertCircle class="size-4"/>
+                        <AlertTitle>
+                            No SSO providers are configured.
+                        </AlertTitle>
+                        <AlertDescription>
+                            <p>
+                                Please ask the administrator of
+                                {{ instance.domain }}to set up SSO providers.
+                            </p>
+                        </AlertDescription>
+                    </Alert>
+                </div>
                 <div
                     v-else-if="hasValidUrlSearchParams"
                     class="p-4 flex items-center justify-center h-48"
                 >
-                    <Loader class="size-8 animate-spin" />
+                    <Loader class="size-8 animate-spin"/>
                 </div>
                 <Alert v-else variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4" />
-                    <AlertTitle>{{
+                    <AlertCircle class="size-4"/>
+                    <AlertTitle>
+                        {{
                         m.grand_spry_goldfish_embrace()
-                    }}</AlertTitle>
+                    }}
+                    </AlertTitle>
                     <AlertDescription>
                         <p>{{ m.gray_clean_shark_comfort() }}</p>
                         <ul class="list-disc list-inside mt-2 font-mono">

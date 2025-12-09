@@ -1,10 +1,8 @@
 <template>
     <section class="gap-4 flex flex-col">
-        <h2 class="text-xl font-bold tracking-tight">
-            {{ title }}
-        </h2>
+        <h2 class="text-xl font-bold tracking-tight">{{ title }}</h2>
 
-        <slot />
+        <slot/>
     </section>
 </template>
 

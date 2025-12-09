@@ -1,33 +1,45 @@
 <template>
     <Card class="gap-4">
-        <ProfileHeader :header="account.header" :avatar="account.avatar" :display-name="account.display_name" />
+        <ProfileHeader
+            :header="account.header"
+            :avatar="account.avatar"
+            :display-name="account.display_name"
+        />
         <Row class="justify-end gap-2">
-            <ProfileRelationshipActions :account="account" />
+            <ProfileRelationshipActions :account="account"/>
             <ProfileActions :account="account">
                 <Button variant="secondary" size="icon">
-                    <Ellipsis />
+                    <Ellipsis/>
                 </Button>
             </ProfileActions>
         </Row>
-        <Col class="justify-center">
+        <Column class="justify-center">
             <Text class="font-bold" v-render-emojis="account.emojis">
                 {{ account.display_name }}
             </Text>
-            <Address :username="username" :domain="domain" />
-        </Col>
-        <ProfileBadges :account="account" />
-        <Html v-html="account.note" v-render-emojis="account.emojis" />
-        <Separator />
-        <ProfileFields v-if="account.fields.length > 0" :fields="account.fields" :emojis="account.emojis" />
-        <Separator v-if="account.fields.length > 0" />
+            <Address :username="username" :domain="domain"/>
+        </Column>
+        <ProfileBadges :account="account"/>
+        <Html v-html="account.note" v-render-emojis="account.emojis"/>
+        <Separator/>
+        <ProfileFields
+            v-if="account.fields.length > 0"
+            :fields="account.fields"
+            :emojis="account.emojis"
+        />
+        <Separator v-if="account.fields.length > 0"/>
         <Row>
             <HeadingSmall class="flex items-center gap-1">
-                <CalendarDays class="size-4" /> {{ formattedCreationDate }}
+                <CalendarDays class="size-4"/>
+                {{ formattedCreationDate }}
             </HeadingSmall>
         </Row>
-        <Separator />
-        <ProfileStats :follower-count="account.followers_count" :following-count="account.following_count"
-            :note-count="account.statuses_count" />
+        <Separator/>
+        <ProfileStats
+            :follower-count="account.followers_count"
+            :following-count="account.following_count"
+            :note-count="account.statuses_count"
+        />
     </Card>
 </template>
 
@@ -41,7 +53,7 @@ import { Separator } from "~/components/ui/separator";
 import { getLocale } from "~~/paraglide/runtime";
 import HeadingSmall from "../typography/headings/small.vue";
 import Html from "../typography/html.vue";
-import Col from "../typography/layout/col.vue";
+import Column from "../typography/layout/col.vue";
 import Row from "../typography/layout/row.vue";
 import Text from "../typography/text.vue";
 import Address from "./address.vue";

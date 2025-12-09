@@ -1,7 +1,10 @@
 <template>
-    <div class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover" :style="{
+    <div
+        class="flex h-svh items-center justify-center px-6 py-12 lg:px-8 bg-center bg-no-repeat bg-cover"
+        :style="{
         backgroundImage: 'url(/images/banner.webp)'
-    }">
+    }"
+    >
         <Card class="w-full max-w-md">
             <CardHeader>
                 <CardTitle>{{ m.late_mean_capybara_fade() }}</CardTitle>

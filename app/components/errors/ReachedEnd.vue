@@ -1,9 +1,7 @@
 <template>
     <Alert>
         <AlertTitle>{{ m.steep_suave_fish_snap() }}</AlertTitle>
-        <AlertDescription>
-            {{ m.muddy_bland_shark_accept() }}
-        </AlertDescription>
+        <AlertDescription>{{ m.muddy_bland_shark_accept() }}</AlertDescription>
     </Alert>
 </template>
 

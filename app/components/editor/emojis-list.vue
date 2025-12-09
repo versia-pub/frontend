@@ -1,10 +1,23 @@
 <template>
-    <Command class="rounded border shadow-md min-w-[200px] h-fit not-prose" :selected-value="emojis[selectedIndex]?.id">
+    <Command
+        class="rounded border shadow-md min-w-[200px] h-fit not-prose"
+        :selected-value="emojis[selectedIndex]?.id"
+    >
         <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup class="emojis-group" heading="Emojis">
-                <CommandItem :value="emoji.id" v-for="emoji, index in emojis" :key="emoji.id" @click="selectItem(index)" class="scroll-m-10">
-                    <img class="h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out" :src="emoji.url" :title="emoji.shortcode" />
+                <CommandItem
+                    :value="emoji.id"
+                    v-for="emoji, index in emojis"
+                    :key="emoji.id"
+                    @click="selectItem(index)"
+                    class="scroll-m-10"
+                >
+                    <img
+                        class="h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out"
+                        :src="emoji.url"
+                        :title="emoji.shortcode"
+                    >
                     <span>{{ emoji.shortcode }}</span>
                 </CommandItem>
             </CommandGroup>

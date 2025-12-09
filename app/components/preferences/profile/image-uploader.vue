@@ -6,18 +6,16 @@
                 variant="ghost"
                 class="h-fit w-fit p-0 m-0 relative group border overflow-hidden"
             >
-                <Avatar class="size-32" :src="image" :name="displayName" />
+                <Avatar class="size-32" :src="image" :name="displayName"/>
                 <div
                     class="absolute inset-0 bg-background/80 flex group-hover:opacity-100 opacity-0 duration-200 items-center justify-center"
                 >
-                    <Upload />
+                    <Upload/>
                 </div>
             </Button>
         </DialogTrigger>
         <DialogContent>
-            <DialogTitle>
-                {{ m.due_hour_husky_prosper() }}
-            </DialogTitle>
+            <DialogTitle>{{ m.due_hour_husky_prosper() }}</DialogTitle>
             <DialogDescription class="sr-only">
                 {{ m.suave_broad_albatross_drop() }}
             </DialogDescription>
@@ -58,7 +56,7 @@
                                 <FormDescription>
                                     {{ m.lime_late_millipede_urge() }}
                                 </FormDescription>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         </FormField>
                     </TabsContent>
@@ -83,12 +81,14 @@
                                         placeholder="peter.griffin@fox.com"
                                     />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                                 <div v-if="value" class="grid gap-4 !mt-4">
-                                    <Label>{{
+                                    <Label>
+                                        {{
                                         m.witty_honest_wallaby_support()
-                                    }}</Label>
-                                    <Avatar class="size-32" :src="gravatarUrl" />
+                                    }}
+                                    </Label>
+                                    <Avatar class="size-32" :src="gravatarUrl"/>
                                 </div>
                             </FormItem>
                         </FormField>
@@ -109,12 +109,14 @@
                                         placeholder="https://mysite.com/avatar.webp"
                                     />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                                 <div v-if="value" class="grid gap-4 !mt-4">
-                                    <Label>{{
+                                    <Label>
+                                        {{
                                         m.witty_honest_wallaby_support()
-                                    }}</Label>
-                                    <Avatar class="size-32" :src="value" />
+                                    }}
+                                    </Label>
+                                    <Avatar class="size-32" :src="value"/>
                                 </div>
                             </FormItem>
                         </FormField>

@@ -1,12 +1,10 @@
 <template>
     <Dialog v-model:open="open">
         <DialogTrigger>
-            <slot />
+            <slot/>
         </DialogTrigger>
         <DialogContent>
-            <DialogTitle>
-                {{ m.whole_icy_puffin_smile() }}
-            </DialogTitle>
+            <DialogTitle>{{ m.whole_icy_puffin_smile() }}</DialogTitle>
             <DialogDescription class="sr-only">
                 {{ m.frail_great_marten_pet() }}
             </DialogDescription>
@@ -20,28 +18,28 @@
                             class="h-full object-cover"
                             :src="createObjectURL(values.image as File)"
                             :alt="values.alt"
-                        />
+                        >
                     </div>
                     <div class="bg-zinc-700">
                         <img
                             class="h-full object-cover"
                             :src="createObjectURL(values.image as File)"
                             :alt="values.alt"
-                        />
+                        >
                     </div>
                     <div class="bg-zinc-400">
                         <img
                             class="h-full object-cover"
                             :src="createObjectURL(values.image as File)"
                             :alt="values.alt"
-                        />
+                        >
                     </div>
                     <div class="bg-foreground">
                         <img
                             class="h-full object-cover"
                             :src="createObjectURL(values.image as File)"
                             :alt="values.alt"
-                        />
+                        >
                     </div>
                 </div>
 
@@ -68,15 +66,13 @@
                         <FormDescription>
                             {{ m.lime_late_millipede_urge() }}
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="shortcode">
                     <FormItem>
-                        <FormLabel>
-                            {{ m.happy_mild_fox_gleam() }}
-                        </FormLabel>
+                        <FormLabel>{{ m.happy_mild_fox_gleam() }}</FormLabel>
                         <FormControl>
                             <Input
                                 v-bind="componentField"
@@ -86,7 +82,7 @@
                         <FormDescription>
                             {{ m.glad_day_kestrel_amaze() }}
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
 
@@ -101,7 +97,7 @@
                                 :disabled="isSubmitting"
                             />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
 
@@ -120,7 +116,7 @@
                         <FormDescription>
                             {{ m.weird_fun_jurgen_arise() }}
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage/>
                     </FormItem>
                 </FormField>
 
@@ -130,7 +126,10 @@
                     name="global"
                     as-child
                 >
-                    <FormSwitch :title="m.pink_sharp_carp_work()" :description="m.dark_pretty_hyena_link()">
+                    <FormSwitch
+                        :title="m.pink_sharp_carp_work()"
+                        :description="m.dark_pretty_hyena_link()"
+                    >
                         <Switch
                             :model-value="value"
                             @update:model-value="handleChange"

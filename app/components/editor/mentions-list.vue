@@ -1,11 +1,26 @@
 <template>
-    <Command class="rounded border shadow-md min-w-[200px] h-fit not-prose" :selected-value="items[selectedIndex]?.key">
+    <Command
+        class="rounded border shadow-md min-w-[200px] h-fit not-prose"
+        :selected-value="items[selectedIndex]?.key"
+    >
         <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup class="mentions-group" heading="Users">
-                <CommandItem :value="user.key" v-for="user, index in items" :key="user.key" @click="selectItem(index)" class="scroll-m-10">
-                    <Avatar class="size-4" :src="user.value.avatar" :name="user.value.display_name" />
-                    <span v-render-emojis="user.value.emojis">{{ user.value.display_name }}</span>
+                <CommandItem
+                    :value="user.key"
+                    v-for="user, index in items"
+                    :key="user.key"
+                    @click="selectItem(index)"
+                    class="scroll-m-10"
+                >
+                    <Avatar
+                        class="size-4"
+                        :src="user.value.avatar"
+                        :name="user.value.display_name"
+                    />
+                    <span v-render-emojis="user.value.emojis"
+                        >{{ user.value.display_name }}</span
+                    >
                 </CommandItem>
             </CommandGroup>
         </CommandList>

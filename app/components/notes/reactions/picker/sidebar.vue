@@ -1,8 +1,23 @@
 <template>
     <div class="grid gap-1 bg-transparent p-2">
-        <Button v-for="category in categories" :key="category.name" size="icon" variant="ghost" @click="() => emit('select', category)">
-            <component v-if="category.groupId" :is="emojiGroupIconMap[category.groupId]" class="size-6 text-primary" />
-            <img v-else-if="category.src" :src="category.src" class="size-6 align-middle inline not-prose" role="presentation" />
+        <Button
+            v-for="category in categories"
+            :key="category.name"
+            size="icon"
+            variant="ghost"
+            @click="() => emit('select', category)"
+        >
+            <component
+                v-if="category.groupId"
+                :is="emojiGroupIconMap[category.groupId]"
+                class="size-6 text-primary"
+            />
+            <img
+                v-else-if="category.src"
+                :src="category.src"
+                class="size-6 align-middle inline not-prose"
+                role="presentation"
+            >
         </Button>
     </div>
 </template>

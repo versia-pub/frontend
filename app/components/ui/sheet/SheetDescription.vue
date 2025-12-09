@@ -15,11 +15,11 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <DialogDescription
-    data-slot="sheet-description"
-    :class="cn('text-muted-foreground text-sm', props.class)"
-    v-bind="delegatedProps"
-  >
-    <slot />
-  </DialogDescription>
+    <DialogDescription
+        data-slot="sheet-description"
+        :class="cn('text-muted-foreground text-sm', props.class)"
+        v-bind="delegatedProps"
+    >
+        <slot/>
+    </DialogDescription>
 </template>

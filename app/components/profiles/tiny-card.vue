@@ -3,12 +3,16 @@
         class="flex-row gap-2 p-2 truncate items-center"
         :class="naked ? 'p-0 bg-transparent ring-0 border-none shadow-none' : ''"
     >
-        <Avatar :src="account.avatar" :name="account.display_name" class="size-10" />
+        <Avatar
+            :src="account.avatar"
+            :name="account.display_name"
+            class="size-10"
+        />
         <CardContent class="leading-tight">
             <Text class="font-semibold" v-render-emojis="account.emojis">
                 {{ account.display_name }}
             </Text>
-            <Address :username="account.username" :domain="domain" />
+            <Address :username="account.username" :domain="domain"/>
         </CardContent>
     </Card>
 </template>

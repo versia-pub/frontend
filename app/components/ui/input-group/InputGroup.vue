@@ -8,10 +8,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div
-    data-slot="input-group"
-    role="group"
-    :class="cn(
+    <div
+        data-slot="input-group"
+        role="group"
+        :class="cn(
       'group/input-group border-input bg-background relative flex w-full items-center rounded-md border outline-none',
       'h-9 min-w-0 has-[>textarea]:h-auto',
 
@@ -26,7 +26,7 @@ const props = defineProps<{
 
       props.class,
     )"
-  >
-    <slot />
-  </div>
+    >
+        <slot/>
+    </div>
 </template>

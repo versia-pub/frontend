@@ -1,9 +1,15 @@
 <template>
     <Tabs v-model:model-value="current">
         <TabsList>
-            <TabsTrigger v-for="timeline in timelines.filter(
+            <TabsTrigger
+                v-for="timeline in timelines.filter(
                 i => i.requiresLogin ? authStore.isSignedIn : true,
-            )" :key="timeline.value" :value="timeline.value" :as="NuxtLink" :href="timeline.url">
+            )"
+                :key="timeline.value"
+                :value="timeline.value"
+                :as="NuxtLink"
+                :href="timeline.url"
+            >
                 {{ timeline.name }}
             </TabsTrigger>
         </TabsList>

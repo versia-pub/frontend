@@ -1,12 +1,12 @@
 <template>
     <SidebarProvider>
         <AppSidebar>
-            <slot />
+            <slot/>
         </AppSidebar>
     </SidebarProvider>
-    <MobileNavbar v-if="authStore.isSignedIn" />
-    <Preferences />
-    <ComposerDialog v-if="authStore.isSignedIn" />
+    <MobileNavbar v-if="authStore.isSignedIn"/>
+    <Preferences/>
+    <ComposerDialog v-if="authStore.isSignedIn"/>
 </template>
 
 <script setup lang="ts">

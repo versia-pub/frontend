@@ -1,5 +1,7 @@
 <template>
-    <Row class="gap-2" wrap
+    <Row
+        class="gap-2"
+        wrap
         v-if="isDeveloper || account.bot || roles.length > 0"
     >
         <ProfileBadge

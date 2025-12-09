@@ -1,8 +1,17 @@
 <template>
-    <ImageAttachment v-if="attachment.type === 'image'" :attachment="attachment" />
-    <VideoAttachment v-else-if="attachment.type === 'video' || attachment.type === 'gifv'" :attachment="attachment" />
-    <AudioAttachment v-else-if="attachment.type === 'audio'" :attachment="attachment" />
-    <FileAttachment v-else :attachment="attachment" />
+    <ImageAttachment
+        v-if="attachment.type === 'image'"
+        :attachment="attachment"
+    />
+    <VideoAttachment
+        v-else-if="attachment.type === 'video' || attachment.type === 'gifv'"
+        :attachment="attachment"
+    />
+    <AudioAttachment
+        v-else-if="attachment.type === 'audio'"
+        :attachment="attachment"
+    />
+    <FileAttachment v-else :attachment="attachment"/>
 </template>
 
 <script lang="ts" setup>

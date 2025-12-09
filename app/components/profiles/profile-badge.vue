@@ -2,8 +2,8 @@
     <Tooltip>
         <TooltipTrigger :as-child="true">
             <Badge variant="default" class="gap-1">
-                <BadgeCheck v-if="verified" />
-                <img v-else-if="icon" :src="icon" alt="" class="size-4 rounded" />
+                <BadgeCheck v-if="verified"/>
+                <img v-else-if="icon" :src="icon" alt="" class="size-4 rounded">
                 {{ name }}
             </Badge>
         </TooltipTrigger>

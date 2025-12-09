@@ -1,13 +1,17 @@
 <template>
     <Card class="grid gap-3 text-sm max-w-sm">
         <dl class="grid gap-3">
-            <div v-for="[key, value] of data" :key="key" class="flex flex-row items-baseline justify-between gap-4 truncate">
-                <dt class="text-muted-foreground">
-                    {{ key }}
-                </dt>
-                <dd class="font-mono" v-if="typeof value === 'string'">{{ value }}</dd>
+            <div
+                v-for="[key, value] of data"
+                :key="key"
+                class="flex flex-row items-baseline justify-between gap-4 truncate"
+            >
+                <dt class="text-muted-foreground">{{ key }}</dt>
+                <dd class="font-mono" v-if="typeof value === 'string'">
+                    {{ value }}
+                </dd>
                 <dd class="font-mono" v-else>
-                    <component :is="value" />
+                    <component :is="value"/>
                 </dd>
             </div>
         </dl>

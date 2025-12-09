@@ -1,15 +1,11 @@
 <template>
     <FormItem>
-        <FormLabel>
-            {{ title }}
-        </FormLabel>
+        <FormLabel>{{ title }}</FormLabel>
         <FormControl>
-            <slot />
+            <slot/>
         </FormControl>
-        <FormDescription v-if="description">
-            {{ description }}
-        </FormDescription>
-        <FormMessage />
+        <FormDescription v-if="description">{{ description }}</FormDescription>
+        <FormMessage/>
     </FormItem>
 </template>
 

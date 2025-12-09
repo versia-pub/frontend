@@ -30,7 +30,7 @@ const inputValue = ref<string>("");
 <template>
     <Dialog>
         <DialogTrigger :as-child="true">
-            <slot />
+            <slot/>
         </DialogTrigger>
         <DialogContent class="sm:max-w-[425px]">
             <DialogHeader>
@@ -40,17 +40,35 @@ const inputValue = ref<string>("");
                 </DialogDescription>
             </DialogHeader>
 
-            <div v-if="modalOptions.inputType === 'text'" class="grid gap-4 py-4">
+            <div
+                v-if="modalOptions.inputType === 'text'"
+                class="grid gap-4 py-4"
+            >
                 <div class="grid grid-cols-4 items-center gap-4">
-                    <Label for="confirmInput" class="text-right">{{ m.mean_mean_badger_inspire() }}</Label>
-                    <Input id="confirmInput" v-model="inputValue" class="col-span-3" />
+                    <Label for="confirmInput" class="text-right">
+                        {{ m.mean_mean_badger_inspire() }}
+                    </Label>
+                    <Input
+                        id="confirmInput"
+                        v-model="inputValue"
+                        class="col-span-3"
+                    />
                 </div>
             </div>
 
-            <div v-else-if="modalOptions.inputType === 'textarea'" class="grid gap-4 py-4">
+            <div
+                v-else-if="modalOptions.inputType === 'textarea'"
+                class="grid gap-4 py-4"
+            >
                 <div class="grid grid-cols-4 items-center gap-4">
-                    <Label for="confirmTextarea" class="text-right">{{ m.mean_mean_badger_inspire() }}</Label>
-                    <Textarea id="confirmTextarea" v-model="inputValue" class="col-span-3" />
+                    <Label for="confirmTextarea" class="text-right">
+                        {{ m.mean_mean_badger_inspire() }}
+                    </Label>
+                    <Textarea
+                        id="confirmTextarea"
+                        v-model="inputValue"
+                        class="col-span-3"
+                    />
                 </div>
             </div>
 
@@ -58,10 +76,12 @@ const inputValue = ref<string>("");
                 <Button variant="outline" @click="() => emit('cancel')">
                     {{ modalOptions.cancelText }}
                 </Button>
-                <Button @click="() => emit('confirm', {
+                <Button
+                    @click="() => emit('confirm', {
                     confirmed: true,
                     value: inputValue,
-                })">
+                })"
+                >
                     {{ modalOptions.confirmText }}
                 </Button>
             </DialogFooter>

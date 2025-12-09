@@ -28,15 +28,15 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <Dialog v-bind="forwarded">
-    <DialogHeader class="sr-only">
-      <DialogTitle>{{ title }}</DialogTitle>
-      <DialogDescription>{{ description }}</DialogDescription>
-    </DialogHeader>
-    <DialogContent class="overflow-hidden p-0 ">
-      <Command>
-        <slot />
-      </Command>
-    </DialogContent>
-  </Dialog>
+    <Dialog v-bind="forwarded">
+        <DialogHeader class="sr-only">
+            <DialogTitle>{{ title }}</DialogTitle>
+            <DialogDescription>{{ description }}</DialogDescription>
+        </DialogHeader>
+        <DialogContent class="overflow-hidden p-0 ">
+            <Command>
+                <slot/>
+            </Command>
+        </DialogContent>
+    </Dialog>
 </template>

@@ -5,7 +5,7 @@
                 :src="account.header"
                 alt=""
                 class="object-cover w-full h-full"
-            />
+            >
             <!-- Shadow overlay at the bottom -->
             <div
                 class="absolute bottom-0 w-full h-1/3 bg-gradient-to-b from-black/0 to-black/40"
@@ -26,14 +26,14 @@
         <Text class="font-bold" v-render-emojis="account.emojis">
             {{ account.display_name }}
         </Text>
-        <Address :username="username" :domain="domain" />
+        <Address :username="username" :domain="domain"/>
     </div>
     <Html
         v-html="account.note"
         v-render-emojis="account.emojis"
         class="mt-4 max-h-72 overflow-y-auto"
     />
-    <Separator v-if="account.fields.length > 0" class="mt-4" />
+    <Separator v-if="account.fields.length > 0" class="mt-4"/>
     <ProfileFields
         v-if="account.fields.length > 0"
         :fields="account.fields"

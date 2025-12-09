@@ -1,29 +1,55 @@
 <template>
-    <div v-if="relationship?.requested_by !== false" class="flex flex-row items-center gap-3 p-4">
+    <div
+        v-if="relationship?.requested_by !== false"
+        class="flex flex-row items-center gap-3 p-4"
+    >
         <NuxtLink :href="followerUrl" class="relative size-10">
-            <Avatar class="size-10 border border-border" :src="follower.avatar" :name="follower.display_name" />
+            <Avatar
+                class="size-10 border border-border"
+                :src="follower.avatar"
+                :name="follower.display_name"
+            />
         </NuxtLink>
-        <div class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight text-sm">
-            <span class="truncate font-semibold" v-render-emojis="follower.emojis">{{
+        <div
+            class="flex flex-col gap-0.5 justify-center flex-1 text-left leading-tight text-sm"
+        >
+            <span
+                class="truncate font-semibold"
+                v-render-emojis="follower.emojis"
+                >{{
                 follower.display_name
-                }}</span>
+                }}</span
+            >
             <span class="truncate tracking-tight">
-                <Address :username="username" :domain="domain" />
+                <Address :username="username" :domain="domain"/>
             </span>
         </div>
     </div>
     <div v-if="loading" class="flex p-2 items-center justify-center h-12">
-        <Loader class="size-4 animate-spin" />
+        <Loader class="size-4 animate-spin"/>
     </div>
-    <div v-else-if="relationship?.requested_by === false" class="flex p-2 items-center justify-center h-12">
-        <Check class="size-4" />
+    <div
+        v-else-if="relationship?.requested_by === false"
+        class="flex p-2 items-center justify-center h-12"
+    >
+        <Check class="size-4"/>
     </div>
     <div v-else class="grid grid-cols-2 p-2 gap-2">
-        <Button variant="secondary" size="sm" @click="accept" :title="m.slow_these_kestrel_sail()">
-            <Check />
+        <Button
+            variant="secondary"
+            size="sm"
+            @click="accept"
+            :title="m.slow_these_kestrel_sail()"
+        >
+            <Check/>
         </Button>
-        <Button variant="ghost" size="sm" @click="reject" :title="m.weary_steep_yak_embrace()">
-            <X />
+        <Button
+            variant="ghost"
+            size="sm"
+            @click="reject"
+            :title="m.weary_steep_yak_embrace()"
+        >
+            <X/>
         </Button>
     </div>
 </template>

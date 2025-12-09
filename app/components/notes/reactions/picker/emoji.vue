@@ -1,9 +1,22 @@
 <template>
-    <Button @focus="() => emit('select', emoji)" @mouseenter="() => emit('select', emoji)" @click="() => emit('pick', emoji)" size="icon" variant="ghost"
-        class="size-12">
-        <img v-if="(emoji as InferredEmoji).url" :src="(emoji as InferredEmoji).url"
-            :alt="(emoji as InferredEmoji).shortcode" class="h-8 align-middle inline not-prose" />
-        <span v-else-if="(emoji as UnicodeEmoji).unicode" class="text-2xl align-middle inline not-prose">
+    <Button
+        @focus="() => emit('select', emoji)"
+        @mouseenter="() => emit('select', emoji)"
+        @click="() => emit('pick', emoji)"
+        size="icon"
+        variant="ghost"
+        class="size-12"
+    >
+        <img
+            v-if="(emoji as InferredEmoji).url"
+            :src="(emoji as InferredEmoji).url"
+            :alt="(emoji as InferredEmoji).shortcode"
+            class="h-8 align-middle inline not-prose"
+        >
+        <span
+            v-else-if="(emoji as UnicodeEmoji).unicode"
+            class="text-2xl align-middle inline not-prose"
+        >
             {{ (emoji as UnicodeEmoji).unicode }}
         </span>
     </Button>

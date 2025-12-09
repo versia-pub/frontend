@@ -5,26 +5,37 @@
             :disabled="file.uploading || file.updating"
             class="block bg-card text-card-foreground shadow-sm h-28 overflow-hidden rounded relative min-w-28 *:disabled:opacity-50"
         >
-            <img v-if="file.file?.type.startsWith('image/')" :src="createObjectURL(file.file)" class="object-contain h-28 w-full" :alt="file.alt" />
-            <FileIcon v-else class="size-6 m-auto text-muted-foreground" />
+            <img
+                v-if="file.file?.type.startsWith('image/')"
+                :src="createObjectURL(file.file)"
+                class="object-contain h-28 w-full"
+                :alt="file.alt"
+            >
+            <FileIcon v-else class="size-6 m-auto text-muted-foreground"/>
             <Badge
                 v-if="file.file && !(file.uploading || file.updating)"
                 class="absolute bottom-1 right-1"
                 variant="default"
-                >{{ formatBytes(file.file.size) }}</Badge
             >
-            <Spinner v-else-if="file.file" class="absolute bottom-1 right-1 size-8 p-1.5" />
+                {{ formatBytes(file.file.size) }}
+            </Badge>
+            <Spinner
+                v-else-if="file.file"
+                class="absolute bottom-1 right-1 size-8 p-1.5"
+            />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-48">
-            <DropdownMenuLabel v-if="file.file">{{ file.file.name }}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuLabel v-if="file.file">
+                {{ file.file.name }}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator/>
             <DropdownMenuItem @click="editCaption">
-                <Captions />
+                <Captions/>
                 Add caption
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator/>
             <DropdownMenuItem @click="emit('remove')">
-                <Delete />
+                <Delete/>
                 Remove
             </DropdownMenuItem>
         </DropdownMenuContent>

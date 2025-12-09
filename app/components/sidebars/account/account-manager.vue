@@ -1,7 +1,7 @@
 <template>
     <Dialog>
         <DialogTrigger as-child>
-            <slot />
+            <slot/>
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>
@@ -11,16 +11,31 @@
                 </DialogDescription>
             </DialogHeader>
             <div v-if="authStore.identities.length > 0" class="grid gap-4 py-2">
-                <div v-for="identity of authStore.identities" :key="identity.account.id"
-                    class="grid grid-cols-[1fr_auto] has-[>[data-switch]]:grid-cols-[1fr_auto_auto] gap-2">
-                    <TinyCard :account="identity.account" :domain="identity.instance.domain" naked />
-                    <Button data-switch v-if="authStore.identity?.id !== identity.id"
-                        @click="authStore.setActiveIdentity(identity.id)" variant="outline">
+                <div
+                    v-for="identity of authStore.identities"
+                    :key="identity.account.id"
+                    class="grid grid-cols-[1fr_auto] has-[>[data-switch]]:grid-cols-[1fr_auto_auto] gap-2"
+                >
+                    <TinyCard
+                        :account="identity.account"
+                        :domain="identity.instance.domain"
+                        naked
+                    />
+                    <Button
+                        data-switch
+                        v-if="authStore.identity?.id !== identity.id"
+                        @click="authStore.setActiveIdentity(identity.id)"
+                        variant="outline"
+                    >
                         Switch
                     </Button>
-                    <Button @click="signOutAction(identity.id)" variant="outline" size="icon"
-                        :title="m.sharp_big_mallard_reap()">
-                        <LogOut />
+                    <Button
+                        @click="signOutAction(identity.id)"
+                        variant="outline"
+                        size="icon"
+                        :title="m.sharp_big_mallard_reap()"
+                    >
+                        <LogOut/>
                     </Button>
                 </div>
             </div>
@@ -31,11 +46,11 @@
             </div>
             <DialogFooter>
                 <Button :as="NuxtLink" href="/register" variant="outline">
-                    <UserPlus />
+                    <UserPlus/>
                     {{ m.honest_few_baboon_pop() }}
                 </Button>
                 <Button @click="signInAction">
-                    <LogIn />
+                    <LogIn/>
                     {{ m.sunny_pink_hyena_walk() }}
                 </Button>
             </DialogFooter>

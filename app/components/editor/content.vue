@@ -1,8 +1,6 @@
 <template>
-    <BubbleMenu :editor="editor" />
-    <EditorContent :editor="editor"
-        v-bind="$attrs"
-        :class="$style.content" />
+    <BubbleMenu :editor="editor"/>
+    <EditorContent :editor="editor" v-bind="$attrs" :class="$style.content"/>
 </template>
 
 <script lang="ts" setup>
@@ -122,7 +120,7 @@ onUnmounted(() => {
     @apply font-bold rounded-sm text-primary-foreground bg-primary px-1 py-0.5;
 }
 
-.tiptap .emoji>img {
+.tiptap .emoji > img {
     @apply h-lh align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out;
 }
 </style>

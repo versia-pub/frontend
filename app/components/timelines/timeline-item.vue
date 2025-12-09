@@ -1,6 +1,11 @@
 <template>
-    <component :is="itemComponent" :note="type === 'status' ? item : undefined" :notification="type === 'notification' ? item : (undefined as any)" @update="$emit('update', $event)"
-        @delete="$emit('delete', item?.id)" />
+    <component
+        :is="itemComponent"
+        :note="type === 'status' ? item : undefined"
+        :notification="type === 'notification' ? item : (undefined as any)"
+        @update="$emit('update', $event)"
+        @delete="$emit('delete', item?.id)"
+    />
 </template>
 
 <script lang="ts" setup>

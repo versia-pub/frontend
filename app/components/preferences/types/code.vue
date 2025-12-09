@@ -1,19 +1,21 @@
 <template>
     <Collapsible as-child>
-        <Base :name="name" :pref="pref">
-        <template #default>
-            <CollapsibleTrigger as-child>
-                <Button variant="outline">
-                    Open code
-                </Button>
-            </CollapsibleTrigger>
-        </template>
-        <template #extra="{ setValue, value }">
-            <CollapsibleContent class="col-span-2 mt-2">
-                <Textarea :rows="10" :model-value="value" @update:model-value="setValue" />
-            </CollapsibleContent>
-        </template>
-        </Base>
+        <TypeBase :name="name" :pref="pref">
+            <template #default>
+                <CollapsibleTrigger as-child>
+                    <Button variant="outline">Open code</Button>
+                </CollapsibleTrigger>
+            </template>
+            <template #extra="{ setValue, value }">
+                <CollapsibleContent class="col-span-2 mt-2">
+                    <Textarea
+                        :rows="10"
+                        :model-value="value"
+                        @update:model-value="setValue"
+                    />
+                </CollapsibleContent>
+            </template>
+        </TypeBase>
     </Collapsible>
 </template>
 
@@ -27,7 +29,7 @@ import {
 import { Textarea } from "~/components/ui/textarea";
 import type { preferences as prefs } from "../preferences";
 import type { CodePreference } from "../types";
-import Base from "./base.vue";
+import TypeBase from "./type-base.vue";
 
 const { pref, name } = defineProps<{
     pref: CodePreference;

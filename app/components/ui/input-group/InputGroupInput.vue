@@ -9,11 +9,11 @@ const props = defineProps<{
 </script>
 
 <template>
-  <Input
-    data-slot="input-group-control"
-    :class="cn(
+    <Input
+        data-slot="input-group-control"
+        :class="cn(
       'flex-1 rounded-none border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-transparent ring-offset-transparent dark:bg-transparent',
       props.class,
     )"
-  />
+    />
 </template>

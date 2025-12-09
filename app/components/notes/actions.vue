@@ -1,20 +1,58 @@
 <template>
     <div class="flex flex-row w-full max-w-sm items-stretch justify-between">
-        <ActionButton :icon="Reply" @click="emit('reply')" :title="m.drab_tense_turtle_comfort()" :disabled="!authStore.isSignedIn">
+        <ActionButton
+            :icon="Reply"
+            @click="emit('reply')"
+            :title="m.drab_tense_turtle_comfort()"
+            :disabled="!authStore.isSignedIn"
+        >
             {{ numberFormat(replyCount) }}
         </ActionButton>
-        <ActionButton :icon="Heart" @click="liked ? unlike() : like()" :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()" :disabled="!authStore.isSignedIn" :class="liked && '*:fill-red-600 *:text-red-600'">
+        <ActionButton
+            :icon="Heart"
+            @click="liked ? unlike() : like()"
+            :title="liked ? m.vexed_fluffy_clownfish_dance() : m.royal_close_samuel_scold()"
+            :disabled="!authStore.isSignedIn"
+            :class="liked && '*:fill-red-600 *:text-red-600'"
+        >
             {{ numberFormat(likeCount) }}
         </ActionButton>
-        <ActionButton :icon="Repeat" @click="reblogged ? unreblog() : reblog()" :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()" :disabled="!authStore.isSignedIn" :class="reblogged && '*:text-green-600'">
+        <ActionButton
+            :icon="Repeat"
+            @click="reblogged ? unreblog() : reblog()"
+            :title="reblogged ? m.lime_neat_ox_stab() : m.aware_helpful_marlin_drop()"
+            :disabled="!authStore.isSignedIn"
+            :class="reblogged && '*:text-green-600'"
+        >
             {{ numberFormat(reblogCount) }}
         </ActionButton>
-        <ActionButton :icon="Quote" @click="emit('quote')" :title="m.true_shy_jackal_drip()" :disabled="!authStore.isSignedIn" />
+        <ActionButton
+            :icon="Quote"
+            @click="emit('quote')"
+            :title="m.true_shy_jackal_drip()"
+            :disabled="!authStore.isSignedIn"
+        />
         <Picker @pick="react">
-            <ActionButton :icon="Smile" :title="m.bald_cool_kangaroo_jump()" :disabled="!authStore.isSignedIn" />
+            <ActionButton
+                :icon="Smile"
+                :title="m.bald_cool_kangaroo_jump()"
+                :disabled="!authStore.isSignedIn"
+            />
         </Picker>
-        <Menu :api-note-string="apiNoteString" :url="url" :remote-url="remoteUrl" :is-remote="isRemote" :author-id="authorId" @edit="emit('edit')" :note-id="noteId" @delete="emit('delete')">
-            <ActionButton :icon="Ellipsis" :title="m.busy_merry_cowfish_absorb()" />
+        <Menu
+            :api-note-string="apiNoteString"
+            :url="url"
+            :remote-url="remoteUrl"
+            :is-remote="isRemote"
+            :author-id="authorId"
+            @edit="emit('edit')"
+            :note-id="noteId"
+            @delete="emit('delete')"
+        >
+            <ActionButton
+                :icon="Ellipsis"
+                :title="m.busy_merry_cowfish_absorb()"
+            />
         </Menu>
     </div>
 </template>

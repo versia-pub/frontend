@@ -46,11 +46,14 @@ watch(isValidUrl, (value) => {
 
 <template>
     <div class="space-y-2">
-        <Input v-model="modelValue" v-bind="$attrs" />
+        <Input v-model="modelValue" v-bind="$attrs"/>
         <p v-if="isValidUrl" class="text-green-600 text-xs">
             {{ m.sunny_small_warbler_express() }}
         </p>
-        <p v-else-if="(modelValue?.toString().length ?? 0) > 0" class="text-destructive text-xs">
+        <p
+            v-else-if="(modelValue?.toString().length ?? 0) > 0"
+            class="text-destructive text-xs"
+        >
             {{ m.teal_late_grebe_blend() }}
         </p>
     </div>

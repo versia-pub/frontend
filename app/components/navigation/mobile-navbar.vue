@@ -3,7 +3,7 @@
         class="fixed md:hidden bottom-0 inset-x-0 border-t h-16 bg-background z-10 flex items-center justify-around *:h-full *:w-full gap-6 px-4 py-2 [&>a>svg]:size-5 [&>button>svg]:size-5"
     >
         <Button :as="NuxtLink" href="/" variant="ghost" size="icon">
-            <Home />
+            <Home/>
         </Button>
         <Button
             :as="NuxtLink"
@@ -11,10 +11,10 @@
             variant="ghost"
             size="icon"
         >
-            <Bell />
+            <Bell/>
         </Button>
         <Button variant="ghost" size="icon">
-            <User />
+            <User/>
         </Button>
         <Button
             variant="default"
@@ -22,7 +22,7 @@
             :title="m.salty_aloof_turkey_nudge()"
             @click="useEvent('composer:open')"
         >
-            <Pen />
+            <Pen/>
         </Button>
     </div>
 </template>

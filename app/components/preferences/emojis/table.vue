@@ -282,27 +282,34 @@ const table = useVueTable({
 <template>
     <div class="w-full">
         <div class="flex gap-2 items-center py-4">
-            <Input class="max-w-52 mr-auto" placeholder="Filter emojis..."
+            <Input
+                class="max-w-52 mr-auto"
+                placeholder="Filter emojis..."
                 :model-value="(table.getColumn('shortcode')?.getFilterValue() as string)"
-                @update:model-value="table.getColumn('shortcode')?.setFilterValue($event)" />
+                @update:model-value="table.getColumn('shortcode')?.setFilterValue($event)"
+            />
             <Uploader v-if="props.canUpload">
                 <Button variant="outline" size="icon" title="Upload emoji">
-                    <Plus class="size-4" />
+                    <Plus class="size-4"/>
                 </Button>
             </Uploader>
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
                     <Button variant="outline">
                         Columns
-                        <ChevronDown class="ml-2 size-4" />
+                        <ChevronDown class="ml-2 size-4"/>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuCheckboxItem
-                        v-for="column in table.getAllColumns().filter((column) => column.getCanHide())" :key="column.id"
-                        class="capitalize" :model-value="column.getIsVisible()" @update:model-value="(value) => {
+                        v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
+                        :key="column.id"
+                        class="capitalize"
+                        :model-value="column.getIsVisible()"
+                        @update:model-value="(value) => {
                             column.toggleVisibility(!!value)
-                        }">
+                        }"
+                    >
                         {{ column.id }}
                     </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
@@ -311,19 +318,40 @@ const table = useVueTable({
         <div class="rounded-md border">
             <Table>
                 <TableHeader>
-                    <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-                        <TableHead v-for="header in headerGroup.headers" :key="header.id" class="">
-                            <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header"
-                                :props="header.getContext()" />
+                    <TableRow
+                        v-for="headerGroup in table.getHeaderGroups()"
+                        :key="headerGroup.id"
+                    >
+                        <TableHead
+                            v-for="header in headerGroup.headers"
+                            :key="header.id"
+                            class=""
+                        >
+                            <FlexRender
+                                v-if="!header.isPlaceholder"
+                                :render="header.column.columnDef.header"
+                                :props="header.getContext()"
+                            />
                         </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     <template v-if="table.getRowModel().rows?.length">
-                        <template v-for="row in table.getRowModel().rows" :key="row.id">
-                            <TableRow :data-state="row.getIsSelected() && 'selected'">
-                                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
-                                    <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                        <template
+                            v-for="row in table.getRowModel().rows"
+                            :key="row.id"
+                        >
+                            <TableRow
+                                :data-state="row.getIsSelected() && 'selected'"
+                            >
+                                <TableCell
+                                    v-for="cell in row.getVisibleCells()"
+                                    :key="cell.id"
+                                >
+                                    <FlexRender
+                                        :render="cell.column.columnDef.cell"
+                                        :props="cell.getContext()"
+                                    />
                                 </TableCell>
                             </TableRow>
                             <TableRow v-if="row.getIsExpanded()">
@@ -335,7 +363,10 @@ const table = useVueTable({
                     </template>
 
                     <TableRow v-else>
-                        <TableCell :colspan="columns.length" class="h-24 text-center">
+                        <TableCell
+                            :colspan="columns.length"
+                            class="h-24 text-center"
+                        >
                             No results.
                         </TableCell>
                     </TableRow>
@@ -345,15 +376,24 @@ const table = useVueTable({
 
         <div class="flex items-center justify-end space-x-2 py-4">
             <div class="flex-1 text-sm text-muted-foreground">
-                {{ table.getFilteredSelectedRowModel().rows.length }} of
-                {{ table.getFilteredRowModel().rows.length }} row(s) selected.
+                {{ table.getFilteredSelectedRowModel().rows.length }}of
+                {{ table.getFilteredRowModel().rows.length }}row(s) selected.
             </div>
             <div class="space-x-2">
-                <Button variant="outline" size="sm" :disabled="!table.getCanPreviousPage()"
-                    @click="table.previousPage()">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    :disabled="!table.getCanPreviousPage()"
+                    @click="table.previousPage()"
+                >
                     Previous
                 </Button>
-                <Button variant="outline" size="sm" :disabled="!table.getCanNextPage()" @click="table.nextPage()">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    :disabled="!table.getCanNextPage()"
+                    @click="table.nextPage()"
+                >
                     Next
                 </Button>
             </div>

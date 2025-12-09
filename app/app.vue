@@ -1,15 +1,13 @@
 <template>
     <TooltipProvider>
-        <Component is="style">
-            {{ preferences.custom_css }}
-        </Component>
-        <NuxtPwaAssets />
+        <Component is="style">{{ preferences.custom_css }}</Component>
+        <NuxtPwaAssets/>
         <NuxtLayout>
-            <NuxtPage />
+            <NuxtPage/>
         </NuxtLayout>
-        <ConfirmationModal />
+        <ConfirmationModal/>
         <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
-        <Toaster class="pointer-events-auto" />
+        <Toaster class="pointer-events-auto"/>
     </TooltipProvider>
 </template>
 
@@ -91,7 +89,10 @@ body {
 
 html.theme-changing * {
     /* Stroke and fill aren't animatable */
-    transition: background-color 1s ease, border 1s ease, color 1s ease,
+    transition:
+        background-color 1s ease,
+        border 1s ease,
+        color 1s ease,
         box-shadow 1s ease !important;
 }
 

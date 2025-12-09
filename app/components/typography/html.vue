@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
         :as-child="asChild"
         :class="cn('prose prose-sm block relative dark:prose-invert duration-200 !max-w-full break-words prose-a:no-underline prose-a:hover:underline', $style.content, props.class)"
     >
-        <slot />
+        <slot/>
     </Primitive>
 </template>
 
