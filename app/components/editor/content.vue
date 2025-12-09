@@ -2,7 +2,7 @@
     <BubbleMenu :editor="editor" />
     <EditorContent :editor="editor"
         v-bind="$attrs"
-        :class="[$style.content, 'relative prose prose-sm dark:prose-invert break-words prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0']" />
+        :class="$style.content" />
 </template>
 
 <script lang="ts" setup>
@@ -36,6 +36,11 @@ const emit = defineEmits<{
 }>();
 
 const editor = new Editor({
+    editorProps: {
+        attributes: {
+            class: "relative prose prose-sm dark:prose-invert wrap-break-word prose-a:no-underline prose-a:hover:underline prose-p:first-of-type:mt-0 focus:outline-none w-full",
+        },
+    },
     extensions: [
         StarterKit,
         Placeholder.configure({
@@ -118,6 +123,6 @@ onUnmounted(() => {
 }
 
 .tiptap .emoji>img {
-    @apply h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out;
+    @apply h-lh align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out;
 }
 </style>
