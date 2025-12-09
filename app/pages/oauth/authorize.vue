@@ -10,7 +10,7 @@ useHead({
     title: m.fuzzy_sea_moth_absorb(),
 });
 
-const baseUrl = new URL("https://versia.localhost"); //useRequestURL();
+const baseUrl = useRequestURL();
 const client = computed(() => new Client(baseUrl));
 const instance = useInstanceFromClient(client);
 const {
