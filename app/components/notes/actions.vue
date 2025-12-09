@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row w-full max-w-sm items-stretch justify-between">
+    <div class="flex items-center gap-1">
         <ActionButton
             :icon="Reply"
             @click="emit('reply')"
@@ -39,21 +39,6 @@
                 :disabled="!authStore.isSignedIn"
             />
         </Picker>
-        <Menu
-            :api-note-string="apiNoteString"
-            :url="url"
-            :remote-url="remoteUrl"
-            :is-remote="isRemote"
-            :author-id="authorId"
-            @edit="emit('edit')"
-            :note-id="noteId"
-            @delete="emit('delete')"
-        >
-            <ActionButton
-                :icon="Ellipsis"
-                :title="m.busy_merry_cowfish_absorb()"
-            />
-        </Menu>
     </div>
 </template>
 

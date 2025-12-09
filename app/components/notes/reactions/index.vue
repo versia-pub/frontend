@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row gap-2 flex-wrap">
+    <div class="flex flex-row gap-1 flex-wrap">
         <Reaction
             v-for="reaction in reactions"
             :key="reaction.name"

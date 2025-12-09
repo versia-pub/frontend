@@ -1,63 +1,42 @@
 <template>
-    <div class="rounded grid grid-cols-[auto_1fr_auto] items-center gap-3">
-        <HoverCard
-            v-model:open="popupOpen"
-            @update:open="() => {
-            if (!preferences.popup_avatar_hover) {
-                popupOpen = false;
-            }
-        }"
-            :open-delay="2000"
-        >
-            <HoverCardTrigger :as-child="true">
-                <NuxtLink
-                    :href="urlAsPath"
-                    :class="cn('relative size-12', smallLayout && 'size-8')"
-                >
-                    <Avatar
-                        :class="cn('size-12 border border-card', smallLayout && 'size-8')"
-                        :src="author.avatar"
-                        :name="author.display_name"
-                    />
-                    <Avatar
-                        v-if="cornerAvatar"
-                        class="size-6 border absolute -bottom-1 -right-1"
-                        :src="cornerAvatar"
-                    />
-                </NuxtLink>
-            </HoverCardTrigger>
-            <HoverCardContent class="w-96">
-                <SmallCard :account="author"/>
-            </HoverCardContent>
-        </HoverCard>
-        <Column :class="smallLayout && 'text-sm'">
-            <Text class="font-semibold" v-render-emojis="author.emojis">
-                {{
-                author.display_name
-            }}
-            </Text>
-            <div class="-mt-1">
-                <Address as="span" :username="username" :domain="instance"/>
-                &middot;
-                <Text
-                    as="span"
-                    muted
-                    class="ml-auto tracking-normal"
-                    :title="fullTime"
-                >
-                    {{ timeAgo }}
-                </Text>
-            </div>
-        </Column>
-        <div v-if="!smallLayout">
-            <NuxtLink
-                :href="noteUrlAsPath"
-                class="text-xs text-muted-foreground"
-                :title="visibilities[visibility].text"
-            >
-                <component :is="visibilities[visibility].icon" class="size-4"/>
+    <div class="flex items-start justify-between">
+        <div class="flex items-center gap-3">
+            <NuxtLink :href="urlAsPath">
+                <Avatar :src="author.avatar" :name="author.display_name"/>
             </NuxtLink>
+            <div class="flex flex-col gap-0.5">
+                <div class="flex items-center gap-1">
+                    <span
+                        class="text-sm font-semibold"
+                        v-render-emojis="author.emojis"
+                        >{{ author.display_name }}</span
+                    >
+                </div>
+                <div
+                    class="flex items-center gap-1 text-muted-foreground text-xs"
+                >
+                    <span>
+                        @{{ `${username}${instance ? `@${instance}` : ""}` }}
+                    </span>
+                    <span>&middot;</span>
+                    <span>{{ timeAgo }}</span>
+                </div>
+            </div>
         </div>
+        <Menu
+            :api-note-string="apiNoteString"
+            :url="noteUrl"
+            :remote-url="remoteUrl"
+            :is-remote="isRemote"
+            :author-id="author.id"
+            @edit="emit('edit')"
+            :note-id="noteId"
+            @delete="emit('delete')"
+        >
+            <Button variant="ghost" size="icon">
+                <Ellipsis/>
+            </Button>
+        </Menu>
     </div>
 </template>
 
@@ -67,29 +46,24 @@ import type {
     UseTimeAgoMessages,
     UseTimeAgoUnitNamesDefault,
 } from "@vueuse/core";
-import { AtSign, Globe, Lock, LockOpen } from "lucide-vue-next";
+import { AtSign, Ellipsis, Globe, Lock, LockOpen } from "lucide-vue-next";
 import type { z } from "zod";
-import { cn } from "@/lib/utils";
 import { getLocale } from "~~/paraglide/runtime";
-import Address from "../profiles/address.vue";
 import Avatar from "../profiles/avatar.vue";
-import SmallCard from "../profiles/small-card.vue";
-import Column from "../typography/layout/col.vue";
-import Text from "../typography/text.vue";
-import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-} from "../ui/hover-card";
+import { Button } from "../ui/button";
+import Menu from "./menu.vue";
 
 const { createdAt, noteUrl, author, authorUrl } = defineProps<{
     cornerAvatar?: string;
     visibility: z.infer<typeof Status.shape.visibility>;
     noteUrl: string;
     createdAt: Date;
-    smallLayout?: boolean;
     author: z.infer<typeof Account>;
     authorUrl: string;
+    remoteUrl?: string;
+    apiNoteString: string;
+    isRemote: boolean;
+    noteId: string;
 }>();
 
 const [username, instance] = author.acct.split("@");
@@ -116,6 +90,11 @@ const fullTime = new Intl.DateTimeFormat(getLocale(), {
     timeStyle: "short",
 }).format(createdAt);
 const popupOpen = ref(false);
+
+const emit = defineEmits<{
+    edit: [];
+    delete: [];
+}>();
 
 const visibilities = {
     public: {

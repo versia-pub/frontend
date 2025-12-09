@@ -1,5 +1,12 @@
 <template>
-    <Card as="article" class="relative gap-3 items-stretch">
+    <Card
+        as="article"
+        :class="['relative gap-1.5 items-stretch bg-background', replyBar && 'pl-6']"
+    >
+        <div
+            v-if="replyBar"
+            class="absolute left-0 top-0 bottom-0 w-2 bg-border rounded-tl-md"
+        />
         <CardHeader as="header" class="space-y-2">
             <ReblogHeader
                 v-if="note.reblog"
@@ -13,34 +20,18 @@
                 :author-url="accountUrl"
                 :corner-avatar="note.reblog ? note.account.avatar : undefined"
                 :note-url="url"
+                :is-remote="isRemote"
+                :remote-url="noteToUse.url ?? undefined"
+                :api-note-string="JSON.stringify(noteToUse, null, 4)"
                 :visibility="noteToUse.visibility"
                 :created-at="new Date(noteToUse.created_at)"
-                :small-layout="smallLayout"
+                @edit="useEvent('composer:edit', noteToUse)"
+                @delete="useEvent('note:delete', noteToUse)"
+                :note-id="noteToUse.id"
                 class="z-1"
             />
-            <div
-                v-if="topAvatarBar"
-                :class="
-                    cn(
-                        'shrink-0 bg-border w-0.5 absolute top-0 h-7 left-12'
-                    )
-                "
-            ></div>
-            <div
-                v-if="bottomAvatarBar"
-                :class="
-                    cn(
-                        'shrink-0 bg-border w-0.5 absolute bottom-0 h-[calc(100%-1.5rem)] left-12'
-                    )
-                "
-            ></div>
         </CardHeader>
-        <!-- Simply offset by the size of avatar + 0.75rem (the gap) -->
-        <CardContent
-            :class="
-                ['space-y-4', contentUnderUsername && (smallLayout ? 'ml-11' : 'ml-17')]
-            "
-        >
+        <CardContent class="space-y-2">
             <Content
                 :content="noteToUse.content"
                 :quote="note.quote ?? undefined"
@@ -82,7 +73,6 @@
 <script setup lang="ts">
 import type { Status } from "@versia/client/schemas";
 import type { z } from "zod";
-import { cn } from "@/lib/utils";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Actions from "./actions.vue";
 import Content from "./content.vue";
@@ -92,13 +82,14 @@ import ReblogHeader from "./reblog-header.vue";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-const { note } = defineProps<{
+const {
+    note,
+    hideActions,
+    replyBar = false,
+} = defineProps<{
     note: PartialBy<z.infer<typeof Status>, "reblog" | "quote">;
     hideActions?: boolean;
-    smallLayout?: boolean;
-    contentUnderUsername?: boolean;
-    topAvatarBar?: boolean;
-    bottomAvatarBar?: boolean;
+    replyBar?: boolean;
 }>();
 
 // Notes can be reblogs, in which case the actual thing to render is inside the reblog property

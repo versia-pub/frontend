@@ -13,9 +13,9 @@
                     v-if="emoji"
                     :src="emoji.url"
                     :alt="emoji.shortcode"
-                    class="h-[1lh] align-middle inline not-prose"
+                    class="h-lh align-middle inline not-prose"
                 >
-                <span v-else> {{ reaction.name }}</span>
+                <span v-else>{{ reaction.name }}</span>
                 {{ formatNumber(reaction.count) }}
             </Button>
         </HoverCardTrigger>
