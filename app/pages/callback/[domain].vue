@@ -29,13 +29,15 @@ definePageMeta({
 });
 
 const code = useRequestURL().searchParams.get("code");
-const domain = useRequestURL().searchParams.get("domain");
+const domain = useRoute().params.domain as string;
 const authStore = useAuthStore();
 
 if (code && domain) {
     const newOrigin = new URL(`https://${domain}`);
 
     await authStore.finishSignIn(code, newOrigin);
-    await navigateTo("/");
+    await navigateTo("/", {
+        external: true,
+    });
 }
 </script>

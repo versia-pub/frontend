@@ -112,7 +112,7 @@ export const useAuthStore = defineStore("auth", {
             origin: URL,
         ): Promise<z.infer<typeof CredentialApplication>> {
             const redirectUri = new URL(
-                `/callback?${new URLSearchParams({ domain: origin.host }).toString()}`,
+                `/callback/${origin.host}`,
                 useRequestURL().origin,
             );
 

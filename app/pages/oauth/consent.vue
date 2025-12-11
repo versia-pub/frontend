@@ -5,21 +5,17 @@
         backgroundImage: 'url(/images/banner.webp)',
     }"
     >
-        <form
-            method="POST"
-            :action="url.pathname.replace('/oauth/consent', '/oauth/authorize')"
-            class="w-full max-w-md"
-        >
+        <form method="GET" :action="redirectUri" class="w-full max-w-md">
             <Card class="*:w-full p-6">
+                <input type="hidden" name="code" :value="params.code">
                 <input
                     type="hidden"
-                    v-for="[key, value] in url.searchParams"
-                    :key="key"
-                    :name="key"
-                    :value="value"
+                    v-if="params.state"
+                    name="state"
+                    :value="params.state"
                 >
                 <CardHeader>
-                    <CardTitle as="h1" class="text-2xl break-words">
+                    <CardTitle as="h1" class="text-2xl wrap-break-word">
                         {{
                         m.fresh_broad_cockroach_radiate({
                             application: application ?? "",
