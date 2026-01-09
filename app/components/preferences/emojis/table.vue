@@ -98,7 +98,7 @@ const columns: ColumnDef<z.infer<typeof CustomEmoji>>[] = [
                 src={row.getValue("url")}
                 alt={`:${row.getValue("shortcode")}:`}
                 title={row.getValue("shortcode")}
-                class="h-[1lh] align-middle inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out"
+                class="h-lh align-middle inline not-prose hover:scale-110 transition-transform duration-75 ease-in-out"
             />
         ),
     },
@@ -108,7 +108,7 @@ const columns: ColumnDef<z.infer<typeof CustomEmoji>>[] = [
             return (
                 <Button
                     variant="link"
-                    class="!p-0 !h-auto"
+                    class="p-0! h-auto!"
                     // @ts-expect-error types don't include onClick
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === "asc")
@@ -135,7 +135,7 @@ const columns: ColumnDef<z.infer<typeof CustomEmoji>>[] = [
             return (
                 <Button
                     variant="link"
-                    class="!p-0 !h-auto"
+                    class="p-0! h-auto!"
                     // @ts-expect-error types don't include onClick
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === "asc")
@@ -164,7 +164,7 @@ const columns: ColumnDef<z.infer<typeof CustomEmoji>>[] = [
             return (
                 <Button
                     variant="link"
-                    class="!p-0 !h-auto"
+                    class="p-0! h-auto!"
                     // @ts-expect-error types don't include onClick
                     onClick={() => {
                         const filter = column.getFilterValue();

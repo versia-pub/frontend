@@ -32,9 +32,9 @@ const copy = (data: string) => {
 const authStore = useAuthStore();
 
 const data: [string, string | VNode][] = [
-    ["User ID", authStore.account?.id ?? ""],
-    ["Instance domain", authStore.instance?.domain ?? ""],
-    ["Instance version", authStore.instance?.versia_version ?? ""],
+    ["User ID", authStore.account.id],
+    ["Instance domain", authStore.instance.domain],
+    ["Instance version", authStore.instance.versia_version ?? ""],
     ["Client ID", authStore.application?.client_id ?? ""],
     [
         "Client secret",
@@ -55,7 +55,7 @@ const data: [string, string | VNode][] = [
             class="font-sans"
             size="sm"
             // @ts-expect-error missing onClick types
-            onClick={() => copy(authStore.token?.access_token ?? "")}
+            onClick={() => copy(authStore.token.access_token)}
         >
             Click to copy
         </Button>,

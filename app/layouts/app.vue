@@ -31,7 +31,6 @@ const route = useRoute();
 watch(
     () => route.path,
     async () => {
-        console.log(route.meta.requiresAuth && !authStore.isSignedIn);
         if (route.meta.requiresAuth && !authStore.isSignedIn) {
             window.location.href = "/";
         }

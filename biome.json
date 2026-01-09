@@ -90,7 +90,9 @@
                 "noUselessElse": "error",
                 "noCommonJs": "error"
             },
-            "nursery": {}
+            "nursery": {
+                "noUnnecessaryConditions": "error"
+            }
         }
     },
     "formatter": {

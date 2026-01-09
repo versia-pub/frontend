@@ -26,10 +26,7 @@ const authStore = useAuthStore();
         <SidebarMenu class="gap-3">
             <SidebarMenuItem>
                 <AccountManager>
-                    <SidebarMenuButton
-                        v-if="authStore.account && authStore.instance"
-                        size="lg"
-                    >
+                    <SidebarMenuButton v-if="authStore.isSignedIn" size="lg">
                         <TinyCard
                             :account="authStore.account"
                             :domain="authStore.instance.domain"

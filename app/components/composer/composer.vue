@@ -141,7 +141,7 @@ const composerKey = props.relation
 const store = useComposerStore(composerKey)();
 const authStore = useAuthStore();
 const charactersLeft = computed(() => {
-    const max = authStore.instance?.configuration.statuses.max_characters ?? 0;
+    const max = authStore.instance.configuration.statuses.max_characters;
 
     return max - store.rawContent.length;
 });

@@ -3,7 +3,7 @@ import * as m from "~~/paraglide/messages.js";
 
 export const useCacheRefresh = () => {
     const authStore = useAuthStore();
-    const { identity } = storeToRefs(authStore);
+    const { identityOptional } = storeToRefs(authStore);
 
     authStore.client.getInstance().then((res) => {
         authStore.updateActiveIdentity({
@@ -13,7 +13,7 @@ export const useCacheRefresh = () => {
 
     // Refresh custom emojis and instance data and me on every reload
     watch(
-        identity,
+        identityOptional,
         async (oldIdentity, newIdentity) => {
             if (newIdentity && newIdentity.id !== oldIdentity?.id) {
                 console.info("Refreshing emoji, instance and account cache");

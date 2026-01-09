@@ -37,10 +37,6 @@ const canEdit =
     authStore.permissions.includes(RolePermission.ManageEmojis);
 
 const deleteAll = async () => {
-    if (!authStore.isSignedIn) {
-        return;
-    }
-
     const { confirmed } = await confirmModalService.confirm({
         title: m.tense_quick_cod_favor(),
         message: m.next_hour_jurgen_sprout({

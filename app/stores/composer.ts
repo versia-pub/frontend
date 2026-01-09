@@ -41,7 +41,7 @@ export const calculateMentionsFromReply = (
         // Deduplicate mentions
         .filter((men, i, a) => a.indexOf(men) === i)
         // Remove self
-        .filter((men) => men.id !== authStore.identity?.account.id);
+        .filter((men) => men.id !== authStore.identity.account.id);
 
     if (peopleToMention.length === 0) {
         return "";
@@ -72,8 +72,8 @@ export const useComposerStore = (key: ComposerStateKey) =>
             isOverCharacterLimit(): boolean {
                 const authStore = useAuthStore();
                 const characterLimit =
-                    authStore.identity?.instance.configuration.statuses
-                        .max_characters ?? 0;
+                    authStore.identity.instance.configuration.statuses
+                        .max_characters;
 
                 return this.characterCount > characterLimit;
             },

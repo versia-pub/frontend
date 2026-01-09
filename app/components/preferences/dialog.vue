@@ -76,12 +76,12 @@ useListen("preferences:open", () => {
 </script>
 
 <template>
-    <Dialog v-model:open="open" v-if="authStore.isSignedIn">
+    <Dialog v-model:open="open">
         <DialogContent
             class="md:max-w-5xl w-full h-full p-0 md:max-h-[70dvh] overflow-hidden"
         >
             <Tabs
-                class="md:grid-cols-[auto_minmax(0,1fr)] !grid gap-2 *:p-4 overflow-hidden *:overflow-y-auto *:h-full"
+                class="md:grid-cols-[auto_minmax(0,1fr)] grid! gap-2 *:p-4 overflow-hidden *:overflow-y-auto *:h-full"
                 orientation="vertical"
                 :default-value="pages[0]"
             >
@@ -92,8 +92,8 @@ useListen("preferences:open", () => {
                         class="grid gap-3 items-center grid-cols-[auto_minmax(0,1fr)]"
                     >
                         <Avatar
-                            :name="authStore.account!.display_name || authStore.account!.username"
-                            :src="authStore.account!.avatar"
+                            :name="authStore.account.display_name || authStore.account.username"
+                            :src="authStore.account.avatar"
                         />
                         <DialogTitle>Preferences</DialogTitle>
                     </div>
@@ -101,7 +101,7 @@ useListen("preferences:open", () => {
                         Make changes to your preferences here.
                     </DialogDescription>
                     <TabsList
-                        class="md:grid md:grid-cols-1 w-full h-fit *:justify-start !justify-start"
+                        class="md:grid md:grid-cols-1 w-full h-fit *:justify-start justify-start!"
                     >
                         <TabsTrigger
                             v-for="page in pages"

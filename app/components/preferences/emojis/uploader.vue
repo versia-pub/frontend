@@ -203,25 +203,21 @@ const formSchema = toTypedSchema(
             .refine(
                 (v) =>
                     v.size <=
-                    (authStore.instance?.configuration.emojis
-                        .emoji_size_limit ?? Number.POSITIVE_INFINITY),
+                    authStore.instance.configuration.emojis.emoji_size_limit,
                 m.orange_weird_parakeet_hug({
-                    count:
-                        authStore.instance?.configuration.emojis
-                            .emoji_size_limit ?? Number.POSITIVE_INFINITY,
+                    count: authStore.instance.configuration.emojis
+                        .emoji_size_limit,
                 }),
             ),
         shortcode: z
             .string()
             .min(1)
             .max(
-                authStore.instance?.configuration.emojis
-                    .max_shortcode_characters ?? Number.POSITIVE_INFINITY,
+                authStore.instance.configuration.emojis
+                    .max_shortcode_characters,
                 m.solid_inclusive_owl_hug({
-                    count:
-                        authStore.instance?.configuration.emojis
-                            .max_shortcode_characters ??
-                        Number.POSITIVE_INFINITY,
+                    count: authStore.instance.configuration.emojis
+                        .max_shortcode_characters,
                 }),
             )
             .regex(emojiValidator),
@@ -238,13 +234,11 @@ const formSchema = toTypedSchema(
         alt: z
             .string()
             .max(
-                authStore.instance?.configuration.emojis
-                    .max_description_characters ?? Number.POSITIVE_INFINITY,
+                authStore.instance.configuration.emojis
+                    .max_description_characters,
                 m.key_ago_hound_emerge({
-                    count:
-                        authStore.instance?.configuration.emojis
-                            .max_description_characters ??
-                        Number.POSITIVE_INFINITY,
+                    count: authStore.instance.configuration.emojis
+                        .max_description_characters,
                 }),
             )
             .optional(),
@@ -255,10 +249,6 @@ const { isSubmitting, handleSubmit, values, setFieldValue } = useForm({
 });
 
 const submit = handleSubmit(async (values) => {
-    if (!authStore.isSignedIn) {
-        return;
-    }
-
     const id = toast.loading(m.factual_gray_mouse_believe());
 
     try {

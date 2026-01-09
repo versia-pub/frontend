@@ -136,8 +136,8 @@ const _delete = async () => {
                     {{ m.tense_quick_cod_favor() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !authorIsMe" />
-            <DropdownMenuGroup v-if="authStore.isSignedIn && !authorIsMe">
+            <DropdownMenuSeparator v-if="authorIsMe" />
+            <DropdownMenuGroup v-if="authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag />
                     {{ m.great_few_jaguar_rise() }}

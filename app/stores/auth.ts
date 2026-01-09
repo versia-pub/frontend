@@ -38,34 +38,55 @@ export const useAuthStore = defineStore("auth", {
         applications: {},
     }),
     getters: {
-        identity(state): Identity | null {
-            return state.activeIdentityId
-                ? state.identities.find(
-                      (id) => id.id === state.activeIdentityId,
-                  ) || null
-                : null;
+        identity(state): Identity {
+            if (state.activeIdentityId === null) {
+                throw new Error("This functionality requires authentication.");
+            }
+
+            const identity = state.identities.find(
+                (id) => id.id === state.activeIdentityId,
+            );
+
+            if (!identity) {
+                throw new Error("This functionality requires authentication.");
+            }
+
+            return identity;
         },
-        emojis(): z.infer<typeof CustomEmoji>[] {
-            return this.identity?.emojis || [];
-        },
-        instance(): z.infer<typeof Instance> | null {
-            return this.identity?.instance || null;
-        },
-        account(): z.infer<typeof Account> | null {
-            return this.identity?.account || null;
-        },
-        application(): z.infer<typeof CredentialApplication> | null {
-            if (!this.identity) {
+        identityOptional(state): Identity | null {
+            if (state.activeIdentityId === null) {
                 return null;
             }
 
+            return (
+                state.identities.find(
+                    (id) => id.id === state.activeIdentityId,
+                ) || null
+            );
+        },
+        emojis(): z.infer<typeof CustomEmoji>[] {
+            return this.identity.emojis;
+        },
+        instance(): z.infer<typeof Instance> {
+            return this.identity.instance;
+        },
+        instanceOptional(): z.infer<typeof Instance> | null {
+            return this.identityOptional?.instance ?? null;
+        },
+        account(): z.infer<typeof Account> {
+            return this.identity.account;
+        },
+        accountOptional(): z.infer<typeof Account> | null {
+            return this.identityOptional?.account ?? null;
+        },
+        application(): z.infer<typeof CredentialApplication> | null {
             return this.applications[this.identity.instance.domain] || null;
         },
-        token(): z.infer<typeof Token> | null {
-            return this.identity?.token || null;
+        token(): z.infer<typeof Token> {
+            return this.identity.token;
         },
         permissions(): RolePermission[] {
-            const roles = this.account?.roles ?? [];
+            const roles = this.account.roles;
 
             return roles
                 .flatMap((r) => r.permissions)
@@ -76,11 +97,11 @@ export const useAuthStore = defineStore("auth", {
         },
         client(): Client {
             const apiHost = window.location.origin;
-            const domain = this.identity?.instance.domain;
+            const domain = this.identityOptional?.instance.domain;
 
             return new Client(
                 domain ? new URL(`https://${domain}`) : new URL(apiHost),
-                this.identity?.token.access_token ?? undefined,
+                this.identityOptional?.token.access_token ?? undefined,
                 {
                     globalCatch: (error) => {
                         toast.error(

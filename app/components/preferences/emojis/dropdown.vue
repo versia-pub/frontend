@@ -50,10 +50,6 @@ const { emoji } = defineProps<{
 const authStore = useAuthStore();
 
 const editName = async () => {
-    if (!authStore.isSignedIn) {
-        return;
-    }
-
     const result = await confirmModalService.confirm({
         title: m.slimy_awful_florian_sail(),
         defaultValue: emoji.shortcode,
@@ -83,10 +79,6 @@ const editName = async () => {
 };
 
 const _delete = async () => {
-    if (!authStore.isSignedIn) {
-        return;
-    }
-
     const { confirmed } = await confirmModalService.confirm({
         title: m.tense_quick_cod_favor(),
         message: m.honest_factual_carp_aspire(),

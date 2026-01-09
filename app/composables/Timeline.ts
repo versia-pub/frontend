@@ -1,4 +1,4 @@
-import type { Client, Output } from "@versia/client";
+import type { Output } from "@versia/client";
 import type { Notification, Status } from "@versia/client/schemas";
 import { useIntervalFn } from "@vueuse/core";
 import type { z } from "zod";
@@ -17,7 +17,7 @@ export function useTimeline<
     const hasReachedEnd = ref(false);
     const error = ref<Error | null>(null);
     const authStore = useAuthStore();
-    const { identity } = storeToRefs(authStore);
+    const { identityOptional } = storeToRefs(authStore);
 
     const nextMaxId = ref<string | undefined>(undefined);
     const prevMinId = ref<string | undefined>(undefined);
@@ -101,7 +101,7 @@ export function useTimeline<
         pause();
     });
 
-    watch(identity, (newIdentity, oldIdentity) => {
+    watch(identityOptional, (newIdentity, oldIdentity) => {
         if (newIdentity?.id !== oldIdentity?.id) {
             // Reload timeline when identity changes
             items.value = [];

@@ -1,6 +1,6 @@
 <template>
     <Command
-        class="rounded border shadow-md min-w-[200px] h-fit not-prose"
+        class="rounded border shadow-md min-w-50 h-fit not-prose"
         :selected-value="emojis[selectedIndex]?.id"
     >
         <CommandList>
@@ -14,7 +14,7 @@
                     class="scroll-m-10"
                 >
                     <img
-                        class="h-[1lh] align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out"
+                        class="h-lh align-middle inline hover:scale-110 transition-transform duration-75 ease-in-out"
                         :src="emoji.url"
                         :title="emoji.shortcode"
                     >

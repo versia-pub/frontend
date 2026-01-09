@@ -23,7 +23,7 @@
                     />
                     <Button
                         data-switch
-                        v-if="authStore.identity?.id !== identity.id"
+                        v-if="authStore.identityOptional?.id !== identity.id"
                         @click="authStore.setActiveIdentity(identity.id)"
                         variant="outline"
                     >

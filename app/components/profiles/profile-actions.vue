@@ -45,8 +45,8 @@
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
-            <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
+            <DropdownMenuSeparator v-if="!isMe" />
+            <DropdownMenuGroup v-if="!isMe">
                 <DropdownMenuItem as="button" @click="muteUser(account.id)">
                     <VolumeX />
                     {{ m.spare_wild_mole_intend() }}
@@ -63,8 +63,8 @@
                     {{ m.slow_chunky_chipmunk_hush() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
-            <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
+            <DropdownMenuSeparator v-if="!isMe" />
+            <DropdownMenuGroup v-if="!isMe">
                 <DropdownMenuItem as="button" :disabled="true">
                     <Flag />
                     {{ m.great_few_jaguar_rise() }}
@@ -104,7 +104,7 @@ const { account } = defineProps<{
 }>();
 
 const authStore = useAuthStore();
-const isMe = authStore.account?.id === account.id;
+const isMe = authStore.accountOptional?.id === account.id;
 
 const { copy } = useClipboard();
 const copyText = (text: string) => {

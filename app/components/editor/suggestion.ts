@@ -126,11 +126,9 @@ export const emojiSuggestion = {
             return [];
         }
 
-        const emojis = authStore.emojis;
-
         return go(
             query,
-            emojis
+            authStore.emojis
                 .filter((emoji) => emoji.shortcode.includes(query))
                 .map((emoji) => ({
                     key: emoji.shortcode,

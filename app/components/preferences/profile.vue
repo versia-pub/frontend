@@ -38,7 +38,7 @@
         <FormField v-slot="{ setValue }" name="avatar">
             <TextInput :title="m.safe_icy_bulldog_quell()">
                 <ImageUploader
-                    v-model:image="authStore.account!.avatar"
+                    v-model:image="authStore.account.avatar"
                     @submit-file="(file) => setValue(file)"
                     @submit-url="(url) => setValue(url)"
                 />
@@ -143,10 +143,6 @@ const dirty = computed(() => form.meta.value.dirty);
 const submitting = ref(false);
 const authStore = useAuthStore();
 
-if (!(authStore.instance && authStore.account)) {
-    throw new Error("Not signed in.");
-}
-
 const schema = formSchema(authStore.instance);
 
 const form = useForm({
@@ -167,7 +163,7 @@ const form = useForm({
 });
 
 const save = form.handleSubmit(async (values) => {
-    if (submitting.value || !authStore.account) {
+    if (submitting.value) {
         return;
     }
 
@@ -198,7 +194,7 @@ const save = form.handleSubmit(async (values) => {
                 : values.discoverable,
         // Can't compare two arrays directly in JS, so we need to check if all fields are the same
         fields_attributes: values.fields.every((field) =>
-            authStore.account?.source?.fields?.some(
+            authStore.account.source?.fields?.some(
                 (f) => f.name === field.name && f.value === field.value,
             ),
         )

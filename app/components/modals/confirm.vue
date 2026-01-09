@@ -80,7 +80,7 @@ const isValid = ref(false);
         :open="isOpen"
         @update:open="isOpen = false"
     >
-        <AlertDialogContent class="sm:max-w-[425px] flex flex-col">
+        <AlertDialogContent class="sm:max-w-106.25 flex flex-col">
             <AlertDialogHeader>
                 <AlertDialogTitle>{{ modalOptions.title }}</AlertDialogTitle>
                 <AlertDialogDescription v-if="modalOptions.message">

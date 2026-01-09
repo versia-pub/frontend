@@ -2,7 +2,7 @@
     <Button
         variant="secondary"
         :disabled="isLoading || relationship?.requested"
-        v-if="!isMe && authStore.isSignedIn"
+        v-if="!isMe"
         @click="relationship?.following ? unfollow() : follow()"
     >
         <Loader v-if="isLoading" class="animate-spin" />
@@ -31,7 +31,7 @@ const { account } = defineProps<{
 
 const { relationship, isLoading } = useRelationship(account.id);
 const authStore = useAuthStore();
-const isMe = authStore.account?.id === account.id;
+const isMe = authStore.accountOptional?.id === account.id;
 
 const follow = async () => {
     if (preferences.confirm_actions.value.includes("follow")) {

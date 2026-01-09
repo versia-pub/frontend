@@ -42,7 +42,7 @@ const roles = account.roles.filter((r) => r.visible);
 // Get user handle in username@instance format
 const handle = account.acct.includes("@")
     ? account.acct
-    : `${account.acct}@${authStore.instance?.domain ?? window.location.host}`;
+    : `${account.acct}@${authStore.instance.domain}`;
 const isDeveloper = config.DEVELOPER_HANDLES.includes(handle);
 </script>
 

@@ -44,14 +44,13 @@
 
 <script lang="ts" setup>
 import type { CustomEmoji, Status } from "@versia/client/schemas";
-import { Ellipsis, Heart, Quote, Repeat, Reply, Smile } from "lucide-vue-next";
+import { Heart, Quote, Repeat, Reply, Smile } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import type { z } from "zod";
 import * as m from "~~/paraglide/messages.js";
 import { getLocale } from "~~/paraglide/runtime";
 import { confirmModalService } from "../modals/composable";
 import ActionButton from "./action-button.vue";
-import Menu from "./menu.vue";
 import type { UnicodeEmoji } from "./reactions/picker/emoji";
 import Picker from "./reactions/picker/index.vue";
 

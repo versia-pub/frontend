@@ -3,7 +3,7 @@ export const wrapUrl = (path: string) => {
 
     return new URL(
         path,
-        authStore.instance
+        authStore.instanceOptional
             ? `https://${authStore.instance.domain}`
             : window.location.origin,
     ).toString();

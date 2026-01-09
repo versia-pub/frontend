@@ -11,13 +11,10 @@ const authStore = useAuthStore();
 
 <template>
     <SidebarHeader>
-        <SidebarMenu>
+        <SidebarMenu v-if="authStore.isSignedIn">
             <SidebarMenuItem>
                 <NuxtLink href="/">
-                    <InstanceSmallCard
-                        v-if="authStore.instance"
-                        :instance="authStore.instance"
-                    />
+                    <InstanceSmallCard :instance="authStore.instance" />
                 </NuxtLink>
             </SidebarMenuItem>
         </SidebarMenu>
