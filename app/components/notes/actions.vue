@@ -6,7 +6,7 @@
             :title="m.drab_tense_turtle_comfort()"
             :disabled="!authStore.isSignedIn"
         >
-            {{ numberFormat(replyCount) }}
+            {{ numberFormat(note.replies_count) }}
         </ActionButton>
         <ActionButton
             :icon="Heart"
@@ -15,7 +15,7 @@
             :disabled="!authStore.isSignedIn"
             :class="liked && '*:fill-red-600 *:text-red-600'"
         >
-            {{ numberFormat(likeCount) }}
+            {{ numberFormat(note.favourites_count) }}
         </ActionButton>
         <ActionButton
             :icon="Repeat"
@@ -24,7 +24,7 @@
             :disabled="!authStore.isSignedIn"
             :class="reblogged && '*:text-green-600'"
         >
-            {{ numberFormat(reblogCount) }}
+            {{ numberFormat(note.reblogs_count) }}
         </ActionButton>
         <ActionButton
             :icon="Quote"
@@ -51,22 +51,12 @@ import * as m from "~~/paraglide/messages.js";
 import { getLocale } from "~~/paraglide/runtime";
 import { confirmModalService } from "../modals/composable";
 import ActionButton from "./action-button.vue";
+import { key } from "./provider";
 import type { UnicodeEmoji } from "./reactions/picker/emoji";
 import Picker from "./reactions/picker/index.vue";
 
-const { noteId } = defineProps<{
-    replyCount: number;
-    likeCount: number;
-    reblogCount: number;
-    apiNoteString: string;
-    noteId: string;
-    isRemote: boolean;
-    url: string;
-    remoteUrl?: string;
-    authorId: string;
-    liked: boolean;
-    reblogged: boolean;
-}>();
+// biome-ignore lint/style/noNonNullAssertion: We want an error if not provided
+const { note } = inject(key)!;
 
 const emit = defineEmits<{
     edit: [];
@@ -77,6 +67,9 @@ const emit = defineEmits<{
 }>();
 const { play } = useAudio();
 const authStore = useAuthStore();
+
+const liked = note.favourited ?? false;
+const reblogged = note.reblogged ?? false;
 
 const like = async () => {
     if (preferences.confirm_actions.value.includes("like")) {
@@ -94,7 +87,7 @@ const like = async () => {
 
     play("like");
     const id = toast.loading(m.slimy_candid_tiger_read());
-    const { data } = await authStore.client.favouriteStatus(noteId);
+    const { data } = await authStore.client.favouriteStatus(note.id);
     toast.dismiss(id);
     toast.success(m.mealy_slow_buzzard_commend());
     useEvent("note:edit", data);
@@ -115,7 +108,7 @@ const unlike = async () => {
     }
 
     const id = toast.loading(m.busy_active_leopard_strive());
-    const { data } = await authStore.client.unfavouriteStatus(noteId);
+    const { data } = await authStore.client.unfavouriteStatus(note.id);
     toast.dismiss(id);
     toast.success(m.fresh_direct_bear_affirm());
     useEvent("note:edit", data);
@@ -136,7 +129,7 @@ const reblog = async () => {
     }
 
     const id = toast.loading(m.late_sunny_cobra_scold());
-    const { data } = await authStore.client.reblogStatus(noteId);
+    const { data } = await authStore.client.reblogStatus(note.id);
     toast.dismiss(id);
     toast.success(m.weird_moving_hawk_lift());
     useEvent(
@@ -160,7 +153,7 @@ const unreblog = async () => {
     }
 
     const id = toast.loading(m.white_sharp_gorilla_embrace());
-    const { data } = await authStore.client.unreblogStatus(noteId);
+    const { data } = await authStore.client.unreblogStatus(note.id);
     toast.dismiss(id);
     toast.success(m.royal_polite_moose_catch());
     useEvent("note:edit", data);
@@ -172,7 +165,7 @@ const react = async (emoji: z.infer<typeof CustomEmoji> | UnicodeEmoji) => {
         ? (emoji as UnicodeEmoji).unicode
         : `:${(emoji as z.infer<typeof CustomEmoji>).shortcode}:`;
 
-    const { data } = await authStore.client.createEmojiReaction(noteId, text);
+    const { data } = await authStore.client.createEmojiReaction(note.id, text);
 
     toast.dismiss(id);
     toast.success(m.main_least_turtle_fall());

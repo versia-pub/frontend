@@ -60,7 +60,7 @@ const props = defineProps<{
 
 const emit = defineEmits<(e: "update") => void>();
 
-const loadMoreTrigger = ref<HTMLElement | null>(null);
+const loadMoreTrigger = useTemplateRef("loadMoreTrigger");
 
 useIntersectionObserver(loadMoreTrigger, ([observer]) => {
     if (observer?.isIntersecting && !props.isLoading && !props.hasReachedEnd) {

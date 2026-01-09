@@ -61,14 +61,16 @@ import {
 } from "~/components/ui/hover-card";
 import * as m from "~~/paraglide/messages.js";
 import { getLocale } from "~~/paraglide/runtime.js";
+import { key } from "../provider";
 
-const { reaction, emoji, statusId } = defineProps<{
-    statusId: string;
+const { reaction, emoji } = defineProps<{
     reaction: z.infer<typeof NoteReaction>;
     emoji?: z.infer<typeof CustomEmoji>;
 }>();
 
 const authStore = useAuthStore();
+// biome-ignore lint/style/noNonNullAssertion: We want an error if not provided
+const { note } = inject(key)!;
 
 const formatNumber = (number: number) =>
     new Intl.NumberFormat(getLocale(), {
@@ -80,7 +82,7 @@ const formatNumber = (number: number) =>
 const accounts = ref<z.infer<typeof Account>[] | null>(null);
 
 const refreshReactions = async () => {
-    const { data } = await authStore.client.getStatusReactions(statusId);
+    const { data } = await authStore.client.getStatusReactions(note.id);
     const accountIds =
         data.find((r) => r.name === reaction.name)?.account_ids.slice(0, 10) ??
         [];
@@ -95,7 +97,7 @@ const react = async () => {
     const id = toast.loading(m.gray_stale_antelope_roam());
 
     const { data } = await authStore.client.createEmojiReaction(
-        statusId,
+        note.id,
         reaction.name,
     );
 
@@ -108,7 +110,7 @@ const unreact = async () => {
     const id = toast.loading(m.many_weary_bat_intend());
 
     const { data } = await authStore.client.deleteEmojiReaction(
-        statusId,
+        note.id,
         reaction.name,
     );
 

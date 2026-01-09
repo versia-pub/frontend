@@ -1,23 +1,18 @@
 <template>
     <div class="flex flex-row gap-1 flex-wrap">
         <Reaction
-            v-for="reaction in reactions"
+            v-for="reaction in note.reactions"
             :key="reaction.name"
             :reaction="reaction"
-            :emoji="emojis.find(e => `:${e.shortcode}:` === reaction.name)"
-            :status-id="statusId"
+            :emoji="note.emojis.find(e => `:${e.shortcode}:` === reaction.name)"
         />
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { CustomEmoji, NoteReaction } from "@versia/client/schemas";
-import type { z } from "zod";
+import { key } from "../provider";
 import Reaction from "./reaction.vue";
 
-const { statusId, reactions, emojis } = defineProps<{
-    statusId: string;
-    reactions: z.infer<typeof NoteReaction>[];
-    emojis: z.infer<typeof CustomEmoji>[];
-}>();
+// biome-ignore lint/style/noNonNullAssertion: We want an error if not provided
+const { note } = inject(key)!;
 </script>

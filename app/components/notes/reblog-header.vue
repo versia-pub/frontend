@@ -4,9 +4,15 @@
             class="flex-row px-2 py-1 items-center gap-2 hover:bg-muted duration-100 text-sm"
         >
             <Repeat class="size-4 text-primary" />
-            <Avatar class="size-6 border" :src="avatar" :name="displayName" />
-            <span class="font-semibold" v-render-emojis="emojis"
-                >{{ displayName }}</span
+            <Avatar
+                class="size-6 border"
+                :src="rebloggerNote.account.avatar"
+                :name="rebloggerNote.account.display_name"
+            />
+            <span
+                class="font-semibold"
+                v-render-emojis="rebloggerNote.account.emojis"
+                >{{ rebloggerNote.account.display_name }}</span
             >
             {{ m.large_vivid_horse_catch() }}
         </Card>
@@ -14,19 +20,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { CustomEmoji } from "@versia/client/schemas";
 import { Repeat } from "lucide-vue-next";
-import type { z } from "zod";
 import * as m from "~~/paraglide/messages.js";
 import Avatar from "../profiles/avatar.vue";
 import { Card } from "../ui/card";
+import { key } from "./provider";
 
-const { url } = defineProps<{
-    avatar: string;
-    displayName: string;
-    emojis: z.infer<typeof CustomEmoji>[];
-    url: string;
-}>();
+// biome-ignore lint/style/noNonNullAssertion: We want an error if not provided
+const { rebloggerNote } = inject(key)!;
 
-const urlAsPath = new URL(url).pathname;
+if (!rebloggerNote) {
+    throw new Error(
+        "ReblogHeader must be used with a rebloggerNote in context",
+    );
+}
+
+const reblogAccountUrl = wrapUrl(`/@${rebloggerNote.account.acct}`);
+const urlAsPath = new URL(reblogAccountUrl).pathname;
 </script>

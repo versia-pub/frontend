@@ -21,15 +21,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { confirmModalService } from "~/components/modals/composable.ts";
 import * as m from "~~/paraglide/messages.js";
+import { key } from "./provider";
 
-const { authorId, noteId } = defineProps<{
-    apiNoteString: string;
-    isRemote: boolean;
-    url: string;
-    remoteUrl?: string;
-    authorId: string;
-    noteId: string;
-}>();
+// biome-ignore lint/style/noNonNullAssertion: We want an error if not provided
+const { note, isRemote } = inject(key)!;
 
 const emit = defineEmits<{
     edit: [];
@@ -38,7 +33,9 @@ const emit = defineEmits<{
 
 const { copy } = useClipboard();
 const authStore = useAuthStore();
-const authorIsMe = authStore.isSignedIn && authorId === authStore.account?.id;
+const url = wrapUrl(`/@${note.account.acct}/${note.id}`);
+const authorIsMe =
+    authStore.isSignedIn && note.account.id === authStore.account?.id;
 
 const copyText = (text: string) => {
     copy(text);
@@ -68,7 +65,7 @@ const _delete = async () => {
     }
 
     const id = toast.loading(m.new_funny_fox_boil());
-    await authStore.client.deleteStatus(noteId);
+    await authStore.client.deleteStatus(note.id);
     toast.dismiss(id);
 
     toast.success(m.green_tasty_bumblebee_beam());
@@ -91,11 +88,14 @@ const _delete = async () => {
                     <Pencil />
                     {{ m.front_lime_grizzly_persist() }}
                 </DropdownMenuItem>
-                <DropdownMenuItem as="button" @click="copyText(apiNoteString)">
+                <DropdownMenuItem
+                    as="button"
+                    @click="copyText(JSON.stringify(note, null, 4))"
+                >
                     <Code />
                     {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
-                <DropdownMenuItem as="button" @click="copyText(noteId)">
+                <DropdownMenuItem as="button" @click="copyText(note.id)">
                     <Hash />
                     {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
@@ -108,8 +108,8 @@ const _delete = async () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     as="button"
-                    v-if="isRemote && remoteUrl"
-                    @click="copyText(remoteUrl)"
+                    v-if="isRemote && note.url"
+                    @click="copyText(note.url)"
                 >
                     <Link />
                     {{ m.solid_witty_zebra_walk() }}
@@ -119,7 +119,7 @@ const _delete = async () => {
                     v-if="isRemote"
                     target="_blank"
                     rel="noopener noreferrer"
-                    :href="remoteUrl"
+                    :href="note.url"
                 >
                     <ExternalLink />
                     {{ m.active_trite_lark_inspire() }}
@@ -142,7 +142,10 @@ const _delete = async () => {
                     <Flag />
                     {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
-                <DropdownMenuItem as="button" @click="blockUser(authorId)">
+                <DropdownMenuItem
+                    as="button"
+                    @click="blockUser(note.account.id)"
+                >
                     <Ban />
                     {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
