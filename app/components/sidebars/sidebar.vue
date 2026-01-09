@@ -14,15 +14,15 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-    <LeftSidebar/>
+    <LeftSidebar />
     <main class="grow h-dvh overflow-y-auto">
         <header
             v-if="showTimelines"
             class="flex h-16 items-center bg-background/80 backdrop-blur-2xl sticky top-0 inset-x-0 z-10 p-4"
         >
-            <Timelines/>
+            <Timelines />
         </header>
-        <slot/>
+        <slot />
     </main>
     <RightSidebar
         v-if="authStore.isSignedIn"

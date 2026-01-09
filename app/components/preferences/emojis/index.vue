@@ -1,6 +1,6 @@
 <template>
     <div v-if="authStore.emojis.length > 0" class="grow">
-        <Table :emojis="authStore.emojis" :can-upload="canUpload"/>
+        <Table :emojis="authStore.emojis" :can-upload="canUpload" />
     </div>
 </template>
 

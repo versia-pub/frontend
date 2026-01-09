@@ -21,6 +21,6 @@ const delegatedProps = computed(() => {
         v-bind="delegatedProps"
         :class="cn('bg-border -mx-1 h-px', props.class)"
     >
-        <slot/>
+        <slot />
     </Separator>
 </template>

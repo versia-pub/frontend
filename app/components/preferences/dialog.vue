@@ -108,7 +108,7 @@ useListen("preferences:open", () => {
                             :key="page"
                             :value="page"
                         >
-                            <component :is="icons[page]" class="size-4 mr-2"/>
+                            <component :is="icons[page]" class="size-4 mr-2" />
                             {{ page }}
                         </TabsTrigger>
                     </TabsList>
@@ -130,17 +130,17 @@ useListen("preferences:open", () => {
                 </TabsContent>
                 <TabsContent value="Emojis" as-child>
                     <Page title="Emojis">
-                        <Emojis/>
+                        <Emojis />
                     </Page>
                 </TabsContent>
                 <TabsContent value="Account" as-child>
                     <Page title="Account">
-                        <Profile/>
+                        <Profile />
                     </Page>
                 </TabsContent>
                 <TabsContent value="Developer" as-child>
                     <Page title="Developer">
-                        <Developer/>
+                        <Developer />
                     </Page>
                 </TabsContent>
                 <TabsContent value="About" as-child>
@@ -150,9 +150,9 @@ useListen("preferences:open", () => {
                                 {{ pkg.description }}
                             </p>
 
-                            <Stats/>
+                            <Stats />
                         </section>
-                        <Separator/>
+                        <Separator />
                         <section class="space-y-2">
                             <h3 class="text-lg font-semibold tracking-tight">
                                 Developers
@@ -182,7 +182,7 @@ useListen("preferences:open", () => {
                                 />
                             </div>
                         </section>
-                        <Separator/>
+                        <Separator />
                         <section class="space-y-2">
                             <h3 class="text-lg font-semibold tracking-tight">
                                 Dependencies

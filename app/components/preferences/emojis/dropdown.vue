@@ -7,12 +7,12 @@
                 title="Open menu"
                 class="size-8 p-0"
             >
-                <MoreHorizontal class="size-4"/>
+                <MoreHorizontal class="size-4" />
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-48">
             <DropdownMenuItem @click="editName">
-                <TextCursorInput/>
+                <TextCursorInput />
                 {{ m.cuddly_such_swallow_hush() }}
             </DropdownMenuItem>
             <!-- <DropdownMenuItem @click="editCaption">
@@ -21,7 +21,7 @@
             </DropdownMenuItem>
             <DropdownMenuSeparator /> -->
             <DropdownMenuItem @click="_delete">
-                <Delete/>
+                <Delete />
                 {{ m.tense_quick_cod_favor() }}
             </DropdownMenuItem>
         </DropdownMenuContent>

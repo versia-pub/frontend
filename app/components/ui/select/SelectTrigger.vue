@@ -36,9 +36,9 @@ const forwardedProps = useForwardProps(delegatedProps);
       props.class,
     )"
     >
-        <slot/>
+        <slot />
         <SelectIcon as-child v-if="!props.disableSelectIcon">
-            <ChevronDown class="size-4 opacity-50"/>
+            <ChevronDown class="size-4 opacity-50" />
         </SelectIcon>
     </SelectTrigger>
 </template>

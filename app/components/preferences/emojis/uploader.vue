@@ -1,7 +1,7 @@
 <template>
     <Dialog v-model:open="open">
         <DialogTrigger>
-            <slot/>
+            <slot />
         </DialogTrigger>
         <DialogContent>
             <DialogTitle>{{ m.whole_icy_puffin_smile() }}</DialogTitle>
@@ -66,7 +66,7 @@
                         <FormDescription>
                             {{ m.lime_late_millipede_urge() }}
                         </FormDescription>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
 
@@ -82,7 +82,7 @@
                         <FormDescription>
                             {{ m.glad_day_kestrel_amaze() }}
                         </FormDescription>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
 
@@ -97,7 +97,7 @@
                                 :disabled="isSubmitting"
                             />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
 
@@ -116,7 +116,7 @@
                         <FormDescription>
                             {{ m.weird_fun_jurgen_arise() }}
                         </FormDescription>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
 

@@ -9,14 +9,13 @@
             <small
                 v-if="pref.options.description"
                 class="text-xs font-medium leading-none text-muted-foreground"
-                >{{
-                pref.options.description }}</small
+                >{{ pref.options.description }}</small
             >
         </div>
         <div class="flex items-center justify-end">
-            <slot :value="value" :set-value="setValue"/>
+            <slot :value="value" :set-value="setValue" />
         </div>
-        <slot name="extra" :value="value" :set-value="setValue"/>
+        <slot name="extra" :value="value" :set-value="setValue" />
     </div>
 </template>
 

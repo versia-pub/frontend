@@ -8,6 +8,6 @@ const props = withDefaults(defineProps<TooltipProviderProps>(), {
 
 <template>
     <TooltipProvider v-bind="props">
-        <slot/>
+        <slot />
     </TooltipProvider>
 </template>

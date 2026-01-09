@@ -19,6 +19,6 @@ const props = withDefaults(defineProps<Props>(), {
         :as-child="asChild"
         :class="cn('text-xs', props.class, props.muted && 'text-muted-foreground')"
     >
-        <slot/>
+        <slot />
     </Primitive>
 </template>

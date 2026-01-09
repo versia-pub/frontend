@@ -30,7 +30,7 @@ const inputValue = ref<string>("");
 <template>
     <Dialog>
         <DialogTrigger :as-child="true">
-            <slot/>
+            <slot />
         </DialogTrigger>
         <DialogContent class="sm:max-w-[425px]">
             <DialogHeader>

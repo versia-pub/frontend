@@ -5,7 +5,7 @@
         backgroundImage: 'url(/images/banner.webp)',
     }"
     >
-        <slot/>
+        <slot />
     </div>
 </template>
 

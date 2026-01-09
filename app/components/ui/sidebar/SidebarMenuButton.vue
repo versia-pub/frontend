@@ -40,13 +40,13 @@ const delegatedProps = computed(() => {
         v-if="!tooltip"
         v-bind="{ ...delegatedProps, ...$attrs }"
     >
-        <slot/>
+        <slot />
     </SidebarMenuButtonChild>
 
     <Tooltip v-else>
         <TooltipTrigger as-child>
             <SidebarMenuButtonChild v-bind="{ ...delegatedProps, ...$attrs }">
-                <slot/>
+                <slot />
             </SidebarMenuButtonChild>
         </TooltipTrigger>
         <TooltipContent
@@ -57,7 +57,7 @@ const delegatedProps = computed(() => {
             <template v-if="typeof tooltip === 'string'">
                 {{ tooltip }}
             </template>
-            <component :is="tooltip" v-else/>
+            <component :is="tooltip" v-else />
         </TooltipContent>
     </Tooltip>
 </template>

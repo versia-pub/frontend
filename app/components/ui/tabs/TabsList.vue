@@ -23,6 +23,6 @@ const delegatedProps = computed(() => {
       props.class,
     )"
     >
-        <slot/>
+        <slot />
     </TabsList>
 </template>

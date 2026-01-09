@@ -1,7 +1,7 @@
 <template>
     <TimelineScroller>
         <div class="rounded overflow-hidden">
-            <Notifications/>
+            <Notifications />
         </div>
     </TimelineScroller>
 </template>

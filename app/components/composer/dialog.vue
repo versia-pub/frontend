@@ -84,24 +84,20 @@ const relation = ref(
             class="sm:max-w-xl max-w-full w-[calc(100%-2*0.5rem)] grid-cols-1 max-h-[90dvh] p-0 top-2 sm:top-1/2 translate-y-0 sm:-translate-y-1/2 border-none bg-transparent shadow-none"
         >
             <DialogTitle class="sr-only">
-                {{
-                    relation?.type === "reply"
+                {{ relation?.type === "reply"
                         ? m.loved_busy_mantis_slide()
                         : relation?.type === "quote"
                         ? "Quote"
-                        : m.chunky_dull_marlin_trip()
-                }}
+                        : m.chunky_dull_marlin_trip() }}
             </DialogTitle>
             <DialogDescription class="sr-only">
-                {{
-                    relation?.type === "reply"
+                {{ relation?.type === "reply"
                         ? m.tired_grassy_vulture_forgive()
                         : relation?.type === "quote"
                         ? m.livid_livid_nils_snip()
-                        : m.brief_cool_capybara_fear()
-                }}
+                        : m.brief_cool_capybara_fear() }}
             </DialogDescription>
-            <Composer :relation="relation ?? undefined"/>
+            <Composer :relation="relation ?? undefined" />
         </DialogContent>
     </Dialog>
 </template>

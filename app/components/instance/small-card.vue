@@ -7,26 +7,16 @@
             :name="instance.title"
         />
         <div class="grid text-sm leading-tight *:line-clamp-1">
-            <span class="truncate font-semibold">
-                {{
-                    instance.domain
-                }}
-            </span>
+            <span class="truncate font-semibold"> {{ instance.domain }} </span>
             <span class="line-clamp-3 text-xs">
-                {{
-                    instance.versia_version || instance.version
-                }}
+                {{ instance.versia_version || instance.version }}
             </span>
         </div>
         <h1 class="line-clamp-1 text-sm font-semibold col-span-2">
-            {{
-                instance.title
-            }}
+            {{ instance.title }}
         </h1>
         <p class="line-clamp-5 text-xs col-span-2">
-            {{
-                instance.description
-            }}
+            {{ instance.description }}
         </p>
     </Card>
 </template>

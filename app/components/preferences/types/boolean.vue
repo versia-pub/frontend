@@ -1,6 +1,6 @@
 <template>
     <TypeBase :pref="pref" :name="name" v-slot="{ setValue, value }">
-        <Switch @update:model-value="setValue" :model-value="value"/>
+        <Switch @update:model-value="setValue" :model-value="value" />
     </TypeBase>
 </template>
 

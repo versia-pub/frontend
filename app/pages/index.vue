@@ -1,7 +1,7 @@
 <template>
     <TimelineScroller>
-        <Home v-if="authStore.isSignedIn"/>
-        <Public v-else/>
+        <Home v-if="authStore.isSignedIn" />
+        <Public v-else />
     </TimelineScroller>
 </template>
 

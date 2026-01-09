@@ -1,7 +1,7 @@
 <template>
     <Dialog>
         <DialogTrigger as-child>
-            <slot/>
+            <slot />
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>
@@ -35,7 +35,7 @@
                         size="icon"
                         :title="m.sharp_big_mallard_reap()"
                     >
-                        <LogOut/>
+                        <LogOut />
                     </Button>
                 </div>
             </div>
@@ -46,11 +46,11 @@
             </div>
             <DialogFooter>
                 <Button :as="NuxtLink" href="/register" variant="outline">
-                    <UserPlus/>
+                    <UserPlus />
                     {{ m.honest_few_baboon_pop() }}
                 </Button>
                 <Button @click="signInAction">
-                    <LogIn/>
+                    <LogIn />
                     {{ m.sunny_pink_hyena_walk() }}
                 </Button>
             </DialogFooter>

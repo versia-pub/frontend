@@ -84,6 +84,6 @@ onUnmounted(() => {
       filterState.search = ''
     }"
     >
-        <slot/>
+        <slot />
     </ListboxItem>
 </template>

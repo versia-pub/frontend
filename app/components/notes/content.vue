@@ -22,7 +22,7 @@
     />
 
     <div v-if="quote" class="mt-4 rounded border overflow-hidden">
-        <Note :note="quote" :hide-actions="true" :small-layout="true"/>
+        <Note :note="quote" :hide-actions="true" :small-layout="true" />
     </div>
 </template>
 

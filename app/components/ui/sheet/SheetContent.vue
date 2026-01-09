@@ -34,7 +34,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
     <DialogPortal>
-        <SheetOverlay/>
+        <SheetOverlay />
         <DialogContent
             data-slot="sheet-content"
             :class="cn(
@@ -50,12 +50,12 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         props.class)"
             v-bind="{ ...forwarded, ...$attrs }"
         >
-            <slot/>
+            <slot />
 
             <DialogClose
                 class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
             >
-                <X class="size-4"/>
+                <X class="size-4" />
                 <span class="sr-only">Close</span>
             </DialogClose>
         </DialogContent>

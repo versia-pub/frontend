@@ -12,12 +12,12 @@
             @delete="removeItem"
         />
 
-        <Spinner v-if="isLoading"/>
+        <Spinner v-if="isLoading" />
 
         <div v-if="error" class="timeline-error">{{ error.message }}</div>
 
         <!-- If there are no posts at all -->
-        <NoPosts v-else-if="hasReachedEnd && items.length === 0"/>
+        <NoPosts v-else-if="hasReachedEnd && items.length === 0" />
 
         <div v-else-if="!preferences.infinite_scroll" class="py-10 px-4">
             <Button

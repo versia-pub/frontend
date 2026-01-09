@@ -9,6 +9,6 @@ const props = defineProps<{
 
 <template>
     <div data-slot="card-content" :class="cn('flex flex-col', props.class)">
-        <slot/>
+        <slot />
     </div>
 </template>

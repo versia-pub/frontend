@@ -6,10 +6,10 @@
             :display-name="account.display_name"
         />
         <Row class="justify-end gap-2">
-            <ProfileRelationshipActions :account="account"/>
+            <ProfileRelationshipActions :account="account" />
             <ProfileActions :account="account">
                 <Button variant="secondary" size="icon">
-                    <Ellipsis/>
+                    <Ellipsis />
                 </Button>
             </ProfileActions>
         </Row>
@@ -17,24 +17,24 @@
             <Text class="font-bold" v-render-emojis="account.emojis">
                 {{ account.display_name }}
             </Text>
-            <Address :username="username" :domain="domain"/>
+            <Address :username="username" :domain="domain" />
         </Column>
-        <ProfileBadges :account="account"/>
-        <Html v-html="account.note" v-render-emojis="account.emojis"/>
-        <Separator/>
+        <ProfileBadges :account="account" />
+        <Html v-html="account.note" v-render-emojis="account.emojis" />
+        <Separator />
         <ProfileFields
             v-if="account.fields.length > 0"
             :fields="account.fields"
             :emojis="account.emojis"
         />
-        <Separator v-if="account.fields.length > 0"/>
+        <Separator v-if="account.fields.length > 0" />
         <Row>
             <HeadingSmall class="flex items-center gap-1">
-                <CalendarDays class="size-4"/>
+                <CalendarDays class="size-4" />
                 {{ formattedCreationDate }}
             </HeadingSmall>
         </Row>
-        <Separator/>
+        <Separator />
         <ProfileStats
             :follower-count="account.followers_count"
             :following-count="account.following_count"

@@ -32,7 +32,7 @@ defineProps<{
             <SidebarMenuItem>
                 <CollapsibleTrigger as-child>
                     <SidebarMenuButton :tooltip="item.title">
-                        <component :is="item.icon"/>
+                        <component :is="item.icon" />
                         {{ item.title }}
                         <ChevronRight
                             class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"

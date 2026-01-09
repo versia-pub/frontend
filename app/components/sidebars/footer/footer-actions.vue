@@ -35,12 +35,12 @@ const authStore = useAuthStore();
                             :domain="authStore.instance.domain"
                             naked
                         />
-                        <ChevronsUpDown class="ml-auto size-4"/>
+                        <ChevronsUpDown class="ml-auto size-4" />
                     </SidebarMenuButton>
                     <SidebarMenuButton v-else>
-                        <UserPlus/>
+                        <UserPlus />
                         {{ m.sunny_pink_hyena_walk() }}
-                        <ChevronsUpDown class="ml-auto size-4"/>
+                        <ChevronsUpDown class="ml-auto size-4" />
                     </SidebarMenuButton>
                 </AccountManager>
             </SidebarMenuItem>
@@ -52,7 +52,7 @@ const authStore = useAuthStore();
                     class="w-full group-data-[collapsible=icon]:px-4"
                     @click="useEvent('composer:open')"
                 >
-                    <Pen/>
+                    <Pen />
                     <span class="group-data-[collapsible=icon]:hidden">
                         {{ m.salty_aloof_turkey_nudge() }}
                     </span>
@@ -63,7 +63,7 @@ const authStore = useAuthStore();
                     variant="secondary"
                     @click="useEvent('preferences:open')"
                 >
-                    <Cog/>
+                    <Cog />
                     Preferences
                 </Button>
                 <Button
@@ -73,7 +73,7 @@ const authStore = useAuthStore();
                     class="w-full group-data-[collapsible=icon]:px-4"
                     @click="$pwa?.updateServiceWorker(true)"
                 >
-                    <DownloadCloud/>
+                    <DownloadCloud />
                     <span class="group-data-[collapsible=icon]:hidden">
                         {{ m.quaint_low_felix_pave() }}
                     </span>

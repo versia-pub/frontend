@@ -8,7 +8,7 @@
             <HeadingSmall v-render-emojis="emojis">
                 {{ field.name }}
             </HeadingSmall>
-            <Html v-html="field.value" v-render-emojis="emojis"/>
+            <Html v-html="field.value" v-render-emojis="emojis" />
         </Column>
     </Column>
 </template>

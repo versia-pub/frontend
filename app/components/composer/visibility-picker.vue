@@ -1,7 +1,7 @@
 <template>
     <Select v-model:model-value="visibility">
         <SelectTrigger as-child disable-default-classes disable-select-icon>
-            <slot/>
+            <slot />
         </SelectTrigger>
         <SelectContent>
             <SelectItem
@@ -13,7 +13,7 @@
                 <div
                     class="flex flex-row gap-3 items-center w-full justify-between"
                 >
-                    <component :is="v.icon" class="size-4"/>
+                    <component :is="v.icon" class="size-4" />
                     <div class="flex flex-col gap-1">
                         <span class="font-semibold">{{ v.name }}</span>
                         <span>{{ v.text }}</span>

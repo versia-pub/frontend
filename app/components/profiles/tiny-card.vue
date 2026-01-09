@@ -12,7 +12,7 @@
             <Text class="font-semibold" v-render-emojis="account.emojis">
                 {{ account.display_name }}
             </Text>
-            <Address :username="account.username" :domain="domain"/>
+            <Address :username="account.username" :domain="domain" />
         </CardContent>
     </Card>
 </template>

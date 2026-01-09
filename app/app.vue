@@ -1,13 +1,13 @@
 <template>
     <TooltipProvider>
         <Component is="style">{{ preferences.custom_css }}</Component>
-        <NuxtPwaAssets/>
+        <NuxtPwaAssets />
         <NuxtLayout>
-            <NuxtPage/>
+            <NuxtPage />
         </NuxtLayout>
-        <ConfirmationModal/>
+        <ConfirmationModal />
         <!-- pointer-events-auto fixes https://github.com/unovue/shadcn-vue/issues/462 -->
-        <Toaster class="pointer-events-auto"/>
+        <Toaster class="pointer-events-auto" />
     </TooltipProvider>
 </template>
 

@@ -16,20 +16,16 @@
                 >
                 <CardHeader>
                     <CardTitle as="h1" class="text-2xl wrap-break-word">
-                        {{
-                        m.fresh_broad_cockroach_radiate({
+                        {{ m.fresh_broad_cockroach_radiate({
                             application: application ?? "",
-                        })
-                        }}
+                        }) }}
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Card class="p-2 gap-1">
                         <CardContent class="flex flex-col px-4 py-2 w-full">
                             <CardTitle as="h2" class="text-lg">
-                                {{
-                                application
-                                }}
+                                {{ application }}
                             </CardTitle>
                             <a
                                 v-if="website"
@@ -47,7 +43,7 @@
                             :key="text[1]"
                             class="flex flex-row gap-1 items-center"
                         >
-                            <Check class="size-4"/>
+                            <Check class="size-4" />
                             <h2 class="text-sm">
                                 <strong class="font-bold">{{ text[0] }}</strong>
                                 {{ text[1] }}
@@ -71,14 +67,10 @@
                 </CardContent>
                 <CardFooter class="grid gap-2">
                     <Button variant="default" type="submit">
-                        {{
-                        m.last_spare_polecat_reside()
-                        }}
+                        {{ m.last_spare_polecat_reside() }}
                     </Button>
                     <Button :as="NuxtLink" href="/" variant="secondary">
-                        {{
-                        m.soft_bold_ant_attend()
-                        }}
+                        {{ m.soft_bold_ant_attend() }}
                     </Button>
                 </CardFooter>
             </Card>

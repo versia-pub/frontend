@@ -1,6 +1,6 @@
 <template>
     <TimelineScroller>
-        <Local/>
+        <Local />
     </TimelineScroller>
 </template>
 

@@ -25,6 +25,6 @@ const delegatedProps = computed(() => {
         :class="cn(badgeVariants({ variant }), props.class)"
         v-bind="delegatedProps"
     >
-        <slot/>
+        <slot />
     </Primitive>
 </template>

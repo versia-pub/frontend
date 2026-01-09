@@ -26,14 +26,14 @@
         <Text class="font-bold" v-render-emojis="account.emojis">
             {{ account.display_name }}
         </Text>
-        <Address :username="username" :domain="domain"/>
+        <Address :username="username" :domain="domain" />
     </div>
     <Html
         v-html="account.note"
         v-render-emojis="account.emojis"
         class="mt-4 max-h-72 overflow-y-auto"
     />
-    <Separator v-if="account.fields.length > 0" class="mt-4"/>
+    <Separator v-if="account.fields.length > 0" class="mt-4" />
     <ProfileFields
         v-if="account.fields.length > 0"
         :fields="account.fields"

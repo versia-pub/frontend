@@ -35,7 +35,7 @@ const forwarded = useForwardPropsEmits(props, emits);
         </DialogHeader>
         <DialogContent class="overflow-hidden p-0 ">
             <Command>
-                <slot/>
+                <slot />
             </Command>
         </DialogContent>
     </Dialog>

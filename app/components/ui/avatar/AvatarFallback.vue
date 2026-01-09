@@ -20,6 +20,6 @@ const delegatedProps = computed(() => {
         v-bind="delegatedProps"
         :class="cn('bg-muted flex size-full items-center justify-center', props.class)"
     >
-        <slot/>
+        <slot />
     </AvatarFallback>
 </template>

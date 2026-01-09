@@ -1,12 +1,10 @@
 <template>
     <Sidebar collapsible="offcanvas">
-        <InstanceHeader/>
+        <InstanceHeader />
         <SidebarContent>
             <SidebarGroup>
                 <SidebarGroupLabel>
-                    {{
-                    m.trite_real_sawfish_drum()
-                }}
+                    {{ m.trite_real_sawfish_drum() }}
                 </SidebarGroupLabel>
                 <NavItems
                     :items="
@@ -17,8 +15,8 @@
                 />
             </SidebarGroup>
         </SidebarContent>
-        <FooterActions/>
-        <SidebarRail/>
+        <FooterActions />
+        <SidebarRail />
     </Sidebar>
 </template>
 

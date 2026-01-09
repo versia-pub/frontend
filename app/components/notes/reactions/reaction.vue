@@ -20,7 +20,7 @@
             </Button>
         </HoverCardTrigger>
         <HoverCardContent class="p-3">
-            <Spinner v-if="accounts === null" class="border-0"/>
+            <Spinner v-if="accounts === null" class="border-0" />
             <ul v-else class="flex flex-col gap-4">
                 <li v-for="account in accounts">
                     <NuxtLink

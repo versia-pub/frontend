@@ -11,7 +11,7 @@
                     {{ value }}
                 </dd>
                 <dd class="font-mono" v-else>
-                    <component :is="value"/>
+                    <component :is="value" />
                 </dd>
             </div>
         </dl>

@@ -1,11 +1,11 @@
 <template>
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
-            <slot/>
+            <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-48">
             <DropdownMenuItem @click="deleteAll" :disabled="!canEdit">
-                <Delete/>
+                <Delete />
                 {{ m.tense_quick_cod_favor() }}
             </DropdownMenuItem>
         </DropdownMenuContent>

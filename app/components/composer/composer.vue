@@ -1,6 +1,6 @@
 <template>
     <div v-if="relation" class="overflow-auto max-h-72">
-        <Note :note="relation.note" :hide-actions="true" :small-layout="true"/>
+        <Note :note="relation.note" :hide-actions="true" :small-layout="true" />
     </div>
 
     <InputGroup class="p-1">
@@ -31,7 +31,7 @@
             align="block-end"
             class="overflow-x-auto *:shrink-0"
         >
-            <Files v-model:files="store.files" :composer-key="composerKey"/>
+            <Files v-model:files="store.files" :composer-key="composerKey" />
         </InputGroupAddon>
 
         <InputGroupAddon align="block-end">
@@ -42,8 +42,8 @@
                     disable-select-icon
                 >
                     <InputGroupButton variant="ghost" size="icon-sm">
-                        <LetterText v-if="store.contentType === 'text/html'"/>
-                        <Type v-else/>
+                        <LetterText v-if="store.contentType === 'text/html'" />
+                        <Type v-else />
                     </InputGroupButton>
                 </SelectTrigger>
                 <SelectContent>
@@ -57,7 +57,7 @@
                     size="icon-sm"
                     :disabled="store.relation?.type === 'edit'"
                 >
-                    <component :is="visibilities[store.visibility].icon"/>
+                    <component :is="visibilities[store.visibility].icon" />
                 </InputGroupButton>
             </VisibilityPicker>
             <InputGroupButton
@@ -65,10 +65,10 @@
                 size="icon-sm"
                 @click="fileInput?.click()"
             >
-                <FilePlus2/>
+                <FilePlus2 />
             </InputGroupButton>
             <Toggle size="sm" v-model="store.sensitive">
-                <TriangleAlert/>
+                <TriangleAlert />
             </Toggle>
             <InputGroupText
                 :class="['ml-auto', charactersLeft < 0 && 'text-destructive']"
@@ -79,15 +79,15 @@
                     compactDisplay: 'short',
                 }) }}
             </InputGroupText>
-            <Separator orientation="vertical" class="h-4!"/>
+            <Separator orientation="vertical" class="h-4!" />
             <InputGroupButton
                 variant="default"
                 size="icon-sm"
                 :disabled="store.sending || !store.canSend"
                 @click="send"
             >
-                <Spinner v-if="store.sending"/>
-                <ArrowUp v-else/>
+                <Spinner v-if="store.sending" />
+                <ArrowUp v-else />
                 <span class="sr-only">Send</span>
             </InputGroupButton>
         </InputGroupAddon>

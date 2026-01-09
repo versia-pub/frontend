@@ -6,7 +6,7 @@
         maxHeight: collapsed ? '18rem' : `${container?.scrollHeight}px`,
     }"
     >
-        <slot/>
+        <slot />
         <div
             v-if="isOverflowing && collapsed"
             class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/5 to-transparent rounded-b"
@@ -16,13 +16,11 @@
             @click="collapsed = !collapsed"
             class="absolute bottom-2 right-1/2 translate-x-1/2"
         >
-            {{
-                collapsed
+            {{ collapsed
                     ? `${m.lazy_honest_mammoth_bump()}${formattedCharacterCount ? ` • ${m.dark_spare_goldfish_charm({
                         count: formattedCharacterCount,
                     })}` : ""}`
-                    : m.that_misty_mule_arrive()
-            }}
+                    : m.that_misty_mule_arrive() }}
         </Button>
     </div>
 </template>

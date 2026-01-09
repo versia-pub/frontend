@@ -75,25 +75,25 @@ watch(active, (value) => {
             class="bg-popover rounded-md"
         >
             <ToggleGroupItem value="bold">
-                <BoldIcon/>
+                <BoldIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="italic">
-                <ItalicIcon/>
+                <ItalicIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="underline">
-                <UnderlineIcon/>
+                <UnderlineIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="code">
-                <CurlyBracesIcon/>
+                <CurlyBracesIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="strike">
-                <StrikethroughIcon/>
+                <StrikethroughIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="subscript">
-                <SubscriptIcon/>
+                <SubscriptIcon />
             </ToggleGroupItem>
             <ToggleGroupItem value="superscript">
-                <SuperscriptIcon/>
+                <SuperscriptIcon />
             </ToggleGroupItem>
         </ToggleGroup>
     </BubbleMenu>

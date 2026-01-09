@@ -18,6 +18,6 @@ const props = withDefaults(defineProps<Props>(), {
         :as-child="asChild"
         :class="cn('font-semibold', props.class)"
     >
-        <slot/>
+        <slot />
     </Primitive>
 </template>

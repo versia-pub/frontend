@@ -5,7 +5,7 @@
                 v-if="dirty"
                 class="absolute bottom-2 z-10 inset-x-2 w-[calc(100%-1rem)] grid-cols-[calc(var(--spacing)*4)_1fr_auto]!"
             >
-                <SaveOff class="size-4"/>
+                <SaveOff class="size-4" />
                 <AlertTitle>Unsaved changes</AlertTitle>
                 <Button
                     variant="secondary"
@@ -50,7 +50,7 @@
                 :title="m.mild_known_mallard_jolt()"
                 :description="m.lime_dry_skunk_loop()"
             >
-                <Input v-bind="componentField"/>
+                <Input v-bind="componentField" />
             </TextInput>
         </FormField>
 
@@ -59,7 +59,7 @@
                 :title="m.neat_silly_dog_prosper()"
                 :description="m.petty_plane_tadpole_earn()"
             >
-                <Input v-bind="componentField"/>
+                <Input v-bind="componentField" />
             </TextInput>
         </FormField>
 
@@ -68,7 +68,7 @@
                 :title="m.next_caring_ladybug_hack()"
                 :description="m.stale_just_anaconda_earn()"
             >
-                <Textarea rows="10" v-bind="componentField"/>
+                <Textarea rows="10" v-bind="componentField" />
             </TextInput>
         </FormField>
 

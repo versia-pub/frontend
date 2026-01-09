@@ -79,7 +79,7 @@ const _delete = async () => {
 <template>
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
-            <slot/>
+            <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-56">
             <DropdownMenuGroup>
@@ -88,22 +88,22 @@ const _delete = async () => {
                     as="button"
                     @click="emit('edit')"
                 >
-                    <Pencil/>
+                    <Pencil />
                     {{ m.front_lime_grizzly_persist() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(apiNoteString)">
-                    <Code/>
+                    <Code />
                     {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(noteId)">
-                    <Hash/>
+                    <Hash />
                     {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator/>
+            <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
-                    <Link/>
+                    <Link />
                     {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -111,7 +111,7 @@ const _delete = async () => {
                     v-if="isRemote && remoteUrl"
                     @click="copyText(remoteUrl)"
                 >
-                    <Link/>
+                    <Link />
                     {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -121,29 +121,29 @@ const _delete = async () => {
                     rel="noopener noreferrer"
                     :href="remoteUrl"
                 >
-                    <ExternalLink/>
+                    <ExternalLink />
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authorIsMe"/>
+            <DropdownMenuSeparator v-if="authorIsMe" />
             <DropdownMenuGroup v-if="authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Delete/>
+                    <Delete />
                     {{ m.real_green_clownfish_pet() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="_delete">
-                    <Trash/>
+                    <Trash />
                     {{ m.tense_quick_cod_favor() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !authorIsMe"/>
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !authorIsMe" />
             <DropdownMenuGroup v-if="authStore.isSignedIn && !authorIsMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Flag/>
+                    <Flag />
                     {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(authorId)">
-                    <Ban/>
+                    <Ban />
                     {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>

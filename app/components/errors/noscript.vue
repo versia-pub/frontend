@@ -6,7 +6,7 @@ import SquarePattern from "../graphics/square-pattern.vue";
     <div
         class="grid min-h-screen place-items-center px-6 py-24 sm:py-32 lg:px-8 fixed inset-0 z-[1000000] bg-dark-900"
     >
-        <SquarePattern/>
+        <SquarePattern />
         <div class="prose prose-invert max-w-lg">
             <h1
                 class="mt-4 text-3xl font-bold tracking-tight text-gray-100 sm:text-5xl"

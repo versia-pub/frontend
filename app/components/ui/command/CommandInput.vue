@@ -35,7 +35,7 @@ const { filterState } = useCommand();
         data-slot="command-input-wrapper"
         class="flex h-12 items-center gap-2 border-b px-3"
     >
-        <Search class="size-4 shrink-0 opacity-50"/>
+        <Search class="size-4 shrink-0 opacity-50" />
         <ListboxFilter
             v-bind="{ ...forwardedProps, ...$attrs }"
             v-model="filterState.search"

@@ -6,6 +6,6 @@ const props = defineProps<SelectGroupProps>();
 
 <template>
     <SelectGroup data-slot="select-group" v-bind="props">
-        <slot/>
+        <slot />
     </SelectGroup>
 </template>

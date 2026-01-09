@@ -29,6 +29,6 @@ const props = withDefaults(defineProps<SidebarMenuButtonProps>(), {
         :as-child="asChild"
         v-bind="$attrs"
     >
-        <slot/>
+        <slot />
     </Primitive>
 </template>

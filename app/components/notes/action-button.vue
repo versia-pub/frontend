@@ -1,7 +1,7 @@
 <template>
     <Button variant="ghost" size="sm">
-        <component :is="icon" class="size-4"/>
-        <slot/>
+        <component :is="icon" class="size-4" />
+        <slot />
     </Button>
 </template>
 

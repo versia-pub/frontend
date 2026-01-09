@@ -20,6 +20,6 @@ const delegatedProps = computed(() => {
         :class="cn('flex-1 outline-none', props.class)"
         v-bind="delegatedProps"
     >
-        <slot/>
+        <slot />
     </TabsContent>
 </template>

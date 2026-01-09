@@ -15,9 +15,9 @@
                 </FormDescription>
             </CardHeader>
             <FormControl>
-                <slot/>
+                <slot />
             </FormControl>
-            <FormMessage/>
+            <FormMessage />
         </FormItem>
     </Card>
 </template>

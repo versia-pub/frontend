@@ -5,15 +5,13 @@
         v-if="!isMe && authStore.isSignedIn"
         @click="relationship?.following ? unfollow() : follow()"
     >
-        <Loader v-if="isLoading" class="animate-spin"/>
+        <Loader v-if="isLoading" class="animate-spin" />
         <span v-else>
-            {{
-                relationship?.following
+            {{ relationship?.following
                     ? m.brief_upper_otter_cuddle()
                     : relationship?.requested
                         ? m.weak_bright_larva_grasp()
-                        : m.lazy_major_loris_grasp()
-            }}
+                        : m.lazy_major_loris_grasp() }}
         </span>
     </Button>
 </template>

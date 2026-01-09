@@ -11,7 +11,7 @@
                 class="object-contain h-28 w-full"
                 :alt="file.alt"
             >
-            <FileIcon v-else class="size-6 m-auto text-muted-foreground"/>
+            <FileIcon v-else class="size-6 m-auto text-muted-foreground" />
             <Badge
                 v-if="file.file && !(file.uploading || file.updating)"
                 class="absolute bottom-1 right-1"
@@ -28,14 +28,14 @@
             <DropdownMenuLabel v-if="file.file">
                 {{ file.file.name }}
             </DropdownMenuLabel>
-            <DropdownMenuSeparator/>
+            <DropdownMenuSeparator />
             <DropdownMenuItem @click="editCaption">
-                <Captions/>
+                <Captions />
                 Add caption
             </DropdownMenuItem>
-            <DropdownMenuSeparator/>
+            <DropdownMenuSeparator />
             <DropdownMenuItem @click="emit('remove')">
-                <Delete/>
+                <Delete />
                 Remove
             </DropdownMenuItem>
         </DropdownMenuContent>

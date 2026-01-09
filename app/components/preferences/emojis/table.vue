@@ -290,14 +290,14 @@ const table = useVueTable({
             />
             <Uploader v-if="props.canUpload">
                 <Button variant="outline" size="icon" title="Upload emoji">
-                    <Plus class="size-4"/>
+                    <Plus class="size-4" />
                 </Button>
             </Uploader>
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
                     <Button variant="outline">
                         Columns
-                        <ChevronDown class="ml-2 size-4"/>
+                        <ChevronDown class="ml-2 size-4" />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

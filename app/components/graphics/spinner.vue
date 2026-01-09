@@ -1,6 +1,6 @@
 <template>
     <Card class="flex items-center justify-center">
-        <Loader class="size-6 animate-spin"/>
+        <Loader class="size-6 animate-spin" />
     </Card>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-    <BubbleMenu :editor="editor"/>
-    <EditorContent :editor="editor" v-bind="$attrs" :class="$style.content"/>
+    <BubbleMenu :editor="editor" />
+    <EditorContent :editor="editor" v-bind="$attrs" :class="$style.content" />
 </template>
 
 <script lang="ts" setup>

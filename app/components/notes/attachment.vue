@@ -11,7 +11,7 @@
         v-else-if="attachment.type === 'audio'"
         :attachment="attachment"
     />
-    <FileAttachment v-else :attachment="attachment"/>
+    <FileAttachment v-else :attachment="attachment" />
 </template>
 
 <script lang="ts" setup>

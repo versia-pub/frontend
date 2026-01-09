@@ -2,7 +2,7 @@
     <TypeBase :pref="pref" :name="name" v-slot="{ setValue, value }">
         <Select :model-value="value" @update:model-value="setValue">
             <SelectTrigger>
-                <SelectValue placeholder="Select an option"/>
+                <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>

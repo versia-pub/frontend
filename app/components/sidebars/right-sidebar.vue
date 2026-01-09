@@ -6,7 +6,7 @@
         style="--sidebar-width: 24rem; --sidebar-width-mobile: 18rem"
     >
         <SidebarContent class="overflow-y-auto *:p-2 *:gap-2">
-            <NotificationsTimeline/>
+            <NotificationsTimeline />
         </SidebarContent>
     </Sidebar>
 </template>

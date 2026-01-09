@@ -12,6 +12,6 @@ const props = defineProps<{
         data-slot="drawer-footer"
         :class="cn('mt-auto flex flex-col gap-2 p-4', props.class)"
     >
-        <slot/>
+        <slot />
     </div>
 </template>

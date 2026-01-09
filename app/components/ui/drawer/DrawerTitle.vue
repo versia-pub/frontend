@@ -21,6 +21,6 @@ const delegatedProps = computed(() => {
         v-bind="delegatedProps"
         :class="cn('text-foreground font-semibold', props.class)"
     >
-        <slot/>
+        <slot />
     </DrawerTitle>
 </template>

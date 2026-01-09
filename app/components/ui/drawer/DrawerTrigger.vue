@@ -7,6 +7,6 @@ const props = defineProps<DrawerTriggerProps>();
 
 <template>
     <DrawerTrigger data-slot="drawer-trigger" v-bind="props">
-        <slot/>
+        <slot />
     </DrawerTrigger>
 </template>

@@ -16,23 +16,21 @@
             <span
                 class="truncate font-semibold"
                 v-render-emojis="follower.emojis"
-                >{{
-                follower.display_name
-                }}</span
+                >{{ follower.display_name }}</span
             >
             <span class="truncate tracking-tight">
-                <Address :username="username" :domain="domain"/>
+                <Address :username="username" :domain="domain" />
             </span>
         </div>
     </div>
     <div v-if="loading" class="flex p-2 items-center justify-center h-12">
-        <Loader class="size-4 animate-spin"/>
+        <Loader class="size-4 animate-spin" />
     </div>
     <div
         v-else-if="relationship?.requested_by === false"
         class="flex p-2 items-center justify-center h-12"
     >
-        <Check class="size-4"/>
+        <Check class="size-4" />
     </div>
     <div v-else class="grid grid-cols-2 p-2 gap-2">
         <Button
@@ -41,7 +39,7 @@
             @click="accept"
             :title="m.slow_these_kestrel_sail()"
         >
-            <Check/>
+            <Check />
         </Button>
         <Button
             variant="ghost"
@@ -49,7 +47,7 @@
             @click="reject"
             :title="m.weary_steep_yak_embrace()"
         >
-            <X/>
+            <X />
         </Button>
     </div>
 </template>

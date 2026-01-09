@@ -4,9 +4,9 @@
             class="w-full h-full overflow-hidden relative p-0 *:first:w-full *:first:h-full *:first:object-contain *:first:bg-muted/20"
         >
             <DialogTrigger v-if="lightbox" :as-child="true">
-                <slot/>
+                <slot />
             </DialogTrigger>
-            <slot v-else/>
+            <slot v-else />
             <!-- Alt text viewer -->
             <Popover v-if="attachment.description">
                 <div class="absolute top-0 right-0 p-2">
@@ -16,7 +16,7 @@
                             size="icon"
                             title="View alt text"
                         >
-                            <Captions/>
+                            <Captions />
                         </Button>
                     </PopoverTrigger>
                 </div>
@@ -43,18 +43,18 @@
                         size="icon"
                         class="ml-auto"
                     >
-                        <Download/>
+                        <Download />
                     </Button>
                     <DialogClose :as-child="true">
                         <Button variant="outline" size="icon">
-                            <X/>
+                            <X />
                         </Button>
                     </DialogClose>
                 </div>
                 <div
                     class="flex items-center justify-center overflow-hidden *:max-h-[80vh] *:max-w-[80vw] *:w-full *:h-full *:object-contain"
                 >
-                    <slot/>
+                    <slot />
                 </div>
                 <DialogDescription class="flex items-center justify-center">
                     <Card

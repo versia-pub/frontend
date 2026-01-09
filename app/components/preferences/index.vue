@@ -1,5 +1,5 @@
 <template>
-    <Dialog/>
+    <Dialog />
 </template>
 
 <script lang="ts" setup>

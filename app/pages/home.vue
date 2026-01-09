@@ -1,6 +1,6 @@
 <template>
     <TimelineScroller>
-        <Home/>
+        <Home />
     </TimelineScroller>
 </template>
 

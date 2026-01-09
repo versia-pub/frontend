@@ -8,9 +8,9 @@
             :step="pref.options.integer ? 1 : pref.options.step"
         >
             <NumberFieldContent>
-                <NumberFieldDecrement/>
-                <NumberFieldInput/>
-                <NumberFieldIncrement/>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
             </NumberFieldContent>
         </NumberField>
     </TypeBase>

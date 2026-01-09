@@ -20,6 +20,6 @@ const { error, formItemId } = useFormField();
     )"
         :for="formItemId"
     >
-        <slot/>
+        <slot />
     </Label>
 </template>

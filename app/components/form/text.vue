@@ -2,10 +2,10 @@
     <FormItem>
         <FormLabel>{{ title }}</FormLabel>
         <FormControl>
-            <slot/>
+            <slot />
         </FormControl>
         <FormDescription v-if="description">{{ description }}</FormDescription>
-        <FormMessage/>
+        <FormMessage />
     </FormItem>
 </template>
 

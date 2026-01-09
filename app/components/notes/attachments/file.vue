@@ -3,7 +3,7 @@
         <div
             class="flex flex-col items-center justify-center min-h-48 text-sm gap-2"
         >
-            <File class="size-12"/>
+            <File class="size-12" />
             <span>File attachment</span>
         </div>
     </AttachmentBase>

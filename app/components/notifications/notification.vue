@@ -7,7 +7,7 @@
                         v-if="notification.account"
                         class="flex flex-row items-center gap-2 px-2"
                     >
-                        <component :is="icon" class="size-5 shrink-0"/>
+                        <component :is="icon" class="size-5 shrink-0" />
                         <Avatar
                             class="size-5 border border-card"
                             :src="notification.account.avatar"
@@ -25,7 +25,7 @@
                                 class="ml-auto [&_svg]:data-[state=open]:-rotate-180"
                                 :title="open ? 'Collapse' : 'Expand'"
                             >
-                                <ChevronDown class="duration-200"/>
+                                <ChevronDown class="duration-200" />
                             </Button>
                         </CollapsibleTrigger>
                     </CardHeader>

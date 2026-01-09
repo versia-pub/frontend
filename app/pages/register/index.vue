@@ -13,7 +13,7 @@
         >
             <CardHeader>
                 <Alert v-if="errors.error" variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4"/>
+                    <AlertCircle class="size-4" />
                     <AlertTitle>{{ m.vexed_each_falcon_enjoy() }}</AlertTitle>
                     <AlertDescription>{{ errors.error }}</AlertDescription>
                 </Alert>
@@ -36,7 +36,7 @@
                                 v-bind="componentField"
                             />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="email">
@@ -55,7 +55,7 @@
                                 v-bind="componentField"
                             />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="password">
@@ -74,7 +74,7 @@
                                 v-bind="componentField"
                             />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
                 <FormField v-slot="{ componentField }" name="password-confirm">
@@ -91,7 +91,7 @@
                                 v-bind="componentField"
                             />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
                 <FormField
@@ -135,7 +135,7 @@
                                 </Dialog>
                             </FormLabel>
                         </div>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 </FormField>
                 <div
@@ -150,7 +150,7 @@
                 </Button>
             </CardFooter>
             <div v-else class="p-4 flex items-center justify-center h-48">
-                <Loader class="size-8 animate-spin"/>
+                <Loader class="size-8 animate-spin" />
             </div>
         </Card>
         <Card v-else class="w-full max-w-md">

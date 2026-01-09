@@ -10,7 +10,7 @@
                 @click="addField()"
                 :title="m.front_north_eel_gulp()"
             >
-                <Plus/>
+                <Plus />
             </Button>
         </FormLabel>
 
@@ -32,7 +32,7 @@
                         size="icon"
                         class="drag-handle cursor-grab"
                     >
-                        <GripVertical/>
+                        <GripVertical />
                     </Button>
                     <Input
                         :model-value="field.name"
@@ -55,11 +55,11 @@
                         size="icon"
                         @click="removeField(index)"
                     >
-                        <Trash/>
+                        <Trash />
                     </Button>
                 </div>
             </VueDraggable>
-            <FormMessage/>
+            <FormMessage />
         </FormControl>
     </FormItem>
 </template>

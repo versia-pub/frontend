@@ -7,7 +7,7 @@
             :reply-bar="true"
             class="rounded-b-none"
         />
-        <Note :note="note" :class="parent && 'border-t-0 rounded-t-none'"/>
+        <Note :note="note" :class="parent && 'border-t-0 rounded-t-none'" />
     </div>
 </template>
 

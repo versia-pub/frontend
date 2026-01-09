@@ -14,6 +14,6 @@ const forwarded = useForwardPropsEmits(props, emits);
         data-slot="collapsible"
         v-bind="forwarded"
     >
-        <slot :open="open"/>
+        <slot :open="open" />
     </CollapsibleRoot>
 </template>

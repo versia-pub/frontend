@@ -69,7 +69,7 @@ const getProviderUrl = (providerId: string) =>
                 class="mx-auto flex w-full flex-col justify-center space-y-10 sm:w-[350px]"
             >
                 <Alert v-if="error" variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4"/>
+                    <AlertCircle class="size-4" />
                     <AlertTitle>{{ error }}</AlertTitle>
                     <AlertDescription>{{ error_description }}</AlertDescription>
                 </Alert>
@@ -137,7 +137,7 @@ const getProviderUrl = (providerId: string) =>
                         </form>
                     </div>
                     <Alert v-else variant="destructive" class="mb-4">
-                        <AlertCircle class="size-4"/>
+                        <AlertCircle class="size-4" />
                         <AlertTitle>
                             No SSO providers are configured.
                         </AlertTitle>
@@ -153,14 +153,12 @@ const getProviderUrl = (providerId: string) =>
                     v-else-if="hasValidUrlSearchParams"
                     class="p-4 flex items-center justify-center h-48"
                 >
-                    <Loader class="size-8 animate-spin"/>
+                    <Loader class="size-8 animate-spin" />
                 </div>
                 <Alert v-else variant="destructive" class="mb-4">
-                    <AlertCircle class="size-4"/>
+                    <AlertCircle class="size-4" />
                     <AlertTitle>
-                        {{
-                        m.grand_spry_goldfish_embrace()
-                    }}
+                        {{ m.grand_spry_goldfish_embrace() }}
                     </AlertTitle>
                     <AlertDescription>
                         <p>{{ m.gray_clean_shark_comfort() }}</p>

@@ -1,7 +1,7 @@
 <template>
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
-            <slot/>
+            <slot />
         </DropdownMenuTrigger>
         <DropdownMenuContent class="min-w-56">
             <DropdownMenuGroup>
@@ -9,29 +9,29 @@
                     as="button"
                     @click="copyText(account.username)"
                 >
-                    <AtSign/>
+                    <AtSign />
                     {{ m.cool_dark_tapir_belong() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     as="button"
                     @click="copyText(JSON.stringify(account, null, 4))"
                 >
-                    <Code/>
+                    <Code />
                     {{ m.yummy_moving_scallop_sail() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.id)">
-                    <Hash/>
+                    <Hash />
                     {{ m.sunny_zany_jellyfish_pop() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator/>
+            <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem as="button" @click="copyText(url)">
-                    <Link/>
+                    <Link />
                     {{ m.ago_new_pelican_drip() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="copyText(account.url)">
-                    <Link/>
+                    <Link />
                     {{ m.solid_witty_zebra_walk() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -41,32 +41,32 @@
                     rel="noopener noreferrer"
                     :href="account.url"
                 >
-                    <ExternalLink/>
+                    <ExternalLink />
                     {{ m.active_trite_lark_inspire() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe"/>
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
             <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
                 <DropdownMenuItem as="button" @click="muteUser(account.id)">
-                    <VolumeX/>
+                    <VolumeX />
                     {{ m.spare_wild_mole_intend() }}
                 </DropdownMenuItem>
                 <DropdownMenuItem as="button" @click="blockUser(account.id)">
-                    <Ban/>
+                    <Ban />
                     {{ m.misty_soft_sparrow_vent() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="isRemote"/>
+            <DropdownMenuSeparator v-if="isRemote" />
             <DropdownMenuGroup v-if="isRemote">
                 <DropdownMenuItem as="button" @click="refresh">
-                    <RefreshCw/>
+                    <RefreshCw />
                     {{ m.slow_chunky_chipmunk_hush() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe"/>
+            <DropdownMenuSeparator v-if="authStore.isSignedIn && !isMe" />
             <DropdownMenuGroup v-if="authStore.isSignedIn && !isMe">
                 <DropdownMenuItem as="button" :disabled="true">
-                    <Flag/>
+                    <Flag />
                     {{ m.great_few_jaguar_rise() }}
                 </DropdownMenuItem>
             </DropdownMenuGroup>

@@ -1,15 +1,19 @@
 <template>
     <div class="mx-auto max-w-2xl w-full space-y-2">
         <div v-if="isLoading" class="p-4 flex items-center justify-center h-48">
-            <Loader class="size-8 animate-spin"/>
+            <Loader class="size-8 animate-spin" />
         </div>
         <TimelineScroller v-else-if="account">
             <div class="p-4 pb-0">
-                <AccountProfile :account="account"/>
+                <AccountProfile :account="account" />
             </div>
-            <AccountTimeline v-if="accountId" :id="accountId" :key="accountId"/>
+            <AccountTimeline
+                v-if="accountId"
+                :id="accountId"
+                :key="accountId"
+            />
         </TimelineScroller>
-        <NotFound v-else/>
+        <NotFound v-else />
     </div>
 </template>
 

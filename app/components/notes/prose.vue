@@ -5,7 +5,7 @@
         $style.content,
     ]"
     >
-        <slot/>
+        <slot />
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div class="flex items-start justify-between">
         <div class="flex items-center gap-3">
             <NuxtLink :href="urlAsPath">
-                <Avatar :src="author.avatar" :name="author.display_name"/>
+                <Avatar :src="author.avatar" :name="author.display_name" />
             </NuxtLink>
             <div class="flex flex-col gap-0.5">
                 <div class="flex items-center gap-1">
@@ -34,7 +34,7 @@
             @delete="emit('delete')"
         >
             <Button variant="ghost" size="icon">
-                <Ellipsis/>
+                <Ellipsis />
             </Button>
         </Menu>
     </div>

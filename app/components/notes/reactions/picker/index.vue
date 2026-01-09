@@ -1,7 +1,7 @@
 <template>
     <Popover v-model:open="open">
         <PopoverTrigger as-child>
-            <slot/>
+            <slot />
         </PopoverTrigger>
         <PopoverContent class="p-0 w-fit">
             <div
@@ -13,7 +13,7 @@
                     ref="emojiContainer"
                 >
                     <div class="p-2">
-                        <Input placeholder="Search" v-model="filter"/>
+                        <Input placeholder="Search" v-model="filter" />
                     </div>
                     <VList
                         :data="virtualizedItems"
@@ -51,7 +51,7 @@
                     }"
                     />
                 </div>
-                <Sidebar :categories="categories" @select="scrollToCategory"/>
+                <Sidebar :categories="categories" @select="scrollToCategory" />
             </div>
         </PopoverContent>
     </Popover>

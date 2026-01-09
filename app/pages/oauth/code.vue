@@ -11,9 +11,7 @@
                 <CardDescription>
                     {{ m.mushy_soft_lizard_propel() }}
                     <br>
-                    {{
-                        m.short_arable_leopard_zap()
-                    }}
+                    {{ m.short_arable_leopard_zap() }}
                 </CardDescription>
             </CardHeader>
             <CardContent class="grid">

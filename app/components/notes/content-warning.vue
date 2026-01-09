@@ -12,8 +12,7 @@
             {{ hidden ? m.bald_direct_turtle_win() :
                 m.known_flaky_cockroach_dash() }}
             {{ characterCount > 0 ? ` (${characterCount} characters` : "" }}
-            {{
-                attachmentCount > 0 ? `${characterCount > 0 ? " · " : " ("}${attachmentCount} file(s)` : "" }}
+            {{ attachmentCount > 0 ? `${characterCount > 0 ? " · " : " ("}${attachmentCount} file(s)` : "" }}
             {{ (characterCount > 0 || attachmentCount > 0) ? ")" : "" }}
         </Button>
     </div>

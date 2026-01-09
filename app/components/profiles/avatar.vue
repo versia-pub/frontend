@@ -1,7 +1,7 @@
 <template>
     <Avatar :class="['rounded-md bg-secondary']">
         <AvatarFallback v-if="name">{{ getInitials(name) }}</AvatarFallback>
-        <AvatarImage v-if="src" :src="src" :alt="`${name}'s avatar`"/>
+        <AvatarImage v-if="src" :src="src" :alt="`${name}'s avatar`" />
     </Avatar>
 </template>
 
